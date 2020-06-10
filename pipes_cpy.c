@@ -9,31 +9,33 @@
 void  init_pipes(int nb_pipes, int *pipes)
 {
   int i;
+  int j;
 
-  i = 0;
-  while (i < nb_pipes)
+  i = -1;
+  j = 0;
+  while (++i < nb_pipes)
   {
-    pipe(pipes + i);
-    i += 2;
+    pipe(pipes + j);
+    j += 2;
   }
 }
 
 void  close_pipes(int nb_pipes, int *pipes)
 {
-  while (nb_pipes--)
-    close(pipes[nb_pipes]);
+  int i;
+
+  i = -1;
+  while (++i < nb_pipes)
+    close(pipes[i]);
 }
 
-void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
+void  wait_pipes(int *status, int nb_cmd)
 {
   int i;
 
-  i = 0;
-  while (i < nb_cmd)
-  {
-    waitpid(pid[i], ret, 0);
-    i++;
-  }
+  i = -1;
+  while (++i < nb_cmd - 1)
+    wait(status);
 }
 
 //V2 - functions
@@ -47,28 +49,26 @@ void do_dup(int j, int nb_cmd, int *pipes)
 
 
 //V2 - N CMDS
-void do_pipe(char ***all, int nb_cmd, int *ret)
+void do_pipe(char ***all, int nb_cmd)
 {
-  pid_t *pid;
-  int   pipes[nb_cmd * 2 - 2];
-  int   j = -1;
+  pid_t   pid[nb_cmd + 1];
+  int     pipes[nb_cmd * 2];
+  int     j = -1;
+  int     status;
 
-  if (!(pid = (pid_t *)malloc(sizeof(int) * nb_cmd + 1)))
-    return ;
-  init_pipes(nb_cmd * 2 - 2, pipes);
-  while (j < nb_cmd)
+  init_pipes(nb_cmd * 2, pipes);
+  while (++j < nb_cmd)
   {
-    j += 1;
     if (!(pid[j] = fork()))
     {
       do_dup( j, nb_cmd, pipes);
-      close_pipes(nb_cmd * 2 - 2, pipes);
-      *ret = execvp(*all[j], all[j]);
+      close_pipes(nb_cmd * 2, pipes);
+      if (execvp(*all[j], all[j]))
+        exit(-1);
     }
   }
-  close_pipes(nb_cmd * 2 - 2, pipes);
-  wait_pipes(nb_cmd, pid, ret);
-  free(pid);
+  close_pipes(nb_cmd * 2, pipes);
+  wait_pipes(&status, nb_cmd * 2);
 }
 
 int main(int argc, char **argv)
@@ -77,13 +77,12 @@ int main(int argc, char **argv)
 
 
   // cat Makefile | grep pipe | cut -b 1-10 | cd bonjour
-  char *test17[] = {"cat", "pipe.c", NULL};
+  char *test17[] = {"cat", "pipes.c", NULL};
   char *test18[] = {"grep", "grep", NULL};
   char *test19[] = {"cut", "-b", "1-10", NULL};
-  char *test20[] = {"cd", "bonjour", NULL};
+  char *test20[] = {"cut", "-b", "2-5", NULL};
   char **all5[4] = {test17, test18, test19, test20};
   //do_pipe(all5, &ret);
-  do_pipe(all5, 4, &ret);
-  printf("NO FILE : %d\tEXPECTED : 1\n\n", ret);
+  do_pipe(all5, 4);
   return (0);
 }
