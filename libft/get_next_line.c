@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 10
 
 int			search_fd(t_list_gnl **lst_one, int fd)
 {

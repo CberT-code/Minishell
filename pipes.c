@@ -59,6 +59,8 @@ void do_pipe(char ***all, int nb_cmd, int *ret, char **redir_extern, char **redi
   int     j = -1;
   int     status;
 
+
+
   init_pipes(nb_cmd * 2, pipes);
   while (++j < nb_cmd)
   {
