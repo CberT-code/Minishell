@@ -1,10 +1,4 @@
-#include <sys/wait.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <stdlib.h>
+#include "minishell.h"
 
 void  init_pipes(int nb_pipes, int *pipes)
 {
@@ -40,13 +34,16 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
 
 void do_dup(int j, int nb_cmd, int *pipes, int redir, char *redir_extern, char *redir_intern)
 {
+  int  i;
 
+  i = 0;
   if (j > 0)
     dup2(pipes[j * 2 - 2], 0);
   if (j < nb_cmd - 1 || redir_extern != NULL)
   {
     if (redir == 1 && redir_extern != NULL)
-      pipes[j * 2 + 1] = open(redir_extern, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+      while (redir_extern[j])
+            pipes[j * 2 + 1] = open(redir_extern, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
     if (redir == 2 && redir_extern != NULL)
       pipes[j * 2 + 1] = open(redir_extern, O_RDONLY |O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
     dup2(pipes[j * 2 + 1], 1);
@@ -67,7 +64,7 @@ void do_pipe(char ***all, int nb_cmd, int *ret, char **redir_extern, char **redi
   {
     if (!(pid[j] = fork()))
     {
-      do_dup( j, nb_cmd, pipes, 3, redir_extern[j], redir_intern[j]);
+      do_dup( j, nb_cmd, pipes, 1, redir_extern[j], redir_intern[j]);
       close_pipes(nb_cmd * 2, pipes);
       if ((*ret = execvp(*all[j], all[j])))
         exit(-1);
@@ -86,8 +83,25 @@ int main(int argc, char **argv)
   char *test19[] = {"cut", "-b", "1-10", NULL};
   char *test20[] = {"cut", "-b", "2-5", NULL};
   char **all5[4] = {test17, test18, test19, test20};
-  char *redir_extern[] = {NULL, NULL, NULL, NULL};
-  char *redir_intern[] = {"test.c", NULL, NULL, NULL};
+
+
+
+  char *redir1[] = {NULL};
+  char *redir2[] = {NULL};
+  char *redir3[] = {NULL};
+  char *redir4[] = {"peche.c", "envoi.c", NULL};
+  char **redir_extern[4] = {redir1, redir2, redir3, redir4};
+
+
+
+
+  char *redir5[] = {"test.c", NULL};
+  char *redir6[] = {NULL};
+  char *redir7[] = {NULL};
+  char *redir8[] = {NULL};
+  char **redir_intern[4] = {redir5, redir6, redir7, redir8};
+
+
   do_pipe(all5, 4, &ret, redir_extern, redir_intern);
   printf("\n\nRET = %d\n", ret);
   return (0);
