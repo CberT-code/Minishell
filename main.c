@@ -1,18 +1,15 @@
-#include "libft/libft.h"
+#include "minishell.h"
 
 int     main(void)
 {
-     int	fd;
 	int	ret;
 	char	*line;
+    ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 
-	fd = open("pipes.c", O_RDONLY);
-	while ((ret = get_next_line(1, &line)) != 0)
+	while (get_next_line(0, &line) > 0)
 	{
-		printf("|%d|%s\n", ret, line);
+        parsing_semicolon(line);
         free(line);
 	}
-	printf("|%d| coucou test\n", ret);
 	free(line);
-		while (1);
 }
