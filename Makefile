@@ -25,12 +25,18 @@ git:			fclean
 				git commit -u -m "$(LOGFILE) $(MSG)"
 				git push
 
-merge_c_dev:	git
+git_merge:		fclean
+				git add -A
+				git add *
+				git commit -u -m "$(LOGFILE) Mergind to dev $(MSG)"
+				git push
+
+merge_c_dev:	git_merge
 				git checkout dev
 				git merge cyrille
 				git checkout cyrille
 
-merge_m_dev:	git
+merge_m_dev:	git_merge
 				git checkout dev
 				git merge mike
 				git checkout mike
@@ -41,6 +47,7 @@ merge_dev:		git
 clean:
 				make clean -C libft
 				rm -f $(NAME)
+				rm a.out
 
 fclean:		
 				make fclean -C libft
@@ -57,4 +64,4 @@ bonus:			clean
 norm:
 				~/.norminette/norminette.rb *
 
-.PHONY:			all clean fclean re bonus libft git merge_c_dev merge_m_dev merge_dev norm
+.PHONY:			all clean fclean re bonus libft git merge_c_dev merge_m_dev merge_dev git_merge norm
