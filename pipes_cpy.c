@@ -51,7 +51,6 @@ void do_dup(int j, int nb_cmd, int *pipes)
 //V2 - N CMDS
 void do_pipe(char ***all, int nb_cmd)
 {
-  pid_t   pid[nb_cmd + 1];
   int     pipes[nb_cmd * 2];
   int     j = -1;
   int     status;
@@ -59,7 +58,7 @@ void do_pipe(char ***all, int nb_cmd)
   init_pipes(nb_cmd * 2, pipes);
   while (++j < nb_cmd)
   {
-    if (!(pid[j] = fork()))
+    if (fork() == 0)
     {
       do_dup( j, nb_cmd, pipes);
       close_pipes(nb_cmd * 2, pipes);
