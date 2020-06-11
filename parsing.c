@@ -32,6 +32,7 @@ t_cmds     *split_pipes(char *str)
             while (list->pipes[j]) // aV
                 ft_printf("pipes = || %s\n\n", list->pipes[j++]); // aV
         }
+        
         list->next = 0;
         ft_printf("pointeur head = %p\n", head); // aV
     return (head);
