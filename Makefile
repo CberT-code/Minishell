@@ -1,58 +1,60 @@
-SRCS		= pipes.c \
+SRCS = 			pipes.c \
 
-BONUS		= bonus/*
+BONUS = 		bonus/*
 
-NAME = 		Minishell
+NAME = 			Minishell
 
-FLAGS =		-Wall -Werror -Wextra
+FLAGS =			-Wall -Werror -Wextra
 
-LOGFILE		= $(LOGPATH) `date +'%y.%m.%d %H:%M:%S'`
+LOGFILE	=		$(LOGPATH) `date +'%y.%m.%d %H:%M:%S'`
 
-all: 		$(NAME)
+all: 			$(NAME)
 
 $(NAME):	
-			make -C libft
-			clang $(FLAGS) $(SRCS) libft/libft.a -o $(NAME)
-			./$(NAME)
+				make -C libft
+				clang $(FLAGS) $(SRCS) libft/libft.a -o $(NAME)
+				./$(NAME)
 
 libft:
-			make re -C libft
-			make clean -C libft
+				make re -C libft
+				make clean -C libft
 
-git:		fclean
-			git add -A
-			git add *
-			git commit -u -m "$(LOGFILE) $(MSG)"
-			git push
+git:			fclean
+				git add -A
+				git add *
+				git commit -u -m "$(LOGFILE) $(MSG)"
+				git push
 
-merge_cdev:	git
-			git checkout dev
-			git merge cyrille
-			git checkout cyrille
+merge_c_dev:	git
+				git checkout dev
+				git merge cyrille
+				git checkout cyrille
 
-merge_mdev:	git
-			git checkout dev
-			git merge mike
-			git checkout mike
+merge_m_dev:	git
+				git checkout dev
+				git merge mike
+				git checkout mike
 
+merge_dev:		git
+				git merge dev
 
 clean:
-			make clean -C libft
-			rm -f $(NAME)
+				make clean -C libft
+				rm -f $(NAME)
 
 fclean:		
-			make fclean -C libft
-			rm -f ${NAME}
+				make fclean -C libft
+				rm -f ${NAME}
 
-re: 		clean
-			clang $(FLAGS) $(SRCS) libft/libft.a -o $(NAME)
-			./$(NAME)
+re: 			clean
+				clang $(FLAGS) $(SRCS) libft/libft.a -o $(NAME)
+				./$(NAME)
 
-bonus:		clean
-			clang $(FLAGS) $(BONUS) libft/libft.a -o $(NAME)
-			./$(NAME)
+bonus:			clean
+				clang $(FLAGS) $(BONUS) libft/libft.a -o $(NAME)
+				./$(NAME)
 
 norm:
-			~/.norminette/norminette.rb *
+				~/.norminette/norminette.rb *
 
-.PHONY:		all clean fclean re bonus libft git merge_cdev merge_mdev norm
+.PHONY:			all clean fclean re bonus libft git merge_c_dev merge_m_dev merge_dev norm

@@ -20,23 +20,23 @@
 # include <stdio.h>
 # include <unistd.h>
 
-typedef struct	s_list
+typedef struct	s_list_gnl
 {
 	int				fd;
 	char			*buff;
 	char			*str;
 	int				read;
-	struct s_list	*next;
-}				t_list;
+	struct s_list_gnl	*next;
+}				t_list_gnl;
 
 int				get_next_line(int fd, char **line);
-void			ft_del(t_list **lst_one);
-int				ft_exist(t_list **lst_one, char **line);
-int				search_fd(t_list **lst_one, int fd);
+void			ft_del(t_list_gnl **lst_one);
+int				ft_exist(t_list_gnl **lst_one, char **line);
+int				search_fd(t_list_gnl **lst_one, int fd);
 int				ft_find(char *str, char stop);
-char			*ft_send(t_list **lst, char **line);
+char			*ft_send(t_list_gnl **lst, char **line);
 char			*ft_before_char(char *str, char stop);
 char			*ft_strjoin(char *s1, char *s2);
 int				ft_strlen(char *str);
-void			ft_new_lst(int fd, t_list **lst_one);
+void			ft_new_lst(int fd, t_list_gnl **lst_one);
 #endif
