@@ -20,5 +20,6 @@ typedef struct         s_cmds
 }                      t_cmds;
 
 t_cmds      *split_pipes(char *str);
-char	    **ft_split_minishell(char const *s, char c);
+char	    **split_minishell(char const *s, char c);
+int         ft_guillemets(char c, char c_b, char g);
 #endif

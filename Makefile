@@ -1,4 +1,4 @@
-SRCS = 			pipes.c \
+SRCS = 			parsing.c main.c minishell_split.c minishell_split_utils.c\
 
 BONUS = 		bonus/*
 
