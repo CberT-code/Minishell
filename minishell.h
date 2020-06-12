@@ -15,9 +15,17 @@ typedef struct         s_cmds
 {
     char               *entry;
     char               **pipes;
-    struct s_cmds      *next; 
     t_redir            redir;
+    struct s_cmds      *next;
 }                      t_cmds;
+
+
+/* FUNCTIONS LISTS */
+
+t_cmds	*ft_lstnewcmds(char *str);
+t_cmds	*ft_lstlast(t_cmds *cmds);
+void	ft_lstadd_back(t_cmds **alst, char *str);
+
 
 t_cmds      *split_pipes(char *str);
 char	    **split_minishell(char const *s, char c);
