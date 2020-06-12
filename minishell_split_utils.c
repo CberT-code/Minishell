@@ -1,8 +1,16 @@
 #include "minishell.h"
 
-int         ft_guillemets(char c, char c_b, char g)
+int             in_quotes(char *s, int i, int in)
 {
-    if (g == c && c_b != '\\')
-		return (1);
-	return (0);
+    int     j;
+
+    j = 0;
+    in = 0;
+    while (j <= i)
+    {
+        if (s[j] == '\'' || s[j] == '\"')
+            in = in == 0 ? 1 : 0;
+        j++;
+    }
+    return (in);
 }

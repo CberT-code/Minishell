@@ -19,11 +19,6 @@ typedef struct         s_cmds
     struct s_cmds      *next;
 }                      t_cmds;
 
-typedef struct         s_d_int
-{
-    int                i;
-    int                j;
-}                      t_d_int;
 
 /* FUNCTIONS LISTS */
 
@@ -33,6 +28,6 @@ void	ft_lstadd_back(t_cmds **alst, char *str);
 
 
 t_cmds      *split_pipes(char *str);
-char	    **split_minishell(char const *s, char c);
-int         ft_guillemets(char c, char c_b, char g);
+char        **split_minishell(char *s, char c);
+int         in_quotes(char *s, int i, int in);
 #endif

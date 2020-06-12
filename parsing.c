@@ -30,7 +30,7 @@ t_cmds     *split_pipes(char *str)
 
     i = -1;
     cmds = NULL;
-    tab = ft_split(str, ';');
+    tab = split_minishell(str, ';');
     while (tab[++i])
         ft_lstadd_back(&cmds, tab[i]);
     j = -1;
