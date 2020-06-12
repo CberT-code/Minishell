@@ -41,7 +41,16 @@ merge_m_dev:	git_merge
 				git merge mike
 				git checkout mike
 
-merge_dev:		git
+merge_dev_c:	git
+				git checkout dev
+				git pull
+				git checkout cyrille
+				git merge dev
+
+merge_dev_m:	git
+				git checkout dev
+				git pull
+				git checkout mike
 				git merge dev
 
 clean:
