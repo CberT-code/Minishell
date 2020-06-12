@@ -19,6 +19,11 @@ typedef struct         s_cmds
     struct s_cmds      *next;
 }                      t_cmds;
 
+typedef struct         s_d_int
+{
+    int                i;
+    int                j;
+}                      t_d_int;
 
 /* FUNCTIONS LISTS */
 

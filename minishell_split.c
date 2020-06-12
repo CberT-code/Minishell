@@ -9,16 +9,14 @@ static int		ft_find_c(char letter, char c)
 
 static int		ft_words(char *s, char c)
 {
-	int i;
-	int nb_words;
-	int simple_g;
-	int double_g;
+	int 		i;
+	int 		nb_words;
+	t_d_int		guillemets;
 
 	if (!s)
 		return 0;
 	i = 0;
-	simple_g = 0;
-	double_g = 0;
+	ft_bzero(&guillemets, sizeof(t_d_int));
 	nb_words = 0;
 	while (s[i])
 	{
@@ -27,8 +25,8 @@ static int		ft_words(char *s, char c)
 		if (s[i])
 			nb_words++;
 		while (ft_find_c(s[i], c) == 0 && s[i] &&
-		(((simple_g += ft_guillemets(s[i], s[i - 1], '\'')) % 2) == 0) &&
-		(((double_g += ft_guillemets(s[i], s[i - 1], '\"')) % 2) == 0))
+		(((guillemets.i += ft_guillemets(s[i], s[i - 1], '\'')) % 2) == 0) &&
+		(((guillemets.j += ft_guillemets(s[i], s[i - 1], '\"')) % 2) == 0))
 			i++;
 	}
 	return (nb_words);
@@ -55,29 +53,29 @@ static int		f_l(char *s, char c, int i)
 char			**split_minishell(char const *s, char c)
 {
 	char	**tab_words;
-	int		nb_words;
-	int		i;
-	int		a;
-	int		j;
+	t_d_int		wa;
+	t_d_int		ind;
+	t_d_int		guillemets;
 
-	i = 0;
-	a = 0;
-	nb_words = ft_words((char *)s, c);
-	if (!(tab_words = (char **)malloc(sizeof(char *) * (nb_words + 1))))
+	ind.i = 0;
+	ft_bzero(&guillemets, sizeof(t_d_int));
+	ft_bzero(&wa, sizeof(t_d_int));
+	wa.i = ft_words((char *)s, c);
+	if (!(tab_words = (char **)malloc(sizeof(char *) * (wa.i + 1))))
 		return (NULL);
-	while (nb_words--)
+	while (wa.i--)
 	{
-		j = 0;
-		while (ft_find_c(s[a], c) == 1 && s[a])
-			a++;
-		if (!(tab_words[i] = malloc(sizeof(char) * (f_l((char *)s, c, a) + 1))))
-			return (ft_free(tab_words, i));
-		while (ft_find_c(s[a], c) == 0 && s[a] &&
-		(((simple_g += ft_guillemets(s[a], s[i - 1], '\'')) % 2) == 0) &&
-		(((double_g += ft_guillemets(s[a], s[i - 1], '\"')) % 2) == 0))
-			tab_words[i][j++] = s[a++];
-		tab_words[i++][j] = '\0';
+		ind.j = 0;
+		while (ft_find_c(s[wa.j], c) == 1 && s[wa.j])
+			wa.j++;
+		if (!(tab_words[ind.i] = malloc(sizeof(char) * (f_l((char *)s, c, wa.j) + 1))))
+			return (ft_free(tab_words, ind.i));
+		while (ft_find_c(s[wa.j], c) == 0 && s[wa.j] &&
+		(((guillemets.i += ft_guillemets(s[wa.j], s[ind.i - 1], '\'')) % 2) == 0) &&
+		(((guillemets.j += ft_guillemets(s[wa.j], s[ind.i - 1], '\"')) % 2) == 0))
+			tab_words[ind.i][ind.j++] = s[wa.j++];
+		tab_words[ind.i++][ind.j] = '\0';
 	}
-	tab_words[i] = 0;
+	tab_words[ind.i] = 0;
 	return (tab_words);
 }

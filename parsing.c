@@ -43,12 +43,3 @@ t_cmds     *split_pipes(char *str)
     }
     return (cmds);  
 }
-
-int main(int argc, char **argv)
-{
-    (void)argc;
-    t_cmds *test;
-
-    test = split_pipes("je suis | le test; de | la | fonction; yes");
-    return (0);
-}
