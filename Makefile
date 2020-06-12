@@ -34,11 +34,13 @@ git_merge:		fclean
 merge_c_dev:	git_merge
 				git checkout dev
 				git merge cyrille
+				git
 				git checkout cyrille
 
 merge_m_dev:	git_merge
 				git checkout dev
 				git merge mike
+				git
 				git checkout mike
 
 merge_dev_c:	git
