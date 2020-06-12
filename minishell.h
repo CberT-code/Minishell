@@ -19,5 +19,6 @@ typedef struct         s_cmds
     t_redir            redir;
 }                      t_cmds;
 
-t_cmds     *split_pipes(char *str);
+t_cmds      *split_pipes(char *str);
+char	    **ft_split_minishell(char const *s, char c);
 #endif

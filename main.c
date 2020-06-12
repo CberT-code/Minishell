@@ -8,7 +8,7 @@ int     main(void)
 
 	while (get_next_line(0, &line) > 0)
 	{
-        parsing_semicolon(line);
+        split_pipes(line);
         free(line);
 	}
 	free(line);
