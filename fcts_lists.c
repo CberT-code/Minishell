@@ -27,7 +27,7 @@ t_cmds			*ft_lstnewcmds(char *str)
 	if (!(cmds = (t_cmds*)malloc(sizeof(t_cmds))))
 		return (NULL);
 	cmds->entry = str;
-	cmds->pipes = ft_split(str, '|');
+	cmds->pipes = split_minishell(str, '|');
 	cmds->next = NULL;
 	ft_lst_init_redir(&cmds->redir);
 	return (cmds);
