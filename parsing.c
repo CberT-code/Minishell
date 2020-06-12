@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,64 +6,49 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 09:55:46 by user42            #+#    #+#             */
-/*   Updated: 2020/06/12 10:01:59 by user42           ###   ########.fr       */
+/*   Updated: 2020/06/12 11:45:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void    ft_print_tab(char **tab)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+    int i;
+
+    i = -1;
+    while (tab[++i])
+        printf("tab[%d] -> %s\n", i, tab[i]);
 }
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+t_cmds     *split_pipes(char *str)
 {
-	if (new != NULL)
-	{
-		if (*alst != NULL)
-			ft_lstlast(*alst)->next = new;
-		else
-			*alst = new;
-	}
+    t_cmds  *cmds;
+    char    **tab;
+    int     i;
+    int     j;
+
+    i = -1;
+    cmds = NULL;
+    tab = ft_split(str, ';');
+    while (tab[++i])
+        ft_lstadd_back(&cmds, tab[i]);
+    j = -1;
+    while(cmds)
+    {
+        printf("entry -> %s\n", cmds->entry);
+        ft_print_tab(cmds->pipes);
+        printf("\n");
+        cmds = cmds->next;
+    }
+    return (cmds);  
 }
 
 int main(int argc, char **argv)
 {
     (void)argc;
+    t_cmds *test;
 
+    test = split_pipes("je suis | le test; de | la | fonction; yes");
     return (0);
-=======
-#include "minishell.h"
-
-t_cmds     *split_pipes(char *str)
-{
-    t_cmds  *list;
-    t_cmds  *head;
-    char    **tab;
-    int     i;
-
-    i = 0;
-    tab = split_minishell(str, ';');
-    if (!(list = malloc(sizeof(t_list))))
-        return (NULL);
-    list->entry = tab[i];
-    list->pipes = ft_split(list->entry, '|');
-    head = list;
-    while (tab[++i])
-        {
-            if (!(list->next = malloc(sizeof(t_list))))
-                return (NULL);
-            list = list->next;
-            list->entry = tab[i];
-            list->pipes = split_minishell(list->entry, '|');
-        }
-    list->next = 0;
-    return (head);
->>>>>>> dev
 }

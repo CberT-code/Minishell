@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 17:28:04 by cbertola          #+#    #+#             */
-/*   Updated: 2019/12/14 18:36:56 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/06/12 11:19:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int		ft_words(char *s, char c)
 
 	i = 0;
 	nb_words = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		while (ft_find_c(s[i], c) == 1 && s[i])
