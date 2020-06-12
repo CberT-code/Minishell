@@ -32,27 +32,36 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
     waitpid(pid[i], ret, 0);
 }
 
-void do_dup(int j, int nb_cmd, int *pipes, int redir, char *redir_extern, char *redir_intern)
+void do_dup(int j, int nb_cmd, int *pipes, int redir, char ***redir_extern, char ***redir_intern)
 {
-  int  i;
+  int i;
+  int fd;
 
-  i = 0;
+  i = -1;
   if (j > 0)
     dup2(pipes[j * 2 - 2], 0);
-  if (j < nb_cmd - 1 || redir_extern != NULL)
+  while(redir_intern[j][++i])
   {
-    if (redir == 1 && redir_extern != NULL)
-      while (redir_extern[j])
-            pipes[j * 2 + 1] = open(redir_extern, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
-    if (redir == 2 && redir_extern != NULL)
-      pipes[j * 2 + 1] = open(redir_extern, O_RDONLY |O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
+    if ((fd = open(redir_intern[j][i], O_RDONLY)) < 0)
+      return ;
+    dup2(fd, 0);
+  }
+  i = -1;
+  if (j < nb_cmd - 1 || redir_extern[j] != NULL)
+  {
+    while (redir_extern[j][++i])
+    {
+      if (redir == 1 && redir_extern[j] != NULL)
+        pipes[j * 2 + 1] = open(redir_extern[j][i], O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+      else if (redir == 2 && redir_extern[j] != NULL)
+        pipes[j * 2 + 1] = open(redir_extern[j][i], O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
+    }
     dup2(pipes[j * 2 + 1], 1);
   }
-  if (redir_intern != NULL)
-      dup2(open(redir_intern, O_RDONLY), 0);
 }
 
-void do_pipe(char ***all, int nb_cmd, int *ret, char **redir_extern, char **redir_intern)
+
+void do_pipe(char ***all, int nb_cmd, int *ret, char ***redir_extern, char ***redir_intern)
 {
   pid_t   pid[nb_cmd + 1];
   int     pipes[nb_cmd * 2];
@@ -64,7 +73,7 @@ void do_pipe(char ***all, int nb_cmd, int *ret, char **redir_extern, char **redi
   {
     if (!(pid[j] = fork()))
     {
-      do_dup( j, nb_cmd, pipes, 1, redir_extern[j], redir_intern[j]);
+      do_dup( j, nb_cmd, pipes, 1, redir_extern, redir_intern);
       close_pipes(nb_cmd * 2, pipes);
       if ((*ret = execvp(*all[j], all[j])))
         exit(-1);
@@ -78,31 +87,24 @@ int main(int argc, char **argv)
 {
   int ret;
 
-  char *test17[] = {"head", "-n", "5", NULL};
-  char *test18[] = {"grep", "d", NULL};
-  char *test19[] = {"cut", "-b", "1-10", NULL};
-  char *test20[] = {"cut", "-b", "2-5", NULL};
-  char **all5[4] = {test17, test18, test19, test20};
+  char *test17[] = {"echo", "test", NULL};
+  char *test18[] = {"grep", "test", NULL};
+  char **all5[2] = {test17, test18};
 
 
 
-  char *redir1[] = {NULL};
-  char *redir2[] = {NULL};
-  char *redir3[] = {NULL};
-  char *redir4[] = {"peche.c", "envoi.c", NULL};
-  char **redir_extern[4] = {redir1, redir2, redir3, redir4};
+  char *redir1[] = {"cat.txt", NULL};
+  char *redir2[] = {"grep.txt", NULL};
+  char **redir_extern[2] = {redir1, redir2};
 
 
 
-
-  char *redir5[] = {"test.c", NULL};
-  char *redir6[] = {NULL};
-  char *redir7[] = {NULL};
-  char *redir8[] = {NULL};
-  char **redir_intern[4] = {redir5, redir6, redir7, redir8};
+  char *redir5[] = {NULL};
+  char *redir6[] = {"cat.txt", NULL};
+  char **redir_intern[2] = {redir5, redir6};
 
 
-  do_pipe(all5, 4, &ret, redir_extern, redir_intern);
+  do_pipe(all5, 2, &ret, redir_extern, redir_intern);
   printf("\n\nRET = %d\n", ret);
   return (0);
 }
