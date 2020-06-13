@@ -14,10 +14,10 @@
 
 static void		ft_lst_init_redir(t_redir *redir)
 {
-	redir->r_extern = NULL;
-	redir->r_intern = NULL;
-	redir->type_extern = NULL;
-	redir->type_intern = NULL;
+	redir->r_out = NULL;
+	redir->r_in = NULL;
+	redir->type_out = NULL;
+	redir->type_in = NULL;
 }
 
 t_cmds			*ft_lstnewcmds(char *str)
