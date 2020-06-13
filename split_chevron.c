@@ -17,7 +17,7 @@ static int            len_next_word(char *str)
     return (j);
 }
 
-static int             ft_redir(char *s, char c)
+int                    ft_redir(char *s, char c)
 {
     int     nb_redir;
     int     i;
@@ -66,15 +66,13 @@ static int             ft_len_words(char *s, char c, int i, int *type_redir)
         {
             i++;
             *type_redir += 1;
-            printf("ic\n");
         }
         if (s[i] == c && s[i])
         {
             i++;
            *type_redir += 1;
-            printf("ci\n");
         }
-        printf("type_redir = %d\n",*type_redir);
+        // printf("type_redir = %d\n",*type_redir);
     return (len);
 }
 
@@ -88,19 +86,13 @@ static char            **ft_splitting(char *s, char c, int nb_redir, int *type_r
 
     if (!(tab = (char **)malloc(sizeof(char *) * (nb_redir + 1))))
 		return (NULL);
-    if (!(type_redir = (int *)malloc(sizeof(int) * (nb_redir + 1))))
-		return (NULL);
     j = 0;
-    len = 0;
     ind = 0;
     while (nb_redir--)
     {
         i = 0;
-        printf("j = %d\n",j);
         len = ft_len_words(s, c, ind, &type_redir[j]);
         ind += len + type_redir[j];
-        printf("type_redir %d\n", type_redir[j]);
-        printf("%d\n", len_next_word(s + ind));
         len = len_next_word(s + ind);
         if (!(tab[j] = malloc(sizeof(char) * len + 1)))
             return (ft_free(tab, j));
@@ -120,26 +112,31 @@ char			**split_chevron(char *s, char c, int *type_redir)
     if (!s)
         return (NULL);
     nb_redir = ft_redir(s, c);
-    printf("redir = %d\n", nb_redir);
+    // printf("redir = %d\n", nb_redir);
     return (ft_splitting( s, c, nb_redir, type_redir));
  
 }
 
-  int main(void)
-  {
-	 char **tab;
-	 int i = 0;
-	 int j = 0;
-	 char *str;
-     int *redir;
+//   int main(void)
+//   {
+// 	 char **tab;
+// 	 int i = 0;
+// 	 int j = 0;
+// 	 char *str;
+//      int *redir;
 
-	 str = "gr \";f < > \" < text.c > test >> pa << p";
-	 tab = split_chevron(str, '>', redir);
-	while (tab[i])
-	{
-    	printf("i = %d && print = %s\n",i, tab[i]);
-        printf("j = %d && print = %d\n",i, redir[i]);
-	    i++;
-	}
+// 	 str = "gr \";f < > \" < text.c > test >> pa << p >> popo >li";
+//         // printf("adress tableau redir = %p\n", &redir);
+//     if (!(redir = malloc(sizeof(int) * (ft_redir(str, '>') + 1))))
+// 	        return (-1);
+// 	 tab = split_chevron(str, '>', redir);
+//         // printf("adress tableau redir = %p\n", &redir);
+// 	while (tab[i])
+// 	{
+//     	printf("i = %d && print = %s\n",i, tab[i]);
+//         // printf("adress redir = %p\n", &redir[i]);
+//         printf("j = %d && print = %d\n",i, redir[i]);
+// 	    i++;
+// 	}
 
- }
+//  }

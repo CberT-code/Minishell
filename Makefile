@@ -1,4 +1,5 @@
-SRCS = 			parsing.c main.c minishell_split.c minishell_split_utils.c fcts_lists.c\
+SRCS = 			main.c parsing.c minishell_split.c minishell_split_utils.c fcts_lists.c\
+				split_chevron.c
 
 BONUS = 		bonus/*
 
