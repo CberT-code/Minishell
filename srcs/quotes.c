@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int             in_quotes(char *s, int i, int in)
 {

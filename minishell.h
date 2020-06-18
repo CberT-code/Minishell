@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 #include "libft/libft.h"
+#include <sys/wait.h>
 
 typedef	struct	        s_redir
 {
@@ -22,11 +23,9 @@ typedef struct         s_cmds
 
 /* FUNCTIONS LISTS */
 
-t_cmds	*ft_lstnewcmds(char *str);
-t_cmds	*ft_lstlast(t_cmds *cmds);
-void	ft_lstadd_back(t_cmds **alst, char *str);
-
-
+t_cmds              	*ft_lstnewcmds(char *str);
+t_cmds	                *ft_lstlast(t_cmds *cmds);
+void                	ft_lstadd_back(t_cmds **alst, char *str);
 t_cmds                  *split_pipes(char *str);
 char                    **split_minishell(char *s, char c);
 char		            **split_chevron(char *s, char c, int *type_redir);

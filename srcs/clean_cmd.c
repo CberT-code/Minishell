@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 char        *ft_cut_in_word(int start, int lenght, char *str)
 {
