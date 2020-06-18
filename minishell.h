@@ -29,7 +29,8 @@ void	ft_lstadd_back(t_cmds **alst, char *str);
 
 t_cmds                  *split_pipes(char *str);
 char                    **split_minishell(char *s, char c);
-char		        	**split_chevron(char *s, char c, int *type_redir);
+char		            **split_chevron(char *s, char c, int *type_redir);
 int                     in_quotes(char *s, int i, int in);
 int                     ft_redir(char *s, char c);
+int                     len_next_word(char *str);
 #endif

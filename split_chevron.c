@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int            len_next_word(char *str)
+int            len_next_word(char *str)
 {
     int i;
     int j;
@@ -17,7 +17,7 @@ static int            len_next_word(char *str)
     return (j);
 }
 
-int                    ft_redir(char *s, char c)
+int             ft_redir(char *s, char c)
 {
     int     nb_redir;
     int     i;

@@ -100,5 +100,7 @@ void					ft_putendl(char *s);
 void					ft_putnbr(int n);
 void					ft_del(t_list_gnl **lst_one);
 void					ft_new_lst(int fd, t_list_gnl **lst_one);
+char    		        *ft_strncpy(const char *src, int n);
+char        		    *ft_strncpy_free(char *src, int n);
 
 #endif

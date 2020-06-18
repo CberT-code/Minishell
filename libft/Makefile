@@ -32,7 +32,7 @@ SRC		= ft_strlen.c ft_strlcpy.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_strlcat
 		  ft_atoi_pos.c ft_printf.c ft_flags.c ft_fct.c ft_cs.c ft_p.c \
 		  ft_diu.c ft_x.c get_next_line_utils.c get_next_line.c ft_start_str.c \
 		  ft_count_char_int.c ft_how_many.c ft_strsubstr.c ft_strsubstr_free.c \
-		  ft_splitnum.c ft_strlen_no_ws.c is_tab_full.c
+		  ft_splitnum.c ft_strlen_no_ws.c is_tab_full.c ft_strncpy.c ft_strncpy_free.c
 SRCB	=
 DEP		:= $(SRC:%.c=$(DEP_DIR)/%.d)
 OBJ 	:= $(SRC:%.c=$(OBJ_DIR)/%.o)
