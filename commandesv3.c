@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 00:02:31 by user42            #+#    #+#             */
-/*   Updated: 2020/06/18 13:30:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/06/18 14:41:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ char *ft_convert_envp(char *str, char **envp)
 		return (NULL);
 	while (str[++i])
 	{
-		if (str[i] != '$' || (str[i] == '$' && i == ft_strlen(str) - 1))
+		if (str[i] != '$' || (str[i] == '$' && i == ft_strlen(str) - 1)
+		|| (i < ft_strlen(str) - 2 && str[i] == '$' && str[i + 1] == ' '))
 			cpy[j++] = str[i];
 		else
 		{
@@ -132,7 +133,7 @@ char *ft_convert_envp(char *str, char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-	char *cpy = ft_convert_envp("test", envp);
+	char *cpy = ft_convert_envp("je test la variable $PWD $HOME $ titi", envp);
 	printf("%s\n", cpy);
 	free(cpy);
 	return (0);
