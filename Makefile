@@ -59,7 +59,7 @@ merge_dev_m:	git
 clean:
 				make clean -C libft
 				rm -f $(NAME)
-				rm a.out
+				rm -f a.out
 
 fclean:		
 				make fclean -C libft
