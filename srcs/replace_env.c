@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commandesv3.c                                      :+:      :+:    :+:   */
+/*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 00:02:31 by user42            #+#    #+#             */
-/*   Updated: 2020/06/18 14:41:15 by user42           ###   ########.fr       */
+/*   Updated: 2020/06/19 15:29:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char *ft_convert_envp(char *str, char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-	char *cpy = ft_convert_envp("je test la variable $PWD $HOME $ titi", envp);
+	char *cpy = ft_convert_envp("je test la variable$PWD $HOME $ titi $", envp);
 	printf("%s\n", cpy);
 	free(cpy);
 	return (0);
