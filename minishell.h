@@ -32,4 +32,6 @@ char		            **split_chevron(char *s, char c, int *type_redir);
 int                     in_quotes(char *s, int i, int in);
 int                     ft_redir(char *s, char c);
 int                     len_next_word(char *str);
+int		                ft_in_quotes(char *str, int i);
+
 #endif
