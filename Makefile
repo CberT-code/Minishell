@@ -1,11 +1,14 @@
-SRCS = 			main.c parsing.c minishell_split.c minishell_split_utils.c fcts_lists.c\
-				split_chevron.c
+SRCS = 			main.c \
+				srcs/clean_cmd.c srcs/fcts_lists.c srcs/last_space.c srcs/parsing.c \
+				srcs/pipes.c srcs/quotes.c srcs/redirections.c srcs/replace_env.c \
+				srcs/split_cmds.c \
+				srcs/fcts/echo.c srcs/fcts/export.c srcs/fcts/ft_cd.c srcs/fcts/ft_pwd.c 
 
 BONUS = 		bonus/*
 
 NAME = 			Minishell
 
-FLAGS =			-Wall -Werror -Wextra
+FLAGS =			
 
 LOGFILE	=		$(LOGPATH) `date +'%y.%m.%d %H:%M:%S'`
 

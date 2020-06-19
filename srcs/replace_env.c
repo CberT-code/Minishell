@@ -131,10 +131,10 @@ char *ft_convert_envp(char *str, char **envp)
 	return(cpy);
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	char *cpy = ft_convert_envp("je test la variable $PWD $HOME $ titi", envp);
-	printf("%s\n", cpy);
-	free(cpy);
-	return (0);
-}
+// int main(int argc, char **argv, char **envp)
+// {
+// 	char *cpy = ft_convert_envp("je test la variable $PWD $HOME $ titi", envp);
+// 	printf("%s\n", cpy);
+// 	free(cpy);
+// 	return (0);
+// }
