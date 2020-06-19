@@ -83,28 +83,28 @@ void do_pipe(char ***all, int nb_cmd, int *ret, char ***redir_extern, char ***re
   wait_pipes(nb_cmd * 2, pid, ret);
 }
 
-int main(int argc, char **argv)
-{
-  int ret;
+// int main(int argc, char **argv)
+// {
+//   int ret;
 
-  char *test17[] = {"echo", "test", NULL};
-  char *test18[] = {"grep", "test", NULL};
-  char **all5[2] = {test17, test18};
-
-
-
-  char *redir1[] = {"cat.txt", NULL};
-  char *redir2[] = {"grep.txt", NULL};
-  char **redir_extern[2] = {redir1, redir2};
+//   char *test17[] = {"echo", "test", NULL};
+//   char *test18[] = {"grep", "test", NULL};
+//   char **all5[2] = {test17, test18};
 
 
 
-  char *redir5[] = {NULL};
-  char *redir6[] = {"cat.txt", NULL};
-  char **redir_intern[2] = {redir5, redir6};
+//   char *redir1[] = {"cat.txt", NULL};
+//   char *redir2[] = {"grep.txt", NULL};
+//   char **redir_extern[2] = {redir1, redir2};
 
 
-  do_pipe(all5, 2, &ret, redir_extern, redir_intern);
-  printf("\n\nRET = %d\n", ret);
-  return (0);
-}
+
+//   char *redir5[] = {NULL};
+//   char *redir6[] = {"cat.txt", NULL};
+//   char **redir_intern[2] = {redir5, redir6};
+
+
+//   do_pipe(all5, 2, &ret, redir_extern, redir_intern);
+//   printf("\n\nRET = %d\n", ret);
+//   return (0);
+// }

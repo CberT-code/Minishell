@@ -23,7 +23,6 @@ static void		ft_lst_init_redir(t_redir *redir)
 t_cmds			*ft_lstnewcmds(char *str)
 {
 	t_cmds *cmds;
-
 	if (!(cmds = (t_cmds*)malloc(sizeof(t_cmds))))
 		return (NULL);
 	cmds->entry = str;

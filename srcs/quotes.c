@@ -14,3 +14,32 @@ int             in_quotes(char *s, int i, int in)
     }
     return (in);
 }
+
+int		ft_in_quotes(char *str, int i)
+{
+	int quote;
+	int dbquote;
+	int j;
+	int last;
+
+	quote = 0;
+	dbquote = 0;
+	last = 0;
+	j = -1;
+	while (++j < i)
+	{
+		if (j > 0 && str[j] == 39 && str[j - 1] != '\\')
+		{
+			quote++;
+			last = 1;
+		}
+		if (j > 0 && str[j] == 34 && str[j - 1] != '\\')
+		{
+			dbquote++;
+			last = 2;
+		}
+	}
+	if (quote % 2 != 0 || dbquote % 2 != 0)
+		return(last);
+	return(0);	
+}
