@@ -73,6 +73,7 @@ static char            **ft_splitting(char *s, char c, int nb_words)
         ind++;
         tab[j++][i] = '\0';
     }
+    tab[j] = NULL;
     return (tab);
 }
 

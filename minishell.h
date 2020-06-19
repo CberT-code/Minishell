@@ -26,12 +26,14 @@ typedef struct         s_cmds
 t_cmds              	*ft_lstnewcmds(char *str);
 t_cmds	                *ft_lstlast(t_cmds *cmds);
 void                	ft_lstadd_back(t_cmds **alst, char *str);
-t_cmds                  *split_pipes(char *str);
+t_cmds                  *split_pipes(char *str, char **envp);
 char                    **split_minishell(char *s, char c);
 char		            **split_chevron(char *s, char c, int *type_redir);
 int                     in_quotes(char *s, int i, int in);
 int                     ft_redir(char *s, char c);
 int                     len_next_word(char *str);
 int		                ft_in_quotes(char *str, int i);
+char	                *ft_last_space(char *str);
+char                    *ft_convert_envp(char *str, char **envp);
 
 #endif

@@ -21,7 +21,7 @@ void    ft_print_tab(char **tab)
         printf("tab[%d] -> %s\n", i, tab[i]);
 }
 
-t_cmds     *split_pipes(char *str)
+t_cmds     *split_pipes(char *str, char **envp)
 {
     t_cmds  *cmds;
     char    **tab;
@@ -31,8 +31,11 @@ t_cmds     *split_pipes(char *str)
     i = -1;
     cmds = NULL;
     tab = split_minishell(str, ';');
-    while (tab[++i])
+    while (tab[++i]){
+        tab[i] = ft_last_space(tab[i]);
+        tab[i]  = ft_convert_envp(tab[i], envp);
         ft_lstadd_back(&cmds, tab[i]);
+    }
     j = -1;
     while(cmds)
     {
