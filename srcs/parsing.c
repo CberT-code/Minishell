@@ -21,7 +21,7 @@ void    ft_print_tab(char **tab)
         printf("tab[%d] -> %s\n", i, tab[i]);
 }
 
-t_cmds     *split_pipes(char *str, char **envp)
+t_cmds     *parsing(char *str, char **envp)
 {
     t_cmds  *cmds;
     char    **tab;
@@ -40,7 +40,6 @@ t_cmds     *split_pipes(char *str, char **envp)
     while(cmds)
     {
         printf("entry -> %s\n", cmds->entry); //display for test
-        //ft_print_tab(cmds->pipes); //display for test
         i = 0;
         while (cmds->pipes[i])
                 i++;
