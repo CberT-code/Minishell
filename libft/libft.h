@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyrillebertola <cyrillebertola@student.    +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/03/24 15:21:19 by cyrillebert      ###   ########.fr       */
+/*   Updated: 2020/06/23 18:27:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ void					ft_del(t_list_gnl **lst_one);
 void					ft_new_lst(int fd, t_list_gnl **lst_one);
 char    		        *ft_strncpy(const char *src, int n);
 char        		    *ft_strncpy_free(char *src, int n);
+int						ft_strlen_str(const char *s, char *str);
 
 #endif
