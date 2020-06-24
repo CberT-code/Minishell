@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen_str.c                                    :+:      :+:    :+:   */
+/*   ft_strcpyfrom.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 18:22:09 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/24 18:52:43 by cbertola         ###   ########.fr       */
+/*   Created: 2020/06/24 14:12:28 by cbertola          #+#    #+#             */
+/*   Updated: 2020/06/24 18:56:06 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strlen_str(const char *s, char *str)
-{
-	int i;
-	int j;
+#include "libft.h"
 
-	i = 0;
-	while (s && s[i])
-	{
-		j = 0;
-		while (str && str[j])
-			if (s[i] == str[j++])
-				return (i);
-		i++;
-	}
-	return (0);
+char            *ft_strcpyfrom(const char *src, char *n)
+{
+    char     *dst;
+    int      i;
+    int      j;
+    int      nb;
+
+    i = 0;
+
+    nb = ft_strlen(src) - ft_strlen_str(src, n);
+    if (!(dst = malloc(sizeof(char) * nb + 1)))
+        return (NULL);
+    j = nb;
+    while (src[j])
+        dst[i++] = src[j++];
+    dst[i] = 0;
+    return (dst);
 }

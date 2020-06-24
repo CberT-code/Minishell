@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/23 18:27:09 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/06/24 16:46:37 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char					*ft_before_char(char *str, char stop);
 char					*ft_strjoin_malloc(char *s1, char *s2);
 char					*ft_strmapi(char const *s,
 						char (*f)(unsigned int, char));
+char         		    *ft_strcpyuntil(const char *src, char *n);
+char         		    *ft_strcpyfrom(const char *src, char *n);
 char					*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 int						ft_isalpha(int c);

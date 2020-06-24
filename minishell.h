@@ -18,7 +18,15 @@ typedef struct         s_cmds
     char               **pipes;
     t_redir            redir;
     struct s_cmds      *next;
-}                      t_cmds;
+}
+                      t_cmds;
+                      
+typedef struct         s_env
+{
+    char               *var;
+    char               *valeur;
+    struct s_env       *next;
+}                      t_env;
 
 
 /* FUNCTIONS LISTS */

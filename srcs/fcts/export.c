@@ -81,12 +81,12 @@ char         *add_new_env(char *str)
 }
 
 
-char         *replace_env(char *str, char **tri_selectif)
-{
-    int i;
+// char         *replace_env(char *str, char **tri_selectif)
+// {
+//     int i;
 
-    while
-}
+//     while
+// }
 
 void        fill_env(int ind, char *str, char **tri_selectif, char **new_tab)
 {
@@ -102,11 +102,13 @@ void        fill_env(int ind, char *str, char **tri_selectif, char **new_tab)
         if (str[i])
         {
             if (find_env_in_tab(str + i, tri_selectif) == 1)
+            {
                new_tab[ind++] = add_new_env(str + i);
-               // printf("il exist n'existe pas %d, %s\n", ind++, str + i);
+               // printf("il exist n'existe pas %d, %s\n", ind++, str + i);\
+            }
             if (find_env_in_tab(str + i, tri_selectif) == 2)
-               new_tab[ind++] = replace_env(str + i, tri_selectif);
-                // printf("il existe %d, %s\n", ind++, str + i);
+                printf("il existe %d, %s\n", ind++, str + i);
+               //new_tab[ind++] = replace_env(str + i, tri_selectif);
            i += len_next_word(str + i);
         }
     }

@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen_str.c                                    :+:      :+:    :+:   */
+/*   ft_strcpyuntil.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 18:22:09 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/24 18:52:43 by cbertola         ###   ########.fr       */
+/*   Created: 2020/06/24 14:12:15 by cbertola          #+#    #+#             */
+/*   Updated: 2020/06/24 16:49:42 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strlen_str(const char *s, char *str)
-{
-	int i;
-	int j;
+#include "libft.h"
 
-	i = 0;
-	while (s && s[i])
-	{
-		j = 0;
-		while (str && str[j])
-			if (s[i] == str[j++])
-				return (i);
-		i++;
-	}
-	return (0);
+char            *ft_strcpyuntil(const char *src, char *n)
+{
+    char     *dst;
+    int      i;
+    int      nb;
+
+    i = 0;
+    nb = ft_strlen_str(src, n) + 1;
+    if (!(dst = malloc(sizeof(char) * nb + 1)))
+        return (NULL);
+    while (nb--)
+    {
+        dst[i] = src[i];
+        i++;
+    }
+    dst[++i] = 0;
+    return (dst);
 }
