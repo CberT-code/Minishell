@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen_str.c                                    :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 18:22:09 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/26 18:38:43 by cbertola         ###   ########.fr       */
+/*   Created: 2020/06/25 16:00:50 by cbertola          #+#    #+#             */
+/*   Updated: 2020/06/25 16:13:27 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strlen_str(const char *s, char *str)
-{
-	int i;
-	int j;
+#include <string.h>
 
-	i = 0;
-	while (s && s[i])
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	if (*s1 || *s2)
 	{
-		j = 0;
-		while (s[i] && str[j])
-			if (s[i] == str[j++])
-				return (i);
-		i++;
+		while ((*s1 || *s2))
+		{
+			if (*s1 != *s2)
+				return ((unsigned char)*s1 - (unsigned char)*s2);
+			s1++;
+			s2++;
+		}
 	}
-	return (i);
+	return (0);
 }

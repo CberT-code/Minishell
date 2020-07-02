@@ -1,148 +1,142 @@
 #include "../../minishell.h"
 
-
-
-int         find_env_in_tab(char *str, char **tri_selectif)
+int          display_export(t_env *list, int fd)
 {
-    int i;
-    int ind;
-
-
-    i = 0;
-    ind = -1;
-    if (ft_isdigit(str[i]))
-        return (0);
-    while (str[i] != ' ' && str[i] != '\0' && str[i] != '=')
-        i++;
-    while (tri_selectif[++ind])
+    while(list->next)
     {
-        if (ft_strncmp(str, tri_selectif[ind], i) == 0 && 
-       (*(tri_selectif[ind] + i) == '=' ||
-        *(tri_selectif[ind] + i) == ' ' ||
-        *(tri_selectif[ind] + i) == '\0'))
-        {
-        return (2);
-        }     
+        write(fd, "declare -x ", 11);
+        write(fd, list->var, ft_strlen(list->var));
+        write(fd, "\"", 1);
+        write(fd, list->valeur, ft_strlen(list->valeur));
+        write(fd, "\"\n", 2);
+        list = list->next;
     }
     return (1);
 }
-int         ft_nbrvar(char *str, char **tri_selectif)
+
+int    ft_tablen(char **tab)
 {
     int i;
-    int nb;
 
     i = 0;
-    nb = 0;
-    while (str[i])
-    {
-        while (str[i] == ' ')
-            i++;
-        if (str[i])
-        {
-            if (find_env_in_tab(str + i, tri_selectif) == 1)
-                nb++;
-           i += len_next_word(str + i);
-        }
-    }
-    return (nb);
-}
-
-char        *fill_new_env(char *str, int i)
-{
-    if (!(ret = malloc(sizeof(char) * i + 1)))
-        exit(0);
-    i = 0;
-    while (str[i] != ' ' && str[i] != '=' && str[i] != '\0')
-        ret[i] = str[i++];
-    if (str[i] = '=')
-    {
-        ret[i + 1] = '\"';
-        while (str[i] != ' ' && str[i])
-        {
-            ret[i + 1] = str[i++];
-        }
-        ret[i + 1] = '\0';
-    }
-}
-
-char         *add_new_env(char *str)
-{
-    int i;
-    char *ret;
-
-    i = ft_strlen_str(str, " =");
-    if (str[i] = '=')
-    {
-        while (str[i] != ' ' && str[i])
-            i++;
-        i += 2;
-    }
-    ret = fill_new_env(str, i);
-}
-
-
-// char         *replace_env(char *str, char **tri_selectif)
-// {
-//     int i;
-
-//     while
-// }
-
-void        fill_env(int ind, char *str, char **tri_selectif, char **new_tab)
-{
-    int i;
-    int nb;
-
-    i = 0;
-    nb = 0;
-    while (str[i])
-    {
-        while (str[i] == ' ')
-            i++;
-        if (str[i])
-        {
-            if (find_env_in_tab(str + i, tri_selectif) == 1)
-            {
-               new_tab[ind++] = add_new_env(str + i);
-               // printf("il exist n'existe pas %d, %s\n", ind++, str + i);\
-            }
-            if (find_env_in_tab(str + i, tri_selectif) == 2)
-                printf("il existe %d, %s\n", ind++, str + i);
-               //new_tab[ind++] = replace_env(str + i, tri_selectif);
-           i += len_next_word(str + i);
-        }
-    }
-}
-
-char         **ft_export(char *str, char **tri_selectif)
-{
-    int i;
-    int nbr;
-    char **tableau_des_variables_d_environnement;
-
-    i = 0;
-    while (tri_selectif[i])
+    if (!tab)
+        return (i);
+    while (tab[i])
         i++;
-    nbr = ft_nbrvar(str, tri_selectif);
-    printf ("nbr var = %d\n",nbr);
-    if (!(tableau_des_variables_d_environnement = malloc(sizeof(char *) * (i + nbr) + 1)))
-        exit(0);  
-    i = -1;
-    while (tri_selectif[++i])
-        tableau_des_variables_d_environnement[i] = ft_strncpy(tri_selectif[i], ft_strlen(tri_selectif[i]));
-    fill_env(i, str, tri_selectif, tableau_des_variables_d_environnement);
-      //  tableau_des_variables_d_environnement[i++] = ft_strncpy(str, ft_strlen(str));
-    tableau_des_variables_d_environnement[i + nbr] = NULL;
-    return (tableau_des_variables_d_environnement);
+    return (i);
+}
+
+char        **ft_tri_vartab(char **tab)
+{
+    int i;
+    int j;
+    char *temp;
+
+    i = 0;
+    while (tab[i])
+    {
+        j = 0;
+        while (j < ft_tablen(tab) - 1)
+        {
+            if (ft_strcmp(tab[j], tab[j + 1]) > 0)
+            {
+                temp = ft_strdup(tab[j]);
+                tab[j] = ft_strdup(tab[j + 1]);
+                tab[j + 1] = ft_strdup(temp);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (tab);
+}
+
+int         replace_env(char *str, t_env *list)
+{
+    int i;
+    int j;
+    int in;
+
+    while (list->next != NULL)
+    {
+        if (ft_strcmp(ft_strcpyuntil(str, "= "), list->var) == 0)
+        {
+            
+            i = ft_strlen_str(str, "= ");
+            j = -1;
+            free(list->valeur);
+            if (!(list->valeur = malloc(sizeof(char) * ft_strlen_str(str + i, " ") + 1)))
+                return (0);
+            while (str[i] != ' ' || in)
+            {
+                list->valeur[++j] = str[++i];
+                in = in_quotes(str, i, in);
+            }
+            list->valeur[++j] = '\0';
+            return (i);
+        }
+    list = list->next;
+    }
+    return (len_next_word(str));
+}
+
+int        add_new_env(char *str, t_env *list)
+{
+    int i;
+    int j;
+
+    while (list->next != NULL)
+    {
+        if (ft_strcmp(ft_strcpyuntil(str, "="), list->var) == 0)
+            return (len_next_word(str));
+    list = list->next;
+    }
+    ft_lstadd_back_env(&list, ft_strcpyuntil(str, "="), ft_strcpyuntil(str + ft_strlen_str(str, "=") + 1, " "));
+    return (len_next_word(str));
+}
+
+int         ft_export(char *str, char **tri_selectif, int fd)
+{
+    char    **tab_env;
+    t_env   *list_env;
+    int     i;
+
+    i = 0;
+    tab_env = ft_tri_vartab(tri_selectif);
+    list_env = ft_tab_to_list(tri_selectif);
+    while (str[i] && str[i] == ' ')
+        i++;
+    if (str[i] == '\0')
+       display_export(list_env, fd);
+    while (str[i])
+    {
+        while (str[i] == ' ')
+            i++;
+        i += replace_env(str + i, list_env);
+    }
+    i = 0;
+     while (str[i])
+    {
+        while (str[i] == ' ')
+            i++;
+        i += add_new_env(str + i, list_env);
+    }
+    i = 0;
+    while (list_env->next != NULL)
+    {
+         printf("%s%s\n", list_env->var, list_env->valeur);
+        list_env = list_env->next;
+    }
+    return (1);
 }
 
 int main(int argc, char **argv, char **envp)
 {
-	char *test = "SHLVL=10 vscodetoto ipocampe 8tarentule vagabond";
-    char **tab;
+	char *test = " USER=\"emo  te\" ";
+    int ret;
     int i = -1;
 
-    tab = ft_export(test, envp);
+    ret = ft_export(test, envp, 1);
 	//while (tab[++i])
        // printf("%s\n", tab[i]);
 	return (0);

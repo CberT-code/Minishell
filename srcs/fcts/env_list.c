@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export2.c                                          :+:      :+:    :+:   */
+/*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/24 18:57:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/06/26 22:33:01 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,25 @@ t_env        *ft_tab_to_list(char **tri_selectif)
     t_env   *list;
     int     i;
 
-    // ft_bzero(list, sizeof(t_env));
     list = NULL;
     i = 0;
     while (tri_selectif[i])
     {
-       ft_lstadd_back_env(&list, ft_strcpyuntil(tri_selectif[i], "="), ft_strcpyfrom(tri_selectif[i], " =") );
+       ft_lstadd_back_env(&list, ft_strcpyuntil(tri_selectif[i], "="), ft_strcpyfrom(tri_selectif[i], "=") );
         i++;
     }
     return (list);
 }
 
-int     main(int argc, char **argv, char **tri_selectif)
-{
-    t_env *test;
+// int     main(int argc, char **argv, char **tri_selectif)
+// {
+//     t_env *test;
 
-    test = ft_tab_to_list(tri_selectif);
-    while (test->next != NULL)
-    {
-        printf("%s\n", test->var);
-        test = test->next;
-    }
-}
+//     test = ft_tab_to_list(tri_selectif);
+//     while (test->next != NULL)
+//     {
+//         printf("%s", test->var);
+//        printf("%s\n", test->valeur);
+//         test = test->next;
+//     }
+// }

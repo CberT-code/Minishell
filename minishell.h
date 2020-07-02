@@ -34,6 +34,7 @@ typedef struct         s_env
 t_cmds              	*ft_lstnewcmds(char *str);
 t_cmds	                *ft_lstlast(t_cmds *cmds);
 void                	ft_lstadd_back(t_cmds **alst, char *str);
+void			        ft_lstadd_back_env(t_env **alst, char *str, char *str2);
 t_cmds                  *parsing(char *str, char **envp);
 char                    **split_minishell(char *s, char c);
 char		            **split_chevron(char *s, char c, int *type_redir);
@@ -43,5 +44,6 @@ int                     len_next_word(char *str);
 int		                ft_in_quotes(char *str, int i);
 char	                *ft_last_space(char *str);
 char                    *ft_convert_envp(char *str, char **envp);
+t_env                   *ft_tab_to_list(char **tri_selectif);
 
 #endif

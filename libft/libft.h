@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/24 16:46:37 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/06/25 16:12:50 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void					ft_new_lst(int fd, t_list_gnl **lst_one);
 char    		        *ft_strncpy(const char *src, int n);
 char        		    *ft_strncpy_free(char *src, int n);
 int						ft_strlen_str(const char *s, char *str);
+int						ft_strcmp(const char *s1, const char *s2);
 
 #endif
