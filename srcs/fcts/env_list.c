@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/26 22:33:01 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/15 13:06:18 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,3 @@ t_env        *ft_tab_to_list(char **tri_selectif)
     }
     return (list);
 }
-
-// int     main(int argc, char **argv, char **tri_selectif)
-// {
-//     t_env *test;
-
-//     test = ft_tab_to_list(tri_selectif);
-//     while (test->next != NULL)
-//     {
-//         printf("%s", test->var);
-//        printf("%s\n", test->valeur);
-//         test = test->next;
-//     }
-// }

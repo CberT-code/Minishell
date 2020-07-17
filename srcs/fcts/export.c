@@ -1,193 +1,108 @@
 #include "../../minishell.h"
 
-int          display_export(t_env *list, int fd, char *str)
-{
-    while (*str == ' ')
-        str++;
-    if (*str == '\0')
-    {
-        while(list->next)
-        {
-            write(fd, "declare -x ", 11);
-            write(fd, list->var, ft_strlen(list->var));
-            write(fd, "\"", 1);
-            write(fd, list->valeur, ft_strlen(list->valeur));
-            write(fd, "\"\n", 2);
-            list = list->next;
-        }
-        return (1);
-    }
-    return (0);
-}
-
-int    ft_tablen(char **tab)
-{
-    int i;
-
-    i = 0;
-    if (!tab)
-        return (i);
-    while (tab[i])
-        i++;
-    return (i);
-}
-
-char        **ft_tri_vartab(char **tab)
-{
-    int i;
-    int j;
-    char *temp;
-
-    i = 0;
-    while (tab[i])
-    {
-        j = 0;
-        while (j < ft_tablen(tab) - 1)
-        {
-            if (ft_strcmp(tab[j], tab[j + 1]) > 0)
-            {
-                temp = ft_strdup(tab[j]);
-                tab[j] = ft_strdup(tab[j + 1]);
-                tab[j + 1] = ft_strdup(temp);
-            }
-            j++;
-        }
-        i++;
-    }
-    return (tab);
-}
-
-int         replace_env(char *str, t_env *list)
-{
-    int i;
-    int j;
-    int in;
-
-    while (list->next != NULL)
-    {
-        if (ft_strcmp(ft_strcpyuntil(str, "= "), list->var) == 0)
-        {
-            
-            i = ft_strlen_str(str, "= ");
-            j = -1;
-            free(list->valeur);
-            if (!(list->valeur = malloc(sizeof(char) * ft_strlen_str(str + i, " ") + 1)))
-                return (0);
-            while (str[i] != ' ' || in)
-            {
-                list->valeur[++j] = str[++i];
-                in = in_quotes(str, i, in);
-            }
-            list->valeur[++j] = '\0';
-            return (i);
-        }
-    list = list->next;
-    }
-    return (len_next_word(str));
-}
-
-char        *arg2(char *str)
+char         *check_var(char *str)
 {
     int     i;
-  
-  printf("ici on test str = %s\n",str);
-    i = 0;
-    if (*str == '\'' || *str == '\"')
-    {
-        while (ft_in_quotes(str, i) != 0)
-            i++;
-    }
-    else 
-        i = len_next_word(str);
-    printf("ici on test valeur de i = %d\n",i);   
-    return(ft_strncpy(str, i));
-}
-
-int        add_new_env(char *str, t_env *list)
-{
-    int i;
-    int j;
-
-    while (list->next != NULL)
-    {
-        if (ft_strcmp(ft_strcpyuntil(str, "="), list->var) == 0)
-            return (len_next_word(str));
-    list = list->next;
-    }
-    printf("ici on test la valeur de retour de arg2 = %s\n",arg2(str + ft_strlen_str(str, "=") + 1));
-    ft_lstadd_back_env(&list, ft_strcpyuntil(str, "="), arg2(str + ft_strlen_str(str, "=")));
-    return (len_next_word(str));
-}
-
-char         *check_var(char *str, list_env *list)
-{
-    int i;
-    char *ret;
 
     i = 0;
     while (str[i] == ' ' || str[i] == '\"')
         i++;
-    ret = ft_strcpyuntil(str, " =");
-
-
+    if (str[i] != '\0')
+        return (ft_strcpyuntil(str + i, " ="));
+    else 
+        return (NULL);
 }
 
-int         check_list(char *str, list_env *list)
+char         *check_value(char *str, int i)
 {
-    int i;
-    int j;
-    char *var;
+    char    *ret;
+    int     start;
 
-    i = 0;
-    while (str[i])
+    if (str[i] == '\"')
+        i++;
+    start = i;
+    if (ft_in_quotes(str, i) != 0)
     {
-        var = check_var(str + i);
-        i += ft_strlen(ret);
-        j = 0;
-        if (str[i] == '=')
-            while (str)
-
-
+        while (ft_in_quotes(str, i) != 0)
+            i++;
+        i -= start;
+        i--;
+        ret = ft_strncpy(str + start, i);
+        return (double_char(ret, '\\'));
     }
-}                                                     
+    return (ft_strcpyuntil(str + i, " "));
+}
+
+void        replace_env(t_env *list_env, t_env *list_data)
+{
+    t_env   *data;
+
+     while (list_env->next != NULL)
+    {
+        data = list_data;
+         while (data != NULL)
+        {
+            if (ft_strcmp(data->var, list_env->var) == 0)
+            {
+                printf("We are here\n");
+                list_env->valeur = data->valeur;
+            }
+            data = data->next;
+        }
+        list_env = list_env->next;
+    }
+}
+
+void        add_env(t_env *list_env, t_env *list_data)
+{
+     t_env   *env;
+     int    find;
+
+     while (list_data != NULL)
+    {
+        env = list_env;
+        find = 0;
+         while (env->next != NULL && find == 0)
+        {
+            if (ft_strcmp(list_data->var, env->var) == 0)
+             find = 1;
+            env = env->next;
+        }
+        if (find == 0)
+        {
+            printf("here we test -> %s\n", list_data->var);
+            printf("here we test -> %s\n", list_data->valeur);
+            ft_lstadd_back_env(&list_env, list_data->var, list_data->valeur);
+        }
+        list_data = list_data->next;
+    }
+}
+                                                 
 int         ft_export(char *str, char **tri_selectif, int fd)
 {
     char    **tab_env;
     t_env   *list_env;
-    int     i;
+    t_env   *list_data;
 
-    i = 0;
     tab_env = ft_tri_vartab(tri_selectif);
     list_env = ft_tab_to_list(tri_selectif);
     if (display_export(list_env, fd, str))
-        return (exit(0));
-    check_list(str, list_env);
-    
-    // while (str[i])
-    // {
-    //     while (str[i] == ' ')
-    //         i++;
-    //     i += replace_env(str + i, list_env);
-    // }
-    // i = 0;
-    //  while (str[i])
-    // {
-    //     while (str[i] == ' ')
-    //         i++;
-    //     i += add_new_env(str + i, list_env);
-    // }
-    // i = 0;
+        return (0);
+    list_data = data_list(str);
+    replace_env(list_env, list_data);
+    add_env(list_env, list_data);
+    printf("%s%s\n", list_env->var, list_env->valeur);
     while (list_env->next != NULL)
     {
-         printf("%s%s\n", list_env->var, list_env->valeur);
         list_env = list_env->next;
+        printf("%s%s\n", list_env->var, list_env->valeur);
     }
     return (1);
 }
 
 int main(int argc, char **argv, char **envp)
 {
-	char *test = " USERSR=\"emo  te\" ";
+	char *test = " USERSR=\"emo  te\" toto=pepo USER=\"pipa toto\"";
     int ret;
     int i = -1;
 

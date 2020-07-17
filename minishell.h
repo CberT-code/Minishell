@@ -45,5 +45,11 @@ int		                ft_in_quotes(char *str, int i);
 char	                *ft_last_space(char *str);
 char                    *ft_convert_envp(char *str, char **envp);
 t_env                   *ft_tab_to_list(char **tri_selectif);
+int                     display_export(t_env *list, int fd, char *str);
+int                     ft_tablen(char **tab);
+char                    **ft_tri_vartab(char **tab);
+t_env                  *data_list(char *str);
+char                   *check_var(char *str);
+char                   *check_value(char *str, int i);
 
 #endif
