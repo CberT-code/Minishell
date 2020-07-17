@@ -88,17 +88,17 @@ char			**split_minishell(char *s, char c)
  
 }
 
-//  int main(void)
-//  {
-// 	 char **tab;
-// 	 int i = 0;
-// 	 char *str;
+int main(void)
+{
+ 	 char **tab;
+ 	 int i = 0;
+ 	 char *str;
 
-// 	 str = "gr\";f | \" ; test | voili ; voila | voilou \" tout; nu \" ta ; pa";
-// 	 tab = split_minishell(str, '|');
-// 	while (tab[i])
-// 	{
-// 	printf("i = %d && print = %s\n",i, tab[i]);
-// 	i++;
-// 	}
-//  }
+ 	 str = "echo bip | bip ; coyotte > < \" ";
+ 	 tab = split_minishell(str, '|');
+ 	while (tab[i])
+ 	{
+ 	    printf("tab[%d] -> %s\n", i, tab[i]);
+ 	    i++;
+ 	}
+}
