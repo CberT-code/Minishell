@@ -3,6 +3,9 @@
 
 #include "libft/libft.h"
 #include <sys/wait.h>
+#define SIMPQ 39
+#define DOUBQ 34
+#define BACKS 92
 
 typedef	struct	        s_redir
 {
@@ -32,8 +35,9 @@ char		            **split_chevron(char *s, char c, int *type_redir);
 int                     in_quotes(char *s, int i, int in);
 int                     ft_redir(char *s, char c);
 int                     len_next_word(char *str);
+int		                ft_del_name(char *str);
 int		                ft_in_quotes(char *str, int i);
-char	                *ft_last_space(char *str);
-char                    *ft_convert_envp(char *str, char **envp);
+char	                *ft_clean_spaces(char *str);
+char	                *ft_envcpy(char *str, char **env);
 
 #endif

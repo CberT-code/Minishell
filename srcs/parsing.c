@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 09:55:46 by user42            #+#    #+#             */
-/*   Updated: 2020/06/12 11:45:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/03 15:40:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_cmds     *parsing(char *str, char **envp)
     cmds = NULL;
     tab = split_minishell(str, ';');
     while (tab[++i]){
-        tab[i] = ft_last_space(tab[i]);
-        tab[i]  = ft_convert_envp(tab[i], envp);
+        tab[i] = ft_clean_spaces(tab[i]);
+        tab[i]  = ft_envcpy(tab[i], envp);
         ft_lstadd_back(&cmds, tab[i]);
     }
     j = -1;

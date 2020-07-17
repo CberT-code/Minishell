@@ -28,12 +28,12 @@ int		ft_in_quotes(char *str, int i)
 	j = -1;
 	while (++j < i)
 	{
-		if (j > 0 && str[j] == 39 && str[j - 1] != '\\')
+		if (j > 0 && str[j] == SIMPQ && str[j - 1] != BACKS)
 		{
 			quote++;
 			last = 1;
 		}
-		if (j > 0 && str[j] == 34 && str[j - 1] != '\\')
+		if (j > 0 && str[j] == DOUBQ && str[j - 1] != BACKS)
 		{
 			dbquote++;
 			last = 2;
