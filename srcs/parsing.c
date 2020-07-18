@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 09:55:46 by user42            #+#    #+#             */
-/*   Updated: 2020/07/03 15:40:45 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/18 13:53:05 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ t_cmds     *parsing(char *str, char **envp)
     char    **tab;
     int     i;
     int     j;
-
+    t_semicol     semicol;
+    
     i = -1;
     cmds = NULL;
-    tab = split_minishell(str, ';');
+    tab = split_semicol(str, ';');
     while (tab[++i]){
+        tab[i] = ft_clean_quotes(tab[i]);
         tab[i] = ft_clean_spaces(tab[i]);
-        tab[i]  = ft_envcpy(tab[i], envp);
+        tab[i] = ft_envcpy(tab[i], envp);
         ft_lstadd_back(&cmds, tab[i]);
     }
     j = -1;
@@ -68,4 +70,28 @@ t_cmds     *parsing(char *str, char **envp)
         cmds = cmds->next;
     }
     return (cmds);  
+}
+
+// int main(int argc, char **argv, char **envp)
+// {
+//     (void)argc;
+//     t_cmds *test;
+
+//     test = parsing("je suis \' toto \' ", envp);
+//     return (0);
+// }
+
+int		main(int argc, char **argv, char **envp)
+{
+	int		fd;
+    char    *str;
+    t_cmds *test;
+
+    str = NULL;
+	fd = 0;
+	get_next_line(fd, &str);
+    test = parsing(str, envp);
+	close(fd);
+	//ft_printf("after -> %s\n", cpy);
+	return (0);
 }

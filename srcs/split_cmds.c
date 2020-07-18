@@ -77,7 +77,7 @@ static char            **ft_splitting(char *s, char c, int nb_words)
     return (tab);
 }
 
-char			**split_minishell(char *s, char c)
+char			**split_semicol(char *s, char c)
 {
     int     nb_words;
 
@@ -88,17 +88,17 @@ char			**split_minishell(char *s, char c)
  
 }
 
-int main(void)
-{
- 	 char **tab;
- 	 int i = 0;
- 	 char *str;
+// int main(void)
+// {
+//  	 char **tab;
+//  	 int i = 0;
+//  	 char *str;
 
- 	 str = "echo bip | bip ; coyotte > < \" ";
- 	 tab = split_minishell(str, '|');
- 	while (tab[i])
- 	{
- 	    printf("tab[%d] -> %s\n", i, tab[i]);
- 	    i++;
- 	}
-}
+//  	 str = "echo bip | bip ; coyotte > < \" ";
+//  	 tab = split_minishell(str, '|');
+//  	while (tab[i])
+//  	{
+//  	    printf("tab[%d] -> %s\n", i, tab[i]);
+//  	    i++;
+//  	}
+// }

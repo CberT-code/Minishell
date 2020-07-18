@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_spacesv2.c                                   :+:      :+:    :+:   */
+/*   clean_spaces.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/16 12:56:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/17 10:34:13 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_isbacks(char *str, int i)
-{
-	int cpt;
+// int	ft_isbacks(char *str, int i)
+// {
+// 	int cpt;
 
-	cpt = 0;
-	while (i >= 0 && str[i] == BACKS)
-	{
-		cpt++;
-		i--;
-	}
-	if (cpt % 2 == 0)
-		return (0);
-	return (1);
-}
+// 	cpt = 0;
+// 	while (i >= 0 && str[i] == BACKS)
+// 	{
+// 		cpt++;
+// 		i--;
+// 	}
+// 	if (cpt % 2 == 0)
+// 		return (0);
+// 	return (1);
+// }
  
-int	ft_isquote(char *str, int i)
-{
+// int	ft_isquote(char *str, int i)
+// {
 
-	if (i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == DOUBQ)
-		return (2);
-	if (i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == SIMPQ)
-		return (1);
-	return (0);
-}
+// 	if (i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == DOUBQ)
+// 		return (2);
+// 	if (i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == SIMPQ)
+// 		return (1);
+// 	return (0);
+// }
 
 int	ft_cpy_in_quotes(char *str, char *cpy, int *j, int quote)
 {
@@ -94,17 +94,17 @@ char	*ft_clean_spaces(char *str)
 }
 
 
-int		main(int argc, char **argv, char **env)
-{
-	char *str;
-	int		fd;
-	char *cpy;
+// int		main(int argc, char **argv, char **env)
+// {
+// 	char *str;
+// 	int		fd;
+// 	char *cpy;
 
-	str = NULL;
-	fd = 0;
-	get_next_line(fd, &str);
-	close(fd);
-	cpy = ft_clean_spaces(str);
-	//ft_printf("after -> %s\n", cpy);
-	return (0);
-}
+// 	str = NULL;
+// 	fd = 0;
+// 	get_next_line(fd, &str);
+// 	close(fd);
+// 	cpy = ft_clean_spaces(str);
+// 	//ft_printf("after -> %s\n", cpy);
+// 	return (0);
+// }
