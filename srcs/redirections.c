@@ -116,13 +116,11 @@ void            ft_splitting(char *str, char c, t_redir **r_simple, t_redir **r_
                 str++;
                 str += *str == ' ' ? 1 : 0 ;
                 lstadd_back_redir(r_double, ft_substr(str, 0, ft_strlen_str_quotes(str, " ")));
-                printf("ici on test tout ca double -> |%s|\n", ft_substr(str, 0, ft_strlen_str_quotes(str, " ")));
             }
             else
             {
                 str += *str == ' ' ? 1 : 0 ;
                 lstadd_back_redir(r_simple, ft_substr(str, 0, ft_strlen_str_quotes(str, " ")));
-                printf("ici on test tout ca simple -> |%s|%d|%s|\n", ft_substr(str, 0, ft_strlen_str_quotes(str, " ")), ft_strlen_str_quotes(str, " "), str);
             }
             str++;
             str += ft_strlen_str_quotes(str, " ");
@@ -140,7 +138,7 @@ t_tab_redir			full_redir(char *str)
     if (!str)
         return (redir);
     ft_splitting(str, '<', &redir.simple_in, &redir.double_in);
-    printf("We are here\n");
+    ft_splitting(str, '>', &redir.simple_out, &redir.double_out);
 
 
     while (redir.simple_in != NULL)
@@ -153,15 +151,6 @@ t_tab_redir			full_redir(char *str)
         printf("double in -> |%s|\n", redir.double_in->str);
         redir.double_in = redir.double_in->next;
     }
-
-
-
-    
-    ft_splitting(str, '>', &redir.simple_out, &redir.double_out);
-
-
-
-    
     while (redir.simple_out != NULL)
     {
         printf("simple out -> |%s|\n", redir.simple_out->str);
@@ -172,6 +161,7 @@ t_tab_redir			full_redir(char *str)
         printf("double out -> |%s|\n", redir.double_out->str);
         redir.double_out = redir.double_out->next;
     }
+
     return (redir);
  
 }
