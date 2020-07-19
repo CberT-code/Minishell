@@ -28,12 +28,13 @@ int		ft_in_quotes(char *str, int i)
 	j = -1;
 	while (++j < i)
 	{
-		if (j > 0 && str[j] == SIMPQ && str[j - 1] != BACKS)
+		if (j >= 0 && str[j] == SIMPQ)
 		{
+			
 			quote++;
 			last = 1;
 		}
-		if (j > 0 && str[j] == DOUBQ && str[j - 1] != BACKS)
+		if (j >= 0 && str[j] == DOUBQ )
 		{
 			dbquote++;
 			last = 2;
@@ -43,3 +44,18 @@ int		ft_in_quotes(char *str, int i)
 		return(last);
 	return(0);	
 }
+
+// int		main(int argc, char **argv, char **env)
+// {
+// 	char *str;
+// 	int		fd;
+// 	int		i;
+
+// 	str = NULL;
+// 	fd = 0;
+// 	get_next_line(fd, &str);
+// 	close(fd);
+// 	i = ft_in_quotes(str, 5);
+// 	printf("here we test -> %d\n", i);
+// 	return (0);
+// }

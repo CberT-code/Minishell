@@ -73,7 +73,7 @@ void do_pipe(char ***all, int nb_cmd, int *ret, char ***redir_extern, char ***re
   {
     if (!(pid[j] = fork()))
     {
-      do_dup( j, nb_cmd, pipes, 1, redir_extern, redir_intern);
+      do_dup(j, nb_cmd, pipes, 1, redir_extern, redir_intern);
       close_pipes(nb_cmd * 2, pipes);
       if ((*ret = execvp(*all[j], all[j])))
         exit(-1);

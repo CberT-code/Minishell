@@ -1,45 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fcts_lists_pipes.c                                 :+:      :+:    :+:   */
+/*   fcts_lists_redir.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/19 16:50:37 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:52:37 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_pipes			*ft_lstnewpipes(char *str)
+t_redir			*ft_lstnewredir(char *str)
 {
-	t_pipes *pipes;
-	if (!(pipes = (t_pipes*)malloc(sizeof(t_pipes))))
+	t_redir *redir;
+	if (!(redir = (t_redir*)malloc(sizeof(t_redir))))
 		return (NULL);
-	pipes->redir = full_redir(str);
-	pipes->str = str;
-	//pipes->str = clean_redir(str);
-	printf("\tpipes -> |%s|\n", str);
-
-	pipes->cmds = cmds_args(str);
-	pipes->next = NULL;
-	return (pipes);
+	redir->str = str;
+	printf("\t\t\tredir -> |%s|\n", str);
+	redir->next = NULL;
+	return (redir);
 }
 
-t_pipes			*ft_lstlastpipes(t_pipes *pipes)
+t_redir			*ft_lstlastredir(t_redir *redir)
 {
-	if (!pipes)
+	if (!redir)
 		return (NULL);
-	while (pipes->next)
-		pipes = pipes->next;
-	return (pipes);
+	while (redir->next)
+		redir = redir->next;
+	return (redir);
 }
 
-void			lstadd_back_pipes(t_pipes **pipes, char *str)
+void			lstadd_back_redir(t_redir **redir, char *str)
 {
-	if (*pipes != NULL)
-		ft_lstlastpipes(*pipes)->next = ft_lstnewpipes(str);
+	if (*redir != NULL)
+		ft_lstlastredir(*redir)->next = ft_lstnewredir(str);
 	else
-		*pipes = ft_lstnewpipes(str);
+		*redir = ft_lstnewredir(str);
 }

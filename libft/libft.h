@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/06/25 16:12:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/19 16:44:10 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ char    		        *ft_strncpy(const char *src, int n);
 char        		    *ft_strncpy_free(char *src, int n);
 int						ft_strlen_str(const char *s, char *str);
 int						ft_strcmp(const char *s1, const char *s2);
+char					*ft_substr_free(char *s, unsigned int start, size_t len);
 
 #endif

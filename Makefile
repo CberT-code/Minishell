@@ -1,8 +1,7 @@
-SRCS = 			main.c \
-				srcs/clean_cmd.c srcs/fcts_lists.c srcs/last_space.c srcs/parsing.c \
-				srcs/pipes.c srcs/quotes.c srcs/redirections.c srcs/replace_env.c \
-				srcs/split_cmds.c \
-				srcs/fcts/echo.c srcs/fcts/export.c srcs/fcts/ft_cd.c srcs/fcts/ft_pwd.c 
+SRCS = 			srcs/split_minishell.c srcs/split_minishell_utils.c \
+				srcs/fcts_lists_args.c srcs/fcts_lists_pipes.c \
+				srcs/fcts_lists_semicol.c srcs/quotes.c srcs/clean_spaces.c \
+				srcs/replace_env_var.c srcs/fcts_lists_redir.c srcs/redirections.c
 
 BONUS = 		bonus/*
 

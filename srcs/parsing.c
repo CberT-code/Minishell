@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 09:55:46 by user42            #+#    #+#             */
-/*   Updated: 2020/07/18 13:53:05 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/19 09:18:23 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,6 @@ t_cmds     *parsing(char *str, char **envp)
     }
     return (cmds);  
 }
-
-// int main(int argc, char **argv, char **envp)
-// {
-//     (void)argc;
-//     t_cmds *test;
-
-//     test = parsing("je suis \' toto \' ", envp);
-//     return (0);
-// }
 
 int		main(int argc, char **argv, char **envp)
 {

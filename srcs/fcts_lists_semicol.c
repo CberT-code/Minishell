@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/18 16:47:34 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:54:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_semicol			*ft_lstnewsemicol(char *str)
 	
 	if (!(semicol = (t_semicol*)malloc(sizeof(t_semicol))))
 		return (NULL);
-	semicol->semicol = str;
+	semicol->str = str;
 	printf("Semicol -> |%s|\n",str );
 	semicol->pipes = split_pipes(str);
 	semicol->next = NULL;
@@ -34,10 +34,10 @@ t_semicol			*ft_lstlastsemicol(t_semicol *semicol)
 	return (semicol);
 }
 
-void			lstadd_back_semicol(t_semicol *semicol, char *str)
+void			lstadd_back_semicol(t_semicol **semicol, char *str)
 {
-	if (semicol != NULL)
-		ft_lstlastsemicol(semicol)->next = ft_lstnewsemicol(str);
+	if (*semicol != NULL)
+		ft_lstlastsemicol(*semicol)->next = ft_lstnewsemicol(str);
 	else
-		semicol = ft_lstnewsemicol(str);
+		*semicol = ft_lstnewsemicol(str);
 }
