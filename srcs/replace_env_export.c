@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_env_var.c                                  :+:      :+:    :+:   */
+/*   replace_env_export.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/07/20 11:50:10 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/17 11:30:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ char	*ft_envcpy(char *str, char **env)
 	return (cpy);
 }
 
-/*
+
 int		main(int argc, char **argv, char **env)
 {
 	char *str;
@@ -218,4 +218,4 @@ int		main(int argc, char **argv, char **env)
 	cpy = ft_envcpy(str, env);
 	//ft_printf("after -> %s\n", cpy);
 	return (0);
-}*/
+}

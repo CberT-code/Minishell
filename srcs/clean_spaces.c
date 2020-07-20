@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_spacesv2.c                                   :+:      :+:    :+:   */
+/*   clean_spaces.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/16 12:56:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/20 13:59:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_isbacks(char *str, int i)
 		return (0);
 	return (1);
 }
- 
+
 int	ft_isquote(char *str, int i)
 {
 
@@ -54,9 +54,8 @@ int	ft_cpy_in_quotes(char *str, char *cpy, int *j, int quote)
 	return (i);
 }
 
-void	ft_travel_spaces(char *str, char *cpy, int *i, int *j)
+void	ft_travel_spaces(char *str, int *i)
 {
-	cpy[(*j)++] = str[(*i)++];
 	while (str[*i] == ' ' && str[*i])
 		(*i)++;
 	(*i)--;
@@ -66,30 +65,35 @@ char	*ft_clean_spaces(char *str)
 {
 	int i;
 	int j;
+	int k;
+
 	char *cpy;
 
-	str = ft_strtrim(str, " ");
 	if (!(cpy = malloc(sizeof(char) * (ft_strlen(str) + 1))))
 		return (0);
-	i = -1;
+	i = 0;
 	j = 0;
-	while (str[++i])
+	k = ft_strlen(str) - 1;
+	while (((i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == ' ')
+	|| (i == 0 && str[i] == ' ')) && str[i])
+		i++;
+	while (k > 0 && ft_isbacks(str, k - 1) == 0 && str[k] == ' ')
+		k--;
+	while (i <= k)
 	{
-		if ((i > 0 && str[i] == SIMPQ && ft_isbacks(str, (i) - 1) == 0)
+		if ((i > 0 && str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
 		|| (i == 0 && str[i] == SIMPQ))
 			i += ft_cpy_in_quotes(&str[i], cpy, &j, 1);
 		else if ((i > 0 && str[i] == DOUBQ && ft_isbacks(str, i - 1) == 0)
 		|| (i == 0 && str[i] == DOUBQ))
 			i += ft_cpy_in_quotes(&str[i], cpy, &j, 2);
 		if ((i > 0 && str[i] == ' ' &&  ft_isbacks(str, i - 1) == 0))
-			ft_travel_spaces(str, cpy, &i, &j);
-		else if (str[i] == BACKS && ft_isbacks(str, i) == 0)
-			cpy[j++] = str[i];
-		else if (str[i] != BACKS)
-			cpy[j++] = str[i];
+			ft_travel_spaces(str, &i);
+		cpy[j++] = str[i];
+		i++;
 	}
 	cpy[j] = '\0';
-	printf("cpy -> %s\n", cpy);
+	printf("cpy -> |%s|\n", cpy);
 	return (cpy);
 }
 

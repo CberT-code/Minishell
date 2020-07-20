@@ -57,5 +57,6 @@ char                   *check_var(char *str);
 char                   *check_value(char *str, int i);
 char	                *ft_clean_spaces(char *str);
 char	                *ft_envcpy(char *str, char **env);
-
+int                     ft_isbacks(char *str, int i);
+int                     ft_isquote(char *str, int i);
 #endif
