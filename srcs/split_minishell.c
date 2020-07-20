@@ -6,19 +6,22 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/19 14:56:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/20 12:01:22 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int			split_semicol(char *str, t_semicol *semicol)
+int			split_semicol(char *str, t_semicol *semicol, char **env)
 {
     int start;
     start = 0;
     if (!str)
         return (0);
     str = ft_clean_spaces(str);
+    printf("here we test -> |%s|\n", str);
+    str = ft_envcpy(str, env);
+    printf("here we test -> |%s|\n", str);
     while (*str)
     {
         lstadd_back_semicol(&semicol, ft_substr(str, start, ft_strlen_str_quotes(str, ";")));
@@ -87,6 +90,6 @@ int		main(int argc, char **argv, char **env)
 	fd = 0;
 	get_next_line(fd, &str);
 	close(fd);
-    split_semicol(str, semicol);
+    split_semicol(str, semicol, env);
 	return (0);
 }

@@ -64,7 +64,6 @@ t_cmds	                *ft_lstlast(t_cmds *cmds);
 void                	ft_lstadd_back(t_cmds **alst, char *str);
 void			        ft_lstadd_back_env(t_env **alst, char *str, char *str2);
 t_cmds                  *parsing(char *str, char **envp);
-int		            	split_semicol(char *str, t_semicol *semicol);
 
 
 int                     in_quotes(char *s, int i, int in);
@@ -100,7 +99,7 @@ t_args		        	*ft_lstnewargs(char *str);
 t_args		        	*ft_lstlastargs(t_args *cmds);
 void		        	lstadd_back_args(t_args **args, char *str);
 
-int		            	split_semicol(char *str, t_semicol *semicol);
+int		            	split_semicol(char *str, t_semicol *semicol, char **env);
 t_pipes		        	*split_pipes(char *str);
 t_args                  *split_args(char *str);
 t_cmds		        	cmds_args(char *str);

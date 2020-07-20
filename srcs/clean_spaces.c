@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/17 10:34:13 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/20 12:02:55 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ char	*ft_clean_spaces(char *str)
 			i += ft_cpy_in_quotes(&str[i], cpy, &j, 2);
 		if ((i > 0 && str[i] == ' ' &&  ft_isbacks(str, i - 1) == 0))
 			ft_travel_spaces(str, cpy, &i, &j);
-		else if (str[i] == BACKS && ft_isbacks(str, i) == 0)
-			cpy[j++] = str[i];
-		else if (str[i] != BACKS)
-			cpy[j++] = str[i];
+		cpy[j++] = str[i];
 	}
 	cpy[j] = '\0';
 	printf("cpy -> %s\n", cpy);
