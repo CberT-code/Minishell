@@ -6,7 +6,11 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/07/17 10:34:16 by cbertola         ###   ########.fr       */
+=======
+/*   Updated: 2020/07/20 11:50:10 by user42           ###   ########.fr       */
+>>>>>>> mike
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,18 +208,18 @@ char	*ft_envcpy(char *str, char **env)
 	return (cpy);
 }
 
+/*
+int		main(int argc, char **argv, char **env)
+{
+	char *str;
+	int		fd;
+	char *cpy;
 
-// int		main(int argc, char **argv, char **env)
-// {
-// 	char *str;
-// 	int		fd;
-// 	char *cpy;
-
-// 	str = NULL;
-// 	fd = 0;
-// 	get_next_line(fd, &str);
-// 	close(fd);
-// 	cpy = ft_envcpy(str, env);
-// 	//ft_printf("after -> %s\n", cpy);
-// 	return (0);
-// }
+	str = NULL;
+	fd = 0;
+	get_next_line(fd, &str);
+	close(fd);
+	cpy = ft_envcpy(str, env);
+	//ft_printf("after -> %s\n", cpy);
+	return (0);
+}*/

@@ -101,4 +101,6 @@ t_cmds		        	cmds_args(char *str);
 
 int		                ft_strlen_str_quotes(char *s, char *str);
 
+int                     ft_isbacks(char *str, int i);
+int                     ft_isquote(char *str, int i);
 #endif
