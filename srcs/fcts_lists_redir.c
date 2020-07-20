@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/20 11:50:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/20 16:32:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_redir			*ft_lstnewredir(char *str)
 	if (!(redir = (t_redir*)malloc(sizeof(t_redir))))
 		return (NULL);
 	redir->str = str;
+	//redir->str = clean_quotes(str);
 	printf("\t\t\tredir -> |%s|\n", redir->str);
 	redir->next = NULL;
 	return (redir);
