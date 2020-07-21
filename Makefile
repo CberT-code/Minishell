@@ -28,7 +28,6 @@ git:			fclean
 				git add *
 				git commit -u -m "$(LOGFILE) $(MSG)"
 				git push
-				make
 
 git_merge:		fclean
 				git add -A
