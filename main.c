@@ -12,46 +12,45 @@ int     main(int argc, char **argv, char **env)
 	while (get_next_line(0, &line) > 0)
 	{
         split_semicol(line, &semicol, env);
-		printf("We are here\n");
         free(line);
-
+		semicol->nb_cmd = count_pipe(semicol->pipes);
 		while (semicol != NULL)
 		{
-			printf("here we test -> |%s|\n", semicol->str);
+			printf("semicol -> |%s|\n", semicol->str);
 			while (semicol->pipes != NULL)
 			{
-				printf("here we test -> |%s|\n", semicol->pipes->str);
+				printf("\tpipe -> |%s|\n", semicol->pipes->str);
 				while ((semicol->pipes->redir_in).simpl != NULL)
 				{
-					printf("redir simple in -> |%s|\n", (semicol->pipes->redir_in).simpl->str);
+					printf("\t\tredir simple in -> |%s|\n", (semicol->pipes->redir_in).simpl->str);
 					(semicol->pipes->redir_in).simpl = (semicol->pipes->redir_in).simpl->next;
 				}
 				while ((semicol->pipes->redir_in).doubl != NULL)
 				{
-					printf("redir double in -> |%s|\n", (semicol->pipes->redir_in).doubl->str);
+					printf("\t\tredir double in -> |%s|\n", (semicol->pipes->redir_in).doubl->str);
 					(semicol->pipes->redir_in).doubl = (semicol->pipes->redir_in).doubl->next;
 				}
 				while ((semicol->pipes->redir_out).simpl != NULL)
 				{
-					printf("redir simple out -> |%s|\n", (semicol->pipes->redir_out).simpl->str);
+					printf("\t\tredir simple out -> |%s|\n", (semicol->pipes->redir_out).simpl->str);
 					(semicol->pipes->redir_out).simpl = (semicol->pipes->redir_out).simpl->next;
 				}
 				while ((semicol->pipes->redir_out).doubl != NULL)
 				{
-					printf("redir double out -> |%s|\n", (semicol->pipes->redir_out).doubl->str);
+					printf("\t\tredir double out -> |%s|\n", (semicol->pipes->redir_out).doubl->str);
 					(semicol->pipes->redir_out).doubl = (semicol->pipes->redir_out).doubl->next;
 				}
-				printf("cmds out -> |%s|\n", semicol->pipes->cmds.str);
+				printf("\tcommande -> |%s|\n", semicol->pipes->cmds.str);
 				while (semicol->pipes->cmds.args != NULL)
 				{
-					printf("args -> |%s|\n", semicol->pipes->cmds.args->str);
+					printf("\t\targs -> |%s|\n", semicol->pipes->cmds.args->str);
 					semicol->pipes->cmds.args = semicol->pipes->cmds.args->next;
 				}
 				semicol->pipes = semicol->pipes->next;
 			}
+			printf("Nombre de pipes = %d\n", semicol->nb_cmd);      
 			semicol = semicol->next;
 		}
-		printf("We are here\n");       
 	}
 	free(line);
 }
