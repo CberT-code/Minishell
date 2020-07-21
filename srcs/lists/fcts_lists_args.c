@@ -15,6 +15,7 @@
 t_args			*ft_lstnewargs(char *str)
 {
 	t_args *args;
+
 	if (!(args = (t_args*)malloc(sizeof(t_args))))
 		return (NULL);
 	args->str = str;

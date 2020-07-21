@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/21 10:45:28 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:04:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int			split_semicol(char *str, t_semicol *semicol, char **env)
+int			split_semicol(char *str, t_semicol *semicol)
 {
     int start;
     start = 0;
@@ -62,7 +62,7 @@ t_args          *split_args(char *str)
         lstadd_back_args(&args, ft_substr(str, 0, ft_strlen_str_quotes(str, " ")));
         str += ft_strlen_str_quotes(str, " ");
         if (*str == ' ')
-        str++;
+            str++;
     }
     return (args);
 }
@@ -91,6 +91,6 @@ int		main(int argc, char **argv, char **env)
 	fd = 0;
 	get_next_line(fd, &str);
 	close(fd);
-    split_semicol(str, semicol, env);
+    split_semicol(str, semicol);
 	return (0);
 }

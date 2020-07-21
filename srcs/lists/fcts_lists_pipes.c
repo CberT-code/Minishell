@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 11:39:57 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:01:10 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_pipes			*ft_lstnewpipes(char *str)
 	//pipes->str = str;
 	pipes->str = clean_redir(str, '<');
 	pipes->str = clean_redir(pipes->str, '>');
-	pipes->str = ft_clean_spaces(pipes->str);
 	printf("\tpipes -> |%s|\n", pipes->str);
 
 	pipes->cmds = cmds_args(pipes->str);

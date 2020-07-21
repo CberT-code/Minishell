@@ -82,7 +82,6 @@ char                    *check_var(char *str);
 char                    *check_value(char *str, int i);
 char	                *ft_clean_spaces(char *str);
 char	                *ft_envcpy(char *str, char **env);
-char	                *ft_clean_quotes(char *str);
 int	                    ft_isbacks(char *str, int i);
 int	                    ft_isquote(char *str, int i);
 
@@ -99,7 +98,7 @@ t_args		        	*ft_lstnewargs(char *str);
 t_args		        	*ft_lstlastargs(t_args *cmds);
 void		        	lstadd_back_args(t_args **args, char *str);
 
-int		            	split_semicol(char *str, t_semicol *semicol, char **env);
+int		            	split_semicol(char *str, t_semicol *semicol);
 t_pipes		        	*split_pipes(char *str);
 t_args                  *split_args(char *str);
 t_cmds		        	cmds_args(char *str);
@@ -116,5 +115,9 @@ void			        lstadd_back_redir(t_redir **redir, char *str);
 
 int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
-char	                *ft_clean_quotes_backs(char *str);
+char	                *ft_clean_quotes(char *str);
+
+char                	*ft_clean_backs(char *str);
+void	                ft_cpy_in_squotes(char *str, char *cpy, int *i, int *j);
+void	                ft_cpy_in_dbquotes(char *str, char *cpy, int *i, int *j);
 #endif
