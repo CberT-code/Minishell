@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/20 16:27:02 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 19:15:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,11 @@ char		*clean_redir(char *str, char c)
             {
                 j = str[i + 2] == ' ' ? 3 : 2 ;
                 str = ft_subfromstr(str, i, ft_strlen_str_quotes(str + i + j, " ") + j);
-                printf("test suppression double -> |%s|\n", str);
             }
             else
             {
                 j = str[i + 1] == ' ' ? 2 : 1 ;
                	str = ft_subfromstr(str, i, ft_strlen_str_quotes(str + i + j, " ") + j);
-				   printf("here we test -> %d\n", ft_strlen_str_quotes(str + i + j, " ") + j);
-                printf("test suppression simple -> |%s|\n", str);
             }
 			i = 0;
         }

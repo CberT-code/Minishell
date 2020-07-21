@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fcts_lists_pipes.c                                 :+:      :+:    :+:   */
+/*   lists_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 15:01:10 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 19:03:39 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_pipes			*ft_lstnewpipes(char *str)
+t_pipes			*ft_lstnewpipes(char *str, char **env)
 {
 	t_pipes *pipes;
+	
 	if (!(pipes = (t_pipes*)malloc(sizeof(t_pipes))))
 		return (NULL);
-	pipes->redir = full_redir(str);
-	//pipes->str = str;
+	pipes->redir = full_redir(str, env);
 	pipes->str = clean_redir(str, '<');
 	pipes->str = clean_redir(pipes->str, '>');
-	printf("\tpipes -> |%s|\n", pipes->str);
-
-	pipes->cmds = cmds_args(pipes->str);
+	pipes->cmds = cmds_args(pipes->str, env);
 	pipes->next = NULL;
 	return (pipes);
 }
@@ -37,10 +35,10 @@ t_pipes			*ft_lstlastpipes(t_pipes *pipes)
 	return (pipes);
 }
 
-void			lstadd_back_pipes(t_pipes **pipes, char *str)
+void			lstadd_back_pipes(t_pipes **pipes, char *str, char **env)
 {
 	if (*pipes != NULL)
-		ft_lstlastpipes(*pipes)->next = ft_lstnewpipes(str);
+		ft_lstlastpipes(*pipes)->next = ft_lstnewpipes(str, env);
 	else
-		*pipes = ft_lstnewpipes(str);
+		*pipes = ft_lstnewpipes(str, env);
 }

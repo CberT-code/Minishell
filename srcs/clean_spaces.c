@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 14:48:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 19:09:23 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char	*ft_clean_spaces(char *str)
 		cpy[j++] = str[i++];
 	}
 	cpy[j] = '\0';
-	printf("cpy -> |%s|\n", cpy);
 	return (cpy);
 }
 

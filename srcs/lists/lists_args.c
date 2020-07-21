@@ -12,14 +12,13 @@
 
 #include "../../minishell.h"
 
-t_args			*ft_lstnewargs(char *str)
+t_args			*ft_lstnewargs(char *str, char **env)
 {
 	t_args *args;
 
 	if (!(args = (t_args*)malloc(sizeof(t_args))))
 		return (NULL);
-	args->str = str;
-	printf("\t\t\targs -> |%s|\n", str);
+	args->str = ft_envcpy(str, env);
 	args->next = NULL;
 	return (args);
 }
@@ -33,10 +32,10 @@ t_args			*ft_lstlastargs(t_args *args)
 	return (args);
 }
 
-void			lstadd_back_args(t_args **args, char *str)
+void			lstadd_back_args(t_args **args, char *str, char **env)
 {
 	if (*args != NULL)
-		ft_lstlastargs(*args)->next = ft_lstnewargs(str);
+		ft_lstlastargs(*args)->next = ft_lstnewargs(str, env);
 	else
-		*args = ft_lstnewargs(str);
+		*args = ft_lstnewargs(str, env);
 }

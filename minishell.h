@@ -45,6 +45,7 @@ typedef struct             s_pipes
 typedef struct             s_semicol
 {
     char                   *str;
+    int                    nb_cmd;
     t_pipes                *pipes;
     struct s_semicol       *next;
 }                          t_semicol;
@@ -55,7 +56,6 @@ typedef struct             s_env
     char                   *valeur;
     struct s_env           *next;
 }                          t_env;
-
 
 /* FUNCTIONS LISTS */  
 
@@ -86,32 +86,32 @@ int	                    ft_isbacks(char *str, int i);
 int	                    ft_isquote(char *str, int i);
 
 
-t_semicol		    	*ft_lstnewsemicol(char *str);
+t_semicol		    	*ft_lstnewsemicol(char *str, char **env);
 t_semicol		    	*ft_lstlastsemicol(t_semicol *cmds);
-void			        lstadd_back_semicol(t_semicol **semicol, char *str);
+void			        lstadd_back_semicol(t_semicol **semicol, char *str, char **env);
 
-t_pipes			        *ft_lstnewpipes(char *str);
+t_pipes			        *ft_lstnewpipes(char *str, char **env);
 t_pipes			        *ft_lstlastpipes(t_pipes *cmds);
-void		         	lstadd_back_pipes(t_pipes **pipes, char *str);
+void		         	lstadd_back_pipes(t_pipes **pipes, char *str, char **env);
 
-t_args		        	*ft_lstnewargs(char *str);
+t_args		        	*ft_lstnewargs(char *str, char **env);
 t_args		        	*ft_lstlastargs(t_args *cmds);
-void		        	lstadd_back_args(t_args **args, char *str);
+void		        	lstadd_back_args(t_args **args, char *str, char **env);
 
-int		            	split_semicol(char *str, t_semicol *semicol);
-t_pipes		        	*split_pipes(char *str);
-t_args                  *split_args(char *str);
-t_cmds		        	cmds_args(char *str);
+int		            	split_semicol(char *str, t_semicol *semicol, char **env);
+t_pipes		        	*split_pipes(char *str, char **env);
+t_args                  *split_args(char *str, char **env);
+t_cmds		        	cmds_args(char *str, char **env);
 
 int		                ft_strlen_str_quotes(char *s, char *str);
 
-t_tab_redir			    full_redir(char *str);
-void                    ft_splitting(char *str, char c, t_redir **r_simple, t_redir **r_double);
+t_tab_redir			    full_redir(char *str, char **env);
+void                    ft_splitting(char *str, char c, t_redir **redir, char **env);
 
 
-t_redir			        *ft_lstnewredir(char *str);
+t_redir			        *ft_lstnewredir(char *str, char **env);
 t_redir		        	*ft_lstlastredir(t_redir *redir);
-void			        lstadd_back_redir(t_redir **redir, char *str);
+void			        lstadd_back_redir(t_redir **redir, char *str, char **env);
 
 int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);

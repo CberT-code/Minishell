@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_env_var.c                                  :+:      :+:    :+:   */
+/*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/07/20 18:15:14 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 19:11:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int		ft_envcpylen(char *str, char **env)
 		else if (str[i] != BACKS)
 			len++;
 	}
-	printf("len -> %d\n", len);
 	return (len);
 }
 
@@ -200,7 +199,6 @@ char	*ft_envcpy(char *str, char **env)
 			cpy[j++] = str[i];
 	}
 	cpy[j] = '\0';
-	printf("cpy -> %s\n", cpy);
 	return (cpy);
 }
 
