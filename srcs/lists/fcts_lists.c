@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fcts_lists.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/06/12 11:45:20 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/21 11:39:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 static void		ft_lst_init_redir(t_redir *redir)
 {

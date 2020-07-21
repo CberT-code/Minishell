@@ -106,7 +106,6 @@ t_cmds		        	cmds_args(char *str);
 
 int		                ft_strlen_str_quotes(char *s, char *str);
 
-<<<<<<< HEAD
 t_tab_redir			    full_redir(char *str);
 void                    ft_splitting(char *str, char c, t_redir **r_simple, t_redir **r_double);
 
@@ -115,8 +114,7 @@ t_redir			        *ft_lstnewredir(char *str);
 t_redir		        	*ft_lstlastredir(t_redir *redir);
 void			        lstadd_back_redir(t_redir **redir, char *str);
 
-=======
 int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
->>>>>>> dev
+char	                *ft_clean_quotes_backs(char *str);
 #endif

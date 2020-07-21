@@ -6,18 +6,18 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/20 16:32:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:40:07 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 t_redir			*ft_lstnewredir(char *str)
 {
 	t_redir *redir;
 	if (!(redir = (t_redir*)malloc(sizeof(t_redir))))
 		return (NULL);
-	redir->str = str;
+	redir->str = ft_clean_quotes_backs(str);
 	//redir->str = clean_quotes(str);
 	printf("\t\t\tredir -> |%s|\n", redir->str);
 	redir->next = NULL;
