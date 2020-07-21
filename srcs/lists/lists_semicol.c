@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fcts_lists_semicol.c                               :+:      :+:    :+:   */
+/*   lists_semicol.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 14:56:24 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 16:24:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_semicol			*ft_lstnewsemicol(char *str)
 	if (!(semicol = (t_semicol*)malloc(sizeof(t_semicol))))
 		return (NULL);
 	semicol->str = str;
-	semicol->str = ft_clean_spaces(semicol->str);
+	printf("Semicol -> |%s|\n",semicol->str );
 	semicol->str = ft_clean_quotes(semicol->str);
 	printf("Semicol -> |%s|\n",semicol->str );
 	semicol->pipes = split_pipes(semicol->str);

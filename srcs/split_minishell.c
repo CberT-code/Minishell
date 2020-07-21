@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/21 15:04:49 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:56:16 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int			split_semicol(char *str, t_semicol *semicol)
     start = 0;
     if (!str)
         return (0);
-    printf("here we test -> |%s|\n", str);
     str = ft_clean_spaces(str);
     printf("here we test -> |%s|\n", str);
     //str = ft_envcpy(str, env);
@@ -80,7 +79,7 @@ t_cmds			cmds_args(char *str)
     return (cmd); 
 }
 
-int		main(int argc, char **argv, char **env)
+int		main()
 {
 	char *str;
 	int		fd;
