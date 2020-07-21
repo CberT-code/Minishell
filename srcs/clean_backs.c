@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 14:23:46 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/21 14:25:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_cpy_in_dbquotes(char *str, char *cpy, int *i, int *j)
 	}
 }
 
-char	*ft_clean_spaces(char *str)
+char	*ft_clean_backs(char *str)
 {
 	int i;
 	int j;
@@ -94,7 +94,7 @@ int		main(int argc, char **argv, char **env)
 	fd = 0;
 	get_next_line(fd, &str);
 	close(fd);
-	cpy = ft_clean_spaces(str);
+	cpy = ft_clean_backs(str);
 	//ft_printf("after -> %s\n", cpy);
 	return (0);
 }
