@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 19:03:39 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 21:34:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ t_pipes			*ft_lstnewpipes(char *str, char **env)
 	
 	if (!(pipes = (t_pipes*)malloc(sizeof(t_pipes))))
 		return (NULL);
-	pipes->redir = full_redir(str, env);
+	pipes->redir_in = full_redir(str, '<', env);
+	pipes->redir_out = full_redir(str, '>', env);
 	pipes->str = clean_redir(str, '<');
 	pipes->str = clean_redir(pipes->str, '>');
+	pipes->str = ft_clean_spaces(pipes->str);
 	pipes->cmds = cmds_args(pipes->str, env);
 	pipes->next = NULL;
 	return (pipes);

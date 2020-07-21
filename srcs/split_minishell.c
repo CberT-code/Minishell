@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/21 19:13:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:54:34 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int			split_semicol(char *str, t_semicol *semicol, char **env)
+int			split_semicol(char *str, t_semicol **semicol, char **env)
 {
     int start;
     start = 0;
@@ -21,7 +21,7 @@ int			split_semicol(char *str, t_semicol *semicol, char **env)
     str = ft_clean_spaces(str);
     while (*str)
     {
-        lstadd_back_semicol(&semicol, ft_substr(str, start, ft_strlen_str_quotes(str, ";")), env);
+        lstadd_back_semicol(semicol, ft_substr(str, start, ft_strlen_str_quotes(str, ";")), env);
         str += ft_strlen_str_quotes(str, ";");
         if (*str == ';')
             str++;
@@ -75,19 +75,19 @@ t_cmds			cmds_args(char *str, char **env)
     return (cmd); 
 }
 
-int		main(int argc, char **argv, char **env)
-{
-	char *str;
-	int		fd;
-    t_semicol   *semicol;
+// int		main(int argc, char **argv, char **env)
+// {
+// 	char *str;
+// 	int		fd;
+//     t_semicol   *semicol;
 
-    (void)argc;
-    (void)argv;
-	str = NULL;
-    semicol = NULL;
-	fd = 0;
-	get_next_line(fd, &str);
-	close(fd);
-    split_semicol(str, semicol, env);
-	return (0);
-}
+//     (void)argc;
+//     (void)argv;
+// 	str = NULL;
+//     semicol = NULL;
+// 	fd = 0;
+// 	get_next_line(fd, &str);
+// 	close(fd);
+//     split_semicol(str, semicol, env);
+// 	return (0);
+// }

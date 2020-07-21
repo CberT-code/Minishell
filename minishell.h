@@ -14,12 +14,11 @@ typedef	struct	           s_redir
     struct s_redir         *next;
 }			               t_redir;
 
+
 typedef	struct	           s_tab_redir
 {
-    t_redir                *simple_in;
-    t_redir                *simple_out;
-    t_redir                *double_in;
-    t_redir                *double_out;
+    t_redir                *simpl;
+    t_redir                *doubl;
 }			               t_tab_redir;
 
 typedef struct             s_args
@@ -37,7 +36,8 @@ typedef struct             s_cmds
 typedef struct             s_pipes
 {
     char                   *str;
-    t_tab_redir            redir;
+    t_tab_redir            redir_in;
+    t_tab_redir            redir_out;
     t_cmds                 cmds;
     struct s_pipes         *next;
 }                          t_pipes;
@@ -98,15 +98,15 @@ t_args		        	*ft_lstnewargs(char *str, char **env);
 t_args		        	*ft_lstlastargs(t_args *cmds);
 void		        	lstadd_back_args(t_args **args, char *str, char **env);
 
-int		            	split_semicol(char *str, t_semicol *semicol, char **env);
+int		            	split_semicol(char *str, t_semicol **semicol, char **env);
 t_pipes		        	*split_pipes(char *str, char **env);
 t_args                  *split_args(char *str, char **env);
 t_cmds		        	cmds_args(char *str, char **env);
 
 int		                ft_strlen_str_quotes(char *s, char *str);
 
-t_tab_redir			    full_redir(char *str, char **env);
-void                    ft_splitting(char *str, char c, t_redir **redir, char **env);
+t_tab_redir			    full_redir(char *str, char c, char **env);
+void                    ft_splitting(char *str, char c, t_tab_redir *redir, char **env);
 
 
 t_redir			        *ft_lstnewredir(char *str, char **env);
