@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_spaces.c                                     :+:      :+:    :+:   */
+/*   clean_spacesv2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 11:33:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/21 11:50:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,24 @@ int	ft_isquote(char *str, int i)
 	return (0);
 }
 
-int	ft_cpy_in_quotes(char *str, char *cpy, int *j, int quote)
+void	ft_cpy_in_squotes(char *str, char *cpy, int *i, int *j)
 {
-	int i;
-
-	i = 0;
-	cpy[(*j)++] = str[i++];
-	while (ft_isquote(str, i) != quote && str[i])
-		cpy[(*j)++] = str[i++];
-		/*if (str[i] == BACKS && ft_isbacks(str, i) == 0)
-			cpy[(*j)++] = str[i];
-		else if (str[i] != BACKS)
-			cpy[(*j)++] = str[i];
-		i++;*/
-	cpy[(*j)++] = str[i];
-	return (i);
+	cpy[(*j)++] = str[(*i)++];
+	while (ft_isquote(str, *i) != 1 && str[*i])
+		cpy[(*j)++] = str[(*i)++];
 }
+
+void	ft_cpy_in_dbquotes(char *str, char *cpy, int *i, int *j)
+{
+	cpy[(*j)++] = str[(*i)++];
+	while (ft_isquote(str, *i) != 2 && str[*i])
+	{
+		if (*i > 0 && str[*i] == BACKS && ft_isbacks(str, (*i) - 1) == 1)
+			(*i)++;
+		cpy[(*j)++] = str[(*i)++];
+	}
+}
+
 
 void	ft_travel_spaces(char *str, int *i)
 {
@@ -90,10 +92,10 @@ char	*ft_clean_spaces(char *str)
 			ft_travel_spaces(str, &i);
 		else if ((i > 0 && str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
 		|| (i == 0 && str[i] == SIMPQ))
-			i += ft_cpy_in_quotes(&str[i], cpy, &j, 1);
+			ft_cpy_in_squotes(str, cpy, &i, &j);
 		else if ((i > 0 && str[i] == DOUBQ && ft_isbacks(str, i - 1) == 0)
 		|| (i == 0 && str[i] == DOUBQ))
-			i += ft_cpy_in_quotes(&str[i], cpy, &j, 2);
+			ft_cpy_in_dbquotes(str, cpy, &i, &j);
 		if (str[i] == BACKS && ft_isbacks(str, i) == 0)
 			cpy[j++] = str[i];
 		else if (str[i] != BACKS)
