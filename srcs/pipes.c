@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/22 17:22:40 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:06:45 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void do_dup(int j, int nb_cmd, int *pipes, t_pipes *pipe)
     pipe->redir_in.simpl = pipe->redir_in.simpl->next;
   }
   i = -1;
-  if (j < nb_cmd - 1 || pipe->redir_out.simpl != NULL && pipe->redir_out.doubl != NULL)
+  if (j < nb_cmd - 1 || pipe->redir_out.simpl != NULL || pipe->redir_out.doubl != NULL)
   {
     while (pipe->redir_out.simpl != NULL)
     {
@@ -76,50 +76,39 @@ void do_dup(int j, int nb_cmd, int *pipes, t_pipes *pipe)
   dup2(pipes[j * 2 + 1], 1);
 }
 
-void do_pipe(t_semicol *semicol, int *ret, t_pipes *pipe)
+void do_pipe(char ***all, t_semicol *semicol, int *ret)
 {
   pid_t   pid[semicol->nb_cmd + 1];
   int     pipes[semicol->nb_cmd * 2];
   int     j = -1;
-  int     status;
+  // int     status;
 
+  
   init_pipes(semicol->nb_cmd * 2, pipes);
-  while (++j < semicol->nb_cmd)
+  while (semicol->pipes != NULL)
   {
-    if (!(pid[j] = fork()))
+    if (!(pid[++j] = fork()))
     {
-      do_dup(j, semicol->nb_cmd, pipes, pipe);
+      do_dup(j, semicol->nb_cmd, pipes, semicol->pipes);
       close_pipes(semicol->nb_cmd * 2, pipes);
-      if ((*ret = execvp(*all[j], all[j])))
-        exit(-1);
+      // if (!(*ret = find_fcts(semicole->pipes)))
+        if ((*ret = execvp(*all[j], all[j])))
+          exit(-1);
     }
+    semicol->pipes = semicol->pipes->next;
   }
   close_pipes(semicol->nb_cmd * 2, pipes);
   wait_pipes(semicol->nb_cmd * 2, pid, ret);
 }
 
-// int main(int argc, char **argv)
-// {
-//   int ret;
+int     test(t_semicol *semicol)
+{
+  int ret;
 
-//   char *test17[] = {"echo", "test", NULL};
-//   char *test18[] = {"grep", "test", NULL};
-//   char **all5[2] = {test17, test18};
+  char *test17[] = {"echo", "test", NULL};
+  char *test18[] = {"grep", "test", NULL};
+  char **all5[2] = {test17, test18};
 
-
-
-//   char *redir1[] = {"cat.txt", NULL};
-//   char *redir2[] = {"grep.txt", NULL};
-//   char **redir_extern[2] = {redir1, redir2};
-
-
-
-//   char *redir5[] = {NULL};
-//   char *redir6[] = {"cat.txt", NULL};
-//   char **redir_intern[2] = {redir5, redir6};
-
-
-//   do_pipe(all5, 2, &ret, redir_extern, redir_intern);
-//   printf("\n\nRET = %d\n", ret);
-//   return (0);
-// }
+  do_pipe(all5, semicol, &ret);
+  return (0);
+}

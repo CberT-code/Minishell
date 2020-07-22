@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/22 18:10:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 20:12:16 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ int     main(int argc, char **argv, char **env)
         free(line);
 		count_pipe(semicol);
 		new_str(semicol);
+		// new_tab(semicol);
+		printf("FINISH PARSING\n");
+		test(semicol);
 		while (semicol != NULL)
 		{
 			printf("semicol -> |%s|\n", semicol->str);
-			while (semicol->pipes != NULL)
+			while (semicol->pipes)
 			{
 				printf("\tthe new commande -> |%s|\n", semicol->pipes->str);
 				while ((semicol->pipes->redir_in).simpl != NULL)
