@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 00:20:30 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 16:54:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/22 16:21:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,53 @@
 
 int	ft_clean_squotes(char *str, char *cpy, int*i, int *j)
 {
-	if (*i < ft_strlen(str) - 1 && str[(*i) + 1] == SIMPQ)
-		(*i) += 2;
-	else
+
+	cpy[(*j)++] = str[(*i)++];
+	while (ft_isquote(str, *i) != 1 && str[(*i)])
 	{
-		cpy[(*j)++] = str[(*i)++];
-		while (ft_isquote(str, *i) != 1 && str[(*i)])
-			cpy[(*j)++] = str[(*i)++];
-		if (str[*i] != SIMPQ)
-			return (-1);
+		if ( *i > 0 && str[*i] == SIMPQ && ft_isbacks(str, (*i) - 1) == 1)
+			return (1);
 		cpy[(*j)++] = str[(*i)++];
 	}
+	if (str[*i] != SIMPQ)
+		return (-1);
+	cpy[(*j)++] = str[(*i)];
 	return (0);
 }
 
 int	ft_clean_dbquotes(char *str, char *cpy, int*i, int *j)
 {
-	if (*i < ft_strlen(str) - 1 && str[(*i) + 1] == DOUBQ)
-		(*i) += 2;
-	else
-	{
+	cpy[(*j)++] = str[(*i)++];
+	while (ft_isquote(str, *i) != 2 && str[(*i)])
 		cpy[(*j)++] = str[(*i)++];
-		while (ft_isquote(str, *i) != 2 && str[(*i)])
-			cpy[(*j)++] = str[(*i)++];
-		if (str[*i] != DOUBQ)
-			return (-1);
-		cpy[(*j)++] = str[(*i)++];
-	}
+	if (str[*i] != DOUBQ)
+		return (-1);
+	cpy[(*j)++] = str[(*i)];
 	return (0);
+}
+
+char *ft_squotes_error(char **cpy)
+{
+	if (cpy)
+	{
+		if (*cpy)
+			free(*cpy);
+		*cpy = NULL;
+	}
+	ft_printf("Simple quote missing.\n");
+	return (NULL);
+}
+
+char *ft_dbquotes_error(char **cpy)
+{
+	if (cpy)
+	{
+		if (*cpy)
+			free(*cpy);
+		*cpy = NULL;
+	}
+	ft_printf("Double quote missing.\n");
+	return (NULL);
 }
 
 char	*ft_clean_quotes(char*str)
@@ -61,15 +80,16 @@ char	*ft_clean_quotes(char*str)
 		|| (i == 0 && str[i] == SIMPQ))
 		{
 			if ((ret = ft_clean_squotes(str, cpy, &i, &j)) == -1)
-				ft_printf("Simple quote missing.\n");
+				return (ft_squotes_error(&cpy));
 		}
-		if ((i > 0 && str[i] == DOUBQ && ft_isbacks(str, (i) - 1) == 0)
+		else if ((i > 0 && str[i] == DOUBQ && ft_isbacks(str, (i) - 1) == 0)
 		|| (i == 0 && str[i] == DOUBQ))
 		{
 			if ((ret = ft_clean_dbquotes(str, cpy, &i, &j)) == -1)
-				ft_printf("Double quote missing.\n");
+				return (ft_dbquotes_error(&cpy));
 		}
-		cpy[j++] = str[i];
+		else
+			cpy[j++] = str[i];
 	}
 	cpy[j] = '\0';
 	printf("cpy -> %s\n", cpy);
@@ -87,7 +107,5 @@ int		main(int argc, char **argv, char **env)
 	get_next_line(fd, &str);
 	close(fd);
 	cpy = ft_clean_quotes(str);
-
-	//ft_printf("after -> %s\n", cpy);
 	return (0);
 }*/

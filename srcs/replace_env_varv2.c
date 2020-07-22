@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/07/22 14:31:45 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/22 15:56:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int		ft_doubleq_cpy(char *str, char *cpy, char **env, int *j)
 	i = 1;
 	while (ft_isquote(str, i) != 2 && str[i])
 	{
-		if (i > 0 && str[i] == BACKS && ft_isbacks(str, (i) - 1) == 1)
+		if ((i > 0 && str[i] == BACKS && ft_isbacks(str, (i) - 1) == 1)
+		|| (i < ft_strlen(str) - 1 && str[i + 1] == DOUBQ && ft_isbacks(str, i) == 1))
 			(i)++;
 		if (i < ft_strlen(str) - 1 && str[i] == '$' && str[i + 1] != ' '
 		&& str[i + 1] != DOUBQ && ft_isbacks(str, i - 1) == 0)
