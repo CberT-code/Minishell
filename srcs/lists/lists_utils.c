@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/22 14:14:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 16:14:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int			count_pipe(t_semicol *semicol)
+int				count_pipe(t_semicol *semicol)
 {
 	t_semicol	*first_semicol;
 	t_pipes		*first_pipes;
@@ -36,28 +36,35 @@ int			count_pipe(t_semicol *semicol)
 	return (i);
 }
 
-void	new_str(t_pipes *pipes)
+void		new_str(t_semicol *semicol)
 {
 	t_args		*first_arg;
 	t_pipes		*first_pipe;
+	t_semicol	*first_semicol;
 
-	first_pipe = pipes;
-	while (pipes != NULL)
+	first_semicol = semicol;
+	while (semicol != NULL)
 	{
-		first_arg = pipes->cmds.args;
-		if (pipes->cmds.args != NULL)
+		first_pipe = semicol->pipes;
+		while (semicol->pipes != NULL)
 		{
-			pipes->str = ft_strjoin_space(pipes->cmds.str, pipes->cmds.args->str);
-			while (pipes->cmds.args->next != NULL)
+			first_arg = semicol->pipes->cmds.args;
+			if (semicol->pipes->cmds.args != NULL)
 			{
-				pipes->cmds.args = pipes->cmds.args->next;
-				pipes->str = ft_strjoin_space(pipes->str, pipes->cmds.args->str);
+				semicol->pipes->str = ft_strjoin_space(semicol->pipes->cmds.str, semicol->pipes->cmds.args->str);
+				while (semicol->pipes->cmds.args->next != NULL)
+				{
+					semicol->pipes->cmds.args = semicol->pipes->cmds.args->next;
+					semicol->pipes->str = ft_strjoin_space(semicol->pipes->str, semicol->pipes->cmds.args->str);
+				}
 			}
+			else
+				semicol->pipes->str = semicol->pipes->cmds.str;
+			semicol->pipes->cmds.args = first_arg;
+			semicol->pipes = semicol->pipes->next;
 		}
-		else
-			pipes->str = pipes->cmds.str;
-		pipes->cmds.args = first_arg;
-		pipes = pipes->next;
+		semicol->pipes = first_pipe;
+		semicol = semicol->next;
 	}
-	pipes = first_pipe;
+	semicol = first_semicol;
 }

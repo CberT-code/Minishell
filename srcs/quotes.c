@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:48:24 by user42            #+#    #+#             */
-/*   Updated: 2020/07/22 15:44:11 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 15:45:58 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ int		ft_in_quotes(char *str, int i)
 // 	printf("here we test -> %d\n", i);
 // 	return (0);
 // }
-		return (last);
-	return (0);
-}
 
 int		ft_isbacks(char *str, int i)
 {
