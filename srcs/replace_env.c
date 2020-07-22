@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_env_varv2.c                                :+:      :+:    :+:   */
+/*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/07/22 15:56:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/22 16:39:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,20 +98,19 @@ char	*ft_envcpy(char *str, char **env)
 		return (NULL);
 	ft_conditions_cpy(str, cpy, env, &j);
 	cpy[j] = '\0';
-	printf("cpy -> %s\n", cpy);
 	return (cpy);
 }
 
-int		main(int argc, char **argv, char **env)
-{
-	char	*str;
-	int		fd;
-	char	*cpy;
+// int		main(int argc, char **argv, char **env)
+// {
+// 	char	*str;
+// 	int		fd;
+// 	char	*cpy;
 
-	str = NULL;
-	fd = 0;
-	get_next_line(fd, &str);
-	close(fd);
-	cpy = ft_envcpy(str, env);
-	return (0);
-}
+// 	str = NULL;
+// 	fd = 0;
+// 	get_next_line(fd, &str);
+// 	close(fd);
+// 	cpy = ft_envcpy(str, env);
+// 	return (0);
+// }

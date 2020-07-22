@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
+/*   Updated: 2020/07/22 17:22:40 by cbertola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void  init_pipes(int nb_pipes, int *pipes)
@@ -32,7 +44,7 @@ void  wait_pipes(int nb_cmd, pid_t *pid, int *ret)
     waitpid(pid[i], ret, 0);
 }
 
-void do_dup(int j, int nb_cmd, int *pipes, int redir, char ***redir_extern, char ***redir_intern)
+void do_dup(int j, int nb_cmd, int *pipes, t_pipes *pipe)
 {
   int i;
   int fd;
@@ -40,47 +52,50 @@ void do_dup(int j, int nb_cmd, int *pipes, int redir, char ***redir_extern, char
   i = -1;
   if (j > 0)
     dup2(pipes[j * 2 - 2], 0);
-  while(redir_intern[j][++i])
+  while(pipe->redir_in.simpl != NULL)
   {
-    if ((fd = open(redir_intern[j][i], O_RDONLY)) < 0)
+    if ((fd = open(pipe->redir_in.simpl->str, O_RDONLY)) < 0)
       return ;
     dup2(fd, 0);
+    pipe->redir_in.simpl = pipe->redir_in.simpl->next;
   }
   i = -1;
-  if (j < nb_cmd - 1 || redir_extern[j] != NULL)
+  if (j < nb_cmd - 1 || pipe->redir_out.simpl != NULL && pipe->redir_out.doubl != NULL)
   {
-    while (redir_extern[j][++i])
+    while (pipe->redir_out.simpl != NULL)
     {
-      if (redir == 1 && redir_extern[j] != NULL)
-        pipes[j * 2 + 1] = open(redir_extern[j][i], O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
-      else if (redir == 2 && redir_extern[j] != NULL)
-        pipes[j * 2 + 1] = open(redir_extern[j][i], O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
+        pipes[j * 2 + 1] = open(pipe->redir_out.simpl->str, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+         pipe->redir_out.simpl = pipe->redir_out.simpl->next;
     }
-    dup2(pipes[j * 2 + 1], 1);
+    while (pipe->redir_out.doubl != NULL)
+    {
+        pipes[j * 2 + 1] = open(pipe->redir_out.doubl->str, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+         pipe->redir_out.doubl = pipe->redir_out.doubl->next;
+    }
   }
+  dup2(pipes[j * 2 + 1], 1);
 }
 
-
-void do_pipe(char ***all, int nb_cmd, int *ret, char ***redir_extern, char ***redir_intern)
+void do_pipe(t_semicol *semicol, int *ret, t_pipes *pipe)
 {
-  pid_t   pid[nb_cmd + 1];
-  int     pipes[nb_cmd * 2];
+  pid_t   pid[semicol->nb_cmd + 1];
+  int     pipes[semicol->nb_cmd * 2];
   int     j = -1;
   int     status;
 
-  init_pipes(nb_cmd * 2, pipes);
-  while (++j < nb_cmd)
+  init_pipes(semicol->nb_cmd * 2, pipes);
+  while (++j < semicol->nb_cmd)
   {
     if (!(pid[j] = fork()))
     {
-      do_dup( j, nb_cmd, pipes, 1, redir_extern, redir_intern);
-      close_pipes(nb_cmd * 2, pipes);
+      do_dup(j, semicol->nb_cmd, pipes, pipe);
+      close_pipes(semicol->nb_cmd * 2, pipes);
       if ((*ret = execvp(*all[j], all[j])))
         exit(-1);
     }
   }
-  close_pipes(nb_cmd * 2, pipes);
-  wait_pipes(nb_cmd * 2, pid, ret);
+  close_pipes(semicol->nb_cmd * 2, pipes);
+  wait_pipes(semicol->nb_cmd * 2, pid, ret);
 }
 
 // int main(int argc, char **argv)

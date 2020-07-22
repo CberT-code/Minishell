@@ -1,14 +1,16 @@
-SRCS = 			main.c \
-				srcs/clean_cmd.c srcs/fcts_lists.c srcs/last_space.c srcs/parsing.c \
-				srcs/pipes.c srcs/quotes.c srcs/redirections.c srcs/replace_env.c \
-				srcs/split_cmds.c \
-				srcs/fcts/echo.c srcs/fcts/export.c srcs/fcts/ft_cd.c srcs/fcts/ft_pwd.c 
+SRCS = 			srcs/split_minishell.c srcs/split_minishell_utils.c \
+				srcs/lists/lists_args.c srcs/lists/lists_pipes.c \
+				srcs/lists/lists_semicol.c srcs/lists/lists_redir.c \
+				srcs/quotes.c srcs/clean_backs.c srcs/clean_spaces.c \
+				srcs/replace_env.c  srcs/redirections.c srcs/clean_quotes.c \
+				srcs/lists/lists_utils.c srcs/len_replace_env.c main.c
+				
 
 BONUS = 		bonus/*
 
 NAME = 			Minishell
 
-FLAGS =			
+FLAGS =			-Wall -Werror -Wextra
 
 LOGFILE	=		$(LOGPATH) `date +'%y.%m.%d %H:%M:%S'`
 
