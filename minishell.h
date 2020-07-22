@@ -121,6 +121,7 @@ char                	*ft_clean_backs(char *str);
 void	                ft_cpy_in_squotes(char *str, char *cpy, int *i, int *j);
 void	                ft_cpy_in_dbquotes(char *str, char *cpy, int *i, int *j);
 
-int		            	count_pipe(t_pipes *pipe);
+int		            	count_pipe(t_semicol *semicol);
+void	                new_str(t_pipes *pipes);
 
 #endif

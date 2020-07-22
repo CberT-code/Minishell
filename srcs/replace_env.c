@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/07/21 19:11:49 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 11:35:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,8 @@ char	*ft_envcpy(char *str, char **env)
 
 	i = -1;
 	j = 0;
+	if (!str)
+		return (NULL);
 	if (!(cpy = (char*)malloc(sizeof(char) * (ft_envcpylen(str, env) + 1))))
 		return (NULL);
 	while (str[++i])

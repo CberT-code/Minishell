@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/19 22:32:38 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 11:13:08 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ char					*ft_subfromstr(char *s, int start, int len);
 char					*ft_subfromstr_free(char *s, int start, int len);
 char					*clean_redir(char *str, char c);
 char    			    *ft_subchar(char *str, char c);
+char					*ft_strjoin_space(char const *s1, char const *s2);
 
 #endif

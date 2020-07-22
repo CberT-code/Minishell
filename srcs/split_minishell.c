@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/21 20:54:34 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 13:43:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_cmds			cmds_args(char *str, char **env)
 
     while (*str == ' ')
         str++;
+    ft_bzero(&cmd,sizeof(t_cmds));
     cmd.str = ft_substr(str, 0, ft_strlen_str_quotes(str, " "));
     str += ft_strlen_str_quotes(str, " ") + 1;
     cmd.args = split_args(str, env);

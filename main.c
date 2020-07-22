@@ -1,9 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
+/*   Updated: 2020/07/22 14:12:35 by cbertola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+
 
 int     main(int argc, char **argv, char **env)
 {
-	char	*line;
-	t_semicol *semicol;
+	char		*line;
+	t_semicol 	*semicol;
 
     (void)argc;
     (void)argv;
@@ -13,13 +27,14 @@ int     main(int argc, char **argv, char **env)
 	{
         split_semicol(line, &semicol, env);
         free(line);
-		semicol->nb_cmd = count_pipe(semicol->pipes);
+		count_pipe(semicol);
+		new_str(semicol->pipes);
 		while (semicol != NULL)
 		{
 			printf("semicol -> |%s|\n", semicol->str);
 			while (semicol->pipes != NULL)
 			{
-				printf("\tpipe -> |%s|\n", semicol->pipes->str);
+				printf("\tthe new commande -> |%s|\n", semicol->pipes->str);
 				while ((semicol->pipes->redir_in).simpl != NULL)
 				{
 					printf("\t\tredir simple in -> |%s|\n", (semicol->pipes->redir_in).simpl->str);
