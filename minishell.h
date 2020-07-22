@@ -123,5 +123,11 @@ void	                ft_cpy_in_dbquotes(char *str, char *cpy, int *i, int *j);
 
 int		            	count_pipe(t_semicol *semicol);
 void	                new_str(t_pipes *pipes);
+int                     ft_envlen(char *str, char **env, int *cpt);
+void                    ft_simpq_len(char *str, int *i, int *len);
+void                    ft_doubleq_len(char *str, char **env, int *i, int *len);
+int                     ft_envcpylen(char *str, char **env);
+int                     ft_isbacks(char *str, int i);
+int                     ft_isquote(char *str, int i);
 
 #endif
