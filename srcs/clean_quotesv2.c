@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 00:20:30 by user42            #+#    #+#             */
-/*   Updated: 2020/07/22 16:21:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/22 16:30:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*ft_clean_quotes(char*str)
 	printf("cpy -> %s\n", cpy);
 	return (cpy);
 }
-/*
+
 int		main(int argc, char **argv, char **env)
 {
 	char *str;
@@ -108,4 +108,4 @@ int		main(int argc, char **argv, char **env)
 	close(fd);
 	cpy = ft_clean_quotes(str);
 	return (0);
-}*/
+}
