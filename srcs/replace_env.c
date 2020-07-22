@@ -6,11 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-<<<<<<< HEAD:srcs/replace_env.c
-/*   Updated: 2020/07/22 15:57:52 by cbertola         ###   ########.fr       */
-=======
-/*   Updated: 2020/07/22 15:56:01 by user42           ###   ########.fr       */
->>>>>>> mike:srcs/replace_env_varv2.c
+/*   Updated: 2020/07/22 16:39:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +98,6 @@ char	*ft_envcpy(char *str, char **env)
 		return (NULL);
 	ft_conditions_cpy(str, cpy, env, &j);
 	cpy[j] = '\0';
-	printf("cpy -> %s\n", cpy);
 	return (cpy);
 }
 

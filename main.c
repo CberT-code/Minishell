@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/22 16:20:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 16:27:46 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ int     main(int argc, char **argv, char **env)
 			printf("Nombre de pipes = %d\n", semicol->nb_cmd);      
 			semicol = semicol->next;
 		}
-		free(line);
-		exit(1);
 	}
+	free(line);
 }
 
 // int		main(int argc, char **argv, char **env)
