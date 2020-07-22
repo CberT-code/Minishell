@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/22 16:27:46 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 18:10:17 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int     main(int argc, char **argv, char **env)
 					(semicol->pipes->redir_out).doubl = (semicol->pipes->redir_out).doubl->next;
 				}
 				printf("\tcommande -> |%s|\n", semicol->pipes->cmds.str);
+				printf("\t\tnb_args -> |%d|\n", semicol->pipes->cmds.nb_args);
 				while (semicol->pipes->cmds.args != NULL)
 				{
 					printf("\t\targs -> |%s|\n", semicol->pipes->cmds.args->str);
