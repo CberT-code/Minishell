@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/21 21:51:43 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/22 17:22:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void do_dup(int j, int nb_cmd, int *pipes, t_pipes *pipe)
   int i;
   int fd;
 
-//redir == quotes simple ou double
-
   i = -1;
   if (j > 0)
     dup2(pipes[j * 2 - 2], 0);
@@ -78,12 +76,10 @@ void do_dup(int j, int nb_cmd, int *pipes, t_pipes *pipe)
   dup2(pipes[j * 2 + 1], 1);
 }
 
-
-
 void do_pipe(t_semicol *semicol, int *ret, t_pipes *pipe)
 {
-  pid_t   pid[nb_cmd + 1];
-  int     pipes[nb_cmd * 2];
+  pid_t   pid[semicol->nb_cmd + 1];
+  int     pipes[semicol->nb_cmd * 2];
   int     j = -1;
   int     status;
 
