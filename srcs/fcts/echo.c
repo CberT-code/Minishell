@@ -24,6 +24,7 @@ int     ft_echo(char *str, int fd)
     return (0);
 }
 
+
 // int     main(void)
 // {
 //     ft_echo("toto", 1);
