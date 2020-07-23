@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 11:40:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/23 15:14:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void do_dup(int j, int nb_cmd, int *pipes, t_pipes *pipe)
     }
     while (pipe->redir_out.doubl != NULL)
     {
-        pipes[j * 2 + 1] = open(pipe->redir_out.doubl->str, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+        pipes[j * 2 + 1] = open(pipe->redir_out.doubl->str, O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
          pipe->redir_out.doubl = pipe->redir_out.doubl->next;
     }
   }
@@ -101,7 +101,7 @@ void do_pipe(t_semicol *semicol, int *ret)
   wait_pipes(semicol->nb_cmd * 2, pid, ret);
 }
 
-int     test(t_semicol *semicol)
+int     exec_cmds(t_semicol *semicol)
 {
   int ret;
 

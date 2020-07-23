@@ -69,11 +69,7 @@ void        add_env(t_env *list_env, t_env *list_data)
             env = env->next;
         }
         if (find == 0)
-        {
-            printf("here we test -> %s\n", list_data->var);
-            printf("here we test -> %s\n", list_data->valeur);
             ft_lstadd_back_env(&list_env, list_data->var, list_data->valeur);
-        }
         list_data = list_data->next;
     }
 }
@@ -86,28 +82,14 @@ int         ft_export(char *str, char **tri_selectif, int fd)
 
     tab_env = ft_tri_vartab(tri_selectif);
     list_env = ft_tab_to_list(tri_selectif);
-    if (display_export(list_env, fd, str))
+    if (display_export(list_env, fd, str + 6))
         return (0);
-    list_data = data_list(str);
-    replace_env(list_env, list_data);
+    list_data = data_list(str + 6);
     add_env(list_env, list_data);
-    printf("%s%s\n", list_env->var, list_env->valeur);
-    while (list_env->next != NULL)
-    {
-        list_env = list_env->next;
-        printf("%s%s\n", list_env->var, list_env->valeur);
-    }
+    // while (list_env->next != NULL)
+    // {
+    //     list_env = list_env->next;
+    //     printf("%s%s\n", list_env->var, list_env->valeur);
+    // }
     return (1);
-}
-
-int main(int argc, char **argv, char **envp)
-{
-	char *test = " USERSR=\"emo  te\" toto=pepo USER=\"pipa toto\"";
-    int ret;
-    int i = -1;
-
-    ret = ft_export(test, envp, 1);
-	//while (tab[++i])
-       // printf("%s\n", tab[i]);
-	return (0);
 }

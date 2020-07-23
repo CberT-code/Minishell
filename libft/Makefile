@@ -6,7 +6,7 @@
 #    By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 12:20:26 by cbertola          #+#    #+#              #
-#    Updated: 2020/07/22 11:13:27 by cbertola         ###   ########.fr        #
+#    Updated: 2020/07/23 16:01:12 by cbertola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC		= ft_strlen.c ft_strlcpy.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_strlcat
 		  ft_count_char_int.c ft_how_many.c ft_strsubstr.c ft_strsubstr_free.c \
 		  ft_splitnum.c ft_strlen_no_ws.c is_tab_full.c ft_strncpy.c ft_strncpy_free.c ft_strlen_str.c \
 		  ft_strcpyuntil.c ft_strcpyfrom.c ft_strcmp.c ft_substr_free.c ft_subfromstr.c ft_subfromstr_free.c \
-		  ft_subchar.c ft_strjoin_space.c
+		  ft_subchar.c ft_strjoin_space.c add_char.c
 SRCB	=
 DEP		:= $(SRC:%.c=$(DEP_DIR)/%.d)
 OBJ 	:= $(SRC:%.c=$(OBJ_DIR)/%.o)

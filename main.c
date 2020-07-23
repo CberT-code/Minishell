@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 11:35:20 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/23 16:59:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,27 @@
 
 
 
-int     main(int argc, char **argv, char **env)
+int     main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_semicol 	*semicol;
+	char		**env;
 
     (void)argc;
     (void)argv;
 	semicol = NULL;
+	env = envp;
     ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 	while (get_next_line(0, &line) > 0)
 	{
         split_semicol(line, &semicol, env);
-        free(line);
 		count_pipe(semicol);
 		new_str(semicol);
 		tab_all(semicol);
-		printf("here we test le truc de batard -> |%s|\n", semicol->all[0][0]);
-		printf("here we test le truc de batard -> |%s|\n", semicol->all[0][1]);
-		// ft_fill_cmds(semicol);
-		// new_tab(semicol);
-		// new_tab(semicol);
-		printf("FINISH PARSING\n");
-		test(semicol);
+		printf("EXPORT -> %s\n", semicol->pipes->str);
+		ft_export(semicol->pipes->str, env, 1);
+		printf("EXEC_CMDS ->\n");
+		exec_cmds(semicol);
 		while (semicol != NULL)
 		{
 			printf("semicol -> |%s|\n", semicol->str);
@@ -75,6 +73,7 @@ int     main(int argc, char **argv, char **env)
 			printf("Nombre de pipes = %d\n", semicol->nb_cmd);      
 			semicol = semicol->next;
 		}
+        free(line);
 	}
 	free(line);
 }

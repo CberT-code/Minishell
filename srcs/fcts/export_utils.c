@@ -35,14 +35,20 @@ int    ft_tablen(char **tab)
 char        *double_char(char *str, char c)
 {
     int i;
-    char *ret
+    char *ret;
     
     i = 0;
     while (str[i])
     {
-        if (str[i] == 'c' && str[i + 1] != 'c' && (str[i - 1] != 'c' || i = 0))
-            ret= ft_strjoin_free(,3)
+        if (str[i] == c && str[i + 1] != c && (str[i - 1] != c || i == 0))
+        {
+            ret = add_char(str, c, i);
+            free(str);
+            str = ret; 
+        }
+        i++;
     }
+    return (str);
 }
 
 char        **ft_tri_vartab(char **tab)
@@ -85,7 +91,6 @@ t_env         *data_list(char *str)
          i++;
         var = check_var(str + i);
         i += ft_strlen(var);
-        printf("here we test -> %c\n", str[i - 1]);
         if (str[--i] == '=' && var != NULL)
         {
             value = check_value(str, ++i);
@@ -94,9 +99,11 @@ t_env         *data_list(char *str)
             i += ft_strlen(value);
         }
         else
+        {
             value = NULL;
+            i++;
+        }
         ft_lstadd_back_env(&list_data, var, value);
-        printf("here le retour de la liste -> %s\n", var);
     }
     return (list_data);
 }    

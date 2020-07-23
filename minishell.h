@@ -136,6 +136,11 @@ void                    ft_doubleq_len(char *str, char **env, int *i, int *len);
 int                     ft_envcpylen(char *str, char **env);
 int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
-int                     test(t_semicol *semicol);
+int                     exec_cmds(t_semicol *semicol);
 
+int                     ft_export(char *str, char **tri_selectif, int fd);
+int                     display_export(t_env *list, int fd, char *str);
+char                    *double_char(char *str, char c);
+char                    **ft_tri_vartab(char **tab);
+t_env                   *data_list(char *str);
 #endif
