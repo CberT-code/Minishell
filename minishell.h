@@ -126,7 +126,9 @@ void	                ft_cpy_in_dbquotes(char *str, char *cpy, int *i, int *j);
 int		            	count_pipe(t_semicol *semicol);
 void	            	new_str(t_semicol *semicol);
 void			        count_args(t_cmds *cmd);
-void                    new_tab(t_semicol *semicol);
+void	                ft_fill_cmds(t_semicol *semicol);
+void 	            	*new_tab(t_semicol *semicol);
+void	                tab_all(t_semicol *semicol);
 
 int                     ft_envlen(char *str, char **env, int *cpt);
 void                    ft_simpq_len(char *str, int *i, int *len);

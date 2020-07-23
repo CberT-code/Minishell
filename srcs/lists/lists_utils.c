@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/22 19:56:07 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/23 11:35:58 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,26 +91,65 @@ void		new_str(t_semicol *semicol)
 	semicol = first_semicol;
 }
 
-// void		new_tab(t_semicol *semicol)
+void 		*new_tab(t_semicol *semicol)
+{
+	int			i;
+	char		**tab_cmds;
+	t_semicol	*first_semicol;
+
+	i = 0;
+	first_semicol = semicol;
+	if (!(tab_cmds = (char**)malloc(sizeof(char*) * (first_semicol->pipes->cmds.nb_args + 2))))
+		return (NULL);
+	while (i < first_semicol->pipes->cmds.nb_args + 1 )
+	{
+		if (i == 0)
+			tab_cmds[i] = ft_strdup(first_semicol->pipes->cmds.str);
+		else
+		{
+			tab_cmds[i] = ft_strdup(first_semicol->pipes->cmds.args->str);
+			first_semicol->pipes->cmds.args = first_semicol->pipes->cmds.args->next;
+		}
+		i++;
+	}
+	return (tab_cmds);
+}
+
+void	tab_all(t_semicol *semicol)
+{	
+	int 		i;
+	t_semicol 	*first_semicol;
+
+	first_semicol = semicol;
+	i = -1;
+	while (semicol != NULL)
+	{
+		if (!(semicol->all = malloc(sizeof(void *) * semicol->nb_cmd + 1)))
+			return ;
+		while (++i < semicol->nb_cmd)
+		{
+			semicol->all[i] = new_tab(semicol);
+		}
+		semicol = semicol->next;
+	}
+	semicol = first_semicol;
+}
+
+// void	ft_fill_cmds(t_semicol *semicol)
 // {
+// 	char **tab_cmds;
+// 	t_semicol *first_semicol;
 // 	int i;
-// 	int j;
+
+// 	tab_cmds = new_tab(semicol);
+// 	first_semicol = semicol;
+// 	i = -1;
+// 	if (!(first_semicol->all = (char***)malloc(sizeof(char**) * (ft_tablen(tab_cmds) + 1))))
+// 		return;
+// 	while (tab_cmds[++i])
+// 		first_semicol->all[i] = tab_cmds[i];
+// 	semicol = first_semicol;
 	
-// 	i = 0;
-// 	if (!(semicol->all = (char**)malloc(sizeof(char*) * (semicol->nb_cmd + 1))))
-// 		return (NULL);
-// 	while (i < semicol->nb_cmd )
-// 	{
-// 		j = 0;
-// 		if (!(tab_cmds[i] = (char*)malloc(sizeof(char) * (semicol->pipes->cmds.nb_args + 2))))
-// 			return (NULL);
-// 		while (j < semicol->pipes->cmds.nb_args)
-// 		{
-// 			tab_cmds[i][j] = ft_strdup(semicol->pipes->cmds.args->str);
-// 			semicol->pipes->cmds.args = semicol->pipes->cmds.args->next;
-// 			j++;
-// 		}
-// 		semicol->pipes = semicol->pipes->next;
-// 		i++;
-// 	}
 // }
+
+

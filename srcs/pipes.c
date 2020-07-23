@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/22 22:06:45 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/23 11:40:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void do_dup(int j, int nb_cmd, int *pipes, t_pipes *pipe)
   dup2(pipes[j * 2 + 1], 1);
 }
 
-void do_pipe(char ***all, t_semicol *semicol, int *ret)
+void do_pipe(t_semicol *semicol, int *ret)
 {
   pid_t   pid[semicol->nb_cmd + 1];
   int     pipes[semicol->nb_cmd * 2];
@@ -92,7 +92,7 @@ void do_pipe(char ***all, t_semicol *semicol, int *ret)
       do_dup(j, semicol->nb_cmd, pipes, semicol->pipes);
       close_pipes(semicol->nb_cmd * 2, pipes);
       // if (!(*ret = find_fcts(semicole->pipes)))
-        if ((*ret = execvp(*all[j], all[j])))
+        if ((*ret = execvp(*semicol->all[j], semicol->all[j])))
           exit(-1);
     }
     semicol->pipes = semicol->pipes->next;
@@ -105,10 +105,6 @@ int     test(t_semicol *semicol)
 {
   int ret;
 
-  char *test17[] = {"echo", "test", NULL};
-  char *test18[] = {"grep", "test", NULL};
-  char **all5[2] = {test17, test18};
-
-  do_pipe(all5, semicol, &ret);
+  do_pipe(semicol, &ret);
   return (0);
 }
