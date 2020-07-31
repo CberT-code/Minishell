@@ -138,7 +138,7 @@ int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
 int                     exec_cmds(t_semicol *semicol);
 
-int                     ft_export(char *str, char **tri_selectif, int fd);
+int                     ft_export(char *str, t_env *list_env, int fd);
 int                     display_export(t_env *list, int fd, char *str);
 char                    *double_char(char *str, char c);
 char                    **ft_tri_vartab(char **tab);

@@ -29,6 +29,7 @@ t_env			*ft_lstnew_env(char *str, char *str2)
 		return (NULL);
 	env->var = str;
 	env->valeur = str2;
+	printf("test -> %s%s\n", env->var, env->valeur);
 	env->next = NULL;
 	return (env);
 }

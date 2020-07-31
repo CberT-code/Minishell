@@ -8,7 +8,7 @@ char         *check_var(char *str)
     while (str[i] == ' ' || str[i] == '\"')
         i++;
     if (str[i] != '\0')
-        return (ft_strcpyuntil(str + i, " ="));
+        return (ft_strup(ft_strcpyuntil(str + i, " =")));
     else 
         return (NULL);
 }
@@ -43,10 +43,7 @@ void        replace_env(t_env *list_env, t_env *list_data)
          while (data != NULL)
         {
             if (ft_strcmp(data->var, list_env->var) == 0)
-            {
-                printf("We are here\n");
                 list_env->valeur = data->valeur;
-            }
             data = data->next;
         }
         list_env = list_env->next;
@@ -74,22 +71,20 @@ void        add_env(t_env *list_env, t_env *list_data)
     }
 }
                                                  
-int         ft_export(char *str, char **tri_selectif, int fd)
+int         ft_export(char *str, t_env *list_env, int fd)
 {
-    char    **tab_env;
-    t_env   *list_env;
     t_env   *list_data;
+   //t_env   *trie_list;
 
-    tab_env = ft_tri_vartab(tri_selectif);
-    list_env = ft_tab_to_list(tri_selectif);
+    //ici on doit trier la liste
     if (display_export(list_env, fd, str + 6))
         return (0);
     list_data = data_list(str + 6);
     add_env(list_env, list_data);
-    // while (list_env->next != NULL)
-    // {
-    //     list_env = list_env->next;
-    //     printf("%s%s\n", list_env->var, list_env->valeur);
-    // }
+    while (list_env->next != NULL)
+    {
+         list_env = list_env->next;
+         printf("%s%s\n", list_env->var, list_env->valeur);
+    }
     return (1);
 }
