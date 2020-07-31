@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/30 16:39:38 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/31 12:16:46 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ int     main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_semicol 	*semicol;
-	t_env		*list_env;
+	t_env		*env;
+	t_env		*data;
 
 	if (argc <= 0 || !argv[0])
 		return (1);
 	line = NULL;
 	semicol = NULL;
-	list_env = ft_tab_to_list(envp);
+	data = NULL;
+	env = ft_tab_to_list(envp);
     ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 	while (1)
 	{
@@ -36,8 +38,9 @@ int     main(int argc, char **argv, char **envp)
 			count_pipe(semicol);
 			new_str(semicol);
 			tab_all(semicol);
+			printf("ici\n");
 			printf("EXPORT -> %s\n", semicol->pipes->str);
-			ft_export(semicol->pipes->str, list_env, 1);
+			ft_export(semicol->pipes->str, &env, &data, 1);
 			printf("EXEC_CMDS ->\n");
 			exec_cmds(semicol);
 			// while (semicol != NULL)
@@ -76,7 +79,7 @@ int     main(int argc, char **argv, char **envp)
 			// 		semicol->pipes = semicol->pipes->next;
 			// 	}
 			// 	printf("Nombre de pipes = %d\n", semicol->nb_cmd);      
-			// 	semicol = semicol->next;
+			semicol = semicol->next;
 			//free(line);
 		}
 		else if (ft_strlen(line) == 0)

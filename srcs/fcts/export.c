@@ -8,7 +8,7 @@ char         *check_var(char *str)
     while (str[i] == ' ' || str[i] == '\"')
         i++;
     if (str[i] != '\0')
-        return (ft_strup(ft_strcpyuntil(str + i, " =")));
+        return (ft_strcpyuntil(str + i, " ="));
     else 
         return (NULL);
 }
@@ -33,58 +33,55 @@ char         *check_value(char *str, int i)
     return (ft_strcpyuntil(str + i, " "));
 }
 
-void        replace_env(t_env *list_env, t_env *list_data)
+void        replace_env(t_env *env, t_env *data)
 {
-    t_env   *data;
+    t_env   *data_n;
 
-     while (list_env->next != NULL)
+     while (env->next != NULL)
     {
-        data = list_data;
-         while (data != NULL)
+        data_n = data;
+         while (data_n != NULL)
         {
-            if (ft_strcmp(data->var, list_env->var) == 0)
-                list_env->valeur = data->valeur;
-            data = data->next;
+            if (ft_strcmp(data_n->var, env->var) == 0)
+                env->valeur = data_n->valeur;
+            data_n = data_n->next;
         }
-        list_env = list_env->next;
+        env = env->next;
     }
 }
 
-void        add_env(t_env *list_env, t_env *list_data)
+void        add_env(t_env *env, t_env *data)
 {
-     t_env   *env;
+     t_env   *env_n;
      int    find;
 
-     while (list_data != NULL)
+     while (data != NULL)
     {
-        env = list_env;
+        env_n = env;
         find = 0;
-         while (env->next != NULL && find == 0)
+         while (env_n->next != NULL && find == 0)
         {
-            if (ft_strcmp(list_data->var, env->var) == 0)
+            if (ft_strcmp(data->var, env_n->var) == 0)
              find = 1;
-            env = env->next;
+            env_n = env->next;
         }
         if (find == 0)
-            ft_lstadd_back_env(&list_env, list_data->var, list_data->valeur);
-        list_data = list_data->next;
+            ft_lstadd_back_env(&env, data->var, data->valeur);
+        data = data->next;
     }
 }
                                                  
-int         ft_export(char *str, t_env *list_env, int fd)
+int         ft_export(char *str, t_env **env, t_env **data, int fd)
 {
-    t_env   *list_data;
-   //t_env   *trie_list;
-
-    //ici on doit trier la liste
-    if (display_export(list_env, fd, str + 6))
-        return (0);
-    list_data = data_list(str + 6);
-    add_env(list_env, list_data);
-    while (list_env->next != NULL)
-    {
-         list_env = list_env->next;
-         printf("%s%s\n", list_env->var, list_env->valeur);
-    }
+    // if (ft_strcmp(str, "export") == 0)
+    //     return (
+        display_export(*env, *data, fd);
+        data_list(str + 6, *data);
+    //add_env(env, data);
+    // while (env->next != NULL)
+    // {
+    //      env = env->next;
+    //      printf("%s%s\n", env->var, env->valeur);
+    // }
     return (1);
 }

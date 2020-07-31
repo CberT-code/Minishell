@@ -1,12 +1,9 @@
 #include "../../minishell.h"
 
-int          display_export(t_env *list, int fd, char *str)
+int          display_export(t_env *list, t_env *data, int fd)
 {
-    while (*str == ' ')
-        str++;
-    if (*str == '\0')
-    {
-        while(list->next)
+        ft_tri_varlst(&list);
+        while(list)
         {
             write(fd, "declare -x ", 11);
             write(fd, list->var, ft_strlen(list->var));
@@ -15,8 +12,16 @@ int          display_export(t_env *list, int fd, char *str)
             write(fd, "\"\n", 2);
             list = list->next;
         }
+        while(data)
+        {
+            write(fd, "declare -x ", 11);
+            write(fd, data->var, ft_strlen(data->var));
+            write(fd, "\"", 1);
+            write(fd, data->valeur, ft_strlen(data->valeur));
+            write(fd, "\"\n", 2);
+            data = data->next;
+        }
         return (1);
-    }
     return (0);
 }
 
@@ -76,14 +81,12 @@ char        **ft_tri_vartab(char **tab)
     return (tab);
 }
 
-t_env         *data_list(char *str)
+void         data_list(char *str, t_env *data)
 {
     int     i;
     char    *var;
     char    *value;
-    t_env   *list_data;
 
-    list_data = NULL;
     i = 0;
     while (str[i])
     {
@@ -103,7 +106,6 @@ t_env         *data_list(char *str)
             value = NULL;
             i++;
         }
-        ft_lstadd_back_env(&list_data, var, value);
+        ft_lstadd_back_env(&data, var, value);
     }
-    return (list_data);
 }    

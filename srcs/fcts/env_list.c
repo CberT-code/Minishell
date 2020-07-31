@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:16:24 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/31 11:02:42 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_env			*ft_lstnew_env(char *str, char *str2)
 		return (NULL);
 	env->var = str;
 	env->valeur = str2;
-	printf("test -> %s%s\n", env->var, env->valeur);
 	env->next = NULL;
 	return (env);
 }

@@ -76,10 +76,9 @@ int		                ft_in_quotes(char *str, int i);
 char	                *ft_last_space(char *str);
 char                    *ft_convert_envp(char *str, char **envp);
 t_env                   *ft_tab_to_list(char **tri_selectif);
-int                     display_export(t_env *list, int fd, char *str);
+int                     display_export(t_env *list, t_env *data, int fd);
 int                     ft_tablen(char **tab);
 char                    **ft_tri_vartab(char **tab);
-t_env                   *data_list(char *str);
 char                    *check_var(char *str);
 char                    *check_value(char *str, int i);
 char	                *ft_clean_spaces(char *str);
@@ -138,9 +137,13 @@ int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
 int                     exec_cmds(t_semicol *semicol);
 
-int                     ft_export(char *str, t_env *list_env, int fd);
-int                     display_export(t_env *list, int fd, char *str);
+int                     ft_export(char *str, t_env **env, t_env **data, int fd);
 char                    *double_char(char *str, char c);
 char                    **ft_tri_vartab(char **tab);
-t_env                   *data_list(char *str);
+void                    data_list(char *str, t_env *data);
+
+void	                ft_tri_varlst(t_env **lst_env);
+void	                ft_lstadd_back_var(t_env **alst, char *var, char *valeur);
+t_env	                *ft_lstlast_var(t_env *lst);
+t_env	                *ft_lstnew_var(char *var, char *valeur);
 #endif

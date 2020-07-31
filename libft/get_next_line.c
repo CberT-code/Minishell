@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 11:30:10 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/30 19:33:15 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/07/31 10:55:50 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int			ft_exist(t_list_gnl **lst, char **line)
 		return (-1);
 	if ((*lst)->buff)
 	{
-		printf("here we test -> |%s|\n", (*lst)->buff);
 		(*lst)->str = ft_strjoin_malloc((*lst)->str, (*lst)->buff);
 		(*lst)->buff = NULL;
 	}
