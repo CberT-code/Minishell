@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
+/*   Updated: 2020/08/01 23:21:22 by cbertola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 int         display_export(t_env *env, int fd)
@@ -5,21 +17,24 @@ int         display_export(t_env *env, int fd)
     t_env   *start;
 
     start = env;
-        if (env != NULL)
+    if (env != NULL)
         ft_tri_varlst(&env);
     while(env != NULL)
     {
-        write(fd, "declare -x ", 11);
-        write(fd, env->var, ft_strlen(env->var));
-        if (env->valeur != NULL)
+        if (env->var[ft_strlen(env->var) - 1] == '=')
         {
-            write(fd, "\"", 1);
-            write(fd, env->valeur, ft_strlen(env->valeur));
-            write(fd, "\"", 1);
+            write(fd, "declare -x ", 11);
+            write(fd, env->var, ft_strlen(env->var));
+            if (env->valeur != NULL)
+            {
+                write(fd, "\"", 1);
+                write(fd, env->valeur, ft_strlen(env->valeur));
+                write(fd, "\"", 1);
+            }
+            if (env->valeur == NULL && env->var[ft_strlen(env->var)] == '=')
+                write(fd, "\"\"", 2);
+            write(fd, "\n", 1);
         }
-        if (env->valeur == NULL && env->var[ft_strlen(env->var)] == '=')
-            write(fd, "\"\"", 2);
-        write(fd, "\n", 1);
         env = env->next;
     }
     env = start;
@@ -92,15 +107,22 @@ void         data_list(char *str, t_env **env)
     while (str[i])
     {
         while (str[i] == ' ' || str[i] == '\"' || str[i] == '\'')
-         i++;
+            i++;
         var = check_var(str + i);
         i += ft_strlen(var);
-        value = check_value(str, ++i);
-        if (str[i] == '\"')
-            i += 2;
-        i += ft_strlen(value);
+        if (str[--i] == '=')
+        {
+            value = check_value(str, ++i);
+            if (str[i] == '\"')
+                i += 2;
+            i += ft_strlen(value);
+        }
+        else
+        {
+            value = NULL;
+            i++;
+        }
         if (replace_env(env, var, value) == 0)
-            ft_lstadd_back_env(env, var, value);
-        printf("here we test -> %c\n", str[i]);
+            ft_lstadd_back_env(env, var, value);   
     }
 }    

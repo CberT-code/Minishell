@@ -147,4 +147,11 @@ void	                ft_lstadd_back_var(t_env **alst, char *var, char *valeur);
 t_env	                *ft_lstlast_var(t_env *lst);
 t_env	                *ft_lstnew_var(char *var, char *valeur);
 int                     replace_env(t_env **env, char *var, char *value);
+
+void                    suppr_maillon(t_env **list, t_env *ptr);
+int                     condition(char *str, char *str2);
+
+int                     ft_unset(char *str, t_env **env, int fd);
+void                    unset(char *str, t_env **env);
+int                     delete_var(char *var, t_env **env);
 #endif

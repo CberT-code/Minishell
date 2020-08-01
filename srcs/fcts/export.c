@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
+/*   Updated: 2020/08/01 23:46:30 by cbertola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 char         *check_var(char *str)
@@ -35,6 +47,19 @@ char         *check_value(char *str, int i)
     return (NULL);
 }
 
+int         condition(char *str, char *str2)
+{
+    if ((ft_strlen(str) - ft_strlen(str2)) == 1)
+    {
+        if (strncmp(str, str2, ft_strlen(str)) == 61 && 
+        str[ft_strlen(str) - 1] == '=')
+            return (1);
+        else
+            return (0);
+    }
+    return (0);
+}
+
 int        replace_env(t_env **env, char *var, char *value)
 {
     t_env   *env_n;
@@ -42,8 +67,11 @@ int        replace_env(t_env **env, char *var, char *value)
     env_n = *env;
     while (*env != NULL)
     {
-        if (ft_strcmp((*env)->var, var) == 0)
+        if ((ft_strlen((*env)->var) == ft_strlen(var) && 
+        ft_strcmp((*env)->var, var) == 0) ||
+        (condition((*env)->var, var)) || condition(var, (*env)->var))
         {
+            (*env)->var = var;
             (*env)->valeur = value;
             *env = env_n;
             return (1);
@@ -105,47 +133,10 @@ void        suppr_maillon(t_env **list, t_env *ptr)
     *list = start;
 }
 
-void        clean_data(t_env **data)
-{
-    t_env   *start;
-
-    start = NULL;
-    while (*data != NULL)
-    {
-        if ((*data)->valeur != NULL)
-            suppr_maillon(&start, *data);
-        else
-            if (start == NULL)
-                start = *data;
-         *data = (*data)->next;
-    }
-    *data = start;
-}
-
-void        clean_env(t_env **env)
-{
-    t_env   *start;
-
-    start = NULL;
-    while (*env != NULL)
-    {
-        if ((*env)->valeur == NULL)
-            suppr_maillon(&start, *env);
-        else
-            if (start == NULL)
-                start = *env;
-         *env = (*env)->next;
-    }
-    *env = start;
-}
-
 int         ft_export(char *str, t_env **env, int fd)
 {
     if (ft_strcmp(str, "export") == 0)
         return (display_export(*env, fd));
     data_list(str + 6, env);
-    //add_env(env, data);
-    // clean_data(data);
-    // clean_env(env);
     return (1);
 }

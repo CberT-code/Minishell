@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/01 21:19:19 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/01 23:47:23 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int     main(int argc, char **argv, char **envp)
 	t_semicol 	*semicol;
 	t_env		*env;
 	t_env		*data;
+	t_env		*start;
 
 	if (argc <= 0 || !argv[0])
 		return (1);
@@ -38,9 +39,17 @@ int     main(int argc, char **argv, char **envp)
 			count_pipe(semicol);
 			tab_all(semicol);
 			printf("EXPORT -> %s\n", semicol->pipes->str);
-			ft_export(semicol->pipes->str, &env, 1);
+			//ft_export(semicol->pipes->str, &env, 1);
+			ft_unset(semicol->pipes->str, &env, 1);
 			new_str(semicol);
 			printf("EXEC_CMDS ->\n");
+			start = env;
+			while (env != NULL)
+			{
+				printf("here we test -> |%s|\t %p\n", env->var, env);
+				env = env->next;
+			}
+			env = start;
 			//exec_cmds(semicol);
 			// while (semicol != NULL)
 			// {
