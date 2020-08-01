@@ -139,16 +139,13 @@ void        clean_env(t_env **env)
     *env = start;
 }
 
-int         ft_export(char *str, t_env **env, t_env **data, int fd)
+int         ft_export(char *str, t_env **env, int fd)
 {
     if (ft_strcmp(str, "export") == 0)
-    {
-        display_export(*env, fd);
-        return (display_export(*data, fd));
-    }
-    data_list(str + 6, data, env);
-    add_env(env, data);
-    clean_data(data);
-    clean_env(env);
+        return (display_export(*env, fd));
+    data_list(str + 6, env);
+    //add_env(env, data);
+    // clean_data(data);
+    // clean_env(env);
     return (1);
 }

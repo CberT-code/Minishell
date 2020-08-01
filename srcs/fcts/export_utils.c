@@ -82,7 +82,7 @@ char        **ft_tri_vartab(char **tab)
     return (tab);
 }
 
-void         data_list(char *str, t_env **data, t_env **env)
+void         data_list(char *str, t_env **env)
 {
     int     i;
     char    *var;
@@ -95,23 +95,12 @@ void         data_list(char *str, t_env **data, t_env **env)
          i++;
         var = check_var(str + i);
         i += ft_strlen(var);
-        if (str[--i] == '=' && var != NULL)
-        {
-            value = check_value(str, ++i);
-            if (str[i] == '\"')
-                i += 2;
-            i += ft_strlen(value);
-            replace_env(data, var, value);
-            if (replace_env(env, var, value) == 0)
-                ft_lstadd_back_env(env, var, value);
-        }
-        else
-        {
-            value = NULL;
-            replace_env(env, var, NULL);
-            if (replace_env(data, var, NULL) == 0)
-               ft_lstadd_back_env(data, var, value);
-            i++;
-        }
+        value = check_value(str, ++i);
+        if (str[i] == '\"')
+            i += 2;
+        i += ft_strlen(value);
+        if (replace_env(env, var, value) == 0)
+            ft_lstadd_back_env(env, var, value);
+        printf("here we test -> %c\n", str[i]);
     }
 }    

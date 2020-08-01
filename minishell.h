@@ -137,10 +137,10 @@ int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
 int                     exec_cmds(t_semicol *semicol);
 
-int                     ft_export(char *str, t_env **env, t_env **data, int fd);
+int                     ft_export(char *str, t_env **env, int fd);
 char                    *double_char(char *str, char c);
 char                    **ft_tri_vartab(char **tab);
-void                    data_list(char *str, t_env **data, t_env **env);
+void                    data_list(char *str, t_env **env);
 
 void	                ft_tri_varlst(t_env **lst_env);
 void	                ft_lstadd_back_var(t_env **alst, char *var, char *valeur);
