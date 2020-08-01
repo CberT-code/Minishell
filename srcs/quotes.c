@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:48:24 by user42            #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:54 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/01 09:33:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_in_quotes(char *str, int i)
 	}
 	if (quote % 2 != 0 || dbquote % 2 != 0)
 		return(last);
-	return(0);	
+	return (0);	
 }
 
 // int		main(int argc, char **argv, char **env)

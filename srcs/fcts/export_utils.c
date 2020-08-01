@@ -1,28 +1,29 @@
 #include "../../minishell.h"
 
-int          display_export(t_env *list, t_env *data, int fd)
+int         display_export(t_env *env, int fd)
 {
-        ft_tri_varlst(&list);
-        while(list)
+    t_env   *start;
+
+    start = env;
+        if (env != NULL)
+        ft_tri_varlst(&env);
+    while(env != NULL)
+    {
+        write(fd, "declare -x ", 11);
+        write(fd, env->var, ft_strlen(env->var));
+        if (env->valeur != NULL)
         {
-            write(fd, "declare -x ", 11);
-            write(fd, list->var, ft_strlen(list->var));
             write(fd, "\"", 1);
-            write(fd, list->valeur, ft_strlen(list->valeur));
-            write(fd, "\"\n", 2);
-            list = list->next;
-        }
-        while(data)
-        {
-            write(fd, "declare -x ", 11);
-            write(fd, data->var, ft_strlen(data->var));
+            write(fd, env->valeur, ft_strlen(env->valeur));
             write(fd, "\"", 1);
-            write(fd, data->valeur, ft_strlen(data->valeur));
-            write(fd, "\"\n", 2);
-            data = data->next;
         }
-        return (1);
-    return (0);
+        if (env->valeur == NULL && env->var[ft_strlen(env->var)] == '=')
+            write(fd, "\"\"", 2);
+        write(fd, "\n", 1);
+        env = env->next;
+    }
+    env = start;
+    return (1);
 }
 
 int    ft_tablen(char **tab)
@@ -81,7 +82,7 @@ char        **ft_tri_vartab(char **tab)
     return (tab);
 }
 
-void         data_list(char *str, t_env *data)
+void         data_list(char *str, t_env **data, t_env **env)
 {
     int     i;
     char    *var;
@@ -90,7 +91,7 @@ void         data_list(char *str, t_env *data)
     i = 0;
     while (str[i])
     {
-        while (str[i] == ' ' || str[i] == '\"')
+        while (str[i] == ' ' || str[i] == '\"' || str[i] == '\'')
          i++;
         var = check_var(str + i);
         i += ft_strlen(var);
@@ -100,12 +101,13 @@ void         data_list(char *str, t_env *data)
             if (str[i] == '\"')
                 i += 2;
             i += ft_strlen(value);
+            ft_lstadd_back_env(env, var, value);
         }
         else
         {
             value = NULL;
+            ft_lstadd_back_env(data, var, value);
             i++;
         }
-        ft_lstadd_back_env(&data, var, value);
     }
 }    
