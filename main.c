@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/01 10:00:28 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/01 16:19:17 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int     main(int argc, char **argv, char **envp)
 			ft_export(semicol->pipes->str, &env, &data, 1);
 			new_str(semicol);
 			printf("EXEC_CMDS ->\n");
-			exec_cmds(semicol);
+			//exec_cmds(semicol);
 			// while (semicol != NULL)
 			// {
 			// 	printf("semicol -> |%s|\n", semicol->str);

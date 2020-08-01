@@ -146,4 +146,5 @@ void	                ft_tri_varlst(t_env **lst_env);
 void	                ft_lstadd_back_var(t_env **alst, char *var, char *valeur);
 t_env	                *ft_lstlast_var(t_env *lst);
 t_env	                *ft_lstnew_var(char *var, char *valeur);
+int                     replace_env(t_env **env, char *var, char *value);
 #endif

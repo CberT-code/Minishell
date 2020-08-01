@@ -101,12 +101,16 @@ void         data_list(char *str, t_env **data, t_env **env)
             if (str[i] == '\"')
                 i += 2;
             i += ft_strlen(value);
-            ft_lstadd_back_env(env, var, value);
+            replace_env(data, var, value);
+            if (replace_env(env, var, value) == 0)
+                ft_lstadd_back_env(env, var, value);
         }
         else
         {
             value = NULL;
-            ft_lstadd_back_env(data, var, value);
+            replace_env(env, var, NULL);
+            if (replace_env(data, var, NULL) == 0)
+               ft_lstadd_back_env(data, var, value);
             i++;
         }
     }
