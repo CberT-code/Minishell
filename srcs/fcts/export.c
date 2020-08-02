@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/01 23:46:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/02 11:21:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void        suppr_maillon(t_env **list, t_env *ptr)
     start = *list;
     if (*list == NULL)
     {
-        *list = (*list)->next;
+        *list = ptr->next;
         return ;
     }
     while (*list != NULL)

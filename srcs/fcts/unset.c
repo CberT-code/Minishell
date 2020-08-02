@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/01 23:48:19 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/02 11:21:45 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int          delete_var(char *var, t_env **env)
         ft_strcmp((*env)->var, var) == 0) ||
         condition((*env)->var, var))
         {
-            printf("here we test -> %p\n", *env);
-            //Verifier que le maillon se supprime bien!!!
-            suppr_maillon(env, *env);
+            suppr_maillon(&env_n, *env);
             *env = env_n;
             return (1);
         }
@@ -47,13 +45,9 @@ void         unset(char *str, t_env **env)
             i++;
         var = check_var(str + i);
         i += ft_strlen(var);
-        if (str[--i] == '=')
-            return ;
-        else
-        {
+        if (str[i - 1] != '=')
             delete_var(var, env);
-            i++;
-        }
+        i++;
     }
 }    
 
