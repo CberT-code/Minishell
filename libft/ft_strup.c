@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr_free.c                                   :+:      :+:    :+:   */
+/*   ft_strup.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 13:47:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:56:39 by cbertola         ###   ########.fr       */
+/*   Created: 2020/07/30 13:50:48 by cbertola          #+#    #+#             */
+/*   Updated: 2020/08/04 17:55:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr_free(char *s, unsigned int start, size_t len)
+char    ft_charup(char c)
 {
-	char				*ptr;
-	int					i;
-	unsigned long int	u;
+    if (c >= 'a' && c <= 'z')
+        return (c - 32);
+    return (c);
+}
 
-	i = -1;
-	if (!(s))
-		return (NULL);
-	u = ft_strlen(s);
-	if (start > u)
-		len = 0;
-	if (!(ptr = calloc(len, sizeof(char) + 1)))
-		return (NULL);
-	while (s[start] && len--)
-		ptr[++i] = s[start++];
-	ptr[++i] = '\0';
-	free(s);
-	return (ptr);
+char    *ft_strup(char *str)
+{
+    char *strup;
+    int i;
+
+    if (!(strup = calloc(sizeof(char), ft_strlen(str) + 1)))
+        return (NULL);
+    while (str[i])
+    {
+        strup[i] = ft_charup(str[i]);
+        i++;
+    }
+    free(str);
+    return (strup);
 }

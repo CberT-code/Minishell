@@ -6,74 +6,81 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:57 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 20:28:15 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int			split_semicol(char *str, t_semicol **semicol, char **env)
+int			split_semicol(char *str, t_semicol **semicol, t_env *env)
 {
-    int start;
+    int     start;
+    char    *str2;
+    char    *str3;
+    
     start = 0;
     if (!str)
         return (0);
-    str = ft_clean_spaces(str);
-    while (*str)
+    str2 = ft_clean_spaces(str);
+    while (str2[start])
     {
-        lstadd_back_semicol(semicol, ft_substr(str, start, ft_strlen_str_quotes(str, ";")), env);
-        str += ft_strlen_str_quotes(str, ";");
-        if (*str == ';')
-            str++;
+        str3 = ft_substr(str2 + start, 0, ft_strlen_str_quotes(str2 + start, ";"));
+        lstadd_back_semicol(semicol, str3, env);
+        start += ft_strlen_str_quotes(str2 + start, ";");
+        if (str2[start] == ';')
+            start++;
     }
+    free(str2);
     return (1);
 }
 
-t_pipes			*split_pipes(char *str, char **env)
+t_pipes			*split_pipes(char *str, t_env *env)
 {
     t_pipes     *pipes;
+    char        *str2;
 
     if (!str)
         return (NULL);
     pipes = NULL;
     while (*str)
     {
-        lstadd_back_pipes(&pipes, ft_substr(str, 0, ft_strlen_str_quotes(str, "|")), env);
+        str2 = ft_substr(str, 0, ft_strlen_str_quotes(str, "|"));
+        lstadd_back_pipes(&pipes, str2, env);
         str += ft_strlen_str_quotes(str, "|");
         if (*str == '|')
             str++;
+        free(str2);
     }
     return (pipes);
 }
 
-t_args          *split_args(char *str, char **env)
+t_args          *split_args(char *str, t_env *env)
 {
-    t_args     *args;
+    t_args      *args;
+    char        *str2;
 
     if (!str || *str == '\0')
         return (NULL);
     args = NULL;
     while (*str)
     {
-        lstadd_back_args(&args, ft_substr(str, 0, ft_strlen_str_quotes(str, " ")), env);
+        str2 = ft_substr(str, 0, ft_strlen_str_quotes(str, " "));
+        lstadd_back_args(&args, str2, env);
         str += ft_strlen_str_quotes(str, " ");
         if (*str == ' ')
             str++;
+        free(str2);
     }
     return (args);
 }
 
-t_cmds			cmds_args(char *str, char **env)
+void			cmds_args(t_cmds *cmd, char *str, t_env *env)
 {
-    t_cmds      cmd;
-
     while (*str == ' ')
         str++;
-    ft_bzero(&cmd,sizeof(t_cmds));
-    cmd.str = ft_substr(str, 0, ft_strlen_str_quotes(str, " "));
+    cmd->str = ft_substr(str, 0, ft_strlen_str_quotes(str, " "));
     str += ft_strlen_str_quotes(str, " ") + 1;
-    cmd.args = split_args(str, env);
-    return (cmd); 
+    cmd->args = split_args(str, env); 
 }
 
 // int		main(int argc, char **argv, char **env)

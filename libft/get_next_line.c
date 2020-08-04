@@ -6,12 +6,12 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 11:30:10 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:16:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:58:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 10
 
 int			search_fd(t_list_gnl **lst_one, int fd)
 {
@@ -44,7 +44,7 @@ void		ft_new_lst(int fd, t_list_gnl **lst_one)
 {
 	t_list_gnl	*lst;
 
-	if (!(lst = malloc(sizeof(t_list_gnl))))
+	if (!(lst = calloc(sizeof(t_list_gnl), 1)))
 		return ;
 	lst->fd = fd;
 	lst->next = *lst_one ? *lst_one : 0;
@@ -67,7 +67,7 @@ int			ft_exist(t_list_gnl **lst, char **line)
 		return (-1);
 	if ((*lst)->buff)
 	{
-		(*lst)->str = ft_strjoin_malloc((*lst)->str, (*lst)->buff);
+		(*lst)->str = ft_strjoin_calloc((*lst)->str, (*lst)->buff);
 		(*lst)->buff = NULL;
 	}
 	if (ft_find((*lst)->str, '\n'))
@@ -89,7 +89,7 @@ int			get_next_line(int fd, char **line)
 	int					retour;
 	static t_list_gnl	*lst_one;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd > 1024)
 		return (-1);
 	if (search_fd(&lst_one, fd))
 	{
@@ -98,9 +98,9 @@ int			get_next_line(int fd, char **line)
 	}
 	else
 		ft_new_lst(fd, &lst_one);
-	if (!(lst_one->buff = malloc(BUFFER_SIZE * sizeof(char) + 1)))
+	if (!(lst_one->buff = calloc(BUFFER_SIZE, sizeof(char) + 1)))
 		return (-1);
-	if ((lst_one->read = read(fd, lst_one->buff, BUFFER_SIZE)) == -1)
+	if ((lst_one->read = read(fd, lst_one->buff, BUFFER_SIZE)) < 0)
 		return (-1);
 	lst_one->buff[lst_one->read] = '\0';
 	retour = ft_exist(&lst_one, line);

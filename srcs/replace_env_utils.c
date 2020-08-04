@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:57 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/02 17:46:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_envlen(char *str, char **env, int *cpt)
+int		ft_envlen(char *str, t_env *env, int *cpt)
 {
 	int	i;
 	int	j;
@@ -22,16 +22,17 @@ int		ft_envlen(char *str, char **env, int *cpt)
 	k = -1;
 	while ((ft_isalpha(str[i]) == 1 || str[i] == '_') && str[i])
 		i++;
-	while (env[++k])
+	while (env->var)
 	{
 		j = 0;
-		while (env[k][j] != '=' && env[k][j])
+		while (env->var[j] != '=' && env->var[j])
 			j++;
-		if (ft_strncmp(str, env[k], i) == 0 && ft_strncmp(env[k], str, j) == 0)
+		if (ft_strncmp(str, env->var, i) == 0 && ft_strncmp(env->var, str, j) == 0)
 		{
-			*cpt = *cpt + ft_strlen(env[k]) - (j + 1);
+			*cpt = *cpt + ft_strlen(env->var) - (j + 1);
 			return (i);
 		}
+		env = env->next;
 	}
 	return (i);
 }
@@ -46,7 +47,7 @@ void	ft_simpq_len(char *str, int *i, int *len)
 	}
 }
 
-void	ft_doubleq_len(char *str, char **env, int *i, int *len)
+void	ft_doubleq_len(char *str, t_env *env, int *i, int *len)
 {
 	(*i)++;
 	while (ft_isquote(str, *i) != 2 && str[*i])
@@ -61,7 +62,7 @@ void	ft_doubleq_len(char *str, char **env, int *i, int *len)
 	}
 }
 
-int		ft_envcpylen(char *str, char **env)
+int		ft_envcpylen(char *str, t_env *env)
 {
 	int	i;
 	int	len;

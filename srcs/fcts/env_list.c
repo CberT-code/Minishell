@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:16:24 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:30:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_env			*ft_lstnew_env(char *str, char *str2)
 {
 	t_env *env;
     
-	if (!(env = (t_env*)malloc(sizeof(t_env))))
+	if (!(env = (t_env*)calloc(sizeof(t_env), 1)))
 		return (NULL);
 	env->var = str;
 	env->valeur = str2;

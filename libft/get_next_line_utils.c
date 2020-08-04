@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:07:28 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:16:05 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:57:18 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin_malloc(char *s1, char *s2)
+char		*ft_strjoin_calloc(char *s1, char *s2)
 {
 	char		*ptr;
 	long int	u;
@@ -26,7 +26,7 @@ char		*ft_strjoin_malloc(char *s1, char *s2)
 		return (s2);
 	if (!s2)
 		return (s1);
-	if (!(ptr = malloc((ft_strlen(s1) + ft_strlen(s2)) * (sizeof(char) + 1))))
+	if (!(ptr = calloc((ft_strlen(s1) + ft_strlen(s2)), (sizeof(char) + 1))))
 		return (NULL);
 	while (s1[u])
 	{
@@ -60,9 +60,9 @@ char		*ft_send(t_list_gnl **lst, char **line)
 	int		j;
 
 	i = ft_find((*lst)->str, '\n');
-	if (!(str = malloc(i * sizeof(char))))
+	if (!(str = calloc(i, sizeof(char))))
 		return (NULL);
-	if (!(new = malloc((ft_strlen((*lst)->str) - i) * sizeof(char) + 1)))
+	if (!(new = calloc((ft_strlen((*lst)->str) - i), sizeof(char) + 1)))
 		return (NULL);
 	j = 0;
 	while (j != i)

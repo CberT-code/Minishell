@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:47:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:10 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:56:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_subfromstr(char *s, int start, int len)
 	if (len + start > u)
 		len = u - start;
 	u -= len;
-	if (!(ptr = malloc(u * sizeof(char) + 1)))
+	if (!(ptr = calloc(u, sizeof(char) + 1)))
 		return (NULL);
 	while (++i < start)
 		ptr[i] = s[i];

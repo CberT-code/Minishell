@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:22:24 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:22:26 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:55:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char            *ft_strncpy_free(char *src, int n)
     char        *dst;
     int      i;
 
-    if (!(dst = malloc(sizeof(char) * n + 1)))
+    if (!(dst = calloc(sizeof(char), n + 1)))
         return (NULL);
     i = 0;
     if (n)

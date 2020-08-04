@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:37:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:13:54 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:53:38 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char				*ft_itoa(int n)
 	nbr = n;
 	i = ft_count_c(nbr, 1);
 	i = n < 0 ? i + 1 : i;
-	if (!(ptr = malloc(i + 1 * sizeof(char))))
+	if (!(ptr = calloc(i + 1, sizeof(char))))
 		return (NULL);
 	if (nbr == 0)
 	{

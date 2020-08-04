@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
+/*   Updated: 2020/08/02 11:21:47 by cbertola         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 char         *check_var(char *str)
@@ -18,7 +30,7 @@ char         *check_value(char *str, int i)
     char    *ret;
     int     start;
 
-    if (str[i] == '\"')
+    if (str[i] == '\"' || str[i] == '\'')
         i++;
     start = i;
     if (ft_in_quotes(str, i) != 0)
@@ -28,68 +40,103 @@ char         *check_value(char *str, int i)
         i -= start;
         i--;
         ret = ft_strncpy(str + start, i);
-        return (double_char(ret, '\\'));
+        return (ret);
     }
-    return (ft_strcpyuntil(str + i, " "));
+    if (str[i] != ' ')
+        return (ft_strcpyuntil(str + i, " "));
+    return (NULL);
 }
 
-void        replace_env(t_env *list_env, t_env *list_data)
+int         condition(char *str, char *str2)
 {
-    t_env   *data;
-
-     while (list_env->next != NULL)
+    if ((ft_strlen(str) - ft_strlen(str2)) == 1)
     {
-        data = list_data;
-         while (data != NULL)
-        {
-            if (ft_strcmp(data->var, list_env->var) == 0)
-            {
-                printf("We are here\n");
-                list_env->valeur = data->valeur;
-            }
-            data = data->next;
-        }
-        list_env = list_env->next;
+        if (strncmp(str, str2, ft_strlen(str)) == 61 && 
+        str[ft_strlen(str) - 1] == '=')
+            return (1);
+        else
+            return (0);
     }
+    return (0);
 }
 
-void        add_env(t_env *list_env, t_env *list_data)
+int        replace_env(t_env **env, char *var, char *value)
 {
-     t_env   *env;
+    t_env   *env_n;
+
+    env_n = *env;
+    while (*env != NULL)
+    {
+        if ((ft_strlen((*env)->var) == ft_strlen(var) && 
+        ft_strcmp((*env)->var, var) == 0) ||
+        (condition((*env)->var, var)) || condition(var, (*env)->var))
+        {
+            (*env)->var = var;
+            (*env)->valeur = value;
+            *env = env_n;
+            return (1);
+        }
+        *env = (*env)->next;
+    }
+    *env = env_n;
+    return (0);
+}
+
+void        add_env(t_env **env, t_env **data)
+{
+     t_env   *env_n;
+     t_env   *start;
      int    find;
 
-     while (list_data != NULL)
+    start = *data;
+    env_n = *env;
+    while (*data != NULL)
     {
-        env = list_env;
         find = 0;
-         while (env->next != NULL && find == 0)
+         while ((*env)->next != NULL && find == 0)
         {
-            if (ft_strcmp(list_data->var, env->var) == 0)
-             find = 1;
-            env = env->next;
+            if (ft_strcmp((*data)->var, (*env)->var) == 0)
+            {
+                find = 1;
+            }
+            *env = (*env)->next;
         }
-        if (find == 0)
-            ft_lstadd_back_env(&list_env, list_data->var, list_data->valeur);
-        list_data = list_data->next;
+        if (find == 0 && (*data)->valeur != NULL)
+            ft_lstadd_back_env(env, (*data)->var, (*data)->valeur);
+        *data = (*data)->next;
     }
+    *data = start;
+    *env = env_n;
 }
-                                                 
-int         ft_export(char *str, char **tri_selectif, int fd)
-{
-    char    **tab_env;
-    t_env   *list_env;
-    t_env   *list_data;
 
-    tab_env = ft_tri_vartab(tri_selectif);
-    list_env = ft_tab_to_list(tri_selectif);
-    if (display_export(list_env, fd, str + 6))
-        return (0);
-    list_data = data_list(str + 6);
-    add_env(list_env, list_data);
-    // while (list_env->next != NULL)
-    // {
-    //     list_env = list_env->next;
-    //     printf("%s%s\n", list_env->var, list_env->valeur);
-    // }
+void        suppr_maillon(t_env **list, t_env *ptr)
+{
+    t_env   *start;
+
+    start = *list;
+    if (*list == NULL)
+    {
+        *list = ptr->next;
+        return ;
+    }
+    while (*list != NULL)
+    {
+        if ((*list)->next == ptr)
+        {
+            (*list)->next = ptr->next;
+            free(ptr);
+            *list = start;
+            return ;
+        }
+        *list = (*list)->next;
+    }
+    *list = start;
+}
+
+int         ft_export(char *str, t_env **env, int fd)
+{
+    if (ft_strcmp(str, "export") == 0)
+        return (display_export(*env, fd));
+    data_list(str + 6, env);
     return (1);
 }
