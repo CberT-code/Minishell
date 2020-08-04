@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 19:30:49 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:07 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:55:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char		*ft_strsubstr_free(char *s1, char *sub)
 	ft_bzero_tab(tab);
 	j = 0;
 	i = ft_strlen(s1) - ft_how_many(s1, sub);
-	if (!(s3 = malloc(sizeof(char) * i + 1)))
+	if (!(s3 = calloc(sizeof(char), i + 1)))
 		return (NULL);
 	i = 0;
 	while (*sub)

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/04 13:12:40 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 20:37:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 t_pipes			*ft_lstnewpipes(char *str, t_env *env)
 {
 	t_pipes 	*pipes;
+	char 		*str2;
 	
-	if (!(pipes = (t_pipes*)malloc(sizeof(t_pipes))))
+	str2 = ft_strdup(str);
+	if (!(pipes = (t_pipes*)calloc(sizeof(t_pipes), 1)))
 		return (NULL);
 	ft_bzero(pipes, sizeof(t_pipes));
-	printf("We are here new pipes -> |%p|\n", pipes);
-	ft_splitting(str, '<', &pipes->redir_in , env);
-	ft_splitting(str, '>', &pipes->redir_out , env);
-	str = clean_redir(str, '<');
-	str = clean_redir(str, '>');
-	pipes->str = ft_clean_spaces(str);
-	printf("here we have new pipes->str -> |%p|  |%s|\n", pipes->str, pipes->str);
-	printf("here we test cmd -> %p\n", &pipes->cmds);
-	cmds_args(&pipes->cmds, pipes->str, env);
+	ft_splitting(str2, '<', &pipes->redir_in , env);
+	ft_splitting(str2, '>', &pipes->redir_out , env);
+	str2 = clean_redir(str2, '<');
+	str2 = clean_redir(str2, '>');
+	//pipes->str = ft_clean_spaces(str2);
+	cmds_args(&pipes->cmds, str2, env);
 	pipes->next = NULL;
+	free(str2);
 	return (pipes);
 }
 

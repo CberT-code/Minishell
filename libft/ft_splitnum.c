@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 17:28:04 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:14:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:55:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char			**ft_splitnum(char *s, int c)
 	i = 0;
 	a = 0;
 	nb_words = (ft_strlen(s) / c) + (ft_strlen(s) % c > 0 ? 1 : 0);
-	if (!(tab_words = (char **)malloc(sizeof(char *) * (nb_words + 1))))
+	if (!(tab_words = (char **)calloc(sizeof(char *), (nb_words + 1))))
 		return (NULL);
 	while (nb_words--)
 	{
 		j = 0;
 		if (nb_words == 0 && (ft_strlen(s) % c > 0))
 			c = ft_strlen(s) % c;
-		if (!(tab_words[i] = malloc(sizeof(char) * c + 1)))
+		if (!(tab_words[i] = calloc(sizeof(char), c + 1)))
 			return (ft_free(tab_words, i));
 		while (j < c)
 			tab_words[i][j++] = s[a++];

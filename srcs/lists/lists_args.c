@@ -16,9 +16,8 @@ t_args			*ft_lstnewargs(char *str, t_env *env)
 {
 	t_args *args;
 
-	if (!(args = (t_args*)malloc(sizeof(t_args))))
+	if (!(args = (t_args*)calloc(sizeof(t_args), 1)))
 		return (NULL);
-	printf("here we test args -> %p\n", args);
 	args->str = ft_envcpy(str, env);
 	args->next = NULL;
 	return (args);

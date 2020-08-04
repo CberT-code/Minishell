@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:23:58 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 20:28:15 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,9 @@ t_args          *split_args(char *str, t_env *env)
 
 void			cmds_args(t_cmds *cmd, char *str, t_env *env)
 {
-    printf("here we test -> %p\n", cmd);
     while (*str == ' ')
         str++;
     cmd->str = ft_substr(str, 0, ft_strlen_str_quotes(str, " "));
-    printf("here we have cmd->str -> |%p|    |%s|\n", cmd->str, cmd->str );
     str += ft_strlen_str_quotes(str, " ") + 1;
     cmd->args = split_args(str, env); 
 }

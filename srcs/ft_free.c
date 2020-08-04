@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:21:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 20:37:26 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,12 @@ void    ft_free(t_semicol *semicol, t_env *env)
     b_last = semicol;
     while (semicol != NULL)
     {
-        //free(semicol->str);
-        printf("We are here 1\n");
+        free(semicol->str);
         free_tab_all(semicol->all);
-        printf("We are here 2\n");
         free_pipes(semicol->pipes);
-        printf("We are here 3\n");
         b_last = semicol;
         semicol = semicol->next;
         free(b_last);
-        printf("We are here 4\n");
     }
     while (env != NULL)
     {

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 00:20:30 by user42            #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 20:28:02 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_clean_quotes(char*str)
 	
 	i = -1;
 	j = 0;
-	if (!(cpy = (char*)malloc(sizeof(char) * (ft_strlen(str) + 1))))
+	if (!(cpy = (char*)calloc(sizeof(char), ft_strlen(str) + 1)))
 		return (NULL);
 	while (str[++i])
 	{

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:52 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 20:28:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_clean_backs(char *str)
 
 	char *cpy;
 
-	if (!(cpy = malloc(sizeof(char) * (ft_strlen(str) + 1))))
+	if (!(cpy = calloc(sizeof(char), ft_strlen(str) + 1)))
 		return (0);
 	i = -1;
 	j = 0;

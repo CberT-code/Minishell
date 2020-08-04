@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:21:44 by cyrillebert       #+#    #+#             */
-/*   Updated: 2020/07/23 17:15:09 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:55:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char        *ft_subchar(char *str, char c)
 
     i = 0;
     j = 0;
-    if (!(ret = malloc(sizeof(char) * (ft_strlen(str) - count_char(str, c)) + 1)))
+    if (!(ret = calloc(sizeof(char), (ft_strlen(str) - count_char(str, c)) + 1)))
         return (NULL);
     while (str[i])
     {

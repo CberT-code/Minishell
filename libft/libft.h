@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/03 19:52:21 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:58:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char					**ft_split(char const *s, char c);
 char					*ft_itoa(int n);
 char					*ft_send(t_list_gnl **lst, char **line);
 char					*ft_before_char(char *str, char stop);
-char					*ft_strjoin_malloc(char *s1, char *s2);
+char					*ft_strjoin_calloc(char *s1, char *s2);
 char					*ft_strmapi(char const *s,
 						char (*f)(unsigned int, char));
 char         		    *ft_strcpyuntil(const char *src, char *n);

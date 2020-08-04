@@ -27,7 +27,7 @@ char	*ft_subfromstr_free(char *s, int start, int len)
 	if (len + start > u)
 		len = u - start;
 	u -= len;
-	if (!(ptr = malloc(u * sizeof(char) + 1)))
+	if (!(ptr = calloc(u, sizeof(char) + 1)))
 		return (NULL);
 	while (++i < start)
 		ptr[i] = s[i];
