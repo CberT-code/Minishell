@@ -6,11 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/07/23 17:23:53 by cbertola         ###   ########.fr       */
-=======
-/*   Updated: 2020/08/04 20:49:53 by cbertola         ###   ########.fr       */
->>>>>>> cyrille
+/*   Updated: 2020/08/04 21:12:08 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +28,7 @@ int     main(int argc, char **argv, char **envp)
     ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 	while (1)
 	{
-<<<<<<< HEAD
-        split_semicol(line, &semicol, env);
-		count_pipe(semicol);
-		new_str(semicol);
-		tab_all(semicol);
-		printf("EXEC_CMDS ->\n");
-		exec_cmds(semicol);
-		while (semicol != NULL)
-=======
 		if (get_next_line(0, &line) == 1)
->>>>>>> cyrille
 		{
 			printf("here we start\n");
 			split_semicol(line, &semicol, env);
