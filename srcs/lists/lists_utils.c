@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/23 17:16:22 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:04:41 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				count_pipe(t_semicol *semicol)
 			semicol->pipes = semicol->pipes->next;
 		}
 		semicol->pipes = first_pipes;
-		semicol->nb_cmd = i;
+		semicol->nb_pipes = i;
 		semicol = semicol->next;
 	}
 	semicol = first_semicol;
@@ -91,26 +91,30 @@ void		new_str(t_semicol *semicol)
 	semicol = first_semicol;
 }
 
-void 		*new_tab(t_semicol *semicol)
+char		**new_tab(t_pipes *pipes)
 {
 	int			i;
 	char		**tab_cmds;
-	t_semicol	*first_semicol;
+	t_args		*first_args;
 
 	i = 0;
-	first_semicol = semicol;
-	if (!(tab_cmds = (char**)malloc(sizeof(char*) * (first_semicol->pipes->cmds.nb_args + 2))))
+	first_args = pipes->cmds.args;
+
+	if (!(tab_cmds = (char**)calloc(sizeof(char*), pipes->cmds.nb_args + 1)))
 		return (NULL);
-	while (i < first_semicol->pipes->cmds.nb_args + 1 )
+		printf("here we test -> %d\n", pipes->cmds.nb_args);
+	while (i < pipes->cmds.nb_args )
 	{
 		if (i == 0)
-			tab_cmds[i] = ft_strdup(first_semicol->pipes->cmds.str);
+			tab_cmds[i] = ft_strdup(pipes->cmds.str);
 		else
 		{
-			tab_cmds[i] = ft_strdup(first_semicol->pipes->cmds.args->str);
-			first_semicol->pipes->cmds.args = first_semicol->pipes->cmds.args->next;
+			tab_cmds[i] = ft_strdup(pipes->cmds.args->str);
+			pipes->cmds.args = pipes->cmds.args->next;
 		}
+		printf("here we test -> %p\n", tab_cmds[i]);
 		i++;
+		pipes->cmds.args = first_args;
 	}
 	return (tab_cmds);
 }
@@ -119,17 +123,25 @@ void	tab_all(t_semicol *semicol)
 {	
 	int 		i;
 	t_semicol 	*first_semicol;
+	t_pipes 	*first_pipe;
 
+	first_pipe = semicol->pipes;
 	first_semicol = semicol;
-	i = -1;
 	while (semicol != NULL)
 	{
-		if (!(semicol->all = malloc(sizeof(void *) * semicol->nb_cmd + 1)))
+		i = 0;
+		if (!(semicol->all = ft_calloc(sizeof(char **) , semicol->nb_pipes + 1)))
 			return ;
-		while (++i < semicol->nb_cmd)
+		printf("here we test -> %d\n", semicol->nb_pipes);
+		while (semicol->pipes != NULL)
 		{
-			semicol->all[i] = new_tab(semicol);
+			semicol->all[i++] = new_tab(semicol->pipes);
+			semicol->pipes = semicol->pipes->next;
 		}
+		//semicol->all[2] = NULL;
+		//ft_bzero(semicol->all, sizeof(char *));
+		//semicol->all[2] = ft_calloc(sizeof(char *), 1);
+		semicol->pipes = first_pipe;
 		semicol = semicol->next;
 	}
 	semicol = first_semicol;

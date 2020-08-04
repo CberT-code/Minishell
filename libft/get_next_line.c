@@ -6,12 +6,12 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 11:30:10 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/31 10:55:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/02 19:51:43 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 10
 
 int			search_fd(t_list_gnl **lst_one, int fd)
 {

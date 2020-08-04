@@ -6,20 +6,22 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/07/23 17:16:22 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 11:02:58 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_semicol			*ft_lstnewsemicol(char *str, char **env)
+t_semicol			*ft_lstnewsemicol(char *str, t_env *env)
 {
 	t_semicol *semicol;
 	
 	if (!(semicol = (t_semicol*)malloc(sizeof(t_semicol))))
 		return (NULL);
+	printf("We are here new semicol -> |%p|\n", semicol);
 	semicol->str = str;
 	semicol->pipes = split_pipes(semicol->str, env);
+	semicol->all = 0;
 	semicol->next = NULL;
 	return (semicol);
 }
@@ -33,7 +35,7 @@ t_semicol			*ft_lstlastsemicol(t_semicol *semicol)
 	return (semicol);
 }
 
-void			lstadd_back_semicol(t_semicol **semicol, char *str, char **env)
+void			lstadd_back_semicol(t_semicol **semicol, char *str, t_env *env)
 {
 	if (*semicol != NULL)
 		ft_lstlastsemicol(*semicol)->next = ft_lstnewsemicol(str, env);

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/01 23:47:23 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 14:07:19 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,30 @@ int     main(int argc, char **argv, char **envp)
     ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 	while (1)
 	{
-		
 		if (get_next_line(0, &line) == 1)
 		{
-			printf("line\n");
-			split_semicol(line, &semicol, envp);
+			printf("here we start\n");
+			split_semicol(line, &semicol, env);
+			printf("split_semicol\n");
 			count_pipe(semicol);
+			printf("count_pipe\n");
 			tab_all(semicol);
-			printf("EXPORT -> %s\n", semicol->pipes->str);
+			printf("tab_all\n");
+			printf("here we test ce qu'on choisi-> |%s|\n", semicol->all[1][0]);
+			printf("here we test ce qu'on choisi-> |%p|\n", semicol->all[1][0]);
+			//test
+			ft_free(semicol, env);
+			free(line);
+			while (1)
+			{}
+			//test
 			//ft_export(semicol->pipes->str, &env, 1);
-			ft_unset(semicol->pipes->str, &env, 1);
+			//ft_unset(semicol->pipes->str, &env, 1);
 			new_str(semicol);
-			printf("EXEC_CMDS ->\n");
+			printf("new_str\n");
+			ft_free(semicol, env);
+			printf("ft_free\n");
 			start = env;
-			while (env != NULL)
-			{
-				printf("here we test -> |%s|\t %p\n", env->var, env);
-				env = env->next;
-			}
 			env = start;
 			//exec_cmds(semicol);
 			// while (semicol != NULL)
@@ -86,7 +92,7 @@ int     main(int argc, char **argv, char **envp)
 			// 		}
 			// 		semicol->pipes = semicol->pipes->next;
 			// 	}
-			// 	printf("Nombre de pipes = %d\n", semicol->nb_cmd);      
+			// 	printf("Nombre de pipes = %d\n", semicol->nb_pipes);   
 			semicol = semicol->next;
 			//free(line);
 		}

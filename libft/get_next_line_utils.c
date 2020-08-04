@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:07:28 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/30 19:31:39 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/02 19:09:22 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char		*ft_strjoin_malloc(char *s1, char *s2)
 	}
 	while (s2[v])
 		ptr[u++] = s2[v++];
-	s1 = 0;
-	s2 = 0;
 	free(s1);
 	free(s2);
 	ptr[u] = '\0';

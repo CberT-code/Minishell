@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:17:01 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/04 10:36:55 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void            ft_splitting(char *str, char c, t_tab_redir *redir, char **env)
+void            ft_splitting(char *str, char c, t_tab_redir *redir, t_env *env)
 {
     while (*str)
     {
@@ -37,9 +37,9 @@ void            ft_splitting(char *str, char c, t_tab_redir *redir, char **env)
     }
 }
 
-t_tab_redir			full_redir(char *str, char c, char **env)
+t_tab_redir			full_redir(char *str, char c, t_env *env)
 {
-     t_tab_redir    redir;
+    t_tab_redir    redir;
 
     ft_bzero(&redir, sizeof(t_tab_redir));
     if (!str)
