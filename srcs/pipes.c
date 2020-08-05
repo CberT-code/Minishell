@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/02 16:15:38 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 18:57:45 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,19 @@ void  wait_pipes(int nb_pipes, pid_t *pid, int *ret)
     waitpid(pid[i], ret, 0);
 }
 
-void do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
+void        redir_out(t_redir *redir, int param, int *pipes, int j)
+{
+  t_redir   *first_redir;
+
+  first_redir = redir;
+  while (redir != NULL)
+  {
+      pipes[j * 2 + 1] = open(redir->str, param, S_IRUSR | S_IWUSR);
+      redir = redir->next;
+  }
+  redir = first_redir;
+}
+void        do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
 {
   int i;
   int fd;
@@ -62,29 +74,21 @@ void do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
   i = -1;
   if (j < nb_pipes - 1 || pipe->redir_out.simpl != NULL || pipe->redir_out.doubl != NULL)
   {
-    while (pipe->redir_out.simpl != NULL)
-    {
-        pipes[j * 2 + 1] = open(pipe->redir_out.simpl->str, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
-         pipe->redir_out.simpl = pipe->redir_out.simpl->next;
-    }
-    while (pipe->redir_out.doubl != NULL)
-    {
-        pipes[j * 2 + 1] = open(pipe->redir_out.doubl->str, O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
-         pipe->redir_out.doubl = pipe->redir_out.doubl->next;
-    }
+    redir_out(pipe->redir_out.simpl, 1102, pipes, j);
+    redir_out(pipe->redir_out.doubl, 2102, pipes, j);
   }
   dup2(pipes[j * 2 + 1], 1);
 }
 
 void do_pipe(t_semicol *semicol, int *ret)
 {
-  pid_t   pid[semicol->nb_pipes + 1];
-  int     pipes[semicol->nb_pipes * 2];
-  int     j = -1;
-  // int     status;
-
+  pid_t       pid[semicol->nb_pipes + 1];
+  int         pipes[semicol->nb_pipes * 2];
+  int         j = -1;
+  t_pipes   *first_pipes;
   
   init_pipes(semicol->nb_pipes * 2, pipes);
+  first_pipes = semicol->pipes;
   while (semicol->pipes != NULL)
   {
     if (!(pid[++j] = fork()))
@@ -97,14 +101,22 @@ void do_pipe(t_semicol *semicol, int *ret)
     }
     semicol->pipes = semicol->pipes->next;
   }
+  semicol->pipes = first_pipes;
   close_pipes(semicol->nb_pipes * 2, pipes);
   wait_pipes(semicol->nb_pipes * 2, pid, ret);
 }
 
 int     exec_cmds(t_semicol *semicol)
 {
-  int ret;
+  int       ret;
+  t_semicol *first_semicol;
 
-  do_pipe(semicol, &ret);
+  first_semicol = semicol;
+  while (semicol != NULL)
+  {
+    do_pipe(semicol, &ret);
+    semicol = semicol->next;
+  }
+  semicol = first_semicol;
   return (0);
 }
