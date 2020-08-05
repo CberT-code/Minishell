@@ -3,36 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:22:56 by cbertola          #+#    #+#             */
-/*   Updated: 2020/07/23 17:22:59 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 17:48:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int     ft_echo(char *str, int fd)
+int     ft_echo(t_args **args)
 {
-    int i;
-    int ind;
+    int flag;
 
-    i = 0;
-    ind = 0; 
-    if (!str)
-        write(1, "\n", 1);
-    while (*str == ' ')
-        str++;
-    if (ft_strncmp(str, "-n", 2) == 0)
+    flag = 0;
+    if (!*args || !(*args)->str)
     {
-        ind = 1;
-        str = str + 2;
-    }
-    while (*str == ' ')
-        str++;
-    ft_putstr_fd(str, fd);
-    if (ind == 0)
         write(1, "\n", 1);
+        return (0);
+    }
+    while (*args)
+    {
+        if (ft_strlen((*args)->str) == 2 && (*args)->str[0] == '-'
+        && (*args)->str[1] == 'n')
+            flag = 1;
+        else
+        {
+            ft_printf("%s", (*args)->str);
+            if ((*args)->next != NULL)
+                ft_printf(" ");
+        }
+        (*args) = (*args)->next;
+    }
+    if (flag == 0)
+        ft_printf("\n");
     return (0);
 }
 
