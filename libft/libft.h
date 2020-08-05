@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:58:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 12:58:07 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include "ft_printf.h"
+# include "get_next_line.h"
 
 typedef struct			s_list
 {
@@ -50,9 +51,6 @@ char					*ft_substr(char const *s, unsigned int start,
 						size_t len);
 char					**ft_split(char const *s, char c);
 char					*ft_itoa(int n);
-char					*ft_send(t_list_gnl **lst, char **line);
-char					*ft_before_char(char *str, char stop);
-char					*ft_strjoin_calloc(char *s1, char *s2);
 char					*ft_strmapi(char const *s,
 						char (*f)(unsigned int, char));
 char         		    *ft_strcpyuntil(const char *src, char *n);
@@ -74,10 +72,6 @@ int						ft_memcmp(const void *s1, const void *s2, size_t n);
 int						ft_atoi(const char *str);
 int						ft_atoi_pos(const char *str);
 int						ft_isfind(char *str, char stop);
-int						get_next_line(int fd, char **line);
-int						ft_exist(t_list_gnl **lst_one, char **line);
-int						search_fd(t_list_gnl **lst_one, int fd);
-int						ft_find(char *str, char stop);
 int						ft_start_str(char *str1, char *str2);
 int						ft_count_char_int(long int nb, int base);
 int						is_tab_full(char *tab, char c);
@@ -100,8 +94,6 @@ void					ft_putnbr_fd(int n, int fd);
 void					ft_putstr(char *s);
 void					ft_putendl(char *s);
 void					ft_putnbr(int n);
-void					ft_del(t_list_gnl **lst_one);
-void					ft_new_lst(int fd, t_list_gnl **lst_one);
 char    		        *ft_strncpy(const char *src, int n);
 char        		    *ft_strncpy_free(char *src, int n);
 int						ft_strlen_str(const char *s, char *str);

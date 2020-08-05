@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/04 20:37:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 10:10:56 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ char		**new_tab(t_pipes *pipes)
 	char		**tab_cmds;
 	t_args		*first_args;
 
-	i = 0;
-	first_args = pipes->cmds.args;
 
 	if (!(tab_cmds = (char**)calloc(sizeof(char*), pipes->cmds.nb_args + 1)))
 		return (NULL);
+	i = 0;
+	first_args = pipes->cmds.args;
 	while (i < pipes->cmds.nb_args )
 	{
 		if (i == 0)
@@ -115,8 +115,8 @@ char		**new_tab(t_pipes *pipes)
 			pipes->cmds.args = pipes->cmds.args->next;
 		}
 		i++;
-		pipes->cmds.args = first_args;
 	}
+	pipes->cmds.args = first_args;
 	return (tab_cmds);
 }
 
@@ -126,13 +126,13 @@ void	tab_all(t_semicol *semicol)
 	t_semicol 	*first_semicol;
 	t_pipes 	*first_pipe;
 
-	first_pipe = semicol->pipes;
 	first_semicol = semicol;
 	while (semicol != NULL)
 	{
 		i = 0;
 		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes + 1)))
 			return ;
+		first_pipe = semicol->pipes;
 		while (semicol->pipes != NULL)
 		{
 			semicol->all[i++] = new_tab(semicol->pipes);
