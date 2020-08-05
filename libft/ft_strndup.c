@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 16:07:55 by mifernan          #+#    #+#             */
-/*   Updated: 2020/08/05 14:08:44 by cbertola         ###   ########.fr       */
+/*   Created: 2019/12/05 12:04:02 by mifernan          #+#    #+#             */
+/*   Updated: 2020/08/05 14:06:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "libft.h"
-# define BUFFER_SIZE 4096
+char	*ft_strndup(const char *str, size_t n)
+{
+	unsigned int	i;
+	char			*dst;
 
-char	*ft_reader(int fd, char *rest, char buf[]);
-char	*ft_line(char **str);
-int		get_next_line(const int fd, char **line);
-
-#endif
+	if (!(dst = (char*)malloc(sizeof(char) * (n + 1))))
+		return (NULL);
+	i = 0;
+	while (str[i] && i < n)
+	{
+		dst[i] = str[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}

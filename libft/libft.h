@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/05 12:58:07 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 14:10:58 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
+# include <ctype.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <sys/stat.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 
@@ -110,5 +112,7 @@ char   					ft_charup(char c);
 int						get_next_char(char *str, char c);
 int						fnr(char *mem, int code);
 char					*ft_strjoin_g(char *s1, char *s2);
+char					*ft_strndup(const char *str, size_t n);
+void					ft_strdel(char **as);
 
 #endif
