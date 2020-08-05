@@ -67,7 +67,6 @@ void                	ft_lstadd_back(t_cmds **alst, char *str);
 void			        ft_lstadd_back_env(t_env **alst, char *str, char *str2);
 t_cmds                  *parsing(char *str, t_env *envp);
 
-
 int                     in_quotes(char *s, int i, int in);
 int                     ft_redir(char *s, char c);
 int                     len_next_word(char *str);
@@ -84,7 +83,6 @@ char	                *ft_clean_spaces(char *str);
 char	                *ft_envcpy(char *str, t_env *env);
 int	                    ft_isbacks(char *str, int i);
 int	                    ft_isquote(char *str, int i);
-
 
 t_semicol		    	*ft_lstnewsemicol(char *str, t_env *env);
 t_semicol		    	*ft_lstlastsemicol(t_semicol *cmds);
@@ -136,7 +134,7 @@ int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
 int                     exec_cmds(t_semicol *semicol);
 
-int                     ft_export(char *str, t_env **env, int fd);
+int                     ft_export(t_args *args, t_env **env, int fd);
 char                    *double_char(char *str, char c);
 char                    **ft_tri_vartab(char **tab);
 void                    data_list(char *str, t_env **env);
@@ -150,7 +148,7 @@ int                     replace_env(t_env **env, char *var, char *value);
 void                    suppr_maillon(t_env **list, t_env *ptr);
 int                     condition(char *str, char *str2);
 
-int                     ft_unset(char *str, t_env **env, int fd);
+int                     ft_unset(t_args *args, t_env **env);
 void                    unset(char *str, t_env **env);
 int                     delete_var(char *var, t_env **env);
 
@@ -163,5 +161,7 @@ void                    free_cmds(t_cmds *cmds);
 void                    free_args(t_args *args);
 
 char		            *clean_redir(char *str, char c);
+
+int                     ft_env(t_args *args, t_env **env, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/05 19:06:25 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 21:56:07 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int     main(int argc, char **argv, char **envp)
 {
 	t_semicol 	*semicol;
 	t_env		*env;
-	t_semicol	*test;
 
 	g_rep = 0;
 	signal(SIGINT, sig_handler);
@@ -73,51 +72,6 @@ int     main(int argc, char **argv, char **envp)
 			tab_all(semicol);
 			new_str(semicol);
 			exec_cmds(semicol);
-			test = semicol;
-
-			while (semicol != NULL)
-			{
-				printf("semicol -> |%s|\n", semicol->str);
-				printf("here we test le ptr semicol -> %p\n", semicol);
-				printf("\tnext -> |%p|\n", semicol->next);
-				printf("\tpoiteur pipes -> |%p|\n", semicol->pipes);
-				while (semicol->pipes)
-				{
-					printf("\tthe new commande -> |%s|\n", semicol->pipes->str);
-					while ((semicol->pipes->redir_in).simpl != NULL)
-					{
-						printf("\t\tredir simple in -> |%s|\n", (semicol->pipes->redir_in).simpl->str);
-						(semicol->pipes->redir_in).simpl = (semicol->pipes->redir_in).simpl->next;
-					}
-					while ((semicol->pipes->redir_in).doubl != NULL)
-					{
-						printf("\t\tredir double in -> |%s|\n", (semicol->pipes->redir_in).doubl->str);
-						(semicol->pipes->redir_in).doubl = (semicol->pipes->redir_in).doubl->next;
-					}
-					while ((semicol->pipes->redir_out).simpl != NULL)
-					{
-						printf("\t\tredir simple out -> |%s|\n", (semicol->pipes->redir_out).simpl->str);
-						(semicol->pipes->redir_out).simpl = (semicol->pipes->redir_out).simpl->next;
-					}
-					while ((semicol->pipes->redir_out).doubl != NULL)
-					{
-						printf("\t\tredir double out -> |%s|\n", (semicol->pipes->redir_out).doubl->str);
-						(semicol->pipes->redir_out).doubl = (semicol->pipes->redir_out).doubl->next;
-					}
-					printf("\tcommande -> |%s|\n", semicol->pipes->cmds.str);
-					printf("\t\tnb_args -> |%d|\n", semicol->pipes->cmds.nb_args);
-					while (semicol->pipes->cmds.args != NULL)
-					{
-						printf("\t\targs -> |%s|\n", semicol->pipes->cmds.args->str);
-						semicol->pipes->cmds.args = semicol->pipes->cmds.args->next;
-					}
-					semicol->pipes = semicol->pipes->next;
-				}
-				printf("Nombre de pipes = %d\n", semicol->nb_pipes);      
-			semicol = semicol->next;
-			}
-			semicol = test;
-			// free(g_line);
 		}
 		else if (ft_strlen(g_line) == 0)
 			break ;
@@ -125,7 +79,6 @@ int     main(int argc, char **argv, char **envp)
 				free(g_line);
 		ft_free(semicol, env);
 	}
-	//ft_free(semicol, env);
 	ft_printf("exit\n");
 	return (0);
 }

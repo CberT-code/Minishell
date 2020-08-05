@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/02 11:21:45 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 21:33:30 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void         unset(char *str, t_env **env)
     i = 0;
     while (str[i])
     {
-        while (str[i] == ' ' || str[i] == '\"' || str[i] == '\'')
-            i++;
-        var = check_var(str + i);
+        var = check_var(str);
         i += ft_strlen(var);
         if (str[i - 1] != '=')
             delete_var(var, env);
@@ -51,9 +49,16 @@ void         unset(char *str, t_env **env)
     }
 }    
 
-int         ft_unset(char *str, t_env **env, int fd)
+int         ft_unset(t_args *args, t_env **env)
 {
-    (void)fd;
-    unset(str + 5, env);
+    t_args  *first_arg;
+
+    first_arg = args;
+    while (args != NULL)
+    {
+        unset(args->str, env);
+        args = args->next;
+    }
+    args = first_arg;
     return (1);
 }

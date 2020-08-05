@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/05 18:57:45 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 22:01:14 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void        do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
   dup2(pipes[j * 2 + 1], 1);
 }
 
-void do_pipe(t_semicol *semicol, int *ret)
+void do_pipe(t_semicol *semicol, int *ret, t_env *env)
 {
   pid_t       pid[semicol->nb_pipes + 1];
   int         pipes[semicol->nb_pipes * 2];
@@ -95,7 +95,7 @@ void do_pipe(t_semicol *semicol, int *ret)
     {
       do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
       close_pipes(semicol->nb_pipes * 2, pipes);
-      // if (!(*ret = find_fcts(semicole->pipes)))
+      if (!(*ret = find_fcts(semicole->pipes->cmds, env)))
         if ((*ret = execvp(*semicol->all[j], semicol->all[j])))
           exit(-1);
     }
@@ -106,7 +106,7 @@ void do_pipe(t_semicol *semicol, int *ret)
   wait_pipes(semicol->nb_pipes * 2, pid, ret);
 }
 
-int     exec_cmds(t_semicol *semicol)
+int     exec_cmds(t_semicol *semicol, t_env *env)
 {
   int       ret;
   t_semicol *first_semicol;
@@ -114,7 +114,7 @@ int     exec_cmds(t_semicol *semicol)
   first_semicol = semicol;
   while (semicol != NULL)
   {
-    do_pipe(semicol, &ret);
+    do_pipe(semicol, &ret, env);
     semicol = semicol->next;
   }
   semicol = first_semicol;

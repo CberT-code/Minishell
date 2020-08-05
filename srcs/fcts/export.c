@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/02 11:21:47 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 22:13:55 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ char         *check_var(char *str)
     int     i;
 
     i = 0;
-    while (str[i] == ' ' || str[i] == '\"')
-        i++;
     if (str[i] != '\0')
-        return (ft_strcpyuntil(str + i, " ="));
+        return (ft_strcpyuntil(str + i, "="));
     else 
         return (NULL);
 }
@@ -133,10 +131,17 @@ void        suppr_maillon(t_env **list, t_env *ptr)
     *list = start;
 }
 
-int         ft_export(char *str, t_env **env, int fd)
+int         ft_export(t_args *args, t_env **env)
 {
-    if (ft_strcmp(str, "export") == 0)
-        return (display_export(*env, fd));
-    data_list(str + 6, env);
+    t_args  *first_arg;
+
+    first_arg = args;
+    while (args != NULL)
+    {
+        if (args == NULL)
+            return (display_export(*env));
+        data_list(args->str, env);
+    }
+    args = first_arg;
     return (1);
 }
