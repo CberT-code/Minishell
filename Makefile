@@ -5,7 +5,8 @@ SRCS = 			srcs/split_minishell.c srcs/split_minishell_utils.c \
 				srcs/replace_env.c srcs/redirections.c srcs/clean_quotes.c \
 				srcs/lists/lists_utils.c srcs/replace_env_utils.c srcs/pipes.c main.c \
 				srcs/fcts/export.c srcs/fcts/export_utils.c srcs/fcts/env_list.c \
-				srcs/lists/ft_tri_lst.c srcs/fcts/unset.c srcs/ft_free.c srcs/fcts/env.c	
+				srcs/lists/ft_tri_lst.c srcs/fcts/unset.c srcs/ft_free.c srcs/fcts/env.c \
+				srcs/check_var.c srcs/check_bin.c	
 
 BONUS = 		bonus/*
 

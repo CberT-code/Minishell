@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/05 22:13:41 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/05 22:59:10 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,20 @@ void         data_list(char *str, t_env **env)
     i += ft_strlen(var);
     if (str[--i] == '=')
     {
+         if (check_str_alpha(var, ft_strlen(var) - 1) == 0)
+            return (free_exit(semicol, env, "export: \" %s \" : 
+            identifiant non valable", var));
         value = check_value(str, ++i);
         value = ft_strcpyfrom(str, "=");
         i += ft_strlen(value);
     }
     else
+    {
+        if (check_str_alpha(var, ft_strlen(var)) == 0)
+            return (free_exit(semicol, env, "export: \" %s \" : 
+            identifiant non valable", var));
         value = NULL;
+    }
     if (replace_env(env, var, value) == 0)
         ft_lstadd_back_env(env, var, value);   
 }    

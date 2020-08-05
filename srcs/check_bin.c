@@ -12,6 +12,5 @@ int     find_fcts(t_cmds *cmd, env)
         return (ft_pwd(cmd->args, env));
     if (strcmp(cmd->str, "unset") == 0)
         return (ft_unset(cmd->args, env));
-    if (strcmp(cmd->str, "exit") == 0)
-        return (ft_exit(cmd->args, env));
+    return (-1)
 }

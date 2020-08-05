@@ -159,9 +159,13 @@ void                    free_tab_redir(t_tab_redir *redir);
 void                    free_redir(t_redir *redir);
 void                    free_cmds(t_cmds *cmds);
 void                    free_args(t_args *args);
+void                    free_exit(t_semicol *semicol, t_env *env, char *str, void *param);
 
 char		            *clean_redir(char *str, char c);
 
 int                     ft_env(t_args *args, t_env **env, int fd);
+
+int                     check_str_alpha(char *str, int len);
+void                    check_line(char *str);
 
 #endif
