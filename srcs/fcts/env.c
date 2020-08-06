@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 08:29:31 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:03:01 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int         display_export_env(t_env *env)
     t_env   *start;
 
     start = env;
-    if (env != NULL)
-        ft_tri_varlst(&env);
     while(env != NULL)
     {
         if (env->var[ft_strlen(env->var) - 1] == '=')

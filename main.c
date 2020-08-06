@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 13:50:40 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:00:54 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int     main(int argc, char **argv, char **envp)
 {
 	t_semicol 	*semicol;
 	t_env		*env;
+	char      	cwd[1024];
 
 	g_rep = 0;
 	signal(SIGINT, sig_handler);
@@ -62,7 +63,7 @@ int     main(int argc, char **argv, char **envp)
 		return (1);
 	g_line = NULL;
 	env = ft_tab_to_list(envp);
-    ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
+    ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{
 		if (get_next_line(0, &g_line) == 1)
@@ -75,7 +76,7 @@ int     main(int argc, char **argv, char **envp)
 			new_str(semicol);
 			exec_cmds(semicol, env);
 			ft_free(semicol);
-    		ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
+    		ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 		}
 		else if (ft_strlen(g_line) == 0)
 			break ;
