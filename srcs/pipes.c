@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 10:39:01 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 14:43:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,11 @@ void        redir_out(t_redir *redir, int param, int *pipes, int j)
   }
   redir = first_redir;
 }
+
 void        do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
 {
-  int i;
   int fd;
 
-  i = -1;
   if (j > 0)
     dup2(pipes[j * 2 - 2], 0);
   while(pipe->redir_in.simpl != NULL)
@@ -71,15 +70,12 @@ void        do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
     dup2(fd, 0);
     pipe->redir_in.simpl = pipe->redir_in.simpl->next;
   }
-  i = -1;
-  if (j < nb_pipes - 1 && (pipe->redir_out.simpl != NULL || pipe->redir_out.doubl != NULL))
+  if (j < nb_pipes - 1 || pipe->redir_out.simpl != NULL || pipe->redir_out.doubl != NULL)
   {
     redir_out(pipe->redir_out.simpl, 1102, pipes, j);
     redir_out(pipe->redir_out.doubl, 2102, pipes, j);
+    dup2(pipes[j * 2 + 1], 1);
   }
-  printf("here we test do dup -> %d\n", j);
-  dup2(pipes[j * 2 + 1], 1);
-  printf("We are here do_dup\n");
 }
 
 void do_pipe(t_semicol *semicol, int *ret, t_env *env)
@@ -88,22 +84,26 @@ void do_pipe(t_semicol *semicol, int *ret, t_env *env)
   int         pipes[semicol->nb_pipes * 2 + 1];
   int         j = -1;
   t_pipes   *first_pipes;
-  
-  printf("here we test do pipe nb pipes -> %d\n", semicol->nb_pipes);
+  (void)env;
   init_pipes(semicol->nb_pipes * 2, pipes);
   first_pipes = semicol->pipes;
-  printf("We are here do_pipe\n");
-  while (semicol->pipes != NULL)
+  while (++j < semicol->nb_pipes)
   {
-    if (!(pid[++j] = fork()))
+    if (!(pid[j] = fork()))
     {
       do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
-      printf("We are here do_pipe if\n");
       close_pipes(semicol->nb_pipes * 2, pipes);
-      if ((*ret = find_fcts(&semicol->pipes->cmds, env)) == -1)
-        if ((*ret = execvp(*semicol->all[j], semicol->all[j])))
+      if ((*ret = find_fcts(&semicol->pipes->cmds, env)) != -1)
+      {
+        exit(1);
+      }
+      else if ((*ret = execvp(*semicol->all[j], semicol->all[j])))
           exit(*ret);
+      else
+      {} 
     }
+    printf("We are here coucou\n");
+    waitpid(pid[j], ret, 0);
     semicol->pipes = semicol->pipes->next;
   }
   semicol->pipes = first_pipes;

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 07:53:41 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 13:50:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int     main(int argc, char **argv, char **envp)
 		return (1);
 	g_line = NULL;
 	env = ft_tab_to_list(envp);
+    ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 	while (1)
 	{
-    	ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 		if (get_next_line(0, &g_line) == 1)
 		{
 			check_line(g_line);
@@ -74,13 +74,15 @@ int     main(int argc, char **argv, char **envp)
 			tab_all(semicol);
 			new_str(semicol);
 			exec_cmds(semicol, env);
+			ft_free(semicol);
+    		ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
 		}
 		else if (ft_strlen(g_line) == 0)
 			break ;
 		else
 				free(g_line);
-		ft_free(semicol, env);
 	}
+	ft_free_env(env);
 	ft_printf("exit\n");
 	return (0);
 }

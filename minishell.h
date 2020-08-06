@@ -152,7 +152,7 @@ int                     ft_unset(t_args *args, t_env *env);
 void                    unset(char *str, t_env *env);
 int                     delete_var(char *var, t_env *env);
 
-void                    ft_free(t_semicol *semicol, t_env *env);
+void                    ft_free(t_semicol *semicol);
 void                    free_tab_all(char ***all);
 void                    free_pipes(t_pipes *pipes);
 void                    free_tab_redir(t_tab_redir *redir);
@@ -160,6 +160,7 @@ void                    free_redir(t_redir *redir);
 void                    free_cmds(t_cmds *cmds);
 void                    free_args(t_args *args);
 void                    free_exit(t_semicol *semicol, t_env *env, char *str, void *param);
+void                    ft_free_env(t_env *env);
 
 char		            *clean_redir(char *str, char c);
 

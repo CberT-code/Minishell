@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/05 22:23:43 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 13:40:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void    free_tab_all(char ***all)
     }
 }
 
-void    ft_free(t_semicol *semicol, t_env *env)
+void    ft_free(t_semicol *semicol)
 {
     void   *b_last;
 
@@ -84,14 +84,6 @@ void    ft_free(t_semicol *semicol, t_env *env)
         free_pipes(semicol->pipes);
         b_last = semicol;
         semicol = semicol->next;
-        free(b_last);
-    }
-    while (env != NULL)
-    {
-        free(env->var);
-        free(env->valeur);
-        b_last = env;
-        env = env->next;
         free(b_last);
     }
 }
