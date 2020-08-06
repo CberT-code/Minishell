@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/05 22:50:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 08:45:02 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,25 @@ int         condition(char *str, char *str2)
     return (0);
 }
 
-int        replace_env(t_env **env, char *var, char *value)
+int        replace_env(t_env *env, char *var, char *value)
 {
     t_env   *env_n;
 
-    env_n = *env;
-    while (*env != NULL)
+    env_n = env;
+    while (env != NULL)
     {
-        if ((ft_strlen((*env)->var) == ft_strlen(var) && 
-        ft_strcmp((*env)->var, var) == 0) ||
-        (condition((*env)->var, var)) || condition(var, (*env)->var))
+        if ((ft_strlen((env)->var) == ft_strlen(var) && 
+        ft_strcmp((env)->var, var) == 0) ||
+        (condition((env)->var, var)) || condition(var, (env)->var))
         {
-            (*env)->var = var;
-            (*env)->valeur = value;
-            *env = env_n;
+            (env)->var = var;
+            (env)->valeur = value;
+            env = env_n;
             return (1);
         }
-        *env = (*env)->next;
+        env = (env)->next;
     }
-    *env = env_n;
+    env = env_n;
     return (0);
 }
 
@@ -131,15 +131,16 @@ void        suppr_maillon(t_env **list, t_env *ptr)
     *list = start;
 }
 
-int         ft_export(t_args *args, t_env **env)
+int         ft_export(t_args *args, t_env *env)
 {
     t_args  *first_arg;
 
+printf("We are here\n");
     first_arg = args;
     while (args != NULL)
     {
         if (args == NULL)
-            return (display_export(*env));
+            return (display_export(env));
         data_list(args->str, env);
     }
     args = first_arg;

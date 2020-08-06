@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/05 23:06:24 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 08:00:26 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void			lstadd_back_semicol(t_semicol **semicol, char *str, t_env *env)
 	if (*semicol != NULL)
 		ft_lstlastsemicol(*semicol)->next = ft_lstnewsemicol(str, env);
 	else
-	{
 		*semicol = ft_lstnewsemicol(str, env);
-		g_first_semicol = *semicol;
-	}
+
 }

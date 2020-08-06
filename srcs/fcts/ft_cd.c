@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/05 19:36:21 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/06 08:41:22 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,24 @@ int	ft_size_args(t_args *args)
 	return (cpt);
 }
 
-int ft_cd(t_args **args, t_env *env)
+int ft_cd(t_args *args, t_env *env)
 {
-	if (!*args || !(*args)->str
-	|| ft_strncmp((*args)->str, "~", 1) == 0)
+	if (!args || !(args)->str
+	|| ft_strncmp((args)->str, "~", 1) == 0)
 	{
-		if (chdir(ft_getenv("HOME", env->var)) != 0)
+		if (chdir(ft_getenv("HOME", env)) != 0)
 		{
 			ft_putendl("cd: Error - Environment variable $HOME not set");
 			return (1);
 		} 
 		return (0); 
 	}
-	if (ft_size_args(*args) > 1)
+	if (ft_size_args(args) > 1)
 	{
 		ft_putendl("cd: Error - Too many arguments");
 		return (1);
 	}
-	if (chdir((*args)->str) != 0)
+	if (chdir((args)->str) != 0)
 	{
 		ft_putendl("cd: Error - No such file or directory");
 		return (1);
