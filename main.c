@@ -6,9 +6,15 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 16:00:54 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 22:25:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+
+// Probleme export double entree
+// verifier new leaks et free le PATH
 
 #include "minishell.h"
 
@@ -68,13 +74,14 @@ int     main(int argc, char **argv, char **envp)
 	{
 		if (get_next_line(0, &g_line) == 1)
 		{
+			printf("here we test ENV -> %p\n", &env);
 			check_line(g_line);
 			semicol = NULL;
 			split_semicol(g_line, &semicol, env);
 			count_pipe(semicol);
 			tab_all(semicol);
 			new_str(semicol);
-			exec_cmds(semicol, env);
+			exec_cmds(semicol, &env);
 			ft_free(semicol);
     		ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 		}

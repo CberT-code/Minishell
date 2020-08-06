@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 08:18:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 17:08:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char        **ft_tri_vartab(char **tab)
     return (tab);
 }
 
-void         data_list(char *str, t_env *env)
+void         data_list(char *str, t_env **env)
 {
     int     i;
     char    *var;
@@ -108,18 +108,25 @@ void         data_list(char *str, t_env *env)
     i += ft_strlen(var);
     if (str[--i] == '=')
     {
+        printf("here we test -> |%s|\n", var);
          if (check_str_alpha(var, ft_strlen(var) - 1) == 0)
-            return (free_exit(NULL, env, "export: \" %s \" : identifiant non valable", var));
+            return (free_exit(NULL, *env, "export: \" %s \" : identifiant non valable", var));
         value = check_value(str, ++i);
         value = ft_strcpyfrom(str, "=");
+        printf("here we test -> |%s|\n", value);
         i += ft_strlen(value);
     }
     else
     {
+        printf("here we test -> |%s|\n", var);
         if (check_str_alpha(var, ft_strlen(var)) == 0)
-            return (free_exit(NULL, env, "export: \" %s \" : identifiant non valable", var));
+            return (free_exit(NULL, *env, "export: \" %s \" : identifiant non valable", var));
         value = NULL;
     }
-    if (replace_env(env, var, value) == 0)
-        ft_lstadd_back_env(&env, var, value);   
+    if (replace_env(*env, var, value) == 0)
+    {
+        printf("ENV EXPORT-> %p\n", env);
+        ft_lstadd_back_env(env, var, value);   
+        printf("here we test -> la fin de export\n");
+    }
 }    

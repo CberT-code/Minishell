@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/06 16:04:07 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 22:23:33 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int ft_cd(t_args *args, t_env *env)
 	if (!args || !(args)->str
 	|| ft_strncmp((args)->str, "~", 1) == 0)
 	{
-		if (chdir(ft_getenv("HOME", env)) != 0)
+		if (chdir(ft_getenv("HOME=", env)) != 0)
 		{
 			ft_putendl("cd: Error - Environment variable $HOME not set");
 			return (1);
