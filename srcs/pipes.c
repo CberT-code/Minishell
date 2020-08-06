@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 14:43:40 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 15:39:51 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,10 @@ void do_pipe(t_semicol *semicol, int *ret, t_env *env)
       do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
       close_pipes(semicol->nb_pipes * 2, pipes);
       if ((*ret = find_fcts(&semicol->pipes->cmds, env)) != -1)
-      {
-        exit(1);
-      }
+        exit(*ret);
       else if ((*ret = execvp(*semicol->all[j], semicol->all[j])))
           exit(*ret);
-      else
-      {} 
     }
-    printf("We are here coucou\n");
     waitpid(pid[j], ret, 0);
     semicol->pipes = semicol->pipes->next;
   }
