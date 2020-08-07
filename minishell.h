@@ -174,5 +174,6 @@ int                     ft_echo(t_args *args);
 
 int                     ft_cd(t_args *args, t_env *env);
 int	                    ft_pwd(void);
+int                     ft_checkline(char *line);
 
 #endif
