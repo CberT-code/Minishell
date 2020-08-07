@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 08:45:02 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/06 17:00:03 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,6 @@ int        replace_env(t_env *env, char *var, char *value)
     return (0);
 }
 
-void        add_env(t_env **env, t_env **data)
-{
-     t_env   *env_n;
-     t_env   *start;
-     int    find;
-
-    start = *data;
-    env_n = *env;
-    while (*data != NULL)
-    {
-        find = 0;
-         while ((*env)->next != NULL && find == 0)
-        {
-            if (ft_strcmp((*data)->var, (*env)->var) == 0)
-            {
-                find = 1;
-            }
-            *env = (*env)->next;
-        }
-        if (find == 0 && (*data)->valeur != NULL)
-            ft_lstadd_back_env(env, (*data)->var, (*data)->valeur);
-        *data = (*data)->next;
-    }
-    *data = start;
-    *env = env_n;
-}
-
 void        suppr_maillon(t_env **list, t_env *ptr)
 {
     t_env   *start;
@@ -131,17 +104,18 @@ void        suppr_maillon(t_env **list, t_env *ptr)
     *list = start;
 }
 
-int         ft_export(t_args *args, t_env *env)
+int         ft_export(t_args *args, t_env **env)
 {
     t_args  *first_arg;
 
-printf("We are here\n");
+
     first_arg = args;
+    if (args == NULL)
+        return (display_export(*env));
     while (args != NULL)
     {
-        if (args == NULL)
-            return (display_export(env));
         data_list(args->str, env);
+        args = args->next;
     }
     args = first_arg;
     return (0);

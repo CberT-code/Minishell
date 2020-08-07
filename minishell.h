@@ -7,7 +7,7 @@
 #define SIMPQ 39
 #define DOUBQ 34
 #define BACKS 92
-
+#define ERROR_FIND_CMD "\n\n\033[1;31mLa commande « %s » n'a pas été trouvée.\033[0;0m\n\n"
 typedef	struct	           s_redir
 {
     char                   *str;
@@ -132,12 +132,12 @@ void                    ft_doubleq_len(char *str, t_env *env, int *i, int *len);
 int                     ft_envcpylen(char *str, t_env *env);
 int                     ft_isbacks(char *str, int i);
 int                     ft_isquote(char *str, int i);
-int                     exec_cmds(t_semicol *semicol, t_env *env);
+int                     exec_cmds(t_semicol *semicol, t_env **env);
 
-int                     ft_export(t_args *args, t_env *env);
+int                     ft_export(t_args *args, t_env **env);
 char                    *double_char(char *str, char c);
 char                    **ft_tri_vartab(char **tab);
-void                    data_list(char *str, t_env *env);
+void                    data_list(char *str, t_env **env);
 
 void	                ft_tri_varlst(t_env **lst_env);
 void	                ft_lstadd_back_var(t_env **alst, char *var, char *valeur);
@@ -164,16 +164,28 @@ void                    ft_free_env(t_env *env);
 
 char		            *clean_redir(char *str, char c);
 
-int                     ft_env(t_args *args, t_env *env);
+int                     ft_env(t_args *args, t_env **env);
 
 int                     check_str_alpha(char *str, int len);
 void                    check_line(char *str);
-int                     find_fcts(t_cmds *cmd, t_env *env);
+int                     find_fcts(t_cmds *cmd, t_env **env);
 
 int                     ft_echo(t_args *args);
 
 int                     ft_cd(t_args *args, t_env *env);
 int	                    ft_pwd(void);
 int                     ft_checkline(char *line);
+
+int                     search_mybin(char *str);
+char                    *check_path(char *str ,t_env *env);
+
+void                    exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes);
+int                     condition_do_pipe(t_semicol *semicol, char *str);
+
+void                    do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe);
+void                    redir_out(t_redir *redir, int param, int *pipes, int j);
+void                    wait_pipes(int nb_pipes, pid_t *pid, int *ret);
+void                    close_pipes(int nb_pipes, int *pipes);
+void                    init_pipes(int nb_pipes, int *pipes);
 
 #endif

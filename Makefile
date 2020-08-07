@@ -20,6 +20,7 @@ SRCS = 			srcs/fcts/echo.c \
 				srcs/ft_free.c \
 				srcs/ft_free_utils.c \
 				srcs/pipes.c \
+				srcs/pipes_util.c \
 				srcs/quotes.c \
 				srcs/redirections.c \
 				srcs/replace_env.c \
