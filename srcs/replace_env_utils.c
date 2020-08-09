@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/08 13:29:41 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/09 16:00:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,24 @@
 int		ft_envlen(char *str, t_env *env, int *cpt)
 {
 	t_env *env_cpy;
+	int i;
 
 	env_cpy = env;
+	i = 0;
+	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
+	&& str[i] != BACKS && str[i])
+		i++;
 	while (env_cpy)
 	{
-		if (ft_strncmp(str, env_cpy->var, ft_strlen(str)) == 0
+		if (ft_strncmp(str, env_cpy->var, i) == 0
 		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
 		{
 			*cpt = *cpt + ft_strlen(env_cpy->valeur);
-			return (ft_strlen(str));
+			return (i);
 		}
 		env_cpy = env_cpy->next;
 	}
-	return (ft_strlen(str));
+	return (i);
 }
 
 void	ft_simpq_len(char *str, int *i, int *len)

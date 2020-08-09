@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/09 13:23:43 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/09 17:44:56 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ void         data_list(char *str, t_env **env)
     {
         printf("here we test -> |%s|\n", var);
          if (check_str_alpha(var, ft_strlen(var) - 1) == 0)
-            return (free_exit(NULL, *env, "export: \" %s \" : identifiant non valable", var));
+            return (free_exit(NULL, *env, "export: \" %s \" : identifiant non valable\n", var));
         value = check_value(str, ++i);
         value = ft_strcpyfrom(str, "=");
-        printf("here we test -> |%s|\n", value);
+        printf("here we test valeur -> |%s|\n", value);
         i += ft_strlen(value);
     }
     else
