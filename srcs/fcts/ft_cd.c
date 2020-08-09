@@ -6,11 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/08/06 16:51:14 by user42           ###   ########.fr       */
-=======
-/*   Updated: 2020/08/06 22:23:33 by cbertola         ###   ########.fr       */
->>>>>>> cyrille
+/*   Updated: 2020/08/08 13:22:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +41,6 @@ int	ft_size_args(t_args *args)
 
 int ft_cd(t_args *args, t_env *env)
 {
-	printf("args->str -> %s\n", args->str);
 	if (!args || !args->str
 	|| ft_strncmp(args->str, "~", 1) == 0)
 	{
