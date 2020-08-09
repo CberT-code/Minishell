@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/09 10:38:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/09 13:25:24 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ char         *check_var(char *str)
 
     i = 0;
     if (str[i] != '\0')
+    {
         return (ft_strcpyuntil(str + i, "="));
+    }
     else 
         return (NULL);
 }

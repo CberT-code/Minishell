@@ -18,7 +18,10 @@ t_args			*ft_lstnewargs(char *str, t_env *env)
 
 	if (!(args = (t_args*)calloc(sizeof(t_args), 1)))
 		return (NULL);
+		
+        printf("here we test ici -> |%s|\n", str);
 	args->str = ft_envcpy(str, env);
+        printf("here we test ici -> |%s|\n", args->str);
 	args->next = NULL;
 	return (args);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/02 17:46:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/08 13:29:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,20 @@
 
 int		ft_envlen(char *str, t_env *env, int *cpt)
 {
-	int	i;
-	int	j;
-	int	k;
+	t_env *env_cpy;
 
-	i = 0;
-	k = -1;
-	while ((ft_isalpha(str[i]) == 1 || str[i] == '_') && str[i])
-		i++;
-	while (env->var)
+	env_cpy = env;
+	while (env_cpy)
 	{
-		j = 0;
-		while (env->var[j] != '=' && env->var[j])
-			j++;
-		if (ft_strncmp(str, env->var, i) == 0 && ft_strncmp(env->var, str, j) == 0)
+		if (ft_strncmp(str, env_cpy->var, ft_strlen(str)) == 0
+		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
 		{
-			*cpt = *cpt + ft_strlen(env->var) - (j + 1);
-			return (i);
+			*cpt = *cpt + ft_strlen(env_cpy->valeur);
+			return (ft_strlen(str));
 		}
-		env = env->next;
+		env_cpy = env_cpy->next;
 	}
-	return (i);
+	return (ft_strlen(str));
 }
 
 void	ft_simpq_len(char *str, int *i, int *len)

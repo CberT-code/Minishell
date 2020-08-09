@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/04 20:27:54 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/08 13:32:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,23 @@ void	ft_simpq_cpy(char *str, char *cpy, int *i, int *j)
 
 int	ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 {
+	t_env *env_cpy;
 	int i;
-	int l;
-	int k;
 
+	env_cpy = env;
 	i = 0;
-	k = -1;
-	while ((ft_isalpha(str[i]) == 1 || str[i] == '_') && str[i])
-		i++;
-	while (env != NULL)
+	while (env_cpy)
 	{
-		l = 0;
-		while (env->var[l] != '=' && env->var[l])
-			l++;
-		if (ft_strncmp(str, env->var, i) == 0 && ft_strncmp(env->var, str, l) == 0)
+		if (ft_strncmp(str, env_cpy->var, ft_strlen(str)) == 0
+		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
 		{
-			while (env->var[++l])
-				cpy[(*j)++] = env->var[l];
-			return (i);
+			while (env_cpy->valeur[i])
+				cpy[(*j)++] = env_cpy->valeur[i++];
+			return (ft_strlen(str));
 		}
-		env = env->next;
+		env_cpy = env_cpy->next;
 	}
-	return (i);
+	return (ft_strlen(str));
 }
 
 int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
