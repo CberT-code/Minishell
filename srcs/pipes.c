@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 22:16:59 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/09 11:43:56 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,22 @@ void     exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
       if ((path = check_path(semicol->pipes->cmds.str ,*env)) != NULL)
       {
         if ((ret = execvp(path, semicol->all[j])))
+        {
+          free(path);
           exit(ret);
+        }
       }
       else 
         ft_printf(ERROR_FIND_CMD, semicol->pipes->cmds.str);
+      free(path);
     } 
 }
 
 void     do_pipe(t_semicol *semicol, int *ret, t_env **env)
 {
-  int         pipes[semicol->nb_pipes * 2 + 1];
-  int         j = -1;
-  t_pipes   *first_pipes;
+  int        pipes[semicol->nb_pipes * 2 + 1];
+  int        j = -1;
+  t_pipes    *first_pipes;
   pid_t      pid[semicol->nb_pipes + 1];
 
   init_pipes(semicol->nb_pipes * 2, pipes);

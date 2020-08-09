@@ -6,14 +6,10 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 22:25:00 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/09 11:43:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
-// Probleme export double entree
 // verifier new leaks et free le PATH
 
 #include "minishell.h"
@@ -51,6 +47,7 @@ void	sig_handler(int sig)
 		ft_printf("\b\b  \b\b");
 	else if (sig == SIGQUIT && g_line && ft_strlen(g_line) > 0)
 	{
+		ft_free(g_first_semicol);
 		ft_printf("Quitter (core dumped)\n");
 		kill(1, SIGINT);
 	}
@@ -82,7 +79,9 @@ int     main(int argc, char **argv, char **envp)
 			tab_all(semicol);
 			new_str(semicol);
 			exec_cmds(semicol, &env);
+
 			ft_free(semicol);
+  printf("TEST for END\n");
     		ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 		}
 		else if (ft_strlen(g_line) == 0)
