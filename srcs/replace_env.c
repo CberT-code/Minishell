@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/08 13:32:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/09 16:00:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,26 @@ int	ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 {
 	t_env *env_cpy;
 	int i;
+	int l;
 
 	env_cpy = env;
 	i = 0;
+	l = 0;
+	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
+	&& str[i] != BACKS && str[i])
+		i++;
 	while (env_cpy)
 	{
-		if (ft_strncmp(str, env_cpy->var, ft_strlen(str)) == 0
+		if (ft_strncmp(str, env_cpy->var, i) == 0
 		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
 		{
-			while (env_cpy->valeur[i])
-				cpy[(*j)++] = env_cpy->valeur[i++];
-			return (ft_strlen(str));
+			while (env_cpy->valeur[l])
+				cpy[(*j)++] = env_cpy->valeur[l++];
+			return (i);
 		}
 		env_cpy = env_cpy->next;
 	}
-	return (ft_strlen(str));
+	return (i);
 }
 
 int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
