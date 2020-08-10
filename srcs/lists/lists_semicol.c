@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 11:00:49 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:54:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_semicol			*ft_lstnewsemicol(char *str, t_env *env)
 {
 	t_semicol *semicol;
-	
+
 	if (!(semicol = (t_semicol*)calloc(sizeof(t_semicol), 1)))
 		return (NULL);
 	semicol->str = str;
@@ -33,11 +33,10 @@ t_semicol			*ft_lstlastsemicol(t_semicol *semicol)
 	return (semicol);
 }
 
-void			lstadd_back_semicol(t_semicol **semicol, char *str, t_env *env)
+void				lstadd_back_semicol(t_semicol **semicol, char *str, t_env *env)
 {
 	if (*semicol != NULL)
 		ft_lstlastsemicol(*semicol)->next = ft_lstnewsemicol(str, env);
 	else
 		*semicol = ft_lstnewsemicol(str, env);
-
 }

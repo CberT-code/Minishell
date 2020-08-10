@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 11:00:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:49:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char *ft_getenv(char *str, t_env *env)
+char	*ft_getenv(char *str, t_env *env)
 {
 	while (env)
 	{
@@ -24,7 +24,7 @@ char *ft_getenv(char *str, t_env *env)
 	return (NULL);
 }
 
-int	ft_size_args(t_args *args)
+int		ft_size_args(t_args *args)
 {
 	int	cpt;
 
@@ -39,7 +39,7 @@ int	ft_size_args(t_args *args)
 	return (cpt);
 }
 
-int ft_cd(t_args *args, t_env *env)
+int		ft_cd(t_args *args, t_env *env)
 {
 	if (!args || !(args)->str
 	|| ft_strncmp((args)->str, "~", 1) == 0)
@@ -48,8 +48,8 @@ int ft_cd(t_args *args, t_env *env)
 		{
 			ft_putendl("cd: Error - Environment variable $HOME not set");
 			return (1);
-		} 
-		return (0); 
+		}
+		return (0);
 	}
 	if (ft_size_args(args) > 1)
 	{

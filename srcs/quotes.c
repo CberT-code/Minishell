@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:48:24 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 11:00:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:28:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,21 @@ int		ft_in_quotes(char *str, int i)
 	while (++j < i)
 	{
 		if ((j > 0 && str[j] == SIMPQ && ft_isbacks(str, j - 1) == 0)
-		|| (j == 0 && str[j] == SIMPQ))
+				|| (j == 0 && str[j] == SIMPQ))
 		{
-			
 			quote++;
 			last = 1;
 		}
 		if ((j > 0 && str[j] == DOUBQ && ft_isbacks(str, j - 1) == 0)
-		|| (j == 0 && str[j] == DOUBQ))
+				|| (j == 0 && str[j] == DOUBQ))
 		{
 			dbquote++;
 			last = 2;
 		}
 	}
 	if (quote % 2 != 0 || dbquote % 2 != 0)
-		return(last);
-	return (0);	
+		return (last);
+	return (0);
 }
 
 int		ft_isbacks(char *str, int i)

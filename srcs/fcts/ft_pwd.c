@@ -6,15 +6,15 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 15:02:20 by user42            #+#    #+#             */
-/*   Updated: 2020/08/05 22:26:44 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:44:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_pwd(void)
+int		ft_pwd(void)
 {
-	char cwd[1024];
+	char	cwd[1024];
 
 	if (getcwd(cwd, sizeof(cwd)))
 	{

@@ -6,119 +6,118 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/09 13:25:24 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:48:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char         *check_var(char *str)
+char		*check_var(char *str)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    if (str[i] != '\0')
-    {
-        return (ft_strcpyuntil(str + i, "="));
-    }
-    else 
-        return (NULL);
+	i = 0;
+	if (str[i] != '\0')
+	{
+		return (ft_strcpyuntil(str + i, "="));
+	}
+	else
+		return (NULL);
 }
 
-char         *check_value(char *str, int i)
+char		*check_value(char *str, int i)
 {
-    char    *ret;
-    int     start;
+	char	*ret;
+	int		start;
 
-    if (str[i] == '\"' || str[i] == '\'')
-        i++;
-    start = i;
-    if (ft_in_quotes(str, i) != 0)
-    {
-        while (ft_in_quotes(str, i) != 0)
-            i++;
-        i -= start;
-        i--;
-        ret = ft_strncpy(str + start, i);
-        return (ret);
-    }
-    if (str[i] != ' ')
-        return (ft_strcpyuntil(str + i, " "));
-    return (NULL);
+	if (str[i] == '\"' || str[i] == '\'')
+		i++;
+	start = i;
+	if (ft_in_quotes(str, i) != 0)
+	{
+		while (ft_in_quotes(str, i) != 0)
+			i++;
+		i -= start;
+		i--;
+		ret = ft_strncpy(str + start, i);
+		return (ret);
+	}
+	if (str[i] != ' ')
+		return (ft_strcpyuntil(str + i, " "));
+	return (NULL);
 }
 
-int         condition(char *str, char *str2)
+int			condition(char *str, char *str2)
 {
-    if ((ft_strlen(str) - ft_strlen(str2)) == 1)
-    {
-        if (strncmp(str, str2, ft_strlen(str)) == 61 && 
-        str[ft_strlen(str) - 1] == '=')
-            return (1);
-        else
-            return (0);
-    }
-    return (0);
+	if ((ft_strlen(str) - ft_strlen(str2)) == 1)
+	{
+		if (strncmp(str, str2, ft_strlen(str)) == 61 &&
+				str[ft_strlen(str) - 1] == '=')
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
 }
 
-int        replace_env(t_env *env, char *var, char *value)
+int			replace_env(t_env *env, char *var, char *value)
 {
-    t_env   *env_n;
+	t_env	*env_n;
 
-    env_n = env;
-    while (env != NULL)
-    {
-        if ((ft_strlen((env)->var) == ft_strlen(var) && 
-        ft_strcmp((env)->var, var) == 0) ||
-        (condition((env)->var, var)) || condition(var, (env)->var))
-        {
-            (env)->var = var;
-            (env)->valeur = value;
-            env = env_n;
-            return (1);
-        }
-        env = (env)->next;
-    }
-    env = env_n;
-    return (0);
+	env_n = env;
+	while (env != NULL)
+	{
+		if ((ft_strlen((env)->var) == ft_strlen(var) &&
+					ft_strcmp((env)->var, var) == 0) ||
+				(condition((env)->var, var)) || condition(var, (env)->var))
+		{
+			(env)->var = var;
+			(env)->valeur = value;
+			env = env_n;
+			return (1);
+		}
+		env = (env)->next;
+	}
+	env = env_n;
+	return (0);
 }
 
-void        suppr_maillon(t_env **list, t_env *ptr)
+void		suppr_maillon(t_env **list, t_env *ptr)
 {
-    t_env   *start;
+	t_env	*start;
 
-    start = *list;
-    if (*list == NULL)
-    {
-        *list = ptr->next;
-        return ;
-    }
-    while (*list != NULL)
-    {
-        if ((*list)->next == ptr)
-        {
-            (*list)->next = ptr->next;
-            free(ptr);
-            *list = start;
-            return ;
-        }
-        *list = (*list)->next;
-    }
-    *list = start;
+	start = *list;
+	if (*list == NULL)
+	{
+		*list = ptr->next;
+		return ;
+	}
+	while (*list != NULL)
+	{
+		if ((*list)->next == ptr)
+		{
+			(*list)->next = ptr->next;
+			free(ptr);
+			*list = start;
+			return ;
+		}
+		*list = (*list)->next;
+	}
+	*list = start;
 }
 
-int         ft_export(t_args *args, t_env **env)
+int			ft_export(t_args *args, t_env **env)
 {
-    t_args  *first_arg;
+	t_args	*first_arg;
 
-
-    first_arg = args;
-    if (args == NULL)
-        return (display_export(*env));
-    while (args != NULL)
-    {
-        data_list(args->str, env);
-        args = args->next;
-    }
-    args = first_arg;
-    return (0);
+	first_arg = args;
+	if (args == NULL)
+		return (display_export(*env));
+	while (args != NULL)
+	{
+		data_list(args->str, env);
+		args = args->next;
+	}
+	args = first_arg;
+	return (0);
 }

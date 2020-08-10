@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 14:51:47 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 11:01:41 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:51:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_env	*ft_lstnew_var(char *var, char *valeur)
 {
-	t_env *lst;
+	t_env	*lst;
 
 	if (!(lst = (t_env*)calloc(sizeof(t_env), 1)))
 		return (NULL);
@@ -43,28 +43,28 @@ void	ft_lstadd_back_var(t_env **alst, char *var, char *valeur)
 
 void	ft_tri_varlst(t_env **lst_env)
 {
-	t_env *new_lst;
-	t_env *cpy_lst;
-    char *var;
-	char * valeur;
+	t_env	*new_lst;
+	t_env	*cpy_lst;
+	char	*var;
+	char	*valeur;
 
 	new_lst = *lst_env;
-    while (new_lst->next)
-    {
-        cpy_lst = new_lst;
-        while (cpy_lst->next)
-        {
-            if (ft_strcmp(cpy_lst->var, cpy_lst->next->var) > 0)
-            {
-                var = ft_strdup(cpy_lst->var);
+	while (new_lst->next)
+	{
+		cpy_lst = new_lst;
+		while (cpy_lst->next)
+		{
+			if (ft_strcmp(cpy_lst->var, cpy_lst->next->var) > 0)
+			{
+				var = ft_strdup(cpy_lst->var);
 				valeur = ft_strdup(cpy_lst->valeur);
-                cpy_lst->var = ft_strdup(cpy_lst->next->var);
+				cpy_lst->var = ft_strdup(cpy_lst->next->var);
 				cpy_lst->valeur = ft_strdup(cpy_lst->next->valeur);
-                cpy_lst->next->var = ft_strdup(var);
+				cpy_lst->next->var = ft_strdup(var);
 				cpy_lst->next->valeur = ft_strdup(valeur);
-            }
-            cpy_lst = cpy_lst->next;
-        }
-        new_lst = new_lst->next;
-    }
+			}
+			cpy_lst = cpy_lst->next;
+		}
+		new_lst = new_lst->next;
+	}
 }
