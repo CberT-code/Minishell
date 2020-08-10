@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 15:01:15 by user42            #+#    #+#             */
-/*   Updated: 2020/08/07 15:13:30 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:50:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_isulsign(char c)
 	return (0);
 }
 
-int	ft_isspace(char c)
+int		ft_isspace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\v' || c == '\n' || c == '\f'
 		|| c == '\r');
@@ -49,7 +49,7 @@ int		count_signs(char quote, char *line, int *i, int *s)
 	}
 	if (*s > 2)
 	{
-		ft_printf("minishell : erreur de syntaxe près du symbole inattendu « %c »\n", line[*i - 1]);
+		ft_printf(SYNTHERRC, line[*i - 1]);
 		free(line);
 		return (1);
 	}
@@ -63,9 +63,9 @@ int		ft_checkredir(char *line, int i, int *s, char prev)
 	if ((line[i] == 0 || ft_isulsign(line[i])) && prev != '\\')
 	{
 		if (ft_isulsign(line[i]))
-			ft_printf("minishell : erreur de syntaxe près du symbole inattendu « %c »\n", line[i]);
+			ft_printf(SYNTHERRC, line[i]);
 		else if (line[i] == 0)
-			ft_printf("minishell : erreur de syntaxe près du symbole inattendu « %s »\n", "newline");
+			ft_printf(SYNTHERRS, "newline");
 		free(line);
 		return (1);
 	}
@@ -85,7 +85,7 @@ int		ft_checkpipe(char quote, char *line, int i, char prev)
 			j--;
 		if (j <= 0 || line[j] == ';' || line[j] == '|')
 		{
-			ft_printf("minishell : erreur de syntaxe près du symbole inattendu « %c »\n", '|');
+			ft_printf(SYNTHERRC, '|');
 			free(line);
 			return (1);
 		}
@@ -94,7 +94,7 @@ int		ft_checkpipe(char quote, char *line, int i, char prev)
 			j++;
 		if (line[j] == ';')
 		{
-			ft_printf("minishell : erreur de syntaxe près du symbole inattendu « %c »\n", line[j]);
+			ft_printf(SYNTHERRC, line[j]);
 			free(line);
 			return (1);
 		}
@@ -106,7 +106,7 @@ int		ft_checkparent(char quote, char *line, int i, char prev)
 {
 	if ((line[i] == '(' || line[i] == ')') && (!quote && prev != '\\'))
 	{
-		ft_printf("minishell : erreur de syntaxe près du symbole inattendu « %c »\n", line[i]);
+		ft_printf(SYNTHERRC, line[i]);
 		free(line);
 		return (1);
 	}

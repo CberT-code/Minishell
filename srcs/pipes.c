@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:25:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:42:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		condition_do_pipe(t_semicol *semicol, char *str)
 	redir_in = &semicol->pipes->redir_in;
 	redir_out = &semicol->pipes->redir_out;
 	if (semicol->nb_pipes == 1 && semicol->pipes->redir_in.simpl == NULL &&
-			semicol->pipes->redir_in.doubl == NULL && semicol->pipes->redir_out.simpl == NULL &&
+			semicol->pipes->redir_in.doubl == NULL
+			&& semicol->pipes->redir_out.simpl == NULL &&
 			semicol->pipes->redir_out.doubl == NULL && search_mybin(str))
 		return (1);
 	return (0);

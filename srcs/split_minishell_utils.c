@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_minishell_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:35:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:39:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ char		*clean_redir(char *str, char c)
 			if (str[i + 1] == c)
 			{
 				j = str[i + 2] == ' ' ? 3 : 2;
-				str = ft_subfromstr_free(str, i, ft_strlen_str_quotes(str + i + j, " ") + j);
+				str = ft_subfromstr_free(str, i,
+				ft_strlen_str_quotes(str + i + j, " ") + j);
 			}
 			else
 			{
 				j = str[i + 1] == ' ' ? 2 : 1;
-				str = ft_subfromstr_free(str, i, ft_strlen_str_quotes(str + i + j, " ") + j);
+				str = ft_subfromstr_free(str, i,
+				ft_strlen_str_quotes(str + i + j, " ") + j);
 			}
 			i = 0;
 		}

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 15:01:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:17:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,19 @@ int		ft_size_args(t_args *args)
 	return (cpt);
 }
 
+void	ft_change_pwd(t_env *env)
+{
+	t_env	*env_cpy;
+	char	cwd[1024];
+
+	env_cpy = env;
+	while (ft_strncmp(env_cpy->var, "PWD=", 4) != 0)
+		env_cpy = env_cpy->next;
+	getcwd(cwd, sizeof(cwd));
+	ft_strdel(&env_cpy->valeur);
+	env_cpy->valeur = ft_strdup(cwd);
+}
+
 int		ft_cd(t_args *args, t_env *env)
 {
 	if (!args || !args->str
@@ -61,5 +74,7 @@ int		ft_cd(t_args *args, t_env *env)
 		ft_putendl("cd: Error - No such file or directory");
 		return (8);
 	}
+	else
+		ft_change_pwd(env);
 	return (0);
 }

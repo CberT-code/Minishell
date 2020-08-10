@@ -9,7 +9,10 @@
 # define		BACKS			92
 # define		ERROR_FIND_CMD	"\n\n\033[1;31mLa commande « %s » n'a pas été \
 trouvée.\033[0;0m\n\n"
-
+# define		IDERRONE "export: |%s| : identifiant non valable\n"
+# define		IDERRTWO "export: \" %s \" : identifiant non valable"
+# define		SYNTHERRC "minishell : erreur de syntaxe près du symbole inattendu « %c »\n"
+# define		SYNTHERRS "minishell : erreur de syntaxe près du symbole inattendu « %s »\n"
 typedef	struct			s_redir
 {
 	char				*str;

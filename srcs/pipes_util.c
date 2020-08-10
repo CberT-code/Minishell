@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:27:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:41:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
 		dup2(fd, 0);
 		pipe->redir_in.simpl = pipe->redir_in.simpl->next;
 	}
-	if (j < nb_pipes - 1 || pipe->redir_out.simpl != NULL || pipe->redir_out.doubl != NULL)
+	if (j < nb_pipes - 1 || pipe->redir_out.simpl != NULL
+	|| pipe->redir_out.doubl != NULL)
 	{
 		redir_out(pipe->redir_out.simpl, 1102, pipes, j);
 		redir_out(pipe->redir_out.doubl, 2102, pipes, j);
