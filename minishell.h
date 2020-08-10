@@ -53,6 +53,7 @@ typedef struct			s_semicol
 	int					nb_pipes;
 	char				***all;
 	t_pipes				*pipes;
+	int 				ret;
 	struct s_semicol	*next;
 }						t_semicol;
 
