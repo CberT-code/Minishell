@@ -6,11 +6,9 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/09 11:43:00 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 11:03:19 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// verifier new leaks et free le PATH
 
 #include "minishell.h"
 
@@ -19,20 +17,6 @@ char		*g_line;
 int			g_sta;
 t_semicol	*g_first_semicol;
 
-void	ft_prompt(void)
-{
-	//char *dir;
-
-	//ft_printf("\033[1;32m SOLCYMINISHELL  ➜ \033[0;0m");
-
-	//dir = "SOLCYMINISHELL  ➜ ";
-	// if (g_rep != 2)
-	//  	ft_printf((g_rep == 0 ? YEL "✦ "YEL "%s "RED"(%s) ➜ "WHI :
-	//  	RED "✦ "YEL "%s "RED"(%s) ➜ "WHI), "MINISHELL", dir);
-	//if (dir != NULL)
-	//	free(dir);
-}
-
 void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
@@ -40,7 +24,6 @@ void	sig_handler(int sig)
 		ft_putstr("\n");
 		g_rep = 130;
 		g_sta = 1;
-		ft_prompt();
 	}
 	if (sig == SIGQUIT && (!g_line || (g_line
 	&& ft_strlen(g_line) == 0)))
@@ -71,7 +54,6 @@ int     main(int argc, char **argv, char **envp)
 	{
 		if (get_next_line(0, &g_line) == 1)
 		{
-			printf("here we test ENV -> %p\n", &env);
 			check_line(g_line);
 			semicol = NULL;
 			split_semicol(g_line, &semicol, env);
@@ -79,9 +61,7 @@ int     main(int argc, char **argv, char **envp)
 			tab_all(semicol);
 			new_str(semicol);
 			exec_cmds(semicol, &env);
-
 			ft_free(semicol);
-  printf("TEST for END\n");
     		ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 		}
 		else if (ft_strlen(g_line) == 0)

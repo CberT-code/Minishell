@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/08/04 20:28:00 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 10:59:21 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,3 @@ char	*ft_clean_spaces(char *str)
 	cpy[j] = '\0';
 	return (cpy);
 }
-
-
-// int		main(int argc, char **argv, char **env)
-// {
-// 	char *str;
-// 	int		fd;
-// 	char *cpy;
-
-// 	str = NULL;
-// 	fd = 0;
-// 	get_next_line(fd, &str);
-// 	close(fd);
-// 	cpy = ft_clean_spaces(str);
-// 	cpy = ft_clean_backs(cpy);
-// 	//ft_printf("after -> %s\n", cpy);
-// 	return (0);
-// }

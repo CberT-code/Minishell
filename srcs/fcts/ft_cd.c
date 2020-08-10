@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/06 22:23:33 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 11:00:30 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,3 @@ int ft_cd(t_args *args, t_env *env)
 	}
 	return (0);
 }
-
-/*
-int main(int argc, char **arg, char **env)
-{
-	char cpy[1024];
-
-	getcwd(cpy, sizeof(cpy));
-	printf("%s\n", cpy);
-	ft_cd("../", env);
-	getcwd(cpy, sizeof(cpy));
-	printf("%s\n", cpy);
-	ft_cd("~", env);
-	getcwd(cpy, sizeof(cpy));
-	printf("%s\n", cpy);
-	return (0);
-}*/

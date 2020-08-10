@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/09 17:44:56 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 10:57:01 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,25 +108,18 @@ void         data_list(char *str, t_env **env)
     i += ft_strlen(var);
     if (str[--i] == '=')
     {
-        printf("here we test -> |%s|\n", var);
-         if (check_str_alpha(var, ft_strlen(var) - 1) == 0)
-            return (free_exit(NULL, *env, "export: \" %s \" : identifiant non valable\n", var));
+         if (!(check_str_alpha(var, ft_strlen(var) - 1)))
+            return (free_exit(NULL, *env, "export: |%s| : identifiant non valable\n", var));
         value = check_value(str, ++i);
         value = ft_strcpyfrom(str, "=");
-        printf("here we test valeur -> |%s|\n", value);
         i += ft_strlen(value);
     }
     else
     {
-        printf("here we test -> |%s|\n", var);
         if (check_str_alpha(var, ft_strlen(var)) == 0)
             return (free_exit(NULL, *env, "export: \" %s \" : identifiant non valable", var));
         value = NULL;
     }
     if (replace_env(*env, var, value) == 0)
-    {
-        printf("ENV EXPORT-> %p\n", env);
-        ft_lstadd_back_env(env, var, value);   
-        printf("here we test -> la fin de export\n");
-    }
+        ft_lstadd_back_env(env, var, value);
 }    

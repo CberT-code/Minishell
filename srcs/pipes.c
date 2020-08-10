@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/09 11:43:56 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 11:00:06 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,9 @@ void     do_pipe(t_semicol *semicol, int *ret, t_env **env)
   while (++j < semicol->nb_pipes)
   {
     if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
-    {
-      printf("Ici on utilise notre fonction\n");
       find_fcts(&semicol->pipes->cmds, env);
-    }
     else
     {
-      printf("Ici on utilise la fonction du bash\n");
       if (!(pid[j] = fork()))
         exec_fork(semicol, j, env, pipes);
       waitpid(pid[j], ret, 0);

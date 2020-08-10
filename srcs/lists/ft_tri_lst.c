@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 14:51:47 by user42            #+#    #+#             */
-/*   Updated: 2020/08/04 20:28:09 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 11:01:41 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,3 @@ void	ft_tri_varlst(t_env **lst_env)
         new_lst = new_lst->next;
     }
 }
-
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_env *test;
-// 	int i;
-	
-// 	test = NULL;
-// 	i = 0;
-// 	while (env[i])
-// 	{
-// 		ft_lstadd_back_var(&test, env[i], env[i]);
-// 		i++;
-// 	}
-// 	ft_tri_varlst(&test);
-// 	while (test)
-// 	{
-// 		printf("var -> %s\n", test->var);
-// 		test = test->next;
-// 	}
-// 	return (0);
-// }
