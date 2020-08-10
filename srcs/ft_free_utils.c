@@ -6,54 +6,54 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/06 13:42:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:21:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    free_args(t_args *args)
+void	free_args(t_args *args)
 {
-    t_args *b_last;
+	t_args *b_last;
 
-    b_last = args;
-    while (args != NULL)
-    {
-        free(args->str);
-        b_last = args;
-        args = args->next;
-        free(b_last);
-    }
+	b_last = args;
+	while (args != NULL)
+	{
+		free(args->str);
+		b_last = args;
+		args = args->next;
+		free(b_last);
+	}
 }
 
-void    free_cmds(t_cmds *cmds)
+void	free_cmds(t_cmds *cmds)
 {
-        free(cmds->str);
-        free_args(cmds->args);
+	free(cmds->str);
+	free_args(cmds->args);
 }
 
-void    free_exit(t_semicol *semicol, t_env *env, char *str, void *param)
+void	free_exit(t_semicol *semicol, t_env *env, char *str, void *param)
 {
-    if (str != NULL && param != NULL)
-        ft_printf(str, param);
-    if (str != NULL && param == NULL)
-        write(1, str, ft_strlen(str));
-    if (semicol != NULL)
-        ft_free(semicol);
-    ft_free_env(env);
-    exit(2);
+	if (str != NULL && param != NULL)
+		ft_printf(str, param);
+	if (str != NULL && param == NULL)
+		write(1, str, ft_strlen(str));
+	if (semicol != NULL)
+		ft_free(semicol);
+	ft_free_env(env);
+	exit(2);
 }
 
-void    ft_free_env(t_env *env)
+void	ft_free_env(t_env *env)
 {
-    t_env *b_last;
-    
-    while (env != NULL)
-    {
-        free(env->var);
-        free(env->valeur);
-        b_last = env;
-        env = env->next;
-        free(b_last);
-    }
+	t_env *b_last;
+
+	while (env != NULL)
+	{
+		free(env->var);
+		free(env->valeur);
+		b_last = env;
+		env = env->next;
+		free(b_last);
+	}
 }

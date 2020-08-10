@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/05 19:01:33 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:57:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int				count_pipe(t_semicol *semicol)
 {
 	t_semicol	*first_semicol;
 	t_pipes		*first_pipes;
-	int i;
+	int			i;
 
 	first_semicol = semicol;
 	while (semicol != NULL)
@@ -40,7 +40,7 @@ int				count_pipe(t_semicol *semicol)
 void			count_args(t_cmds *cmd)
 {
 	t_args	*cpy_args;
-	int i;
+	int		i;
 
 	i = 0;
 	cpy_args = cmd->args;
@@ -55,8 +55,8 @@ void			count_args(t_cmds *cmd)
 static void		new_str_utils(t_pipes *pipes)
 {
 	t_args		*first_arg;
-	char 		*str;
-	
+	char		*str;
+
 	first_arg = pipes->cmds.args;
 	if (pipes->cmds.args != NULL)
 	{
@@ -74,7 +74,7 @@ static void		new_str_utils(t_pipes *pipes)
 	pipes->cmds.args = first_arg;
 }
 
-void		new_str(t_semicol *semicol)
+void			new_str(t_semicol *semicol)
 {
 	t_pipes		*first_pipe;
 	t_semicol	*first_semicol;
@@ -94,19 +94,17 @@ void		new_str(t_semicol *semicol)
 	semicol = first_semicol;
 }
 
-char		**new_tab(t_pipes *pipes)
+char			**new_tab(t_pipes *pipes)
 {
 	int			i;
 	char		**tab_cmds;
 	t_args		*first_args;
 
-
-	if (!(tab_cmds = (char**)calloc(sizeof(char*), pipes->cmds.nb_args + 1)))
+	if (!(tab_cmds = (char**)calloc(sizeof(char*), pipes->cmds.nb_args + 2)))
 		return (NULL);
 	i = 0;
 	first_args = pipes->cmds.args;
-	printf("\t\there we test le premier -> %p\n", pipes->cmds.args);
-	while (i <= pipes->cmds.nb_args )
+	while (i <= pipes->cmds.nb_args)
 	{
 		if (i == 0)
 			tab_cmds[i] = ft_strdup(pipes->cmds.str);
@@ -116,37 +114,32 @@ char		**new_tab(t_pipes *pipes)
 			pipes->cmds.args = pipes->cmds.args->next;
 		}
 		i++;
+		tab_cmds[i] = 0;
 	}
 	pipes->cmds.args = first_args;
-	printf("\t\there we test le premier encore?? -> %p\n", pipes->cmds.args);
 	return (tab_cmds);
 }
 
-void	tab_all(t_semicol *semicol)
-{	
-	int 		i;
-	t_semicol 	*first_semicol;
-	t_pipes 	*first_pipe;
+void			tab_all(t_semicol *semicol)
+{
+	int			i;
+	t_semicol	*first_semicol;
+	t_pipes		*first_pipe;
 
 	first_semicol = semicol;
-	printf("here we test le premier semicol -> %p\n", semicol);
 	while (semicol != NULL)
 	{
 		i = 0;
 		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes + 1)))
 			return ;
 		first_pipe = semicol->pipes;
-		printf("\there we test le premier pipe -> %p\n", semicol->pipes);
 		while (semicol->pipes != NULL)
 		{
 			semicol->all[i++] = new_tab(semicol->pipes);
 			semicol->pipes = semicol->pipes->next;
 		}
 		semicol->pipes = first_pipe;
-		printf("\there we test le dernier pipe -> %p\n", semicol->pipes);
 		semicol = semicol->next;
 	}
 	semicol = first_semicol;
-	printf("here we test le premier semicol -> %p\n", semicol);
 }
-

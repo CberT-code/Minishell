@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/05 14:10:58 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 13:16:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ char					**ft_split(char const *s, char c);
 char					*ft_itoa(int n);
 char					*ft_strmapi(char const *s,
 						char (*f)(unsigned int, char));
-char         		    *ft_strcpyuntil(const char *src, char *n);
-char         		    *ft_strcpyfrom(const char *src, char *n);
+char					*ft_strcpyuntil(const char *src, char *n);
+char					*ft_strcpyfrom(const char *src, char *n);
 char					*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 int						ft_isalpha(int c);
@@ -96,19 +96,20 @@ void					ft_putnbr_fd(int n, int fd);
 void					ft_putstr(char *s);
 void					ft_putendl(char *s);
 void					ft_putnbr(int n);
-char    		        *ft_strncpy(const char *src, int n);
-char        		    *ft_strncpy_free(char *src, int n);
+char					*ft_strncpy(const char *src, int n);
+char					*ft_strncpy_free(char *src, int n);
 int						ft_strlen_str(const char *s, char *str);
 int						ft_strcmp(const char *s1, const char *s2);
-char					*ft_substr_free(char *s, unsigned int start, size_t len);
+char					*ft_substr_free(char *s,
+		unsigned int start, size_t len);
 char					*ft_subfromstr(char *s, int start, int len);
 char					*ft_subfromstr_free(char *s, int start, int len);
 char					*clean_redir(char *str, char c);
-char    			    *ft_subchar(char *str, char c);
+char					*ft_subchar(char *str, char c);
 char					*ft_strjoin_space(char const *s1, char const *s2);
-char      				*add_char(char *str, char c, int i);
-char    				*ft_strup(char *str);
-char   					ft_charup(char c);
+char					*add_char(char *str, char c, int i);
+char					*ft_strup(char *str);
+char					ft_charup(char c);
 int						get_next_char(char *str, char c);
 int						fnr(char *mem, int code);
 char					*ft_strjoin_g(char *s1, char *s2);
