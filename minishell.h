@@ -13,6 +13,8 @@ trouvée.\033[0;0m\n\n"
 # define		IDERRTWO "export: \" %s \" : identifiant non valable"
 # define		SYNTHERRC "minishell : erreur de syntaxe près du symbole inattendu « %c »\n"
 # define		SYNTHERRS "minishell : erreur de syntaxe près du symbole inattendu « %s »\n"
+
+int	g_ret;
 typedef	struct			s_redir
 {
 	char				*str;
@@ -53,7 +55,6 @@ typedef struct			s_semicol
 	int					nb_pipes;
 	char				***all;
 	t_pipes				*pipes;
-	int 				ret;
 	struct s_semicol	*next;
 }						t_semicol;
 
@@ -83,6 +84,7 @@ char					*check_var(char *str);
 char					*check_value(char *str, int i);
 char					*ft_clean_spaces(char *str);
 char					*ft_envcpy(char *str, t_env *env);
+char					*ft_replace_ret(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
 t_semicol				*ft_lstnewsemicol(char *str, t_env *env);

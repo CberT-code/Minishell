@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 18:36:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 23:10:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		main(int argc, char **argv, char **envp)
 		if (get_next_line(0, &g_line) == 1)
 		{
 			check_line(g_line);
+			g_ret = 0;
 			semicol = NULL;
 			split_semicol(g_line, &semicol, env);
 			count_pipe(semicol);
