@@ -1,12 +1,33 @@
-SRCS = 			srcs/split_minishell.c srcs/split_minishell_utils.c \
-				srcs/lists/lists_args.c srcs/lists/lists_pipes.c \
-				srcs/lists/lists_semicol.c srcs/lists/lists_redir.c \
-				srcs/quotes.c srcs/clean_backs.c srcs/clean_spaces.c \
-				srcs/replace_env.c srcs/redirections.c srcs/clean_quotes.c \
-				srcs/lists/lists_utils.c srcs/replace_env_utils.c srcs/pipes.c main.c \
-				srcs/fcts/export.c srcs/fcts/export_utils.c srcs/fcts/env_list.c \
-				srcs/lists/ft_tri_lst.c srcs/fcts/unset.c srcs/ft_free.c
-				
+SRCS = 			srcs/fcts/echo.c \
+				srcs/fcts/env.c \
+				srcs/fcts/env_list.c \
+				srcs/fcts/export.c \
+				srcs/fcts/export_utils.c \
+				srcs/fcts/ft_cd.c \
+				srcs/fcts/ft_pwd.c \
+				srcs/fcts/unset.c \
+				srcs/lists/ft_tri_lst.c \
+				srcs/lists/lists_args.c \
+				srcs/lists/lists_pipes.c \
+				srcs/lists/lists_redir.c \
+				srcs/lists/lists_semicol.c \
+				srcs/lists/lists_utils.c \
+				srcs/check_bin.c \
+				srcs/check_var.c \
+				srcs/clean_backs.c \
+				srcs/clean_quotes.c \
+				srcs/clean_spaces.c \
+				srcs/ft_free.c \
+				srcs/ft_free_utils.c \
+				srcs/pipes.c \
+				srcs/pipes_util.c \
+				srcs/quotes.c \
+				srcs/redirections.c \
+				srcs/replace_env.c \
+				srcs/replace_env_utils.c \
+				srcs/split_minishell.c \
+				srcs/split_minishell_utils.c \
+				main.c
 
 BONUS = 		bonus/*
 

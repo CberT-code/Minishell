@@ -6,105 +6,90 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/02 16:15:38 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:25:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void  init_pipes(int nb_pipes, int *pipes)
+int		condition_do_pipe(t_semicol *semicol, char *str)
 {
-  int i;
-  int j;
+	t_tab_redir		*redir_in;
+	t_tab_redir		*redir_out;
 
-  i = -1;
-  j = 0;
-  while (++i < nb_pipes)
-  {
-    pipe(pipes + j);
-    j += 2;
-  }
+	redir_in = &semicol->pipes->redir_in;
+	redir_out = &semicol->pipes->redir_out;
+	if (semicol->nb_pipes == 1 && semicol->pipes->redir_in.simpl == NULL &&
+			semicol->pipes->redir_in.doubl == NULL && semicol->pipes->redir_out.simpl == NULL &&
+			semicol->pipes->redir_out.doubl == NULL && search_mybin(str))
+		return (1);
+	return (0);
 }
 
-void  close_pipes(int nb_pipes, int *pipes)
+void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 {
-  int i;
+	char	*path;
+	int		ret;
 
-  i = -1;
-  while (++i < nb_pipes)
-    close(pipes[i]);
+	ret = 0;
+	do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
+	close_pipes(semicol->nb_pipes * 2, pipes);
+	if ((ret = find_fcts(&semicol->pipes->cmds, env)) != -1)
+		exit(ret);
+	else
+	{
+		if ((path = check_path(semicol->pipes->cmds.str, *env)) != NULL)
+		{
+			if ((ret = execvp(path, semicol->all[j])))
+			{
+				free(path);
+				exit(ret);
+			}
+		}
+		else
+			ft_printf(ERROR_FIND_CMD, semicol->pipes->cmds.str);
+		free(path);
+	}
 }
 
-void  wait_pipes(int nb_pipes, pid_t *pid, int *ret)
+void	do_pipe(t_semicol *semicol, int *ret, t_env **env)
 {
-  int i;
+	int			pipes[semicol->nb_pipes * 2 + 1];
+	int			j;
+	t_pipes		*first_pipes;
+	pid_t		pid[semicol->nb_pipes + 1];
 
-  i = -1;
-  while (++i < nb_pipes)
-    waitpid(pid[i], ret, 0);
+	j = -1;
+	init_pipes(semicol->nb_pipes * 2, pipes);
+	first_pipes = semicol->pipes;
+	while (++j < semicol->nb_pipes)
+	{
+		if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
+			find_fcts(&semicol->pipes->cmds, env);
+		else
+		{
+			if (!(pid[j] = fork()))
+				exec_fork(semicol, j, env, pipes);
+			waitpid(pid[j], ret, 0);
+		}
+		semicol->pipes = semicol->pipes->next;
+	}
+	semicol->pipes = first_pipes;
+	close_pipes(semicol->nb_pipes * 2, pipes);
+	wait_pipes(semicol->nb_pipes * 2, pid, ret);
 }
 
-void do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
+int		exec_cmds(t_semicol *semicol, t_env **env)
 {
-  int i;
-  int fd;
+	int			ret;
+	t_semicol	*first_semicol;
 
-  i = -1;
-  if (j > 0)
-    dup2(pipes[j * 2 - 2], 0);
-  while(pipe->redir_in.simpl != NULL)
-  {
-    if ((fd = open(pipe->redir_in.simpl->str, O_RDONLY)) < 0)
-      return ;
-    dup2(fd, 0);
-    pipe->redir_in.simpl = pipe->redir_in.simpl->next;
-  }
-  i = -1;
-  if (j < nb_pipes - 1 || pipe->redir_out.simpl != NULL || pipe->redir_out.doubl != NULL)
-  {
-    while (pipe->redir_out.simpl != NULL)
-    {
-        pipes[j * 2 + 1] = open(pipe->redir_out.simpl->str, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
-         pipe->redir_out.simpl = pipe->redir_out.simpl->next;
-    }
-    while (pipe->redir_out.doubl != NULL)
-    {
-        pipes[j * 2 + 1] = open(pipe->redir_out.doubl->str, O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
-         pipe->redir_out.doubl = pipe->redir_out.doubl->next;
-    }
-  }
-  dup2(pipes[j * 2 + 1], 1);
-}
-
-void do_pipe(t_semicol *semicol, int *ret)
-{
-  pid_t   pid[semicol->nb_pipes + 1];
-  int     pipes[semicol->nb_pipes * 2];
-  int     j = -1;
-  // int     status;
-
-  
-  init_pipes(semicol->nb_pipes * 2, pipes);
-  while (semicol->pipes != NULL)
-  {
-    if (!(pid[++j] = fork()))
-    {
-      do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
-      close_pipes(semicol->nb_pipes * 2, pipes);
-      // if (!(*ret = find_fcts(semicole->pipes)))
-        if ((*ret = execvp(*semicol->all[j], semicol->all[j])))
-          exit(-1);
-    }
-    semicol->pipes = semicol->pipes->next;
-  }
-  close_pipes(semicol->nb_pipes * 2, pipes);
-  wait_pipes(semicol->nb_pipes * 2, pid, ret);
-}
-
-int     exec_cmds(t_semicol *semicol)
-{
-  int ret;
-
-  do_pipe(semicol, &ret);
-  return (0);
+	first_semicol = semicol;
+	while (semicol != NULL)
+	{
+		do_pipe(semicol, &ret, env);
+		semicol = semicol->next;
+	}
+	semicol = first_semicol;
+	return (0);
 }

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_replace.c                                       :+:      :+:    :+:   */
+/*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/24 14:21:44 by cyrillebert       #+#    #+#             */
-/*   Updated: 2020/08/10 12:59:37 by user42           ###   ########.fr       */
+/*   Created: 2019/11/21 11:07:46 by mifernan          #+#    #+#             */
+/*   Updated: 2020/08/10 13:14:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h";
+#include "libft.h"
 
-char		*ft_replace(char *str, char out, char in)
+void	ft_strdel(char **as)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
+	if (as)
 	{
-		if (str[i == out])
-			str[i] = in;
-		i++;
+		if (*as)
+			free(*as);
+		*as = NULL;
 	}
-	return (str);
 }

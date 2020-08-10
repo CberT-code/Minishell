@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/08/04 20:28:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:11:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 char	*ft_clean_backs(char *str)
 {
-	int i;
-	int j;
-
-	char *cpy;
+	int		i;
+	int		j;
+	char	*cpy;
 
 	if (!(cpy = calloc(sizeof(char), ft_strlen(str) + 1)))
 		return (0);
@@ -39,18 +38,3 @@ char	*ft_clean_backs(char *str)
 	cpy[j] = '\0';
 	return (cpy);
 }
-
-// int		main(int argc, char **argv, char **env)
-// {
-// 	char *str;
-// 	int		fd;
-// 	char *cpy;
-
-// 	str = NULL;
-// 	fd = 0;
-// 	get_next_line(fd, &str);
-// 	close(fd);
-// 	cpy = ft_clean_backs(str);
-// 	//ft_printf("after -> %s\n", cpy);
-// 	return (0);
-// }

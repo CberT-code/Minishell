@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_replace.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/24 14:21:44 by cyrillebert       #+#    #+#             */
-/*   Updated: 2020/08/10 12:59:37 by user42           ###   ########.fr       */
+/*   Created: 2019/12/05 12:04:02 by mifernan          #+#    #+#             */
+/*   Updated: 2020/08/05 14:06:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h";
+#include "libft.h"
 
-char		*ft_replace(char *str, char out, char in)
+char	*ft_strndup(const char *str, size_t n)
 {
-	int i;
+	unsigned int	i;
+	char			*dst;
 
+	if (!(dst = (char*)malloc(sizeof(char) * (n + 1))))
+		return (NULL);
 	i = 0;
-	while (str[i])
+	while (str[i] && i < n)
 	{
-		if (str[i == out])
-			str[i] = in;
+		dst[i] = str[i];
 		i++;
 	}
-	return (str);
+	dst[i] = '\0';
+	return (dst);
 }

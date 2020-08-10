@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 17:28:04 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:55:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 13:01:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ char			**ft_split(char const *s, char c)
 	i = 0;
 	a = 0;
 	nb_words = ft_words((char *)s, c);
-	if (!(tab_words = (char **)calloc(sizeof(char *), (nb_words + 1))))
+	if (!(tab_words = (char **)ft_calloc(sizeof(char *), (nb_words + 1))))
 		return (NULL);
 	while (nb_words--)
 	{
 		j = 0;
 		while (ft_find_c(s[a], c) == 1 && s[a])
 			a++;
-		if (!(tab_words[i] = calloc(sizeof(char), (f_l((char *)s, c, a) + 1))))
+		if (!(tab_words[i] = malloc(sizeof(char) + (f_l((char *)s, c, a) + 1))))
 			return (ft_free(tab_words, i));
 		while (ft_find_c(s[a], c) == 0 && s[a])
 			tab_words[i][j++] = s[a++];

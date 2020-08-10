@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/23 17:22:56 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:36:23 by user42           ###   ########.fr       */
+/*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
+/*   Updated: 2020/08/10 12:37:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		ft_echo(t_args *args)
+int		display_export_env(t_env *env)
 {
-	int flag;
+	t_env	*start;
 
-	flag = 0;
-	if (!args || !(args)->str)
+	start = env;
+	while (env != NULL)
 	{
-		write(1, "\n", 1);
-		return (0);
-	}
-	while (args)
-	{
-		if (ft_strlen((args)->str) == 2 && (args)->str[0] == '-'
-				&& (args)->str[1] == 'n')
-			flag = 1;
-		else
+		if (env->var[ft_strlen(env->var) - 1] == '=')
 		{
-			ft_printf("%s", (args)->str);
-			if ((args)->next != NULL)
-				ft_printf(" ");
+			write(1, env->var, ft_strlen(env->var));
+			if (env->valeur != NULL)
+				write(1, env->valeur, ft_strlen(env->valeur));
+			write(1, "\n", 1);
 		}
-		(args) = (args)->next;
+		env = env->next;
 	}
-	if (flag == 0)
-		ft_printf("\n");
-	return (0);
+	env = start;
+	return (1);
+}
+
+int		ft_env(t_args *args, t_env **env)
+{
+	if (args == NULL)
+		return (display_export_env(*env));
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/04 20:28:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:52:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_redir			*ft_lstnewredir(char *str, t_env *env)
 {
 	t_redir *redir;
-	
+
 	if (!(redir = (t_redir*)calloc(sizeof(t_redir), 1)))
 		return (NULL);
 	redir->str = ft_envcpy(str, env);

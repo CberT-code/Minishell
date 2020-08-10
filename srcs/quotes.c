@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:48:24 by user42            #+#    #+#             */
-/*   Updated: 2020/08/01 09:33:49 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:28:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,22 @@ int		ft_in_quotes(char *str, int i)
 	while (++j < i)
 	{
 		if ((j > 0 && str[j] == SIMPQ && ft_isbacks(str, j - 1) == 0)
-		|| (j == 0 && str[j] == SIMPQ))
+				|| (j == 0 && str[j] == SIMPQ))
 		{
-			
 			quote++;
 			last = 1;
 		}
 		if ((j > 0 && str[j] == DOUBQ && ft_isbacks(str, j - 1) == 0)
-		|| (j == 0 && str[j] == DOUBQ))
+				|| (j == 0 && str[j] == DOUBQ))
 		{
 			dbquote++;
 			last = 2;
 		}
 	}
 	if (quote % 2 != 0 || dbquote % 2 != 0)
-		return(last);
-	return (0);	
+		return (last);
+	return (0);
 }
-
-// int		main(int argc, char **argv, char **env)
-// {
-// 	char *str;
-// 	int		fd;
-// 	int		i;
-
-// 	str = NULL;
-// 	fd = 0;
-// 	get_next_line(fd, &str);
-// 	close(fd);
-// 	i = ft_in_quotes(str, 5);
-// 	printf("here we test -> %d\n", i);
-// 	return (0);
-// }
 
 int		ft_isbacks(char *str, int i)
 {

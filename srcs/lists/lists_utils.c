@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/05 10:10:56 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:57:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int				count_pipe(t_semicol *semicol)
 {
 	t_semicol	*first_semicol;
 	t_pipes		*first_pipes;
-	int i;
+	int			i;
 
 	first_semicol = semicol;
 	while (semicol != NULL)
@@ -40,7 +40,7 @@ int				count_pipe(t_semicol *semicol)
 void			count_args(t_cmds *cmd)
 {
 	t_args	*cpy_args;
-	int i;
+	int		i;
 
 	i = 0;
 	cpy_args = cmd->args;
@@ -55,8 +55,8 @@ void			count_args(t_cmds *cmd)
 static void		new_str_utils(t_pipes *pipes)
 {
 	t_args		*first_arg;
-	char 		*str;
-	
+	char		*str;
+
 	first_arg = pipes->cmds.args;
 	if (pipes->cmds.args != NULL)
 	{
@@ -74,7 +74,7 @@ static void		new_str_utils(t_pipes *pipes)
 	pipes->cmds.args = first_arg;
 }
 
-void		new_str(t_semicol *semicol)
+void			new_str(t_semicol *semicol)
 {
 	t_pipes		*first_pipe;
 	t_semicol	*first_semicol;
@@ -94,18 +94,17 @@ void		new_str(t_semicol *semicol)
 	semicol = first_semicol;
 }
 
-char		**new_tab(t_pipes *pipes)
+char			**new_tab(t_pipes *pipes)
 {
 	int			i;
 	char		**tab_cmds;
 	t_args		*first_args;
 
-
-	if (!(tab_cmds = (char**)calloc(sizeof(char*), pipes->cmds.nb_args + 1)))
+	if (!(tab_cmds = (char**)calloc(sizeof(char*), pipes->cmds.nb_args + 2)))
 		return (NULL);
 	i = 0;
 	first_args = pipes->cmds.args;
-	while (i < pipes->cmds.nb_args )
+	while (i <= pipes->cmds.nb_args)
 	{
 		if (i == 0)
 			tab_cmds[i] = ft_strdup(pipes->cmds.str);
@@ -115,16 +114,17 @@ char		**new_tab(t_pipes *pipes)
 			pipes->cmds.args = pipes->cmds.args->next;
 		}
 		i++;
+		tab_cmds[i] = 0;
 	}
 	pipes->cmds.args = first_args;
 	return (tab_cmds);
 }
 
-void	tab_all(t_semicol *semicol)
-{	
-	int 		i;
-	t_semicol 	*first_semicol;
-	t_pipes 	*first_pipe;
+void			tab_all(t_semicol *semicol)
+{
+	int			i;
+	t_semicol	*first_semicol;
+	t_pipes		*first_pipe;
 
 	first_semicol = semicol;
 	while (semicol != NULL)
@@ -143,4 +143,3 @@ void	tab_all(t_semicol *semicol)
 	}
 	semicol = first_semicol;
 }
-
