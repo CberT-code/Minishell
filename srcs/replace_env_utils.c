@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 15:37:42 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 18:36:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*ft_change_ret(char *str, int ret)
 		if (i < ft_strlen(str) - 2 && str[i] == '$' && str[i] + 1 == '?')
 		{
 			cpy = ft_strjoin(&cpy[j], ft_itoa(ret));
-			j += ft_strlen(itoa(ret));
+			j += ft_strlen(ft_itoa(ret));
 			i++;
 		}
 		else

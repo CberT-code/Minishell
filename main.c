@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 15:23:05 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 18:36:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		main(int argc, char **argv, char **envp)
 	char		cwd[1024];
 
 	g_rep = 0;
-	g_ret = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	if (argc <= 0 || !argv[0])
