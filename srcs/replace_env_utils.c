@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 23:17:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/11 11:12:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,24 +86,52 @@ int		ft_envcpylen(char *str, t_env *env)
 	return (len);
 }
 
+int		ft_len_replace_ret(char *str)
+{
+	int	i;
+	int	len;
+
+	i = -1;
+	len = 0;
+	while (str[++i])
+	{
+		if (i < ft_strlen(str) - 1 && str[i] == '$' && str[i + 1] == '?')
+		{
+			len += ft_strlen(ft_itoa(g_ret));
+			i++;
+		}
+		else
+			len++;
+	}
+	return (len);
+}
+
+void	ft_fill_replace_ret(char **cpy, int *j, int *i)
+{
+	int k;
+	char *cpy_ret;
+
+	k = 0;
+	cpy_ret = ft_strdup(ft_itoa(g_ret));
+	while (cpy_ret[k])
+		*cpy[(*j)++] = cpy_ret[k++];
+	(*i)++;
+	ft_strdel(&cpy_ret);
+}
+
 char	*ft_replace_ret(char *str)
 {
 	char	*cpy;
 	int		i;
 	int		j;
-
-	if (!(cpy = (char*)malloc(sizeof(char) * (ft_strlen(str) + 1))))
+	if (!(cpy = (char*)malloc(sizeof(char) * (ft_len_replace_ret(str) + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (str[i])
 	{
 		if (i < ft_strlen(str) - 1 && str[i] == '$' && str[i + 1] == '?')
-		{
-			cpy = ft_strjoin(&cpy[j], ft_itoa(g_ret));
-			j += ft_strlen(ft_itoa(g_ret));
-			i++;
-		}
+			ft_fill_replace_ret(&cpy, &j, &i);
 		else
 			cpy[j++] = str[i];
 		i++;

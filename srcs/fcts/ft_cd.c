@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 15:17:31 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/11 11:02:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		ft_cd(t_args *args, t_env *env)
 	if (chdir(args->str) != 0)
 	{
 		ft_putendl("cd: Error - No such file or directory");
+		g_ret = 8;
 		return (8);
 	}
 	else

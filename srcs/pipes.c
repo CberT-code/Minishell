@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 23:09:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/11 10:46:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,12 @@ void	do_pipe(t_semicol *semicol, int *ret, t_env **env)
 
 int		exec_cmds(t_semicol *semicol, t_env **env)
 {
-	int			ret;
 	t_semicol	*first_semicol;
 
 	first_semicol = semicol;
 	while (semicol != NULL)
 	{
-		do_pipe(semicol, &ret, env);
+		do_pipe(semicol, &g_ret, env);
 		semicol = semicol->next;
 	}
 	semicol = first_semicol;
