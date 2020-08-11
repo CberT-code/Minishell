@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:49:18 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:47:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void		data_list(char *str, t_env **env)
 	if (str[--i] == '=')
 	{
 		if (!(check_str_alpha(var, ft_strlen(var) - 1)))
-			return (free_exit(NULL, *env, "export: |%s| : identifiant non valable\n", var));
+			return (free_exit(NULL, *env, IDERRONE, var));
 		value = check_value(str, ++i);
 		value = ft_strcpyfrom(str, "=");
 		i += ft_strlen(value);
@@ -117,7 +117,7 @@ void		data_list(char *str, t_env **env)
 	else
 	{
 		if (check_str_alpha(var, ft_strlen(var)) == 0)
-			return (free_exit(NULL, *env, "export: \" %s \" : identifiant non valable", var));
+			return (free_exit(NULL, *env, IDERRTWO, var));
 		value = NULL;
 	}
 	if (replace_env(*env, var, value) == 0)

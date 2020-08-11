@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:50:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:43:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ t_env			*ft_tab_to_list(char **tri_selectif)
 	i = 0;
 	while (tri_selectif[i])
 	{
-		ft_lstadd_back_env(&list, ft_strcpyuntil(tri_selectif[i], "="), ft_strcpyfrom(tri_selectif[i], "="));
+		ft_lstadd_back_env(&list, ft_strcpyuntil(tri_selectif[i], "="),
+		ft_strcpyfrom(tri_selectif[i], "="));
 		i++;
 	}
 	return (list);

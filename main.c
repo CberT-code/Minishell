@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 10:49:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 13:35:43 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/11 10:47:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		g_rep;
+int			g_rep;
 char		*g_line;
-int		g_sta;
+int			g_sta;
 t_semicol	*g_first_semicol;
 
 void		sig_handler(int sig)
@@ -43,6 +43,7 @@ int		main(int argc, char **argv, char **envp)
 	char		cwd[1024];
 
 	g_rep = 0;
+	g_ret = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	if (argc <= 0 || !argv[0])

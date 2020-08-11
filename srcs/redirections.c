@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:29:52 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/10 15:44:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ void	ft_splitting(char *str, char c, t_tab_redir *redir, t_env *env)
 			{
 				str++;
 				str += *str == ' ' ? 1 : 0;
-				lstadd_back_redir(&redir->doubl, ft_substr(str, 0, ft_strlen_str_quotes(str, " ")), env);
+				lstadd_back_redir(&redir->doubl, ft_substr(str, 0,
+				ft_strlen_str_quotes(str, " ")), env);
 			}
 			else
 			{
 				str += *str == ' ' ? 1 : 0;
-				lstadd_back_redir(&redir->simpl, ft_substr(str, 0, ft_strlen_str_quotes(str, " ")), env);
+				lstadd_back_redir(&redir->simpl, ft_substr(str, 0,
+				ft_strlen_str_quotes(str, " ")), env);
 			}
 			str++;
 			str += ft_strlen_str_quotes(str, " ");
