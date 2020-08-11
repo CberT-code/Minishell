@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/11 11:02:07 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/11 15:12:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,19 @@ int		ft_cd(t_args *args, t_env *env)
 		if (chdir(ft_getenv("HOME=", env)) != 0)
 		{
 			ft_putendl("cd: Error - Environment variable $HOME not set");
-			return (8);
+			return (1);
 		}
 		return (0);
 	}
 	if (ft_size_args(args) > 1)
 	{
 		ft_putendl("cd: Error - Too many arguments");
-		return (8);
+		return (1);
 	}
 	if (chdir(args->str) != 0)
 	{
 		ft_putendl("cd: Error - No such file or directory");
-		g_ret = 8;
-		return (8);
+		return (1);
 	}
 	else
 		ft_change_pwd(env);
