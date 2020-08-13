@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/11 15:11:49 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/13 11:35:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 			}
 		}
 		else
+		{
+			g_ret = 127;
 			ft_printf(ERROR_FIND_CMD, semicol->pipes->cmds.str);
+		}
 		free(path);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/11 11:12:15 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/13 13:01:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		ft_len_replace_ret(char *str)
 	return (len);
 }
 
-void	ft_fill_replace_ret(char **cpy, int *j, int *i)
+void	ft_fill_replace_ret(char *cpy, int *j, int *i)
 {
 	int k;
 	char *cpy_ret;
@@ -114,7 +114,7 @@ void	ft_fill_replace_ret(char **cpy, int *j, int *i)
 	k = 0;
 	cpy_ret = ft_strdup(ft_itoa(g_ret));
 	while (cpy_ret[k])
-		*cpy[(*j)++] = cpy_ret[k++];
+		cpy[(*j)++] = cpy_ret[k++];
 	(*i)++;
 	ft_strdel(&cpy_ret);
 }
@@ -130,8 +130,11 @@ char	*ft_replace_ret(char *str)
 	j = 0;
 	while (str[i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$' && str[i + 1] == '?')
-			ft_fill_replace_ret(&cpy, &j, &i);
+		if ((i == 0 && ft_strlen(str) > 1 && str[i] == '$'
+		&& str[i + 1] == '?') || (i > 0 && i < ft_strlen(str) - 1
+		&& str[i] == '$' && str[i] + 1 == '?'
+		&& ft_isbacks(str, i - 1) == 0))
+			ft_fill_replace_ret(&cpy[0], &j, &i);
 		else
 			cpy[j++] = str[i];
 		i++;
