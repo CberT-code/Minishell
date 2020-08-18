@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 12:20:26 by cbertola          #+#    #+#              #
-#    Updated: 2020/08/06 22:37:59 by cbertola         ###   ########.fr        #
+#    Updated: 2020/08/18 17:39:25 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,31 +40,32 @@ DEP		:= $(SRC:%.c=$(DEP_DIR)/%.d)
 OBJ 	:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 DEPB	:= $(SRCB:%.c=$(DEP_DIR)/%.d)
 OBJB 	:= $(SRCB:%.c=$(OBJ_DIR)/%.o)
+
 $(NAME): $(OBJ)
-	ar -rcs $@ $^
-	ranlib $@
+	@ar -rcs $@ $^
+	@ranlib $@
 
 all: $(NAME)
 
 clean:
-	rm -rf $(DIR)
+	@rm -rf $(DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
 bonus: $(NAME) $(OBJB)
-	ar -rcs $(NAME) $^ 
+	@ar -rcs $(NAME) $^ 
 
 $(DEP_DIR):
-	mkdir $@
+	@mkdir $@
 
 $(OBJ_DIR):
-	mkdir $@
+	@mkdir $@
 
 $(OBJ_DIR)/%.o: %.c | $(DIR)
-	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@
 
 -include $(DEP)
 

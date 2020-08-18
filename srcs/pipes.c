@@ -6,19 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/13 13:48:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:37:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../includes/minishell.h"
 
 int		condition_do_pipe(t_semicol *semicol, char *str)
 {
-	t_tab_redir		*redir_in;
-	t_tab_redir		*redir_out;
-
-	redir_in = &semicol->pipes->redir_in;
-	redir_out = &semicol->pipes->redir_out;
 	if (semicol->nb_pipes == 1 && semicol->pipes->redir_in.simpl == NULL &&
 			semicol->pipes->redir_in.doubl == NULL
 			&& semicol->pipes->redir_out.simpl == NULL &&

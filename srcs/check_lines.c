@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 15:01:15 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 15:50:19 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:35:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../includes/minishell.h"
 
 int		ft_isulsign(char c)
 {
