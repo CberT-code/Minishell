@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/15 10:42:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:49:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,37 @@ void			ft_lstadd_back_env(t_env **alst, char *str, char *str2)
 		*alst = ft_lstnew_env(str, str2);
 }
 
+void			ft_shlvl(t_env **env)
+{
+	t_env	*first;
+	int		i;
+
+	first = *env;
+	i = 0;
+	while (*env)
+	{
+		if (ft_strcmp((*env)->var, "SHLVL=") == 0)
+		{
+			while ((*env)->valeur[i])
+			{
+				if (!ft_isdigit((*env)->valeur[i++]) &&
+				!(ft_atoi((*env)->valeur) == -1  &&
+				ft_strlen((*env)->valeur) == 2))
+				{
+					free((*env)->valeur);
+					(*env)->valeur = ft_strdup("0");
+					i = 0;
+				}
+			}
+			i = ft_atoi((*env)->valeur) + 1;
+			free((*env)->valeur);
+			(*env)->valeur = ft_strdup(ft_itoa(i));
+		}
+		*env = (*env)->next;
+	}
+	*env = first;
+}
+
 t_env			*ft_tab_to_list(char **tri_selectif)
 {
 	t_env	*list;
@@ -54,5 +85,7 @@ t_env			*ft_tab_to_list(char **tri_selectif)
 		ft_strcpyfrom(tri_selectif[i], "="));
 		i++;
 	}
+	i = 0;
+	ft_shlvl(&list);
 	return (list);
 }
