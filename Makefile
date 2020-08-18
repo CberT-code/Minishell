@@ -4,6 +4,7 @@ SRCS = 			srcs/fcts/echo.c \
 				srcs/fcts/export.c \
 				srcs/fcts/export_utils.c \
 				srcs/fcts/ft_cd.c \
+				srcs/fcts/ft_cd_utils.c \
 				srcs/fcts/ft_pwd.c \
 				srcs/fcts/unset.c \
 				srcs/lists/ft_tri_lst.c \

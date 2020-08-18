@@ -165,7 +165,11 @@ void					check_line(char *str);
 int						find_fcts(t_cmds *cmd, t_env **env);
 int						ft_echo(t_args *args);
 int						ft_cd(t_args *args, t_env *env);
-int						ft_pwd(void);
+int						ft_check_cd_errors(t_env *env);
+int						ft_check_size_args_cd(t_args *args);
+char					*ft_getenv(char *str, t_env *env);
+int						ft_size_args(t_args *args);
+int						ft_pwd(t_args *args);
 int						search_mybin(char *str);
 char					*check_path(char *str, t_env *env);
 void					exec_fork(t_semicol *semicol, int j, t_env **env,

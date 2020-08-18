@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/19 15:02:20 by user42            #+#    #+#             */
-/*   Updated: 2020/08/11 17:06:28 by user42           ###   ########.fr       */
+/*   Created: 2020/08/13 23:03:00 by user42            #+#    #+#             */
+/*   Updated: 2020/08/13 23:03:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		ft_pwd(t_args *args)
+int	ft_check_cd_errors(t_env *env)
 {
-	char	cwd[1024];
-
-	if (!args)
+	if (chdir(ft_getenv("HOME=", env)) != 0)
 	{
-		if (getcwd(cwd, sizeof(cwd)))
-		{
-			ft_putendl(cwd);
-			return (0);
-		}
-		ft_putstr("pwd : Error - Failed to get pwd\n");
+		ft_putendl("cd: Error - Environment variable $HOME not set");
 		return (1);
 	}
-	ft_putstr("pwd : Too many arguments\n");
-	return (1);
+	return (0);
+}
+
+int		ft_check_size_args_cd(t_args *args)
+{
+	if (ft_size_args(args) > 1)
+	{
+		ft_putendl("cd: Error - Too many arguments");
+		return (1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/11 11:02:07 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/13 23:09:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,49 @@ void	ft_change_pwd(t_env *env)
 	env_cpy->valeur = ft_strdup(cwd);
 }
 
+int		ft_oldpwd(t_env *env)
+{
+	t_env	*env_cpy;
+	char	cwd[1024];
+	env_cpy = env;
+	while (ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
+		env_cpy = env_cpy->next;
+	getcwd(cwd, sizeof(cwd));
+	if (chdir(env_cpy->valeur) != 0)
+	{
+		ft_putendl("cd: Error - No such file or directory");
+		return (1);
+	}
+	else
+		env_cpy->valeur = ft_strdup(cwd);
+		ft_change_pwd(env);
+
+	return(0);
+}
+
 int		ft_cd(t_args *args, t_env *env)
 {
+	t_env *env_cpy;
+	char	cwd[1024];
+
+	env_cpy = env;
 	if (!args || !args->str
 	|| ft_strncmp(args->str, "~", 1) == 0)
-	{
-		if (chdir(ft_getenv("HOME=", env)) != 0)
-		{
-			ft_putendl("cd: Error - Environment variable $HOME not set");
-			return (8);
-		}
-		return (0);
-	}
-	if (ft_size_args(args) > 1)
-	{
-		ft_putendl("cd: Error - Too many arguments");
-		return (8);
-	}
+		return (ft_check_cd_errors(env));
+	if (ft_check_size_args_cd(args) != 0)
+		return (1);
+	if (ft_strncmp(args->str, "-", 1) == 0)
+		return (ft_oldpwd(env));
+	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
 	{
 		ft_putendl("cd: Error - No such file or directory");
-		g_ret = 8;
-		return (8);
+		return (1);
 	}
-	else
+	while (ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
+		env_cpy = env_cpy->next;
+	ft_strdel(&env_cpy->valeur);
+	env_cpy->valeur = ft_strdup(cwd);
 		ft_change_pwd(env);
 	return (0);
 }
