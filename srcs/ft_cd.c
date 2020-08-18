@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/15 10:51:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 18:26:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 char	*ft_getenv(char *str, t_env *env)
 {
-	while (env)
+	t_env *env_cpy;
+
+	env_cpy = env;
+	while (env_cpy)
 	{
-		if (ft_strncmp(str, env->var, ft_strlen(str)) == 0
-		&& ft_strncmp(str, env->var, ft_strlen(env->var) - 1) == 0)
-			return (env->valeur);
-		env = env->next;
+		if (ft_strncmp(str, env_cpy->var, ft_strlen(str)) == 0
+		&& ft_strncmp(str, env_cpy->var, ft_strlen(env_cpy->var) - 1) == 0)
+			return (env_cpy->valeur);
+		env_cpy = env_cpy->next;
 	}
 	return (NULL);
 }
@@ -45,11 +48,18 @@ void	ft_change_pwd(t_env *env)
 	char	cwd[1024];
 
 	env_cpy = env;
-	while (ft_strncmp(env_cpy->var, "PWD=", 4) != 0)
+	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "PWD=", 4) != 0)
 		env_cpy = env_cpy->next;
 	getcwd(cwd, sizeof(cwd));
-	ft_strdel(&env_cpy->valeur);
-	env_cpy->valeur = ft_strdup(cwd);
+	if (env_cpy)
+	{
+		ft_strdel(&env_cpy->valeur);
+		env_cpy->valeur = ft_strdup(cwd);
+	}
+	else
+	{
+		ft_lstadd_back_env(&env, "PWD=", ft_strdup(cwd));
+	}
 }
 
 int		ft_oldpwd(t_env *env)
@@ -57,7 +67,7 @@ int		ft_oldpwd(t_env *env)
 	t_env	*env_cpy;
 	char	cwd[1024];
 	env_cpy = env;
-	while (ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
+	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
 		env_cpy = env_cpy->next;
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(env_cpy->valeur) != 0)
@@ -92,7 +102,7 @@ int		ft_cd(t_args *args, t_env *env)
 		ft_putendl("cd: Error - No such file or directory");
 		return (1);
 	}
-	while (ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
+	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
 		env_cpy = env_cpy->next;
 	ft_strdel(&env_cpy->valeur);
 	env_cpy->valeur = ft_strdup(cwd);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 00:20:30 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 17:35:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:56:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,3 @@ char	*ft_clean_quotes(char *str)
 	cpy[j] = '\0';
 	return (cpy);
 }
-<<<<<<< HEAD
-=======
-
-/*
-int		main(int argc, char **argv, char **env)
-{
-	char *str;
-	int		fd;
-
-	str = NULL;
-	fd = 0;
-	get_next_line(fd, &str);
-	close(fd);
-	printf("%s\n", ft_clean_quotes(str));
-	//ft_printf("after -> %s\n", cpy);
-	return (0);
-}*/
->>>>>>> master
