@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split_minishell_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 20:28:13 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/15 10:42:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../includes/minishell.h"
 
 int			ft_strlen_str_quotes(char *s, char *str)
 {
@@ -38,24 +38,26 @@ char		*clean_redir(char *str, char c)
 
 	i = 0;
 	while (str[i])
-    {
-        if (str[i] == c)
-        {
+	{
+		if (str[i] == c)
+		{
 			j = 0;
-            if (str[i + 1] == c)
-            {
-                j = str[i + 2] == ' ' ? 3 : 2 ;
-                str = ft_subfromstr_free(str, i, ft_strlen_str_quotes(str + i + j, " ") + j);
-            }
-            else
-            {
-                j = str[i + 1] == ' ' ? 2 : 1 ;
-               	str = ft_subfromstr_free(str, i, ft_strlen_str_quotes(str + i + j, " ") + j);
-            }
+			if (str[i + 1] == c)
+			{
+				j = str[i + 2] == ' ' ? 3 : 2;
+				str = ft_subfromstr_free(str, i,
+				ft_strlen_str_quotes(str + i + j, " ") + j);
+			}
+			else
+			{
+				j = str[i + 1] == ' ' ? 2 : 1;
+				str = ft_subfromstr_free(str, i,
+				ft_strlen_str_quotes(str + i + j, " ") + j);
+			}
 			i = 0;
-        }
-        else
-            i++;
-    }
+		}
+		else
+			i++;
+	}
 	return (str);
 }

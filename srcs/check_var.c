@@ -1,40 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_backs.c                                      :+:      :+:    :+:   */
+/*   check_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
+/*   Created: 2020/08/05 22:59:44 by cbertola          #+#    #+#             */
 /*   Updated: 2020/08/15 10:40:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_clean_backs(char *str)
+int		check_str_alpha(char *str, int len)
 {
-	int		i;
-	int		j;
-	char	*cpy;
+	int	i;
 
-	if (!(cpy = calloc(sizeof(char), ft_strlen(str) + 1)))
-		return (0);
 	i = -1;
-	j = 0;
+	while (++i < len)
+	{
+		if (!ft_isalpha(str[i]) && !ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+	}
+	return (1);
+}
+
+int		check_str_digitspace(char *str)
+{
+	int	i;
+
+	i = -1;
 	while (str[++i])
 	{
-		if ((i > 0 && str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
-		|| (i == 0 && str[i] == SIMPQ))
-			ft_cpy_in_squotes(str, cpy, &i, &j);
-		else if ((i > 0 && str[i] == DOUBQ && ft_isbacks(str, i - 1) == 0)
-		|| (i == 0 && str[i] == DOUBQ))
-			ft_cpy_in_dbquotes(str, cpy, &i, &j);
-		if (str[i] == BACKS && ft_isbacks(str, i) == 0)
-			cpy[j++] = str[i];
-		else if (str[i] != BACKS)
-			cpy[j++] = str[i];
+		if ((str[i] < 48 || str[i] > 57) && str[i] != 32)
+			return (0);
 	}
-	cpy[j] = '\0';
-	return (cpy);
+	return (1);
+}
+
+void	check_line(char *str)
+{
+	if (ft_strncmp(str, "exit", 4) == 0
+	&& (*(str + 4) == ' ' || *(str + 4) == '\0'))
+		if (check_str_digitspace(str + 4) == 1 || *(str + 4) == '\0')
+			exit(ft_atoi(str + 4));
 }
