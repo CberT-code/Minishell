@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clean_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 00:20:30 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 12:14:52 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:35:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../includes/minishell.h"
 
 int		ft_clean_squotes(char *str, char *cpy, int *i, int *j)
 {
@@ -19,6 +19,8 @@ int		ft_clean_squotes(char *str, char *cpy, int *i, int *j)
 	{
 		if (*i > 0 && str[*i] == SIMPQ && ft_isbacks(str, (*i) - 1) == 1)
 			return (1);
+		if (*i > 0 && str[*i] != SIMPQ && ft_isbacks(str, (*i) - 1) == 1)
+			cpy[(*j)++] = BACKS;
 		cpy[(*j)++] = str[(*i)++];
 	}
 	if (str[*i] != SIMPQ)
@@ -31,7 +33,11 @@ int		ft_clean_dbquotes(char *str, char *cpy, int *i, int *j)
 {
 	cpy[(*j)++] = str[(*i)++];
 	while (ft_isquote(str, *i) != 2 && str[(*i)])
+	{
+		if (*i > 0 && str[*i] != DOUBQ && ft_isbacks(str, (*i) - 1) == 1)
+			cpy[(*j)++] = BACKS;
 		cpy[(*j)++] = str[(*i)++];
+	}
 	if (str[*i] != DOUBQ)
 		return (-1);
 	cpy[(*j)++] = str[(*i)];
@@ -93,3 +99,21 @@ char	*ft_clean_quotes(char *str)
 	cpy[j] = '\0';
 	return (cpy);
 }
+<<<<<<< HEAD
+=======
+
+/*
+int		main(int argc, char **argv, char **env)
+{
+	char *str;
+	int		fd;
+
+	str = NULL;
+	fd = 0;
+	get_next_line(fd, &str);
+	close(fd);
+	printf("%s\n", ft_clean_quotes(str));
+	//ft_printf("after -> %s\n", cpy);
+	return (0);
+}*/
+>>>>>>> master

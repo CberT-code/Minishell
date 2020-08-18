@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:59:44 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 15:40:33 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:35:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../includes/minishell.h"
 
 int		check_str_alpha(char *str, int len)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clean_spaces.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/08/10 12:17:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:35:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../includes/minishell.h"
 
 void	ft_cpy_in_squotes(char *str, char *cpy, int *i, int *j)
 {
