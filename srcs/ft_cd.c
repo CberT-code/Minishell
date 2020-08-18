@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 22:19:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 22:23:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,13 @@ int		ft_oldpwd(t_env *env)
 	}
 	else
 	{
-		env_cpy->valeur = ft_strdup(cwd);
-		ft_change_pwd(env);
+		if (env_cpy)
+		{
+			ft_strdel(&env_cpy->valeur);
+			env_cpy->valeur = ft_strdup(cwd);
+		}
+		else
+			ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(cwd));
 	}
 	return(0);
 }
@@ -102,8 +107,13 @@ int		ft_cd(t_args *args, t_env *env)
 	}
 	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
 		env_cpy = env_cpy->next;
-	ft_strdel(&env_cpy->valeur);
-	env_cpy->valeur = ft_strdup(cwd);
-		ft_change_pwd(env);
+	if (env_cpy)
+	{
+		ft_strdel(&env_cpy->valeur);
+		env_cpy->valeur = ft_strdup(cwd);
+	}
+	else
+		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(cwd));
+	ft_change_pwd(env);
 	return (0);
 }
