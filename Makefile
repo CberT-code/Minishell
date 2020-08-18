@@ -32,7 +32,7 @@ SRCS = 			srcs/fcts/echo.c \
 
 BONUS = 		bonus/*
 
-NAME = 			Minishell
+NAME = 			minishell
 
 FLAGS =			-Wall -Werror -Wextra
 
