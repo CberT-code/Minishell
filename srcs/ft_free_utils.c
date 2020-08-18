@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/18 17:35:45 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/18 22:19:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_free_env(t_env *env)
 {
 	t_env *b_last;
 
-	while (env != NULL)
+	while (env)
 	{
 		free(env->var);
 		free(env->valeur);
