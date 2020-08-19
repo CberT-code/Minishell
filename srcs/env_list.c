@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/18 17:49:53 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/19 15:39:45 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,17 @@ void			ft_lstadd_back_env(t_env **alst, char *str, char *str2)
 void			ft_shlvl(t_env **env)
 {
 	t_env	*first;
-	int		i;
+	int 	i;
 
 	first = *env;
-	i = 0;
 	while (*env)
 	{
 		if (ft_strcmp((*env)->var, "SHLVL=") == 0)
 		{
-			while ((*env)->valeur[i])
+			if (ft_atoi((*env)->valeur) < -1 || !ft_strisdigit((*env)->valeur + 1))
 			{
-				if (!ft_isdigit((*env)->valeur[i++]) &&
-				!(ft_atoi((*env)->valeur) == -1  &&
-				ft_strlen((*env)->valeur) == 2))
-				{
-					free((*env)->valeur);
-					(*env)->valeur = ft_strdup("0");
-					i = 0;
-				}
+				free((*env)->valeur);
+				(*env)->valeur = ft_strdup("0");
 			}
 			i = ft_atoi((*env)->valeur) + 1;
 			free((*env)->valeur);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/18 17:37:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/19 16:25:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 	{
 		if ((path = check_path(semicol->pipes->cmds.str, *env)) != NULL)
 		{
+				printf("here we test -> %d\n", j);
 			if ((g_ret = execvp(path, semicol->all[j])))
 			{
+				printf("We are here2\n");
 				free(path);
 				exit(g_ret);
 			}

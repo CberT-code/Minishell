@@ -6,76 +6,56 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:37:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:53:38 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/19 15:34:36 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int			ft_count_c(long int n, int i)
+static unsigned int	ft_nbrlen(int nbr, unsigned int unbr)
 {
-	if (n < 0)
-		n *= -1;
-	if (n >= 10)
-		return (ft_count_c(n / 10, ++i));
-	return (i);
-}
+	unsigned int len;
 
-static char			ft_reverse(char *s)
-{
-	char	swap[15];
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		swap[i] = s[i];
-		i++;
-	}
-	s[i] = '\0';
-	while (i)
-		s[--i] = swap[j++];
-	return (*s);
-}
-
-static char			ft_process(char *s, long int nbr)
-{
-	int i;
-
-	i = 0;
-	while (nbr > 0)
-	{
-		s[i++] = nbr % 10 + '0';
-		nbr /= 10;
-	}
-	s[++i] = '\0';
-	*s = ft_reverse(s);
-	return (*s);
-}
-
-char				*ft_itoa(int n)
-{
-	char		*ptr;
-	int			i;
-	long int	nbr;
-
-	nbr = n;
-	i = ft_count_c(nbr, 1);
-	i = n < 0 ? i + 1 : i;
-	if (!(ptr = calloc(i + 1, sizeof(char))))
-		return (NULL);
-	if (nbr == 0)
-	{
-		ptr[0] = '0';
-		ptr[1] = '\0';
-	}
+	len = 0;
 	if (nbr < 0)
 	{
-		nbr *= -1;
-		ptr[--i] = '-';
+		len++;
+		unbr = -nbr;
 	}
-	*ptr = ft_process(ptr, nbr);
-	return (ptr);
+	if (unbr == 0)
+		return (1);
+	while (unbr)
+	{
+		unbr = unbr / 10;
+		len++;
+	}
+	return (len);
+}
+
+char				*ft_itoa(int nbr)
+{
+	unsigned int	unbr;
+	unsigned int	len;
+	char			*nbr_final;
+
+	len = 0;
+	unbr = nbr;
+	len = ft_nbrlen(nbr, unbr);
+	if (!(nbr_final = (char *)malloc(sizeof(char) * (len + 1))))
+		return (0);
+	if (nbr < 0)
+	{
+		nbr_final[0] = '-';
+		unbr = -nbr;
+	}
+	nbr_final[len] = '\0';
+	len--;
+	while (unbr >= 10)
+	{
+		nbr_final[len] = unbr % 10 + '0';
+		unbr = unbr / 10;
+		len--;
+	}
+	nbr_final[len] = unbr % 10 + '0';
+	return (nbr_final);
 }
