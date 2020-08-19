@@ -130,6 +130,7 @@ void					ft_simpq_len(char *str, int *i, int *len);
 void					ft_doubleq_len(char *str, t_env *env, int *i,
 		int *len);
 int						ft_envcpylen(char *str, t_env *env);
+char					*ft_check_brackets(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
 int						exec_cmds(t_semicol *semicol, t_env **env);

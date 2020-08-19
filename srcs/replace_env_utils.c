@@ -6,26 +6,56 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 17:39:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/19 17:43:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int		ft_len_brackets(char *str)
+{
+	int		brack;
+	int		i;
+	int		j;
+
+	brack = 0;
+	i = 0;
+	j = 0;
+	if (str[i] == '{')
+	{
+		i++;
+		brack = 1;
+	}
+	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
+	&& str[i] != BACKS && str[i])
+	{
+		j++;
+		i++;
+	}
+	if ((brack == 1 && str[i - 1] != '}') || (brack == 0 && str[i - 1] == '}'))
+		return (0);
+	j = (brack == 1) ? j - 1 : j;
+	return (j);
+}
+
 int		ft_envlen(char *str, t_env *env, int *cpt)
 {
 	t_env	*env_cpy;
 	int		i;
+	char *cpy_brack;
 
 	env_cpy = env;
 	i = 0;
 	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
 			&& str[i] != BACKS && str[i])
 		i++;
+	if (!(cpy_brack = ft_check_brackets(str)))
+		return (i);
 	while (env_cpy)
 	{
-		if (ft_strncmp(str, env_cpy->var, i) == 0
-		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
+		if (ft_strncmp(cpy_brack, env_cpy->var,
+		ft_strlen(cpy_brack)) == 0 && ft_strncmp(env_cpy->var,
+		cpy_brack, ft_strlen(env_cpy->var) - 1) == 0)
 		{
 			*cpt = *cpt + ft_strlen(env_cpy->valeur);
 			return (i);
