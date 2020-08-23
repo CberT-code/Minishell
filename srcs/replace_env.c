@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/23 10:33:44 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/23 21:23:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,6 @@ void	ft_simpq_cpy(char *str, char *cpy, int *i, int *j)
 	(*i)++;
 	while (str[*i] != SIMPQ && str[*i])
 		cpy[(*j)++] = str[(*i)++];
-}
-
-char	*ft_check_brackets(char *str)
-{
-	int		brack;
-	int		i;
-	int		j;
-	char	*cpy;
-
-	if (!(cpy = (char*)malloc(sizeof(char) * (ft_strlen(str) + 1))))
-		return (NULL);
-	brack = 0;
-	i = 0;
-	j = 0;
-	if (str[i] == '{')
-	{
-		i++;
-		brack = 1;
-	}
-	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != BACKS && str[i] != '+' && str[i])
-		cpy[j++] = str[i++];
-	if (brack == 1 && str[i - 1] != '}')
-		return (NULL);
-	j = (brack == 1 || str[i - 1] == '}') ? j - 1 : j;
-	cpy[j] = '\0';
-	return (cpy);
-}
-
-int		ft_end_brackets(char *str)
-{
-	int i;
-	int brack;
-
-	i = 0;
-	brack = 0;
-	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != BACKS && str[i] != '}' && str[i] != '+'
-	&& str[i])
-	{
-		if (str[i] == '{')
-			brack = 1;
-		i++;
-	}
-	i = (brack == 1 && str[i] == '}') ? i + 1 : i;
-	return (i);
 }
 
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
