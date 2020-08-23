@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/19 17:43:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/23 10:33:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,32 @@ char	*ft_check_brackets(char *str)
 		brack = 1;
 	}
 	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != BACKS && str[i])
+	&& str[i] != BACKS && str[i] != '+' && str[i])
 		cpy[j++] = str[i++];
-	if ((brack == 1 && str[i - 1] != '}') || (brack == 0 && str[i - 1] == '}'))
+	if (brack == 1 && str[i - 1] != '}')
 		return (NULL);
-	j = (brack == 1) ? j - 1 : j;
+	j = (brack == 1 || str[i - 1] == '}') ? j - 1 : j;
 	cpy[j] = '\0';
 	return (cpy);
+}
+
+int		ft_end_brackets(char *str)
+{
+	int i;
+	int brack;
+
+	i = 0;
+	brack = 0;
+	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
+	&& str[i] != BACKS && str[i] != '}' && str[i] != '+'
+	&& str[i])
+	{
+		if (str[i] == '{')
+			brack = 1;
+		i++;
+	}
+	i = (brack == 1 && str[i] == '}') ? i + 1 : i;
+	return (i);
 }
 
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
@@ -57,9 +76,7 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 	i = 0;
 	l = 0;
 
-	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != BACKS && str[i])
-		i++;
+	i = ft_end_brackets(str);
 	if (!(cpy_brack = ft_check_brackets(str)))
 		return (i);
 	while (env_cpy)
