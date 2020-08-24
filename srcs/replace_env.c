@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 17:35:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/23 21:23:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_simpq_cpy(char *str, char *cpy, int *i, int *j)
 {
 	(*i)++;
-	while (ft_isquote(str, *i) != 1 && str[*i])
+	while (str[*i] != SIMPQ && str[*i])
 		cpy[(*j)++] = str[(*i)++];
 }
 
@@ -24,18 +24,20 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 	t_env	*env_cpy;
 	int		i;
 	int		l;
+	char	*cpy_brack;
 
 	env_cpy = env;
 	i = 0;
 	l = 0;
-	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-			&& str[i] != BACKS && str[i])
-		i++;
+
+	i = ft_end_brackets(str);
+	if (!(cpy_brack = ft_check_brackets(str)))
+		return (i);
 	while (env_cpy)
 	{
-		if (ft_strncmp(str, env_cpy->var, i) == 0
-				&& ft_strncmp(env_cpy->var, str,
-				ft_strlen(env_cpy->var) - 1) == 0)
+		if (ft_strncmp(cpy_brack, env_cpy->var,
+		ft_strlen(cpy_brack)) == 0 && ft_strncmp(env_cpy->var,
+		cpy_brack, ft_strlen(env_cpy->var) - 1) == 0)
 		{
 			while (env_cpy->valeur[l])
 				cpy[(*j)++] = env_cpy->valeur[l++];
@@ -100,6 +102,7 @@ char	*ft_envcpy(char *str, t_env *env)
 	j = 0;
 	if (!(cpy = (char*)calloc(sizeof(char), ft_envcpylen(str, env) + 1)))
 		return (NULL);
+	str = ft_clean_quotes(str);
 	str = ft_replace_ret(str);
 	ft_conditions_cpy(str, cpy, env, &j);
 	cpy[j] = '\0';

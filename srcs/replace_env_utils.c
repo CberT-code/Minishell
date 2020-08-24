@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 17:39:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/23 21:22:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@ int		ft_envlen(char *str, t_env *env, int *cpt)
 {
 	t_env	*env_cpy;
 	int		i;
+	char *cpy_brack;
 
 	env_cpy = env;
 	i = 0;
 	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
 			&& str[i] != BACKS && str[i])
 		i++;
+	if (!(cpy_brack = ft_check_brackets(str)))
+		return (i);
 	while (env_cpy)
 	{
-		if (ft_strncmp(str, env_cpy->var, i) == 0
-		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
+		if (ft_strncmp(cpy_brack, env_cpy->var,
+		ft_strlen(cpy_brack)) == 0 && ft_strncmp(env_cpy->var,
+		cpy_brack, ft_strlen(env_cpy->var) - 1) == 0)
 		{
 			*cpt = *cpt + ft_strlen(env_cpy->valeur);
 			return (i);
@@ -86,39 +90,6 @@ int		ft_envcpylen(char *str, t_env *env)
 	return (len);
 }
 
-int		ft_len_replace_ret(char *str)
-{
-	int	i;
-	int	len;
-
-	i = -1;
-	len = 0;
-	while (str[++i])
-	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$' && str[i + 1] == '?')
-		{
-			len += ft_strlen(ft_itoa(g_ret));
-			i++;
-		}
-		else
-			len++;
-	}
-	return (len);
-}
-
-void	ft_fill_replace_ret(char *cpy, int *j, int *i)
-{
-	int k;
-	char *cpy_ret;
-
-	k = 0;
-	cpy_ret = ft_strdup(ft_itoa(g_ret));
-	while (cpy_ret[k])
-		cpy[(*j)++] = cpy_ret[k++];
-	(*i)++;
-	ft_strdel(&cpy_ret);
-}
-
 char	*ft_replace_ret(char *str)
 {
 	char	*cpy;
@@ -140,6 +111,5 @@ char	*ft_replace_ret(char *str)
 		i++;
 	}
 	cpy[j] = '\0';
-	//ft_strdel(&str);
 	return (cpy);
 }

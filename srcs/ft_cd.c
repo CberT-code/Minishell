@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 22:23:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/19 17:48:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		ft_oldpwd(t_env *env)
 	}
 	else
 	{
+		ft_printf("%s\n", env_cpy->valeur);
 		if (env_cpy)
 		{
 			ft_strdel(&env_cpy->valeur);

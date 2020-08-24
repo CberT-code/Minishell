@@ -5,22 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/15 00:20:30 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 21:39:55 by cbertola         ###   ########.fr       */
+/*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
+/*   Updated: 2020/08/24 14:50:41 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../includes/minishell.h"
 
 int		ft_clean_squotes(char *str, char *cpy, int *i, int *j)
 {
 	cpy[(*j)++] = str[(*i)++];
-	while (ft_isquote(str, *i) != 1 && str[(*i)])
+	while (str[(*i)] != SIMPQ && str[(*i)])
 	{
 		if (*i > 0 && str[*i] == SIMPQ && ft_isbacks(str, (*i) - 1) == 1)
 			return (1);
-		if (*i > 0 && str[*i] != SIMPQ && ft_isbacks(str, (*i) - 1) == 1)
-			cpy[(*j)++] = BACKS;
 		cpy[(*j)++] = str[(*i)++];
 	}
 	if (str[*i] != SIMPQ)

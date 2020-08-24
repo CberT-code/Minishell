@@ -130,6 +130,10 @@ void					ft_simpq_len(char *str, int *i, int *len);
 void					ft_doubleq_len(char *str, t_env *env, int *i,
 		int *len);
 int						ft_envcpylen(char *str, t_env *env);
+int						ft_len_replace_ret(char *str);
+void					ft_fill_replace_ret(char *cpy, int *j, int *i);
+char					*ft_check_brackets(char *str);
+int						ft_end_brackets(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
 int						exec_cmds(t_semicol *semicol, t_env **env);
