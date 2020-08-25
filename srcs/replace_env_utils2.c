@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/08/23 21:27:09 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/25 18:01:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		ft_len_brackets(char *str)
 		brack = 1;
 	}
 	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != BACKS && str[i])
+	&& str[i] != BACKS && str[i] != DOUBQ && str[i])
 	{
 		j++;
 		i++;
@@ -89,7 +89,7 @@ char	*ft_check_brackets(char *str)
 		brack = 1;
 	}
 	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != BACKS && str[i] != '+' && str[i])
+	&& str[i] != BACKS && str[i] != '+' && str[i] != DOUBQ && str[i])
 		cpy[j++] = str[i++];
 	if (brack == 1 && str[i - 1] != '}')
 		return (NULL);
@@ -107,7 +107,7 @@ int		ft_end_brackets(char *str)
 	brack = 0;
 	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
 	&& str[i] != BACKS && str[i] != '}' && str[i] != '+'
-	&& str[i])
+	&& str[i] != DOUBQ && str[i])
 	{
 		if (str[i] == '{')
 			brack = 1;

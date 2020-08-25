@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/18 17:35:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/25 16:19:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		find_fcts(t_cmds *cmd, t_env **env)
 	else if (strcmp(cmd->str, "cd") == 0)
 		return (ft_cd(cmd->args, *env));
 	else if (strcmp(cmd->str, "pwd") == 0)
-		return (ft_pwd(cmd->args));
+		return (ft_pwd());
 	else if (strcmp(cmd->str, "unset") == 0)
 		return (ft_unset(cmd->args, *env));
 	else
