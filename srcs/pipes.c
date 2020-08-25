@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 14:28:14 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/25 19:07:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 	{
 		if ((path = check_path(semicol->pipes->cmds.str, *env)) != NULL)
 		{
-			//printf("\n\navant execve\n");
+			printf("\n\navant execve\n");
 			g_ret = execve(path, semicol->all[j], list_to_tab(*env));
-			//printf("fini execve\n");
 		}
 		else
 		{
@@ -46,7 +45,7 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 		free(path);
 		exit(g_ret);
 	}
-		// printf("fini execforlk\n\n");
+		 printf("fini execforlk\n\n");
 }
 
 void	do_pipe(t_semicol *semicol, t_env **env)
@@ -54,7 +53,7 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 	int			pipes[semicol->nb_pipes * 2 + 1];
 	int			j;
 	t_pipes		*first_pipes;
-	pid_t		pid[semicol->nb_pipes + 1];
+	pid_t		pid;
 
 	j = -1;
 	init_pipes(semicol->nb_pipes * 2, pipes);
@@ -66,12 +65,12 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 			g_ret = find_fcts(&semicol->pipes->cmds, env);
 		else
 		{
-			if (!(pid[j] = fork()))
+			if (!(pid = fork()))
 				exec_fork(semicol, j, env, pipes);
 			//printf("\n\nWe are here apres execfork\n\n");
 		}
 		semicol->pipes = semicol->pipes->next;
-		//waitpid(pid, &g_ret, 0);
+		waitpid(pid, &g_ret, 0);
 	//printf("\n\nWe are here apres pipes\n\n");
 	}
 	j = -1;

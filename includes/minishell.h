@@ -11,7 +11,7 @@
 # define		ERROR_FIND_CMD	"\n\n\033[1;31mLa commande « %s » n'a pas été \
 trouvée.\033[0;0m\n\n"
 # define		IDERRONE "export: |%s| : identifiant non valable\n"
-# define		IDERRTWO "export: \" %s \" : identifiant non valable"
+# define		IDERRTWO "export: \" %s \" : identifiant non valable\n"
 # define		SYNTHERRC "minishell : erreur de syntaxe près du symbole inattendu « %c »\n"
 # define		SYNTHERRS "minishell : erreur de syntaxe près du symbole inattendu « %s »\n"
 
@@ -186,5 +186,7 @@ void					wait_pipes(int nb_pipes, pid_t *pid, int *ret);
 void					close_pipes(int nb_pipes, int *pipes);
 void					init_pipes(int nb_pipes, int *pipes);
 char     				**list_to_tab(t_env *env);
+
+int						ft_strlen_str_quotes_backs(char *s, char *str);
 
 #endif

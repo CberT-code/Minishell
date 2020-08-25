@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 14:22:33 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/25 15:52:17 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,19 @@ int			display_export(t_env *env)
 	start = env;
 	if (env != NULL)
 		ft_tri_varlst(&env);
-	while (env != NULL)
+	while (env)
 	{
-		if (env->var[ft_strlen(env->var) - 1] == '=')
+		write(1, "declare -x ", 11);
+		write(1, env->var, ft_strlen(env->var));
+		if (env->valeur != NULL)
 		{
-			write(1, "declare -x ", 11);
-			write(1, env->var, ft_strlen(env->var));
-			if (env->valeur != NULL)
-			{
-				write(1, "\"", 1);
-				write(1, env->valeur, ft_strlen(env->valeur));
-				write(1, "\"", 1);
-			}
-			if (env->valeur == NULL && env->var[ft_strlen(env->var)] == '=')
-				write(1, "\"\"", 2);
-			write(1, "\n", 1);
+			write(1, "\"", 1);
+			write(1, env->valeur, ft_strlen(env->valeur));
+			write(1, "\"", 1);
 		}
+		if (env->valeur == NULL && env->var[ft_strlen(env->var)] == '=')
+			write(1, "\"\"", 2);
+		write(1, "\n", 1);
 		env = env->next;
 	}
 	env = start;
@@ -116,7 +113,7 @@ void		data_list(char *str, t_env **env)
 	}
 	else
 	{
-		if (check_str_alpha(var, ft_strlen(var)) == 0)
+		if (!check_str_alpha(var, ft_strlen(var)))
 			return (free_exit(NULL, *env, IDERRTWO, var));
 		value = NULL;
 	}

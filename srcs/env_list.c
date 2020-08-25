@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/19 15:39:45 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/25 18:09:02 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,13 @@ void			ft_shlvl(t_env **env)
 	{
 		if (ft_strcmp((*env)->var, "SHLVL=") == 0)
 		{
-			if (ft_atoi((*env)->valeur) < -1 || !ft_strisdigit((*env)->valeur + 1))
+			if (ft_atoi((*env)->valeur) <= -1 || !ft_strisdigit((*env)->valeur + 1))
 			{
 				free((*env)->valeur);
-				(*env)->valeur = ft_strdup("0");
+				if (ft_atoi((*env)->valeur) < 0)
+					(*env)->valeur = ft_strdup("-1");
+				else
+					(*env)->valeur = ft_strdup("0");
 			}
 			i = ft_atoi((*env)->valeur) + 1;
 			free((*env)->valeur);
