@@ -184,4 +184,6 @@ void					redir_out(t_redir *redir, int param, int *pipes, int j);
 void					wait_pipes(int nb_pipes, pid_t *pid, int *ret);
 void					close_pipes(int nb_pipes, int *pipes);
 void					init_pipes(int nb_pipes, int *pipes);
+char     				**list_to_tab(t_env *env);
+
 #endif

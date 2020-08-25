@@ -6,9 +6,11 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/24 14:50:41 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/24 14:52:38 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/minishell.h"
 
 int		ft_clean_squotes(char *str, char *cpy, int *i, int *j)
 {

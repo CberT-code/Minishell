@@ -6,9 +6,11 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/24 14:50:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/25 14:35:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/minishell.h"
 
 int			g_rep;
 char		*g_line;

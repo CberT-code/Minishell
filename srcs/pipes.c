@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/20 11:08:13 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/25 14:28:14 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 	{
 		if ((path = check_path(semicol->pipes->cmds.str, *env)) != NULL)
 		{
-			if ((g_ret= execvp(path, semicol->all[j])))
-			{
-				free(path);
-				exit(g_ret);
-			}
+			//printf("\n\navant execve\n");
+			g_ret = execve(path, semicol->all[j], list_to_tab(*env));
+			//printf("fini execve\n");
 		}
 		else
 		{
@@ -46,10 +44,12 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 			ft_printf(ERROR_FIND_CMD, semicol->pipes->cmds.str);
 		}
 		free(path);
+		exit(g_ret);
 	}
+		// printf("fini execforlk\n\n");
 }
 
-void	do_pipe(t_semicol *semicol, int *ret, t_env **env)
+void	do_pipe(t_semicol *semicol, t_env **env)
 {
 	int			pipes[semicol->nb_pipes * 2 + 1];
 	int			j;
@@ -61,19 +61,23 @@ void	do_pipe(t_semicol *semicol, int *ret, t_env **env)
 	first_pipes = semicol->pipes;
 	while (++j < semicol->nb_pipes)
 	{
+	//printf("We are here 2\n");
 		if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
 			g_ret = find_fcts(&semicol->pipes->cmds, env);
 		else
 		{
 			if (!(pid[j] = fork()))
 				exec_fork(semicol, j, env, pipes);
-			waitpid(pid[j], ret, 0);
+			//printf("\n\nWe are here apres execfork\n\n");
 		}
 		semicol->pipes = semicol->pipes->next;
+		//waitpid(pid, &g_ret, 0);
+	//printf("\n\nWe are here apres pipes\n\n");
 	}
+	j = -1;
+	//wait_pipes(semicol->nb_pipes + 1, pid, &g_ret);
+	close_pipes(semicol->nb_pipes * 2, pipes);
 	semicol->pipes = first_pipes;
-	//close_pipes(semicol->nb_pipes * 2, pipes);
-	wait_pipes(semicol->nb_pipes * 2, pid, ret);
 }
 
 int		exec_cmds(t_semicol *semicol, t_env **env)
@@ -83,7 +87,7 @@ int		exec_cmds(t_semicol *semicol, t_env **env)
 	first_semicol = semicol;
 	while (semicol != NULL)
 	{
-		do_pipe(semicol, &g_ret, env);
+		do_pipe(semicol, env);
 		semicol = semicol->next;
 	}
 	semicol = first_semicol;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tri_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 14:51:47 by user42            #+#    #+#             */
-/*   Updated: 2020/08/15 10:42:55 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/25 14:26:33 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ void	ft_tri_varlst(t_env **lst_env)
 				cpy_lst->valeur = ft_strdup(cpy_lst->next->valeur);
 				cpy_lst->next->var = ft_strdup(var);
 				cpy_lst->next->valeur = ft_strdup(valeur);
+				cpy_lst = new_lst;
 			}
-			cpy_lst = cpy_lst->next;
+			else
+				cpy_lst = cpy_lst->next;
 		}
 		new_lst = new_lst->next;
 	}

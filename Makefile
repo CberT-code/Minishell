@@ -18,7 +18,7 @@ SRCS_NAME= 		echo.c env.c env_list.c export.c \
 				clean_quotes.c clean_spaces.c ft_free.c  replace_env_utils2.c\
 				ft_free_utils.c pipes.c pipes_util.c quotes.c \
 				redirections.c replace_env.c replace_env_utils.c \
-				split_minishell.c split_minishell_utils.c main.c
+				split_minishell.c split_minishell_utils.c main.c list_to_tab.c
 
 CC = gcc
 
