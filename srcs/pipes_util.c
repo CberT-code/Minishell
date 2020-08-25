@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 12:38:57 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/25 21:28:36 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 void	init_pipes(int nb_pipes, int *pipes)
 {
 	int i;
-	int j;
 
-	i = -1;
-	j = 0;
-	while (++i < nb_pipes)
-	{
-		pipe(pipes + j);
-		j += 2;
-	}
+	i = 0;
+	while ((2 * i) < nb_pipes)
+		pipe(pipes + (2 * i++));
 }
 
 void	close_pipes(int nb_pipes, int *pipes)
