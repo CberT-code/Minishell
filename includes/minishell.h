@@ -3,6 +3,7 @@
 
 #include	"../libft/libft.h"
 #include	<sys/wait.h>
+#include	<signal.h>
 
 # define		SIMPQ			39
 # define		DOUBQ			34
