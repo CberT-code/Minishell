@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/19 17:48:49 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/25 16:34:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		ft_oldpwd(t_env *env)
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(env_cpy->valeur) != 0)
 	{
-		ft_putendl("cd: Error - No such file or directory");
+		ft_putendl("bash: cd: « OLDPWD » non défini");
 		return (1);
 	}
 	else
@@ -103,7 +103,7 @@ int		ft_cd(t_args *args, t_env *env)
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
 	{
-		ft_putendl("cd: Error - No such file or directory");
+		ft_printf("bash: cd: %s: Aucun fichier ou dossier de ce type", args->str);
 		return (1);
 	}
 	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
@@ -111,10 +111,10 @@ int		ft_cd(t_args *args, t_env *env)
 	if (env_cpy)
 	{
 		ft_strdel(&env_cpy->valeur);
-		env_cpy->valeur = ft_strdup(cwd);
+		env_cpy->valeur = ft_strdup(ft_getenv("PWD", env));
 	}
 	else
-		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(cwd));
+		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(ft_getenv("PWD", env)));
 	ft_change_pwd(env);
 	return (0);
 }
