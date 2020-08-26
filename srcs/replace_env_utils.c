@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/25 16:44:41 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/25 22:41:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,9 @@ char	*ft_replace_ret(char *str)
 	j = 0;
 	while (str[i])
 	{
-		if ((i == 0 && ft_strlen(str) > 1 && str[i] == '$'
-		&& str[i + 1] == '?') || (i > 0 && i < ft_strlen(str) - 1
-		&& str[i] == '$' && str[i] + 1 == '?'
-		&& ft_isbacks(str, i - 1) == 0))
+		if ((i == 0 && ft_strlen(str) > 2 && str[i] == '$' && str[i + 1] == '?')
+		|| (i > 0 && i < ft_strlen(str) - 1 && str[i] == '$'
+		&& str[i + 1] == '?' && ft_isbacks(str, i - 1) == 0))
 			ft_fill_replace_ret(&cpy[0], &j, &i);
 		else
 			cpy[j++] = str[i];
