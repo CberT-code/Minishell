@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 14:39:02 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/26 20:19:50 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		main(int argc, char **argv, char **envp)
 			semicol = NULL;
 			split_semicol(g_line, &semicol, env);
 			count_pipe(semicol);
-			tab_all(semicol);
 			new_str(semicol);
 			exec_cmds(semicol, &env);
 			ft_free(semicol);

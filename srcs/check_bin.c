@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bin.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 18:18:07 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/26 22:23:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		find_fcts(t_cmds *cmd, t_env **env)
 {
+
 	if (strcmp(cmd->str, "echo") == 0)
 		return (ft_echo(cmd->args));
 	else if (strcmp(cmd->str, "env") == 0)
@@ -25,7 +26,7 @@ int		find_fcts(t_cmds *cmd, t_env **env)
 	else if (strcmp(cmd->str, "pwd") == 0)
 		return (ft_pwd());
 	else if (strcmp(cmd->str, "unset") == 0)
-		return (ft_unset(cmd->args, *env));
+		return (ft_unset(cmd->args, env));
 	else if (strcmp(cmd->str, "exit") == 0)
 		return (1);
 	else

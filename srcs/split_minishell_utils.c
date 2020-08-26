@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 14:59:03 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:47:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,22 @@ char		*clean_redir(char *str, char c)
 			i++;
 	}
 	return (str);
+}
+
+void    ft_change_args(t_args *args, t_env *env)
+{
+    t_args *first_arg;
+    char *cpy;
+
+    cpy = NULL;
+    first_arg = args;
+    while (args)
+    {
+        cpy = ft_strdup(args->str);
+        ft_strdel(&args->str);
+        args->str = ft_envcpy(cpy, env);
+        ft_strdel(&cpy);
+        args = args->next;
+    }
+    args = first_arg;
 }
