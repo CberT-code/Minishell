@@ -125,7 +125,7 @@ void					new_str(t_semicol *semicol);
 void					count_args(t_cmds *cmd);
 void					ft_fill_cmds(t_semicol *semicol);
 char					**new_tab(t_pipes *pipes);
-void					tab_all(t_semicol *semicol);
+void					tab_all(t_semicol *semicol, int j);
 int						ft_envlen(char *str, t_env *env, int *cpt);
 void					ft_simpq_len(char *str, int *i, int *len);
 void					ft_doubleq_len(char *str, t_env *env, int *i,
@@ -150,9 +150,9 @@ t_env					*ft_lstnew_var(char *var, char *valeur);
 int						replace_env(t_env **env, char *var, char *value);
 void					suppr_maillon(t_env **list, t_env *ptr);
 int						condition(char *str, char *str2);
-int						ft_unset(t_args *args, t_env *env);
-void					unset(char *str, t_env *env);
-int						delete_var(char *var, t_env *env);
+int						ft_unset(t_args *args, t_env **env);
+void					unset(char *str, t_env **env);
+int						delete_var(char *var, t_env **env);
 void					ft_free(t_semicol *semicol);
 void					free_tab_all(char ***all);
 void					free_pipes(t_pipes *pipes);
@@ -189,5 +189,6 @@ char     				**list_to_tab(t_env **env);
 
 int						ft_strlen_str_quotes_backs(char *s, char *str);
 void					free_tab(char **tab);
+void   					ft_change_args(t_args *args, t_env *env);
 
 #endif

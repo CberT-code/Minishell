@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 15:02:36 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:55:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ t_args			*split_args(char *str, t_env *env)
 	args = NULL;
 	while (*str)
 	{
-		str2 = ft_substr(str, 0, ft_strlen_str_quotes(str, " "));
+		str2 = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, " "));
 		lstadd_back_args(&args, str2, env);
-		str += ft_strlen_str_quotes(str, " ");
+		str += ft_strlen_str_quotes_backs(str, " ");
 		if (*str == ' ')
 			str++;
 		free(str2);
@@ -80,7 +80,7 @@ void			cmds_args(t_cmds *cmd, char *str, t_env *env)
 {
 	while (*str == ' ')
 		str++;
-	cmd->str = ft_substr(str, 0, ft_strlen_str_quotes(str, " "));
-	str += ft_strlen_str_quotes(str, " ") + 1;
+	cmd->str = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, " "));
+	str += ft_strlen_str_quotes_backs(str, " ") + 1;
 	cmd->args = split_args(str, env);
 }

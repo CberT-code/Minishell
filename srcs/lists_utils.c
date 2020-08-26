@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/15 10:42:57 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/26 22:13:41 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,26 +120,17 @@ char			**new_tab(t_pipes *pipes)
 	return (tab_cmds);
 }
 
-void			tab_all(t_semicol *semicol)
+void			tab_all(t_semicol *semicol, int j)
 {
-	int			i;
-	t_semicol	*first_semicol;
 	t_pipes		*first_pipe;
 
-	first_semicol = semicol;
-	while (semicol != NULL)
-	{
-		i = 0;
 		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes + 1)))
 			return ;
 		first_pipe = semicol->pipes;
 		while (semicol->pipes != NULL)
 		{
-			semicol->all[i++] = new_tab(semicol->pipes);
+			semicol->all[j] = new_tab(semicol->pipes);
 			semicol->pipes = semicol->pipes->next;
 		}
 		semicol->pipes = first_pipe;
-		semicol = semicol->next;
-	}
-	semicol = first_semicol;
 }
