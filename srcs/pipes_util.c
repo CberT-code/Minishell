@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 21:28:36 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/26 12:54:17 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void	do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe)
 		redir_out(pipe->redir_out.doubl, 2102, pipes, j);
 		dup2(pipes[j * 2 + 1], 1);
 	}
+	close_pipes(nb_pipes * 2 - 2, pipes);
 }

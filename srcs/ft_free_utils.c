@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/18 22:19:28 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/26 18:15:48 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,21 @@ void	ft_free_env(t_env *env)
 		b_last = env;
 		env = env->next;
 		free(b_last);
+	}
+}
+
+void	free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	if (tab)
+	{
+		while (tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+		free(tab);
 	}
 }

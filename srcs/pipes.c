@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 21:30:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/26 18:16:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ int		condition_do_pipe(t_semicol *semicol, char *str)
 void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 {
 	char	*path;
+	char	**tab;
 
 	do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
-	close_pipes(semicol->nb_pipes * 2, pipes);
 	if ((g_ret = find_fcts(&semicol->pipes->cmds, env)) != -1)
 		exit(g_ret);
 	else
 	{
 		if ((path = check_path(semicol->pipes->cmds.str, *env)) != NULL)
-			g_ret = execve(path, semicol->all[j], list_to_tab(*env));
+		{
+			g_ret = execve(path, semicol->all[j], tab = list_to_tab(env));
+			free_tab(tab);
+		}
 		else
 		{
 			g_ret = 127;
@@ -46,13 +49,13 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 
 void	do_pipe(t_semicol *semicol, t_env **env)
 {
-	int			pipes[semicol->nb_pipes * 2 + 1];
+	int			pipes[semicol->nb_pipes * 2 - 2];
 	int			j;
 	t_pipes		*first_pipes;
-	pid_t		pid[semicol->nb_pipes + 1];
+	pid_t		pid[semicol->nb_pipes];
 
 	j = -1;
-	init_pipes(semicol->nb_pipes * 2, pipes);
+	init_pipes(semicol->nb_pipes * 2 - 2, pipes);
 	first_pipes = semicol->pipes;
 	while (++j < semicol->nb_pipes)
 	{
@@ -60,14 +63,16 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 			g_ret = find_fcts(&semicol->pipes->cmds, env);
 		else
 		{
-			if (!(pid[j] = fork()))
+			if (!(pid[j] = fork())){
 				exec_fork(semicol, j, env, pipes);
+			waitpid(pid[j], &g_ret, 0);
+			}
 		}
 		semicol->pipes = semicol->pipes->next;
 	}
 	j = -1;
-	close_pipes(semicol->nb_pipes * 2, pipes);
-	wait_pipes(semicol->nb_pipes + 1, pid, &g_ret);
+	close_pipes(semicol->nb_pipes * 2 - 2, pipes);
+	//wait_pipes(semicol->nb_pipes + 1, pid, &g_ret);
 	semicol->pipes = first_pipes;
 }
 

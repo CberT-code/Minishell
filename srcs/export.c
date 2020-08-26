@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/15 10:44:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/26 11:24:55 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,25 @@ int			condition(char *str, char *str2)
 	return (0);
 }
 
-int			replace_env(t_env *env, char *var, char *value)
+int			replace_env(t_env **env, char *var, char *value)
 {
 	t_env	*env_n;
 
-	env_n = env;
-	while (env != NULL)
+	env_n = *env;
+	while (*env != NULL)
 	{
-		if ((ft_strlen((env)->var) == ft_strlen(var) &&
-					ft_strcmp((env)->var, var) == 0) ||
-				(condition((env)->var, var)) || condition(var, (env)->var))
+		if ((ft_strlen((*env)->var) == ft_strlen(var) &&
+					ft_strcmp((*env)->var, var) == 0) ||
+				(condition((*env)->var, var)) || condition(var, (*env)->var))
 		{
-			(env)->var = var;
-			(env)->valeur = value;
-			env = env_n;
+			(*env)->var = var;
+			(*env)->valeur = value;
+			*env = env_n;
 			return (1);
 		}
-		env = (env)->next;
+		*env = (*env)->next;
 	}
-	env = env_n;
+	*env = env_n;
 	return (0);
 }
 
