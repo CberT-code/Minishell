@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 11:28:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/26 18:18:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,6 @@ void		data_list(char *str, t_env **env)
 			return (free_exit(NULL, *env, IDERRTWO, var));
 		value = NULL;
 	}
-	if (replace_env(*env, var, value) == 0)
+	if (replace_env(env, var, value) == 0)
 		ft_lstadd_back_env(env, var, value);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 11:31:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/26 18:18:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		search_mybin(char *str)
 	else if (strcmp(str, "pwd") == 0)
 		return (1);
 	else if (strcmp(str, "unset") == 0)
+		return (1);
+	else if (strcmp(str, "exit") == 0)
 		return (1);
 	else
 		return (0);
