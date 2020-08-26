@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 22:15:07 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/26 22:21:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,6 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 	first_pipes = semicol->pipes;
 	while (++j < semicol->nb_pipes)
 	{
-		// t_env *envfirst;
-
-		// envfirst = *env;
-		// while (*env)
-		// {
-		// 	printf("here we test -> |%s|\n", (*env)->var);
-		// 	*env = (*env)->next;
-		// }
-		// printf("We are here\n\n\n");
-		// *env = envfirst;
 		ft_change_args(semicol->pipes->cmds.args, *env);
 		if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
 			g_ret = find_fcts(&semicol->pipes->cmds, env);
