@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/08/25 18:01:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/25 22:41:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int		ft_len_replace_ret(char *str)
 	len = 0;
 	while (str[++i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$' && str[i + 1] == '?')
+		if ((i == 0 && ft_strlen(str) > 2 && str[i] == '$' && str[i + 1] == '?')
+			|| (i > 0 && i < ft_strlen(str) - 1 && str[i] == '$'
+			&& str[i + 1] == '?' && ft_isbacks(str, i - 1) == 0))
 		{
 			len += ft_strlen(ft_itoa(g_ret));
 			i++;
