@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/25 19:35:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/27 13:58:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 {
 	int i;
-
 	i = 1;
 	while (ft_isquote(str, i) != 2 && str[i])
 	{
@@ -60,7 +59,9 @@ int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 		&&	str[i + 1] != '=' && str[i + 1] != '#' && str[i + 1] != '-'
 		&& str[i + 1] != '}' && str[i + 1] != '+')
 			i += ft_varcpy(&str[i + 1], cpy, env, j);
-		else if (str[i] != BACKS || (i > 0 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0))
+		else if (i < ft_strlen(str) && ft_isbacks(str, i) == 1 && str[i + 1] == DOUBQ)
+			i++;
+		if (str[i] != BACKS || (i > 0 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0))
 			cpy[(*j)++] = str[i];
 		i++;
 	}
