@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 22:23:26 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/26 22:24:52 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 	}
 	j = -1;
 	close_pipes(semicol->nb_pipes * 2 - 2, pipes);
-	//wait_pipes(semicol->nb_pipes + 1, pid, &g_ret);
+	wait_pipes(semicol->nb_pipes + 1, pid, &g_ret);
 	semicol->pipes = first_pipes;
 }
 

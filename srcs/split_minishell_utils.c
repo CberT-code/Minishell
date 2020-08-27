@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 21:47:35 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:46:28 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,20 @@ char		*clean_redir(char *str, char c)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == c)
+		if (str[i] == c && !ft_isbacks(str, i - 1))
 		{
 			j = 0;
 			if (str[i + 1] == c)
 			{
 				j = str[i + 2] == ' ' ? 3 : 2;
 				str = ft_subfromstr_free(str, i,
-				ft_strlen_str_quotes(str + i + j, " ") + j);
+				ft_strlen_str_quotes_backs(str + i + j, " ") + j);
 			}
 			else
 			{
 				j = str[i + 1] == ' ' ? 2 : 1;
 				str = ft_subfromstr_free(str, i,
-				ft_strlen_str_quotes(str + i + j, " ") + j);
+				ft_strlen_str_quotes_backs(str + i + j, " ") + j);
 			}
 			i = 0;
 		}
