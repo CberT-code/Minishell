@@ -8,8 +8,9 @@
 # define		SIMPQ			39
 # define		DOUBQ			34
 # define		BACKS			92
-# define		ERROR_FIND_CMD	"\n\n\033[1;31mLa commande « %s » n'a pas été \
-trouvée.\033[0;0m\n\n"
+# define		ERROR_NO_REDIR 	"\n\033[1;31m Erreur de syntaxe \033[0;0m\n"
+# define		ERROR_FIND_CMD	"\n\033[1;31mLa commande « %s » n'a pas été \
+trouvée.\033[0;0m\n"
 # define		IDERRONE "export: |%s| : identifiant non valable\n"
 # define		IDERRTWO "export: \" %s \" : identifiant non valable\n"
 # define		SYNTHERRC "minishell : erreur de syntaxe près du symbole inattendu « %c »\n"
@@ -91,23 +92,21 @@ int						ft_isquote(char *str, int i);
 t_semicol				*ft_lstnewsemicol(char *str, t_env *env);
 t_semicol				*ft_lstlastsemicol(t_semicol *cmds);
 void					lstadd_back_semicol(t_semicol **semicol,
-		char *str, t_env *env);
-t_pipes					*ft_lstnewpipes(char *str, t_env *env);
+ char *str, t_env *env);
+t_pipes					*ft_lstnewpipes(char *str, t_env *env, t_semicol *semicol);
 t_pipes					*ft_lstlastpipes(t_pipes *cmds);
 void					lstadd_back_pipes(t_pipes **pipes, char *str,
-		t_env *env);
+		t_env *env, t_semicol *semicol);
 t_args					*ft_lstnewargs(char *str, t_env *env);
 t_args					*ft_lstlastargs(t_args *cmds);
 void					lstadd_back_args(t_args **args, char *str, t_env *env);
 int						split_semicol(char *str, t_semicol **semicol,
 		t_env *env);
-t_pipes					*split_pipes(char *str, t_env *env);
+t_pipes					*split_pipes(t_semicol *semicol, t_env *env);
 t_args					*split_args(char *str, t_env *env);
 void					cmds_args(t_cmds *cmd, char *str, t_env *env);
 int						ft_strlen_str_quotes(char *s, char *str);
 t_tab_redir				full_redir(char *str, char c, t_env *env);
-void					ft_splitting(char *str, char c, t_tab_redir *redir,
-		t_env *env);
 t_redir					*ft_lstnewredir(char *str, t_env *env);
 t_redir					*ft_lstlastredir(t_redir *redir);
 void					lstadd_back_redir(t_redir **redir, char *str,
@@ -190,5 +189,8 @@ char     				**list_to_tab(t_env **env);
 int						ft_strlen_str_quotes_backs(char *s, char *str);
 void					free_tab(char **tab);
 void   					ft_change_args(t_args *args, t_env *env);
+
+void					ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env);
+void					ft_redir_out(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_semicol.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/15 10:42:57 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/27 15:46:23 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_semicol	*ft_lstnewsemicol(char *str, t_env *env)
 	if (!(semicol = (t_semicol*)calloc(sizeof(t_semicol), 1)))
 		return (NULL);
 	semicol->str = str;
-	semicol->pipes = split_pipes(semicol->str, env);
+	semicol->pipes = split_pipes(semicol, env);
 	semicol->next = NULL;
 	return (semicol);
 }

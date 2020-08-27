@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lists_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/15 10:42:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/27 15:53:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_pipes			*ft_lstnewpipes(char *str, t_env *env)
+t_pipes			*ft_lstnewpipes(char *str, t_env *env, t_semicol *semicol)
 {
 	t_pipes		*pipes;
 	char		*str2;
@@ -23,8 +23,8 @@ t_pipes			*ft_lstnewpipes(char *str, t_env *env)
 	if (!(pipes = (t_pipes*)calloc(sizeof(t_pipes), 1)))
 		return (NULL);
 	ft_bzero(pipes, sizeof(t_pipes));
-	ft_splitting(str2, '<', &pipes->redir_in, env);
-	ft_splitting(str2, '>', &pipes->redir_out, env);
+	ft_redir_in(str2, semicol, &pipes->redir_in, env);
+	ft_redir_out(str2, semicol, &pipes->redir_out, env);
 	str2 = clean_redir(str2, '<');
 	str2 = clean_redir(str2, '>');
 	str3 = ft_clean_spaces(str2);
@@ -44,10 +44,10 @@ t_pipes			*ft_lstlastpipes(t_pipes *pipes)
 	return (pipes);
 }
 
-void			lstadd_back_pipes(t_pipes **pipes, char *str, t_env *env)
+void			lstadd_back_pipes(t_pipes **pipes, char *str, t_env *env, t_semicol *semicol)
 {
 	if (*pipes != NULL)
-		ft_lstlastpipes(*pipes)->next = ft_lstnewpipes(str, env);
+		ft_lstlastpipes(*pipes)->next = ft_lstnewpipes(str, env, semicol);
 	else
-		*pipes = ft_lstnewpipes(str, env);
+		*pipes = ft_lstnewpipes(str, env, semicol);
 }

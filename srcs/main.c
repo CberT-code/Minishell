@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 20:19:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:57:14 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			g_rep;
 char		*g_line;
 int			g_sta;
-t_semicol	*g_first_semicol;
+t_semicol	*semicol;
 
 void		sig_handler(int sig)
 {
@@ -30,7 +30,7 @@ void		sig_handler(int sig)
 		ft_printf("\b\b  \b\b");
 	else if (sig == SIGQUIT && g_line && ft_strlen(g_line) > 0)
 	{
-		ft_free(g_first_semicol);
+		ft_free(semicol);
 		ft_printf("Quitter (core dumped)\n");
 		kill(1, SIGINT);
 	}
@@ -38,7 +38,7 @@ void		sig_handler(int sig)
 
 int		main(int argc, char **argv, char **envp)
 {
-	t_semicol	*semicol;
+	
 	t_env		*env;
 	//char		cwd[1024];
 

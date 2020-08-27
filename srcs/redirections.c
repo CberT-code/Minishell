@@ -6,20 +6,32 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 10:46:35 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:11:33 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_splitting(char *str, char c, t_tab_redir *redir, t_env *env)
+void	check_space_end(char *str, t_env *env, t_semicol *semicol)
+{
+	int i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '\0')
+		free_exit(semicol, env, ERROR_NO_REDIR, NULL);
+}
+
+void	ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
 {
 	while (*str)
 	{
-		if (*str == c)
-		{
-			if (*(++str) == c)
+		if (*str == '<')
+		{	
+			if (*(++str) == '<')
 			{
+				check_space_end(str + 1, env, semicol);
 				str++;
 				str += *str == ' ' ? 1 : 0;
 				lstadd_back_redir(&redir->doubl, ft_substr(str, 0,
@@ -27,6 +39,7 @@ void	ft_splitting(char *str, char c, t_tab_redir *redir, t_env *env)
 			}
 			else
 			{
+				check_space_end(str, env, semicol);
 				str += *str == ' ' ? 1 : 0;
 				lstadd_back_redir(&redir->simpl, ft_substr(str, 0,
 				ft_strlen_str_quotes_backs(str, " ")), env);
@@ -38,14 +51,31 @@ void	ft_splitting(char *str, char c, t_tab_redir *redir, t_env *env)
 			str++;
 	}
 }
-
-t_tab_redir			full_redir(char *str, char c, t_env *env)
+void	ft_redir_out(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
 {
-	t_tab_redir		redir;
-
-	ft_bzero(&redir, sizeof(t_tab_redir));
-	if (!str)
-		return (redir);
-	ft_splitting(str, c, &redir, env);
-	return (redir);
+	while (*str)
+	{
+		if (*str == '>')
+		{	
+			if (*(++str) == '>')
+			{
+				check_space_end(str + 1, env, semicol);
+				str++;
+				str += *str == ' ' ? 1 : 0;
+				lstadd_back_redir(&redir->doubl, ft_substr(str, 0,
+				ft_strlen_str_quotes_backs(str, " ")), env);
+			}
+			else
+			{
+				check_space_end(str, env, semicol);
+				str += *str == ' ' ? 1 : 0;
+				lstadd_back_redir(&redir->simpl, ft_substr(str, 0,
+				ft_strlen_str_quotes_backs(str, " ")), env);
+			}
+			str++;
+			str += ft_strlen_str_quotes_backs(str, " ");
+		}
+		else
+			str++;
+	}
 }

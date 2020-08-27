@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 22:19:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:47:33 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,20 @@ int				split_semicol(char *str, t_semicol **semicol, t_env *env)
 	return (1);
 }
 
-t_pipes			*split_pipes(char *str, t_env *env)
+t_pipes			*split_pipes(t_semicol *semicol, t_env *env)
 {
 	t_pipes		*pipes;
 	char		*str2;
+	char		*str;
 
+	str = semicol->str;
 	if (!str)
 		return (NULL);
 	pipes = NULL;
 	while (*str)
 	{
 		str2 = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, "|"));
-		lstadd_back_pipes(&pipes, str2, env);
+		lstadd_back_pipes(&pipes, str2, env, semicol);
 		str += ft_strlen_str_quotes_backs(str, "|");
 		if (*str == '|')
 			str++;
