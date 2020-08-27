@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/25 16:34:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/27 15:50:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,18 @@ int		ft_cd(t_args *args, t_env *env)
 
 	env_cpy = env;
 	if (!args || !args->str
-	|| ft_strncmp(args->str, "~", 1) == 0)
+	|| ft_strncmp(args->str, "~", ft_strlen(args->str)) == 0)
 		return (ft_check_cd_errors(env));
 	if (ft_check_size_args_cd(args) != 0)
 		return (1);
 	if (ft_strncmp(args->str, "-", 1) == 0)
 		return (ft_oldpwd(env));
+	if (args->str[0] == '~')
+		args->str = ft_strjoin(ft_getenv("HOME", env), &args->str[1]);
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
 	{
-		ft_printf("bash: cd: %s: Aucun fichier ou dossier de ce type", args->str);
+		ft_printf("bash: cd: %s: Aucun fichier ou dossier de ce type\n", args->str);
 		return (1);
 	}
 	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
