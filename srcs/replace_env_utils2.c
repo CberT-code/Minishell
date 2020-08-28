@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/08/25 22:41:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/28 19:43:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int		ft_end_brackets(char *str)
 	&& str[i] != BACKS && str[i] != '}' && str[i] != '+'
 	&& str[i] != DOUBQ && str[i])
 	{
+		if (i > 0 && ft_isdigit(str[i - 1]) == 1)
+			break;
 		if (str[i] == '{')
 			brack = 1;
 		i++;
