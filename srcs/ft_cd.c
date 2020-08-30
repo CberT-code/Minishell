@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/27 15:50:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/28 19:35:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,11 @@ int		ft_cd(t_args *args, t_env *env)
 		return (ft_oldpwd(env));
 	if (args->str[0] == '~')
 		args->str = ft_strjoin(ft_getenv("HOME", env), &args->str[1]);
+	if (ft_strncmp(args->str, "$dir", 4) == 0)
+	{
+		ft_strdel(&args->str);
+		args->str = ft_strdup(ft_getenv("HOME", env));
+	}
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
 	{
