@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/29 14:34:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/30 13:42:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 
 	do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
 	tab_all(semicol, j);
-	if ((g_ret = find_fcts(&semicol->pipes->cmds, env)) != -1)
+	if ((g_ret = find_fcts(&semicol->pipes->cmds, env, semicol)) != -1)
 		exit(g_ret);
 	else
 	{
@@ -65,7 +65,7 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 	{
 		ft_change_args(semicol->pipes->cmds.args, *env);
 		if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
-			g_ret = find_fcts(&semicol->pipes->cmds, env);
+			g_ret = find_fcts(&semicol->pipes->cmds, env, semicol);
 		else
 		{
 			if (!(pid[j] = fork())){

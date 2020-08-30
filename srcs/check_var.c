@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:59:44 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/18 17:35:30 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/27 17:19:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_str_alpha(char *str, int len)
 	i = -1;
 	while (++i < len)
 	{
-		if (!ft_isalpha(str[i]) && !ft_isalnum(str[i]) && str[i] != '_')
+		if ((!ft_isalpha(str[i]) || ft_isalnum(str[i])) && str[i] != '_')
 			return (0);
 	}
 	return (1);

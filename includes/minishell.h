@@ -11,8 +11,8 @@
 # define		ERROR_NO_REDIR 	"\n\033[1;31m Erreur de syntaxe \033[0;0m\n"
 # define		ERROR_FIND_CMD	"\n\033[1;31mLa commande « %s » n'a pas été \
 trouvée.\033[0;0m\n"
-# define		IDERRONE "export: |%s| : identifiant non valable\n"
-# define		IDERRTWO "export: \" %s \" : identifiant non valable\n"
+# define		IDERRONE "\n\033[1;31mexport: identifiant non valable \
+\033[0;0m\n"
 # define		SYNTHERRC "minishell : erreur de syntaxe près du symbole inattendu « %c »\n"
 # define		SYNTHERRS "minishell : erreur de syntaxe près du symbole inattendu « %s »\n"
 
@@ -137,10 +137,10 @@ int						ft_end_brackets(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
 int						exec_cmds(t_semicol *semicol, t_env **env);
-int						ft_export(t_args *args, t_env **env);
+int						ft_export(t_args *args, t_env **env, t_semicol *semicol);
 char					*double_char(char *str, char c);
 char					**ft_tri_vartab(char **tab);
-void					data_list(char *str, t_env **env);
+void					data_list(char *str, t_env **env, t_semicol *semicol);
 void					ft_tri_varlst(t_env **lst_env);
 void					ft_lstadd_back_var(t_env **alst, char *var,
 		char *valeur);
@@ -159,14 +159,13 @@ void					free_tab_redir(t_tab_redir *redir);
 void					free_redir(t_redir *redir);
 void					free_cmds(t_cmds *cmds);
 void					free_args(t_args *args);
-void					free_exit(t_semicol *semicol, t_env *env, char *str,
-		void *param);
+void					free_exit(t_semicol *semicol, t_env *env, char *str);
 void					ft_free_env(t_env *env);
 char					*clean_redir(char *str, char c);
 int						ft_env(t_args *args, t_env **env);
 int						check_str_alpha(char *str, int len);
 void					check_line(char *str);
-int						find_fcts(t_cmds *cmd, t_env **env);
+int						find_fcts(t_cmds *cmd, t_env **env, t_semicol *semicol);
 int						ft_echo(t_args *args);
 int						ft_cd(t_args *args, t_env *env);
 int						ft_check_cd_errors(t_env *env);

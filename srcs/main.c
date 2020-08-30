@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 15:57:14 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 13:09:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			g_rep;
 char		*g_line;
 int			g_sta;
-t_semicol	*semicol;
+t_semicol	*g_semicol;
 
 void		sig_handler(int sig)
 {
@@ -30,7 +30,7 @@ void		sig_handler(int sig)
 		ft_printf("\b\b  \b\b");
 	else if (sig == SIGQUIT && g_line && ft_strlen(g_line) > 0)
 	{
-		ft_free(semicol);
+		ft_free(g_semicol);
 		ft_printf("Quitter (core dumped)\n");
 		kill(1, SIGINT);
 	}
@@ -56,13 +56,14 @@ int		main(int argc, char **argv, char **envp)
 		if (get_next_line(0, &g_line) == 1)
 		{
 			check_line(g_line);
-			semicol = NULL;
-			split_semicol(g_line, &semicol, env);
-			count_pipe(semicol);
-			new_str(semicol);
-			exec_cmds(semicol, &env);
-			ft_free(semicol);
+			g_semicol = NULL;
+			split_semicol(g_line, &g_semicol, env);
+			count_pipe(g_semicol);
+			new_str(g_semicol);
+			exec_cmds(g_semicol, &env);
+			ft_free(g_semicol);
 			//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
+			free(g_line);
 		}
 		else if (ft_strlen(g_line) == 0)
 			break ;
