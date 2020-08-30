@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/30 11:43:38 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 13:44:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 		else
 		{
 			g_ret = 127;
-			ft_printf(ERROR_FIND_CMD, semicol->pipes->cmds.str);
+			write(2, ERROR_FIND_CMD, ft_strlen(ERROR_FIND_CMD));
 		}
 		free(path);
 		exit(g_ret);
