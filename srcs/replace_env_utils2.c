@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/08/28 19:43:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/30 14:43:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,26 @@ int		ft_end_brackets(char *str)
 		i++;
 	}
 	i = (brack == 1 && str[i] == '}') ? i + 1 : i;
+	return (i);
+}
+
+int		ft_end_brackets_doubq(char *str)
+{
+	int i;
+	int brack;
+
+	i = 0;
+	brack = 0;
+	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
+	&& str[i] != BACKS && str[i] != '}' && str[i] != '+'
+	&& str[i])
+	{
+		if (i > 0 && ft_isdigit(str[i - 1]) == 1)
+			break;
+		if (str[i] == '{')
+			brack = 1;
+		i++;
+	}
+	i = (brack == 1 && str[i] == '}') ? i + 2 : i;
 	return (i);
 }
