@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 17:25:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 13:09:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		main(int argc, char **argv, char **envp)
 			exec_cmds(g_semicol, &env);
 			ft_free(g_semicol);
 			//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
+			free(g_line);
 		}
 		else if (ft_strlen(g_line) == 0)
 			break ;

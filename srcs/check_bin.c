@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 17:29:31 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 13:23:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int		find_fcts(t_cmds *cmd, t_env **env, t_semicol *semicol)
 	else if (strcmp(cmd->str, "unset") == 0)
 		return (ft_unset(cmd->args, env));
 	else if (strcmp(cmd->str, "exit") == 0)
-		return (1);
+	{
+		free_exit(semicol, *env, NULL);
+		return (0);
+
+	}
 	else
 		return (-1);
 }

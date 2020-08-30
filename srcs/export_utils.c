@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 17:32:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 12:06:59 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,16 @@ void		data_list(char *str, t_env **env, t_semicol *semicol)
 	i += ft_strlen(var);
 	if (str[--i] == '=')
 	{
-		if (!check_str_alpha(var, ft_strlen(var) - 1))
-			return (free_exit(semicol, *env, IDERRONE, NULL));
+		if (check_str_alpha(var, ft_strlen(var) - 1))
+			return (free_exit(semicol, *env, IDERRONE));
 		value = check_value(str, ++i);
 		value = ft_strcpyfrom(str, "=");
 		i += ft_strlen(value);
 	}
 	else
 	{
-		if (!check_str_alpha(var, ft_strlen(var)))
-			return (free_exit(semicol, *env, IDERRONE, NULL));
+		if (check_str_alpha(var, ft_strlen(var)))
+			return (free_exit(semicol, *env, IDERRONE));
 		value = NULL;
 	}
 	if (replace_env(env, var, value) == 0)
