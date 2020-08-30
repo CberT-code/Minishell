@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/08/27 15:20:48 by cbertola         ###   ########.fr       */
-=======
-/*   Updated: 2020/08/26 23:12:24 by user42           ###   ########.fr       */
->>>>>>> mike
+/*   Updated: 2020/08/27 17:30:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +29,7 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 
 	do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
 	tab_all(semicol, j);
-	if ((g_ret = find_fcts(&semicol->pipes->cmds, env)) != -1)
+	if ((g_ret = find_fcts(&semicol->pipes->cmds, env, semicol)) != -1)
 		exit(g_ret);
 	else
 	{
@@ -66,7 +62,7 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 	{
 		ft_change_args(semicol->pipes->cmds.args, *env);
 		if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
-			g_ret = find_fcts(&semicol->pipes->cmds, env);
+			g_ret = find_fcts(&semicol->pipes->cmds, env, semicol);
 		else
 		{
 			if (!(pid[j] = fork())){

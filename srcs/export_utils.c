@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 18:18:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/27 17:32:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char		**ft_tri_vartab(char **tab)
 	return (tab);
 }
 
-void		data_list(char *str, t_env **env)
+void		data_list(char *str, t_env **env, t_semicol *semicol)
 {
 	int		i;
 	char	*var;
@@ -105,8 +105,8 @@ void		data_list(char *str, t_env **env)
 	i += ft_strlen(var);
 	if (str[--i] == '=')
 	{
-		if (!(check_str_alpha(var, ft_strlen(var) - 1)))
-			return (free_exit(NULL, *env, IDERRONE, var));
+		if (!check_str_alpha(var, ft_strlen(var) - 1))
+			return (free_exit(semicol, *env, IDERRONE, NULL));
 		value = check_value(str, ++i);
 		value = ft_strcpyfrom(str, "=");
 		i += ft_strlen(value);
@@ -114,7 +114,7 @@ void		data_list(char *str, t_env **env)
 	else
 	{
 		if (!check_str_alpha(var, ft_strlen(var)))
-			return (free_exit(NULL, *env, IDERRTWO, var));
+			return (free_exit(semicol, *env, IDERRONE, NULL));
 		value = NULL;
 	}
 	if (replace_env(env, var, value) == 0)

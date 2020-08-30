@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 18:18:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/27 17:30:44 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		suppr_maillon(t_env **list, t_env *ptr)
 	*list = start;
 }
 
-int			ft_export(t_args *args, t_env **env)
+int			ft_export(t_args *args, t_env **env, t_semicol *semicol)
 {
 	t_args	*first_arg;
 
@@ -115,7 +115,7 @@ int			ft_export(t_args *args, t_env **env)
 		return (display_export(*env));
 	while (args != NULL)
 	{
-		data_list(args->str, env);
+		data_list(args->str, env, semicol);
 		args = args->next;
 	}
 	args = first_arg;
