@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/28 16:56:07 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/29 14:34:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 		else
 		{
 			g_ret = 127;
-			ft_printf(ERROR_FIND_CMD, semicol->pipes->cmds.str);
+			if (ft_strncmp(semicol->pipes->cmds.str, "\\\\", 2) == 0)
+				ft_printf("\n\033[1;31mLa commande « \\ » n'a pas été trouvée.\033[0;0m\n");
+			else
+				ft_printf(ERROR_FIND_CMD, semicol->pipes->cmds.str);
 		}
 		free(path);
 		exit(g_ret);
