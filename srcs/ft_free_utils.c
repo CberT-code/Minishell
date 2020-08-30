@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 17:32:37 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 11:51:38 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ void	free_cmds(t_cmds *cmds)
 	free_args(cmds->args);
 }
 
-void	free_exit(t_semicol *semicol, t_env *env, char *str, void *param)
+void	free_exit(t_semicol *semicol, t_env *env, char *str)
 {
-	if (str != NULL && param != NULL)
-		ft_printf(str, param);
-	if (str != NULL && param == NULL)
+	if (str != NULL)
 		write(2, str, ft_strlen(str));
 	if (semicol != NULL)
 		ft_free(semicol);
