@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/28 19:35:20 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/29 22:25:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ int		ft_cd(t_args *args, t_env *env)
 	|| ft_strncmp(args->str, "~", ft_strlen(args->str)) == 0)
 		return (ft_check_cd_errors(env));
 	if (ft_check_size_args_cd(args) != 0)
+	{
+		g_ret = 1;
 		return (1);
+	}
 	if (ft_strncmp(args->str, "-", 1) == 0)
 		return (ft_oldpwd(env));
 	if (args->str[0] == '~')
@@ -110,6 +113,7 @@ int		ft_cd(t_args *args, t_env *env)
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
 	{
+		g_ret = 1;
 		ft_printf("bash: cd: %s: Aucun fichier ou dossier de ce type\n", args->str);
 		return (1);
 	}
@@ -123,5 +127,6 @@ int		ft_cd(t_args *args, t_env *env)
 	else
 		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(ft_getenv("PWD", env)));
 	ft_change_pwd(env);
+	g_ret = 0;
 	return (0);
 }

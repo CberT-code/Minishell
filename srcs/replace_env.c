@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/28 19:48:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/30 20:19:48 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,38 @@ void	ft_simpq_cpy(char *str, char *cpy, int *i, int *j)
 	(*i)++;
 	while (str[*i] != SIMPQ && str[*i])
 		cpy[(*j)++] = str[(*i)++];
+}
+
+int		ft_varcpy_doubq(char *str, char *cpy, t_env *env, int *j)
+{
+	t_env	*env_cpy;
+	int		i;
+	int		l;
+	char	*cpy_brack;
+
+	env_cpy = env;
+	i = 0;
+	l = 0;
+
+	i = ft_end_brackets_doubq(str);
+	if (!(cpy_brack = ft_check_brackets(str)))
+		return (i);
+	while (env_cpy)
+	{
+		if (ft_strncmp(cpy_brack, env_cpy->var,
+		ft_strlen(cpy_brack)) == 0 && ft_strncmp(env_cpy->var,
+		cpy_brack, ft_strlen(env_cpy->var) - 1) == 0)
+		{
+			if (env_cpy->valeur)
+				while (env_cpy->valeur[l])
+					cpy[(*j)++] = env_cpy->valeur[l++];
+			ft_strdel(&cpy_brack);
+			return (i);
+		}
+		env_cpy = env_cpy->next;
+	}
+	ft_strdel(&cpy_brack);
+	return (i);
 }
 
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
@@ -42,10 +74,12 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 			if (env_cpy->valeur)
 				while (env_cpy->valeur[l])
 					cpy[(*j)++] = env_cpy->valeur[l++];
+			ft_strdel(&cpy_brack);
 			return (i);
 		}
 		env_cpy = env_cpy->next;
 	}
+	ft_strdel(&cpy_brack);
 	return (i);
 }
 
@@ -58,10 +92,11 @@ int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 		if (i < ft_strlen(str) - 1 && str[i]  == '$' && ft_isbacks(str, i - 1) == 0
 		&&	str[i + 1] != '=' && str[i + 1] != '#' && str[i + 1] != '-'
 		&& str[i + 1] != '}' && str[i + 1] != '+')
-			i += ft_varcpy(&str[i + 1], cpy, env, j);
+			i += ft_varcpy_doubq(&str[i + 1], cpy, env, j);
 		else if (i < ft_strlen(str) && ft_isbacks(str, i) == 1 && (str[i + 1] == DOUBQ || str[i + 1] == '$'))
 			i++;
-		if (str[i] != BACKS || (i > 0 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0))
+		if ((str[i] != BACKS && str[i] != DOUBQ) || (str[i] == DOUBQ && ft_isbacks(str, i - 1) == 1)  
+		|| (i > 0 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0))
 			cpy[(*j)++] = str[i];
 		i++;
 	}
@@ -107,6 +142,6 @@ char	*ft_envcpy(char *str, t_env *env)
 	str = ft_replace_ret(str);
 	ft_conditions_cpy(str, cpy, env, &j);
 	cpy[j] = '\0';
-	
+	ft_strdel(&str);
 	return (cpy);
 }

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/30 13:44:20 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/31 11:10:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 	char	*path;
 	char	**tab;
 
-	do_dup(j, semicol->nb_pipes, pipes, semicol->pipes);
+	do_dup(j, pipes, semicol, *env);
 	tab_all(semicol, j);
 	if ((g_ret = find_fcts(&semicol->pipes->cmds, env, semicol)) != -1)
 		exit(g_ret);
@@ -41,7 +41,7 @@ void	exec_fork(t_semicol *semicol, int j, t_env **env, int *pipes)
 		else
 		{
 			g_ret = 127;
-			write(2, ERROR_FIND_CMD, ft_strlen(ERROR_FIND_CMD));
+			free_exit(semicol, *env, ERROR_FIND_CMD);
 		}
 		free(path);
 		exit(g_ret);
@@ -60,7 +60,7 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 	first_pipes = semicol->pipes;
 	while (++j < semicol->nb_pipes)
 	{
-		ft_change_args(semicol->pipes->cmds.args, *env);
+		ft_change_args(&semicol->pipes->cmds, *env);
 		if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
 			g_ret = find_fcts(&semicol->pipes->cmds, env, semicol);
 		else

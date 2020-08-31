@@ -6,9 +6,11 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:20:05 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/19 15:08:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 18:14:45 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int		ft_strisdigit(char *str)
 {
@@ -16,7 +18,7 @@ int		ft_strisdigit(char *str)
 
 	i = -1;
 	while (str[++i])
-		if (str[i] <= 48 || str[i] >= 57)
+		if (str[i] < 48 || str[i] > 57)
 			return (0);
 	return (1);
 }

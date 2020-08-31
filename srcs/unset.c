@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 22:23:28 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/30 20:25:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	unset(char *str, t_env **env)
 		if (str[i - 1] != '=')
 			delete_var(var, env);
 		i++;
+		ft_strdel(&var);
 	}
 }
 

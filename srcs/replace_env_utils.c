@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/25 22:41:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/30 20:22:39 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ int		ft_envlen(char *str, t_env *env, int *cpt)
 		cpy_brack, ft_strlen(env_cpy->var) - 1) == 0)
 		{
 			*cpt = *cpt + ft_strlen(env_cpy->valeur);
+			ft_strdel(&cpy_brack);
 			return (i);
 		}
 		env_cpy = env_cpy->next;
 	}
+	ft_strdel(&cpy_brack);
 	return (i);
 }
 
@@ -110,5 +112,6 @@ char	*ft_replace_ret(char *str)
 		i++;
 	}
 	cpy[j] = '\0';
+	ft_strdel(&str);
 	return (cpy);
 }
