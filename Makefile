@@ -16,7 +16,7 @@ SRCS_NAME= 		echo.c env.c env_list.c export.c \
 				lists_pipes.c lists_redir.c lists_semicol.c \
 				lists_utils.c check_bin.c check_var.c clean_backs.c \
 				clean_quotes.c clean_spaces.c ft_free.c  replace_env_utils2.c\
-				ft_free_utils.c pipes.c pipes_util.c quotes.c \
+				ft_free_utils.c pipes.c pipes_util.c quotes.c clean_brackets.c\
 				redirections.c replace_env.c replace_env_utils.c \
 				split_minishell.c split_minishell_utils.c main.c list_to_tab.c
 

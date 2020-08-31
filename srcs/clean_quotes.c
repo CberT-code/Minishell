@@ -3,111 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   clean_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/24 14:52:38 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/31 14:00:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_clean_squotes(char *str, char *cpy, int *i, int *j)
+int		ft_isbracket(char *str, int i)
 {
-	cpy[(*j)++] = str[(*i)++];
-	while (str[(*i)] != SIMPQ && str[(*i)])
-	{
-		if (*i > 0 && str[*i] == SIMPQ && ft_isbacks(str, (*i) - 1) == 1)
-			return (1);
-		cpy[(*j)++] = str[(*i)++];
-	}
-	if (str[*i] != SIMPQ)
-		return (-1);
-	cpy[(*j)++] = str[(*i)];
+	if (i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == '}')
+		return (1);
 	return (0);
 }
 
-int		ft_clean_dbquotes(char *str, char *cpy, int *i, int *j)
+int	ft_travel_brackets(char *str, int i)
 {
-	cpy[(*j)++] = str[(*i)++];
-	while (ft_isquote(str, *i) != 2 && str[(*i)])
+	int dollar;
+	
+	dollar = 0;
+	if (i > 0 && str[i - 1] == '$')
+		dollar = 1;
+	i++;
+	while (ft_isbracket(str, i) != 1 && str[i])
+		i++;
+	if (str[i] != '}' && dollar == 1)
 	{
-		if (*i > 0 && str[*i] != DOUBQ && ft_isbacks(str, (*i) - 1) == 1)
-			cpy[(*j)++] = BACKS;
-		cpy[(*j)++] = str[(*i)++];
+		ft_putstr_fd("Accolade manquante", 2);
+		//ft_strdel(&str);
+		return (0);
 	}
-	if (str[*i] != DOUBQ)
-		return (-1);
-	cpy[(*j)++] = str[(*i)];
-	return (0);
+	return (1);
 }
 
-char	*ft_squotes_error(char **cpy)
-{
-	if (cpy)
+int		ft_verif_doubq(char *str, int *i)
+{	
+	int ret;
+
+	ret = 1;
+	if (str[*i] == DOUBQ && ft_isbacks(str, (*i) - 1) == 0)
 	{
-		if (*cpy)
-			free(*cpy);
-		*cpy = NULL;
+		(*i)++;
+		while (ft_isquote(str, *i) != 2 && str[*i])
+		{
+			if (str[*i] == '{')
+				if ((ret = ft_travel_brackets(str, *i)) != 1)
+					return (0);
+			(*i)++;
+		}
+		if (str[(*i)] != DOUBQ)
+		{
+			ft_putstr_fd("Double quote manquante", 2);
+			//ft_strdel(&str);
+			return (0);
+		}
 	}
-	ft_printf("Simple quote missing.\n");
-	return (NULL);
+	return (1);
 }
 
-char	*ft_dbquotes_error(char **cpy)
-{
-	if (cpy)
+int		ft_verif_simpq(char *str, int *i)
+{	
+	if (str[*i] == SIMPQ && ft_isbacks(str, (*i) - 1) == 0)
 	{
-		if (*cpy)
-			free(*cpy);
-		*cpy = NULL;
+		(*i)++;
+		while (ft_isquote(str, *i) != 2 && str[*i])
+			(*i)++;
+		if (str[(*i) - 1] != SIMPQ)
+		{
+			ft_putstr_fd("Simple quote manquante", 2);
+			//ft_strdel(&str);
+			return (0);
+		}
 	}
-	ft_printf("Double quote missing.\n");
-	return (NULL);
+	return (1);
 }
 
-char	*ft_clean_quotes(char *str)
+int		ft_verif_commands(char *str)
 {
-	int		i;
-	int		j;
-	int		ret;
-	char	*cpy;
+	int i;
+	int ret;
 
 	i = -1;
-	j = 0;
-	if (!(cpy = (char*)calloc(sizeof(char), ft_strlen(str) + 1)))
-		return (NULL);
+	ret = 1;
 	while (str[++i])
 	{
-		if ((i > 0 && str[i] == SIMPQ && ft_isbacks(str, (i) - 1) == 0)
-				|| (i == 0 && str[i] == SIMPQ))
-		{
-			if ((ret = ft_clean_squotes(str, cpy, &i, &j)) == -1)
-				return (ft_squotes_error(&cpy));
-		}
-		else if ((i > 0 && str[i] == DOUBQ && ft_isbacks(str, (i) - 1) == 0)
-				|| (i == 0 && str[i] == DOUBQ))
-		{
-			if ((ret = ft_clean_dbquotes(str, cpy, &i, &j)) == -1)
-				return (ft_dbquotes_error(&cpy));
-		}
-		else
-			cpy[j++] = str[i];
+		if (ft_verif_doubq(str, &i) == 0
+		|| ft_verif_simpq(str, &i) == 0)
+			return (0);
+		if (str[i] == '{')	
+			if ((ret = ft_travel_brackets(str, i)) != 1)
+					return (0);
 	}
-	cpy[j] = '\0';
-	return (cpy);
+	return (1);
 }
+
 /*
 int		main(int argc, char **argv, char **env)
 {
-	char *str;
+	char 	*str;
 	int		fd;
 
 	str = NULL;
 	fd = 0;
 	get_next_line(fd, &str);
 	close(fd);
-	printf("%s\n", ft_clean_quotes(str));
+	printf("%d\n", ft_verif_commands(str));
 	//ft_printf("after -> %s\n", cpy);
 	return (0);
-}*/
+}
+*/

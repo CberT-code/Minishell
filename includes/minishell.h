@@ -113,8 +113,11 @@ void					lstadd_back_redir(t_redir **redir, char *str,
 		t_env *env);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
+int						ft_isbracket(char *str, int i);
 char					*ft_clean_quotes(char *str);
 char					*ft_clean_backs(char *str);
+char 					*ft_clean_brackets(char *str);
+int						ft_verif_commands(char *str);
 void					ft_cpy_in_squotes(char *str, char *cpy, int *i,
 		int *j);
 void					ft_cpy_in_dbquotes(char *str, char *cpy, int *i,
