@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/08/31 16:58:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/31 17:01:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ int		ft_varcpy_doubq(char *str, char *cpy, t_env *env, int *j)
 		{
 			while (env_cpy->valeur && env_cpy->valeur[l])
 					cpy[(*j)++] = env_cpy->valeur[l++];
-			ft_strdel(&cpy_brack);
-			return (i);
+			return (i + 1);
 		}
+		env_cpy = env_cpy->next;
+	}
 	return (i + 1);
 }
 
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
+{
 	t_env	*env_cpy;
 	int		i;
 	int		l;
@@ -67,12 +69,10 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 		{
 				while (env_cpy->valeur && env_cpy->valeur[l])
 					cpy[(*j)++] = env_cpy->valeur[l++];
-			ft_strdel(&cpy_brack);
 			return (i);
 		}
 		env_cpy = env_cpy->next;
 	}
-	ft_strdel(&cpy_brack);
 	return (i);
 }
 
@@ -135,6 +135,6 @@ char	*ft_envcpy(char *str, t_env *env)
 		return (NULL);
 	ft_conditions_cpy(str, cpy, env, &j);
 	cpy[j] = '\0';
-	ft_strdel(&str);
+	
 	return (cpy);
 }

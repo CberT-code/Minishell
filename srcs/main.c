@@ -58,7 +58,7 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		g_rep = get_next_line(0, &g_line);
-		printf("On fait le GNL\n");
+		//printf("On fait le GNL\n");
 		if ( g_rep == 1)
 		{
 			//check_line(g_line);
@@ -71,15 +71,10 @@ int		main(int argc, char **argv, char **envp)
 			//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 		}
 		else if (g_rep == -1)
-		{
 			break ;
-		}
 		else
-		{
 			free(g_line);
-		}
 	}
-	//free(g_line);
 	ft_free_env(env);
 	//ft_printf("exit\n");
 	return (0);
