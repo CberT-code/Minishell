@@ -6,11 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/08/30 20:19:48 by cbertola         ###   ########.fr       */
-=======
-/*   Updated: 2020/08/31 16:47:48 by user42           ###   ########.fr       */
->>>>>>> mike
+/*   Updated: 2020/08/31 16:58:18 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +40,13 @@ int		ft_varcpy_doubq(char *str, char *cpy, t_env *env, int *j)
 		{
 			while (env_cpy->valeur && env_cpy->valeur[l])
 					cpy[(*j)++] = env_cpy->valeur[l++];
-<<<<<<< HEAD
 			ft_strdel(&cpy_brack);
 			return (i);
 		}
-		env_cpy = env_cpy->next;
-	}
-	ft_strdel(&cpy_brack);
-	return (i);
-=======
-			return (i + 1);
-		}
-		env_cpy = env_cpy->next;
-	}
 	return (i + 1);
->>>>>>> mike
 }
 
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
-{
 	t_env	*env_cpy;
 	int		i;
 	int		l;
