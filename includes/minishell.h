@@ -9,12 +9,11 @@
 # define		DOUBQ			34
 # define		BACKS			92
 # define		ERROR_NO_REDIR 	"\n\033[1;31m Erreur de syntaxe \033[0;0m\n"
-# define		ERROR_FIND_CMD	"\n\033[1;31mLa commande « %s » n'a pas été \
+# define		ERROR_REDIR_IN 	"\n\033[1;31m Aucun fichier ou dossier de ce type\033[0;0m\n"
+# define		ERROR_FIND_CMD	"\n\033[1;31mLa commande n'a pas été \
 trouvée.\033[0;0m\n"
 # define		IDERRONE "\n\033[1;31mexport: identifiant non valable \
 \033[0;0m\n"
-# define		SYNTHERRC "minishell : erreur de syntaxe près du symbole inattendu « %c »\n"
-# define		SYNTHERRS "minishell : erreur de syntaxe près du symbole inattendu « %s »\n"
 
 int	g_ret;
 typedef	struct			s_redir
@@ -54,7 +53,9 @@ typedef struct			s_pipes
 typedef struct			s_semicol
 {
 	char				*str;
+	char				*g_line;
 	int					nb_pipes;
+	void				*first_semicol;
 	char				***all;
 	t_pipes				*pipes;
 	struct s_semicol	*next;
@@ -182,7 +183,7 @@ char					*check_path(char *str, t_env *env);
 void					exec_fork(t_semicol *semicol, int j, t_env **env,
 		int *pipes);
 int						condition_do_pipe(t_semicol *semicol, char *str);
-void					do_dup(int j, int nb_pipes, int *pipes, t_pipes *pipe);
+void					do_dup(int j, int *pipes, t_semicol *semicol, t_env *env);
 void					redir_out(t_redir *redir, int param, int *pipes, int j);
 void					wait_pipes(int nb_pipes, pid_t *pid, int *ret);
 void					close_pipes(int nb_pipes, int *pipes);
@@ -191,7 +192,7 @@ char     				**list_to_tab(t_env **env);
 
 int						ft_strlen_str_quotes_backs(char *s, char *str);
 void					free_tab(char **tab);
-void   					ft_change_args(t_args *args, t_env *env);
+void   					ft_change_args(t_cmds *cmd, t_env *env);
 
 void					ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env);
 void					ft_redir_out(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env);

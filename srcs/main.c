@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 16:52:57 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/01 12:16:03 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ int		main(int argc, char **argv, char **envp)
 	//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{
-		if (get_next_line(0, &g_line) == 1)
+		g_rep = get_next_line(0, &g_line);
+		//printf("On fait le GNL\n");
+		if ( g_rep == 1)
 		{
-			check_line(g_line);
+			//check_line(g_line);
 			g_semicol = NULL;
 			split_semicol(g_line, &g_semicol, env);
 			count_pipe(g_semicol);
@@ -63,9 +65,8 @@ int		main(int argc, char **argv, char **envp)
 			exec_cmds(g_semicol, &env);
 			ft_free(g_semicol);
 			//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
-			free(g_line);
 		}
-		else if (ft_strlen(g_line) == 0)
+		else if (g_rep == -1)
 			break ;
 		else
 			free(g_line);

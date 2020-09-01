@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/25 19:40:37 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 12:10:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			ft_shlvl(t_env **env)
 			}
 			i = ft_atoi((*env)->valeur) + 1;
 			free((*env)->valeur);
-			(*env)->valeur = ft_strdup(ft_itoa(i));
+			(*env)->valeur = ft_itoa(i);
 		}
 		*env = (*env)->next;
 	}

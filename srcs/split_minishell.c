@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 15:47:33 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/08/31 13:12:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int				split_semicol(char *str, t_semicol **semicol, t_env *env)
 
 	}
 	free(str2);
+	free(str);
 	return (1);
 }
 

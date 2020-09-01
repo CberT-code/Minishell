@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_brackets.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:25:45 by user42            #+#    #+#             */
-/*   Updated: 2020/08/31 14:52:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/31 19:49:15 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char *ft_clean_brackets(char *str)
 			cpy[j++] = str[i];
 	}
 	cpy[j] = '\0';
-	ft_strdel(&str);
+	//ft_strdel(&str);
 	return (cpy);
 }
 /*

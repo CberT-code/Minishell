@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 10:09:42 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/26 18:07:48 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 12:33:17 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char       **list_to_tab(t_env **env)
     t_env   **first_env;
 
     first_env = env;
-    if (!(tab = malloc(sizeof(char *) * (list_size(*env) + 1))))
+    if (!(tab = ft_calloc(sizeof(char *), (list_size(*env) + 2))))
         return (NULL);
     i = 0;
     while (*env)

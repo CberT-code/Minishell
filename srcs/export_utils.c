@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/30 12:06:59 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 13:07:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void		data_list(char *str, t_env **env, t_semicol *semicol)
 		if (check_str_alpha(var, ft_strlen(var) - 1))
 			return (free_exit(semicol, *env, IDERRONE));
 		value = check_value(str, ++i);
-		value = ft_strcpyfrom(str, "=");
 		i += ft_strlen(value);
 	}
 	else

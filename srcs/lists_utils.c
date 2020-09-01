@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/26 22:13:41 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 12:30:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void			new_str(t_semicol *semicol)
 		first_pipe = semicol->pipes;
 		while (semicol->pipes)
 		{
+			semicol->first_semicol = first_semicol;
 			new_str_utils(semicol->pipes);
 			semicol->pipes = semicol->pipes->next;
 		}
@@ -116,6 +117,7 @@ char			**new_tab(t_pipes *pipes)
 		i++;
 		tab_cmds[i] = 0;
 	}
+	tab_cmds[i] = NULL;
 	pipes->cmds.args = first_args;
 	return (tab_cmds);
 }
@@ -124,12 +126,13 @@ void			tab_all(t_semicol *semicol, int j)
 {
 	t_pipes		*first_pipe;
 
-		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes + 1)))
+		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes)))
 			return ;
 		first_pipe = semicol->pipes;
-		while (semicol->pipes != NULL)
+		while (semicol->pipes)
 		{
-			semicol->all[j] = new_tab(semicol->pipes);
+			if (semicol->pipes->cmds.nb_args > 1)
+				semicol->all[j] = new_tab(semicol->pipes);
 			semicol->pipes = semicol->pipes->next;
 		}
 		semicol->pipes = first_pipe;
