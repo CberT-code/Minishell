@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 11:10:47 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 12:38:58 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ void	do_pipe(t_semicol *semicol, t_env **env)
 			g_ret = find_fcts(&semicol->pipes->cmds, env, semicol);
 		else
 		{
-			if (!(pid[j] = fork())){
+			if (!(pid[j] = fork()))
+			{
 				exec_fork(semicol, j, env, pipes);
-			waitpid(pid[j], &g_ret, 0);
+				waitpid(pid[j], &g_ret, 0);
 			}
 		}
 		semicol->pipes = semicol->pipes->next;

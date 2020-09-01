@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/30 20:25:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 13:15:34 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	unset(char *str, t_env **env)
 	{
 		var = check_var(str);
 		i += ft_strlen(var);
-		if (str[i - 1] != '=')
-			delete_var(var, env);
+		delete_var(var, env);
 		i++;
 		ft_strdel(&var);
 	}

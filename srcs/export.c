@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/27 17:30:44 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 13:18:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int			replace_env(t_env **env, char *var, char *value)
 					ft_strcmp((*env)->var, var) == 0) ||
 				(condition((*env)->var, var)) || condition(var, (*env)->var))
 		{
-			(*env)->var = var;
+			free(var);
+			free((*env)->valeur);
 			(*env)->valeur = value;
 			*env = env_n;
 			return (1);
@@ -97,6 +98,8 @@ void		suppr_maillon(t_env **list, t_env *ptr)
 		if ((*list)->next == ptr)
 		{
 			(*list)->next = ptr->next;
+			ft_strdel(&ptr->var);
+			ft_strdel(&ptr->valeur);
 			free(ptr);
 			*list = start;
 			return ;

@@ -55,6 +55,7 @@ typedef struct			s_semicol
 	char				*str;
 	char				*g_line;
 	int					nb_pipes;
+	void				*first_semicol;
 	char				***all;
 	t_pipes				*pipes;
 	struct s_semicol	*next;
