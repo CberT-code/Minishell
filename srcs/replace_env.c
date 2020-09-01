@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/01 13:26:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/01 21:30:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,6 @@ void	ft_simpq_cpy(char *str, char *cpy, int *i, int *j)
 		cpy[(*j)++] = str[(*i)++];
 }
 
-int		ft_varcpy_doubq(char *str, char *cpy, t_env *env, int *j)
-{
-	t_env	*env_cpy;
-	int		i;
-	int		l;
-
-	env_cpy = env;
-	i = 0;
-	l = 0;
-	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != '+' && str[i] != '}' && str[i] != BACKS
-	&& str[i] != DOUBQ && ft_isdigit(str[i]) == 0 && str[i])
-		i++;
-	i = (ft_isdigit(str[i]) == 1) ? i + 1 : i;
-	while (env_cpy)
-	{
-		if (ft_strncmp(str, env_cpy->var, i) == 0
-		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
-		{
-			while (env_cpy->valeur && env_cpy->valeur[l])
-					cpy[(*j)++] = env_cpy->valeur[l++];
-			return (i + 1);
-		}
-		env_cpy = env_cpy->next;
-	}
-	return (i + 1);
-}
-
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 {
 	t_env	*env_cpy;
@@ -56,10 +28,10 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 	env_cpy = env;
 	i = 0;
 	l = 0;
-
 	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
 	&& str[i] != '+' && str[i] != '}' && str[i] != BACKS
-	&& str[i] != ' ' && ft_isdigit(str[i]) == 0 && str[i])
+	&& str[i] != DOUBQ && str[i] != SIMPQ && str[i] != ' '
+	&& ft_isdigit(str[i]) == 0 && str[i])
 		i++;
 	i = (ft_isdigit(str[i]) == 1) ? i + 1 : i;
 	while (env_cpy)
@@ -67,8 +39,8 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 		if (ft_strncmp(str, env_cpy->var, i) == 0
 		&& ft_strncmp(env_cpy->var, str, ft_strlen(env_cpy->var) - 1) == 0)
 		{
-				while (env_cpy->valeur && env_cpy->valeur[l])
-					cpy[(*j)++] = env_cpy->valeur[l++];
+			while (env_cpy->valeur && env_cpy->valeur[l])
+				cpy[(*j)++] = env_cpy->valeur[l++];
 			return (i);
 		}
 		env_cpy = env_cpy->next;
@@ -79,6 +51,7 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 {
 	int i;
+
 	i = 1;
 	while (ft_isquote(str, i) != 2 && str[i])
 	{
@@ -86,11 +59,11 @@ int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 		&& str[i + 1] != '=' && str[i + 1] != '#' && str[i + 1] != '-'
 		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != BACKS
 		&& str[i + 1] != DOUBQ && str[i + 1] != ' ')
-			i += ft_varcpy_doubq(&str[i + 1], cpy, env, j);
-		else if (i < ft_strlen(str)  - 1&& ft_isbacks(str, i) == 1 && (str[i + 1] == DOUBQ || str[i + 1] == '$'))
-			i++;
-		if ((str[i] != BACKS && str[i] != DOUBQ) || (str[i] == DOUBQ && ft_isbacks(str, i - 1) == 1)  
-		|| (i > 0 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0))
+			i += ft_varcpy(&str[i + 1], &cpy[0], env, j);
+		/*else if (i < ft_strlen(str) - 1 && ft_isbacks(str, i) == 1 && (str[i + 1] == DOUBQ || str[i + 1] == '$'))
+			i++;*/
+		else if ((str[i] == DOUBQ && ft_isbacks(str, i - 1) == 1) || (str[i] != BACKS && str[i] != DOUBQ)
+		|| (i < ft_strlen(str) - 1 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0 && str[i + 1] != DOUBQ && str[i + 1] != '$'))
 			cpy[(*j)++] = str[i];
 		i++;
 	}
