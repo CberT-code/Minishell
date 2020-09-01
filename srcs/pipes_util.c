@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 12:35:33 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 20:35:18 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@ void	init_pipes(int nb_pipes, int *pipes)
 
 void	close_pipes(int nb_pipes, int *pipes)
 {
-	int i;
-
-	i = -1;
-	while (++i < nb_pipes)
-		close(pipes[i]);
+	while (nb_pipes--)
+		close(pipes[nb_pipes]);
 }
 
 void	wait_pipes(int nb_pipes, pid_t *pid, int *ret)
@@ -37,6 +34,7 @@ void	wait_pipes(int nb_pipes, pid_t *pid, int *ret)
 	i = -1;
 	while (++i < nb_pipes)
 		waitpid(pid[i], ret, 0);
+
 }
 
 void	redir_out(t_redir *redir, int param, int *pipes, int j)
