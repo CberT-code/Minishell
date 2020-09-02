@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/09/02 14:50:49 by cbertola         ###   ########.fr       */
-=======
-/*   Updated: 2020/09/02 15:35:04 by user42           ###   ########.fr       */
->>>>>>> mike
+/*   Updated: 2020/09/02 15:40:13 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +43,7 @@ void	ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
 		if (str[i] == '<' && ft_isbacks(str, i - 1) == 0)
 		{	
 			if (ft_check_redirs(&str[++i], '<') > 0)
-			{
-				ft_putendl_fd("Erreur : Mauvais nombre de chevrons", 2);
-				return ;
-			}
+				free_exit(semicol, env, ERROR_SYNTAX);
 			else
 			{
 				check_space_end(&str[i], env, semicol);
@@ -103,10 +96,7 @@ void	ft_redir_out(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
 			if (ft_check_redirs(&str[++i], '>') == 1)
 				i += ft_doub_redir_out(&str[i], semicol, redir, env);
 			else if (ft_check_redirs(&str[i], '>') > 1)
-			{
-				ft_putendl_fd("Erreur : Mauvais nombre de chevrons", 2);
-				return;
-			}
+				free_exit(semicol, env, ERROR_SYNTAX);
 			else
 				i += ft_simp_redir_out(&str[i], semicol, redir, env);
 			i++;
