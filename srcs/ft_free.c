@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 11:29:48 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 12:03:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_redir(t_redir *redir)
 	b_last = redir;
 	while (redir != NULL)
 	{
-		printf("here we test -> %p\n", redir->str);
 		free(redir->str);
 		b_last = redir;
 		free(b_last);
