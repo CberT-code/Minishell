@@ -8,12 +8,10 @@
 # define		SIMPQ			39
 # define		DOUBQ			34
 # define		BACKS			92
-# define		ERROR_NO_REDIR 	"\n\033[1;31m Erreur de syntaxe \033[0;0m\n"
-# define		ERROR_REDIR_IN 	"\n\033[1;31m Aucun fichier ou dossier de ce type\033[0;0m\n"
-# define		ERROR_FIND_CMD	"\n\033[1;31mLa commande n'a pas été \
-trouvée.\033[0;0m\n"
-# define		IDERRONE "\n\033[1;31mexport: identifiant non valable \
-\033[0;0m\n"
+# define		ERROR_SYNTAX 	"\033[1;31m Erreur de syntaxe \033[0;0m\n"
+# define		ERROR_REDIR_IN 	"\033[1;31m Aucun fichier ou dossier de ce type\033[0;0m\n"
+# define		ERROR_FIND_CMD	"\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
+# define		IDERRONE 		"\n\033[1;31mexport: identifiant non valable\033[0;0m\n"
 
 int	g_ret;
 typedef	struct			s_redir

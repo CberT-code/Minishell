@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 11:49:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:50:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_space_end(char *str, t_env *env, t_semicol *semicol)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '\0')
-		free_exit(semicol, env, ERROR_NO_REDIR);
+		free_exit(semicol, env, ERROR_SYNTAX);
 }
 
 void	ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)

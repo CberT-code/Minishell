@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 19:07:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 15:05:11 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	free_exit(t_semicol *semicol, t_env *env, char *str)
 {
 	t_semicol *first_semicol;
 
-	first_semicol = semicol->first_semicol;
+	if (semicol != NULL)
+		first_semicol = semicol->first_semicol;
+	else
+		first_semicol = semicol;
 	if (str != NULL)
 		write(2, str, ft_strlen(str));
 	if (first_semicol != NULL)

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 13:12:53 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:55:24 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int				split_semicol(char *str, t_semicol **semicol, t_env *env)
 	str2 = ft_clean_spaces(str);
 	while (str2[start])
 	{
+		if (*str2 == ';')
+			free_exit(*semicol, env, ERROR_SYNTAX);
 		str3 = ft_substr(str2 + start, 0,
 		ft_strlen_str_quotes_backs(str2 + start, ";"));
 		lstadd_back_semicol(semicol, str3, env);
