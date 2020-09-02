@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 11:58:19 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 11:21:46 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	free_redir(t_redir *redir)
 	{
 		free(redir->str);
 		b_last = redir;
-		redir = redir->next;
 		free(b_last);
+		redir = redir->next;
 	}
 }
 
