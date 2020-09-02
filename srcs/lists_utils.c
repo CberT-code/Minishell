@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/01 12:30:53 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/01 20:59:45 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			count_args(t_cmds *cmd)
 
 	i = 0;
 	cpy_args = cmd->args;
-	while (cpy_args != NULL)
+	while (cpy_args)
 	{
 		i++;
 		cpy_args = cpy_args->next;
@@ -101,7 +101,7 @@ char			**new_tab(t_pipes *pipes)
 	char		**tab_cmds;
 	t_args		*first_args;
 
-	if (!(tab_cmds = (char**)calloc(sizeof(char*), pipes->cmds.nb_args + 2)))
+	if (!(tab_cmds = (char**)ft_calloc(sizeof(char*), pipes->cmds.nb_args + 2)))
 		return (NULL);
 	i = 0;
 	first_args = pipes->cmds.args;
@@ -115,24 +115,24 @@ char			**new_tab(t_pipes *pipes)
 			pipes->cmds.args = pipes->cmds.args->next;
 		}
 		i++;
-		tab_cmds[i] = 0;
 	}
 	tab_cmds[i] = NULL;
 	pipes->cmds.args = first_args;
 	return (tab_cmds);
 }
 
-void			tab_all(t_semicol *semicol, int j)
+void			tab_all(t_semicol *semicol)
 {
 	t_pipes		*first_pipe;
+	int			j;
 
-		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes)))
+		j = -1;
+		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes + 1)))
 			return ;
 		first_pipe = semicol->pipes;
 		while (semicol->pipes)
 		{
-			if (semicol->pipes->cmds.nb_args > 1)
-				semicol->all[j] = new_tab(semicol->pipes);
+			semicol->all[++j] = new_tab(semicol->pipes);
 			semicol->pipes = semicol->pipes->next;
 		}
 		semicol->pipes = first_pipe;

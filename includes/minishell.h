@@ -128,7 +128,7 @@ void					new_str(t_semicol *semicol);
 void					count_args(t_cmds *cmd);
 void					ft_fill_cmds(t_semicol *semicol);
 char					**new_tab(t_pipes *pipes);
-void					tab_all(t_semicol *semicol, int j);
+void					tab_all(t_semicol *semicol);
 int						ft_envlen(char *str, t_env *env, int *cpt);
 void					ft_simpq_len(char *str, int *i, int *len);
 void					ft_doubleq_len(char *str, t_env *env, int *i,
@@ -180,8 +180,7 @@ int						ft_size_args(t_args *args);
 int						ft_pwd(void);
 int						search_mybin(char *str);
 char					*check_path(char *str, t_env *env);
-void					exec_fork(t_semicol *semicol, int j, t_env **env,
-		int *pipes);
+int						exec_fork(t_semicol *semicol, int j, t_env **env);
 int						condition_do_pipe(t_semicol *semicol, char *str);
 void					do_dup(int j, int *pipes, t_semicol *semicol, t_env *env);
 void					redir_out(t_redir *redir, int param, int *pipes, int j);
