@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 13:07:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char		**ft_tri_vartab(char **tab)
 	return (tab);
 }
 
-void		data_list(char *str, t_env **env, t_semicol *semicol)
+void		data_list(char *str, t_env **env, t_semi *semi)
 {
 	int		i;
 	char	*var;
@@ -106,14 +106,14 @@ void		data_list(char *str, t_env **env, t_semicol *semicol)
 	if (str[--i] == '=')
 	{
 		if (check_str_alpha(var, ft_strlen(var) - 1))
-			return (free_exit(semicol, *env, IDERRONE));
+			return (free_exit(semi, *env, IDERRONE));
 		value = check_value(str, ++i);
 		i += ft_strlen(value);
 	}
 	else
 	{
 		if (check_str_alpha(var, ft_strlen(var)))
-			return (free_exit(semicol, *env, IDERRONE));
+			return (free_exit(semi, *env, IDERRONE));
 		value = NULL;
 	}
 	if (replace_env(env, var, value) == 0)

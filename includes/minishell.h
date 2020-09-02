@@ -48,23 +48,32 @@ typedef struct			s_pipes
 	struct s_pipes		*next;
 }						t_pipes;
 
-typedef struct			s_semicol
+typedef struct			s_semi
 {
 	char				*str;
 	char				*g_line;
 	int					nb_pipes;
-	void				*first_semicol;
+	void				*first_semi;
 	char				***all;
 	t_pipes				*pipes;
-	struct s_semicol	*next;
-}						t_semicol;
-
+	struct s_semi	*next;
+}						t_semi;
 typedef struct			s_env
 {
 	char				*var;
 	char				*valeur;
 	struct s_env		*next;
 }						t_env;
+
+typedef struct			s_gbl
+{
+	int					rep;
+	int					sta;
+	int					error;
+	char				*line;
+	t_semi				*semi;
+	t_env				*env;
+}						t_gbl;
 
 t_cmds					*ft_lstnewcmds(char *str);
 t_cmds					*ft_lstlast(t_cmds *cmds);
@@ -88,20 +97,20 @@ char					*ft_envcpy(char *str, t_env *env);
 char					*ft_replace_ret(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
-t_semicol				*ft_lstnewsemicol(char *str, t_env *env);
-t_semicol				*ft_lstlastsemicol(t_semicol *cmds);
-void					lstadd_back_semicol(t_semicol **semicol,
+t_semi				*ft_lstnewsemi(char *str, t_env *env);
+t_semi				*ft_lstlastsemi(t_semi *cmds);
+void					lstadd_back_semi(t_semi **semi,
  char *str, t_env *env);
-t_pipes					*ft_lstnewpipes(char *str, t_env *env, t_semicol *semicol);
+t_pipes					*ft_lstnewpipes(char *str, t_env *env, t_semi *semi);
 t_pipes					*ft_lstlastpipes(t_pipes *cmds);
 void					lstadd_back_pipes(t_pipes **pipes, char *str,
-		t_env *env, t_semicol *semicol);
+		t_env *env, t_semi *semi);
 t_args					*ft_lstnewargs(char *str, t_env *env);
 t_args					*ft_lstlastargs(t_args *cmds);
 void					lstadd_back_args(t_args **args, char *str, t_env *env);
-int						split_semicol(char *str, t_semicol **semicol,
+int						split_semi(char *str, t_semi **semi,
 		t_env *env);
-t_pipes					*split_pipes(t_semicol *semicol, t_env *env);
+t_pipes					*split_pipes(t_semi *semi, t_env *env);
 t_args					*split_args(char *str, t_env *env);
 void					cmds_args(t_cmds *cmd, char *str, t_env *env);
 int						ft_strlen_str_quotes(char *s, char *str);
@@ -121,12 +130,12 @@ void					ft_cpy_in_squotes(char *str, char *cpy, int *i,
 		int *j);
 void					ft_cpy_in_dbquotes(char *str, char *cpy, int *i,
 		int *j);
-int						count_pipe(t_semicol *semicol);
-void					new_str(t_semicol *semicol);
+int						count_pipe(t_semi *semi);
+void					new_str(t_semi *semi);
 void					count_args(t_cmds *cmd);
-void					ft_fill_cmds(t_semicol *semicol);
+void					ft_fill_cmds(t_semi *semi);
 char					**new_tab(t_pipes *pipes);
-void					tab_all(t_semicol *semicol);
+void					tab_all(t_semi *semi);
 int						ft_envlen(char *str, t_env *env, int *cpt);
 void					ft_simpq_len(char *str, int *i, int *len);
 void					ft_doubleq_len(char *str, t_env *env, int *i,
@@ -139,11 +148,11 @@ int						ft_end_brackets(char *str);
 int						ft_end_brackets_doubq(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
-int						exec_cmds(t_semicol *semicol, t_env **env);
-int						ft_export(t_args *args, t_env **env, t_semicol *semicol);
+int						exec_cmds(t_semi *semi, t_env **env);
+int						ft_export(t_args *args, t_env **env, t_semi *semi);
 char					*double_char(char *str, char c);
 char					**ft_tri_vartab(char **tab);
-void					data_list(char *str, t_env **env, t_semicol *semicol);
+void					data_list(char *str, t_env **env, t_semi *semi);
 void					ft_tri_varlst(t_env **lst_env);
 void					ft_lstadd_back_var(t_env **alst, char *var,
 		char *valeur);
@@ -155,20 +164,20 @@ int						condition(char *str, char *str2);
 int						ft_unset(t_args *args, t_env **env);
 void					unset(char *str, t_env **env);
 int						delete_var(char *var, t_env **env);
-void					ft_free(t_semicol *semicol);
+void					ft_free(t_semi *semi);
 void					free_tab_all(char ***all);
 void					free_pipes(t_pipes *pipes);
 void					free_tab_redir(t_tab_redir *redir);
 void					free_redir(t_redir *redir);
 void					free_cmds(t_cmds *cmds);
 void					free_args(t_args *args);
-void					free_exit(t_semicol *semicol, t_env *env, char *str);
+void					free_exit(t_semi *semi, t_env *env, char *str);
 void					ft_free_env(t_env *env);
 char					*clean_redir(char *str, char c);
 int						ft_env(t_args *args, t_env **env);
 int						check_str_alpha(char *str, int len);
 void					check_line(char *str);
-int						find_fcts(t_cmds *cmd, t_env **env, t_semicol *semicol);
+int						find_fcts(t_cmds *cmd, t_env **env, t_semi *semi);
 int						ft_echo(t_args *args);
 int						ft_cd(t_args *args, t_env *env);
 int						ft_check_cd_errors(t_env *env);
@@ -178,9 +187,9 @@ int						ft_size_args(t_args *args);
 int						ft_pwd(void);
 int						search_mybin(char *str);
 char					*check_path(char *str, t_env *env);
-void						exec_fork(t_semicol *semicol, int j, t_env **env);
-int						condition_do_pipe(t_semicol *semicol, char *str);
-void					do_dup(int j, int *pipes, t_semicol *semicol, t_env *env);
+void						exec_fork(t_semi *semi, int j, t_env **env);
+int						condition_do_pipe(t_semi *semi, char *str);
+void					do_dup(int j, int *pipes, t_semi *semi, t_env *env);
 void					redir_out(t_redir *redir, int param, int *pipes, int j);
 void					wait_pipes(int nb_pipes, pid_t *pid, int *ret);
 void					close_pipes(int nb_pipes, int *pipes);
@@ -191,7 +200,7 @@ int						ft_strlen_str_quotes_backs(char *s, char *str);
 void					free_tab(char **tab);
 void   					ft_change_args(t_cmds *cmd, t_env *env);
 
-void					ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env);
-void					ft_redir_out(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env);
+void					ft_redir_in(char *str, t_semi *semi, t_tab_redir *redir, t_env *env);
+void					ft_redir_out(char *str, t_semi *semi, t_tab_redir *redir, t_env *env);
 
 #endif

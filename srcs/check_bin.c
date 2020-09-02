@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 20:47:52 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		find_fcts(t_cmds *cmd, t_env **env, t_semicol *semicol)
+int		find_fcts(t_cmds *cmd, t_env **env, t_semi *semi)
 {
 
 	if (strcmp(cmd->str, "echo") == 0)
@@ -20,7 +20,7 @@ int		find_fcts(t_cmds *cmd, t_env **env, t_semicol *semicol)
 	else if (strcmp(cmd->str, "env") == 0)
 		return (ft_env(cmd->args, env));
 	else if (strcmp(cmd->str, "export") == 0)
-		return (ft_export(cmd->args, env, semicol));
+		return (ft_export(cmd->args, env, semi));
 	else if (strcmp(cmd->str, "cd") == 0)
 		return (ft_cd(cmd->args, *env));
 	else if (strcmp(cmd->str, "pwd") == 0)
@@ -29,7 +29,7 @@ int		find_fcts(t_cmds *cmd, t_env **env, t_semicol *semicol)
 		return (ft_unset(cmd->args, env));
 	else if (strcmp(cmd->str, "exit") == 0)
 	{
-		free_exit(semicol, *env, NULL);
+		free_exit(semi, *env, NULL);
 		return (0);
 
 	}

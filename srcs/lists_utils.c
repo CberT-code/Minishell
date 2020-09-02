@@ -6,34 +6,34 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/01 20:59:45 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int				count_pipe(t_semicol *semicol)
+int				count_pipe(t_semi *semi)
 {
-	t_semicol	*first_semicol;
+	t_semi	*first_semi;
 	t_pipes		*first_pipes;
 	int			i;
 
-	first_semicol = semicol;
-	while (semicol != NULL)
+	first_semi = semi;
+	while (semi != NULL)
 	{
-		first_pipes = semicol->pipes;
+		first_pipes = semi->pipes;
 		i = 0;
-		while (semicol->pipes != NULL)
+		while (semi->pipes != NULL)
 		{
 			i++;
-			count_args(&semicol->pipes->cmds);
-			semicol->pipes = semicol->pipes->next;
+			count_args(&semi->pipes->cmds);
+			semi->pipes = semi->pipes->next;
 		}
-		semicol->pipes = first_pipes;
-		semicol->nb_pipes = i;
-		semicol = semicol->next;
+		semi->pipes = first_pipes;
+		semi->nb_pipes = i;
+		semi = semi->next;
 	}
-	semicol = first_semicol;
+	semi = first_semi;
 	return (i);
 }
 
@@ -74,25 +74,25 @@ static void		new_str_utils(t_pipes *pipes)
 	pipes->cmds.args = first_arg;
 }
 
-void			new_str(t_semicol *semicol)
+void			new_str(t_semi *semi)
 {
 	t_pipes		*first_pipe;
-	t_semicol	*first_semicol;
+	t_semi	*first_semi;
 
-	first_semicol = semicol;
-	while (semicol != NULL)
+	first_semi = semi;
+	while (semi != NULL)
 	{
-		first_pipe = semicol->pipes;
-		while (semicol->pipes)
+		first_pipe = semi->pipes;
+		while (semi->pipes)
 		{
-			semicol->first_semicol = first_semicol;
-			new_str_utils(semicol->pipes);
-			semicol->pipes = semicol->pipes->next;
+			semi->first_semi = first_semi;
+			new_str_utils(semi->pipes);
+			semi->pipes = semi->pipes->next;
 		}
-		semicol->pipes = first_pipe;
-		semicol = semicol->next;
+		semi->pipes = first_pipe;
+		semi = semi->next;
 	}
-	semicol = first_semicol;
+	semi = first_semi;
 }
 
 char			**new_tab(t_pipes *pipes)
@@ -121,19 +121,19 @@ char			**new_tab(t_pipes *pipes)
 	return (tab_cmds);
 }
 
-void			tab_all(t_semicol *semicol)
+void			tab_all(t_semi *semi)
 {
 	t_pipes		*first_pipe;
 	int			j;
 
 		j = -1;
-		if (!(semicol->all = ft_calloc(sizeof(char **), semicol->nb_pipes + 1)))
+		if (!(semi->all = ft_calloc(sizeof(char **), semi->nb_pipes + 1)))
 			return ;
-		first_pipe = semicol->pipes;
-		while (semicol->pipes)
+		first_pipe = semi->pipes;
+		while (semi->pipes)
 		{
-			semicol->all[++j] = new_tab(semicol->pipes);
-			semicol->pipes = semicol->pipes->next;
+			semi->all[++j] = new_tab(semi->pipes);
+			semi->pipes = semi->pipes->next;
 		}
-		semicol->pipes = first_pipe;
+		semi->pipes = first_pipe;
 }

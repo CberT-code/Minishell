@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 11:34:11 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,28 @@ void	redir_out(t_redir *redir, int param, int *pipes, int j)
 // 	close_pipes(nb_pipes * 2 - 2, pipes);
 // }
 
-void	do_dup(int j, int *pipes, t_semicol *semicol, t_env *env)
+void	do_dup(int j, int *pipes, t_semi *semi, t_env *env)
 {
 	int fd;
 	t_redir	*first_redir;
 
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
-	first_redir = semicol->pipes->redir_in.simpl;
-	while (semicol->pipes->redir_in.simpl != NULL)
+	first_redir = semi->pipes->redir_in.simpl;
+	while (semi->pipes->redir_in.simpl != NULL)
 	{
-		if ((fd = open(semicol->pipes->redir_in.simpl->str, O_RDONLY)) < 0)
-			return (free_exit(semicol, env, ERROR_REDIR_IN));
+		if ((fd = open(semi->pipes->redir_in.simpl->str, O_RDONLY)) < 0)
+			return (free_exit(semi, env, ERROR_REDIR_IN));
 		dup2(fd, 0);
-		semicol->pipes->redir_in.simpl = semicol->pipes->redir_in.simpl->next;
+		semi->pipes->redir_in.simpl = semi->pipes->redir_in.simpl->next;
 	}
-	semicol->pipes->redir_in.simpl = first_redir;
-	if (j < semicol->nb_pipes - 1 || semicol->pipes->redir_out.simpl != NULL
-	|| semicol->pipes->redir_out.doubl != NULL)
+	semi->pipes->redir_in.simpl = first_redir;
+	if (j < semi->nb_pipes - 1 || semi->pipes->redir_out.simpl != NULL
+	|| semi->pipes->redir_out.doubl != NULL)
 	{
-		redir_out(semicol->pipes->redir_out.simpl, 1, pipes, j);
-		redir_out(semicol->pipes->redir_out.doubl, 2, pipes, j);
+		redir_out(semi->pipes->redir_out.simpl, 1, pipes, j);
+		redir_out(semi->pipes->redir_out.doubl, 2, pipes, j);
 		dup2(pipes[j * 2 + 1], 1);
 	}
-	close_pipes(semicol->nb_pipes * 2 - 2, pipes);
+	close_pipes(semi->nb_pipes * 2 - 2, pipes);
 }

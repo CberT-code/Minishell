@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 15:57:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int				split_semicol(char *str, t_semicol **semicol, t_env *env)
+int				split_semi(char *str, t_semi **semi, t_env *env)
 {
 	int		start;
 	char	*str2;
@@ -25,10 +25,10 @@ int				split_semicol(char *str, t_semicol **semicol, t_env *env)
 	while (str2[start])
 	{
 		if (str2[start] == ';' || (str2[start] == ' ' && str2[start + 1] == ';'))
-			free_exit(*semicol, env, ERROR_SYNTAX);
+			free_exit(*semi, env, ERROR_SYNTAX);
 		str3 = ft_substr(str2 + start, 0,
 		ft_strlen_str_quotes_backs(str2 + start, ";"));
-		lstadd_back_semicol(semicol, str3, env);
+		lstadd_back_semi(semi, str3, env);
 		start += ft_strlen_str_quotes_backs(str2 + start, ";");
 		if (str2[start] == ';')
 			start++;
@@ -39,20 +39,20 @@ int				split_semicol(char *str, t_semicol **semicol, t_env *env)
 	return (1);
 }
 
-t_pipes			*split_pipes(t_semicol *semicol, t_env *env)
+t_pipes			*split_pipes(t_semi *semi, t_env *env)
 {
 	t_pipes		*pipes;
 	char		*str2;
 	char		*str;
 
-	str = semicol->str;
+	str = semi->str;
 	if (!str)
 		return (NULL);
 	pipes = NULL;
 	while (*str)
 	{
 		str2 = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, "|"));
-		lstadd_back_pipes(&pipes, str2, env, semicol);
+		lstadd_back_pipes(&pipes, str2, env, semi);
 		str += ft_strlen_str_quotes_backs(str, "|");
 		if (*str == '|')
 			str++;

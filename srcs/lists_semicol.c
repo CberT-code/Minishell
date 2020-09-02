@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lists_semicol.c                                    :+:      :+:    :+:   */
+/*   lists_semi.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,31 +12,31 @@
 
 #include "../includes/minishell.h"
 
-t_semicol	*ft_lstnewsemicol(char *str, t_env *env)
+t_semi	*ft_lstnewsemi(char *str, t_env *env)
 {
-	t_semicol *semicol;
+	t_semi *semi;
 
-	if (!(semicol = (t_semicol*)calloc(sizeof(t_semicol), 1)))
+	if (!(semi = (t_semi*)calloc(sizeof(t_semi), 1)))
 		return (NULL);
-	semicol->str = str;
-	semicol->pipes = split_pipes(semicol, env);
-	semicol->next = NULL;
-	return (semicol);
+	semi->str = str;
+	semi->pipes = split_pipes(semi, env);
+	semi->next = NULL;
+	return (semi);
 }
 
-t_semicol	*ft_lstlastsemicol(t_semicol *semicol)
+t_semi	*ft_lstlastsemi(t_semi *semi)
 {
-	if (!semicol)
+	if (!semi)
 		return (NULL);
-	while (semicol->next)
-		semicol = semicol->next;
-	return (semicol);
+	while (semi->next)
+		semi = semi->next;
+	return (semi);
 }
 
-void		lstadd_back_semicol(t_semicol **semicol, char *str, t_env *env)
+void		lstadd_back_semi(t_semi **semi, char *str, t_env *env)
 {
-	if (*semicol != NULL)
-		ft_lstlastsemicol(*semicol)->next = ft_lstnewsemicol(str, env);
+	if (*semi != NULL)
+		ft_lstlastsemi(*semi)->next = ft_lstnewsemi(str, env);
 	else
-		*semicol = ft_lstnewsemicol(str, env);
+		*semi = ft_lstnewsemi(str, env);
 }
