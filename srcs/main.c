@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 21:00:22 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:41:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void		sig_handler(int sig)
 
 int		main(int argc, char **argv, char **envp)
 {
-	
 	t_env		*env;
 	//char		cwd[1024];
 
@@ -53,9 +52,8 @@ int		main(int argc, char **argv, char **envp)
 	//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{
-		g_rep = get_next_line(0, &g_line);
 		//printf("On fait le GNL\n");
-		if ( g_rep == 1)
+		if ((g_rep = get_next_line(0, &g_line)) == 1)
 		{
 			//check_line(g_line);
 			g_semicol = NULL;
@@ -64,12 +62,11 @@ int		main(int argc, char **argv, char **envp)
 			new_str(g_semicol);
 			exec_cmds(g_semicol, &env);
 			ft_free(g_semicol);
+			g_line = NULL;
 			//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 		}
 		else if (g_rep == -1)
 			break ;
-		else
-			free(g_line);
 	}
 	ft_free_env(env);
 	//ft_printf("exit\n");
