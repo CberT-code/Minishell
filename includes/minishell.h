@@ -180,7 +180,7 @@ int						ft_size_args(t_args *args);
 int						ft_pwd(void);
 int						search_mybin(char *str);
 char					*check_path(char *str, t_env *env);
-int						exec_fork(t_semicol *semicol, int j, t_env **env);
+void						exec_fork(t_semicol *semicol, int j, t_env **env);
 int						condition_do_pipe(t_semicol *semicol, char *str);
 void					do_dup(int j, int *pipes, t_semicol *semicol, t_env *env);
 void					redir_out(t_redir *redir, int param, int *pipes, int j);
