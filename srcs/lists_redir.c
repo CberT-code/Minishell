@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/15 10:44:20 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/02 11:29:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 t_redir			*ft_lstnewredir(char *str, t_env *env)
 {
 	t_redir *redir;
-
+	(void)env;
+	
 	if (!(redir = (t_redir*)calloc(sizeof(t_redir), 1)))
 		return (NULL);
-	redir->str = ft_envcpy(str, env);
+	redir->str = str;
+	printf("here we test -> %p\n", redir->str);
 	redir->next = NULL;
 	return (redir);
 }

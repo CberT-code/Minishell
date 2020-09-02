@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 20:38:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 11:38:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		condition_do_pipe(t_semicol *semicol, char *str)
 	return (0);
 }
 
-int		exec_fork(t_semicol *semicol, int j, t_env **env)
+void		exec_fork(t_semicol *semicol, int j, t_env **env)
 {
 	char	*path;
 	char	**tab;
@@ -69,7 +69,7 @@ void	do_pipe(t_semicol *semicol, int nb_cmd, t_env **env)
 			if (!(pid[j] = fork()))
 			{
 				do_dup(j, pipes, semicol, *env);
-				g_ret = exec_fork(semicol, j, env);
+				exec_fork(semicol, j, env);
 			}
 			//waitpid(pid[j], &g_ret, 0);
 		}
