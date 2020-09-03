@@ -12,6 +12,8 @@
 # define		ERROR_REDIR_IN 	"\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
 # define		ERROR_FIND_CMD	"\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
 # define		IDERRONE 		"\n\033[1;31mexport: identifiant non valable\033[0;0m\n"
+#define			ERROR_GETCWD "cd : erreur de détermination du répertoire actuel : getcwd : ne \
+peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type"
 
 int	g_ret;
 typedef	struct			s_redir

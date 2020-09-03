@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 14:44:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 14:49:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_find_size_arg(char *str)
 	int i;
 
 	i = 0;
-	while (str[i] != '#' && str[i] != '-'
+	while (str[i] != '#' && str[i] != '-' && str[i] != '='
 	&& str[i] != '+' && str[i] != '}' && str[i] != '.'
 	&& str[i] != '/' && str[i] != ',' && str[i] != '%'
 	&& str[i] != ']' && str[i] != ':' && str[i] != BACKS
@@ -67,7 +67,7 @@ int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 	while (ft_isquote(str, i) != 2 && str[i])
 	{
 		if (i < ft_strlen(str) - 1 && str[i]  == '$' && ft_isbacks(str, i - 1) == 0
-		&& str[i + 1] != '#' && str[i + 1] != '-'
+		&& str[i + 1] != '#' && str[i + 1] != '-' && str[i + 1] != '='
 		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
 		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
 		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS
@@ -93,7 +93,7 @@ void	ft_conditions_cpy(char *str, char *cpy, t_env *env, int *j)
 		else if (str[i] == DOUBQ && ft_isbacks(str, i - 1) == 0)
 			i += ft_doubleq_cpy(&str[i], &cpy[0], env, j);
 		else if (i < ft_strlen(str) - 1 && str[i]  == '$' && ft_isbacks(str, i - 1) == 0
-		&& str[i + 1] != '#' && str[i + 1] != '-'
+		&& str[i + 1] != '#' && str[i + 1] != '-' && str[i + 1] != '='
 		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
 		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
 		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS && str[i + 1] != ' ')
