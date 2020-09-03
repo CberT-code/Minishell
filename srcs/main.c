@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 14:43:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 14:56:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ int		exec_line(t_gbl *gbl)
 int		main(int argc, char **argv, char **envp)
 {
 	//char		cwd[1024];
+	/*pid_t p;
+	p = fork();
+	printf("p -> %d\n", p - 1);
+	kill(p, SIGKILL);*/
 
 	ft_bzero(&g_gbl, sizeof(t_gbl));
 	signal(SIGINT, sig_handler);
