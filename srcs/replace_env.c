@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/02 11:57:38 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 12:11:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ void	ft_simpq_cpy(char *str, char *cpy, int *i, int *j)
 		cpy[(*j)++] = str[(*i)++];
 }
 
+int		ft_find_size_arg(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '#' && str[i] != '-'
+	&& str[i] != '+' && str[i] != '}' && str[i] != '.'
+	&& str[i] != '/' && str[i] != ',' && str[i] != '%'
+	&& str[i] != ']' && str[i] != ':' && str[i] != BACKS
+	&& str[i] != DOUBQ && str[i] != SIMPQ && str[i] != ' '
+	&& ft_isdigit(str[i]) == 0 && str[i])
+		i++;
+	return (i);
+}
+
+
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 {
 	t_env	*env_cpy;
@@ -26,13 +42,8 @@ int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 	int		l;
 
 	env_cpy = env;
-	i = 0;
 	l = 0;
-	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != '+' && str[i] != '}' && str[i] != BACKS
-	&& str[i] != DOUBQ && str[i] != SIMPQ && str[i] != ' '
-	&& ft_isdigit(str[i]) == 0 && str[i])
-		i++;
+	i = ft_find_size_arg(str);
 	i = (ft_isdigit(str[i]) == 1) ? i + 1 : i;
 	while (env_cpy)
 	{
@@ -56,12 +67,12 @@ int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 	while (ft_isquote(str, i) != 2 && str[i])
 	{
 		if (i < ft_strlen(str) - 1 && str[i]  == '$' && ft_isbacks(str, i - 1) == 0
-		&& str[i + 1] != '=' && str[i + 1] != '#' && str[i + 1] != '-'
-		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != BACKS
+		&& str[i + 1] != '#' && str[i + 1] != '-'
+		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
+		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
+		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS
 		&& str[i + 1] != DOUBQ && str[i + 1] != ' ')
 			i += ft_varcpy(&str[i + 1], &cpy[0], env, j);
-		/*else if (i < ft_strlen(str) - 1 && ft_isbacks(str, i) == 1 && (str[i + 1] == DOUBQ || str[i + 1] == '$'))
-			i++;*/
 		else if ((str[i] == DOUBQ && ft_isbacks(str, i - 1) == 1) || (str[i] != BACKS && str[i] != DOUBQ)
 		|| (i < ft_strlen(str) - 1 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0 && str[i + 1] != DOUBQ && str[i + 1] != '$'))
 			cpy[(*j)++] = str[i];
@@ -82,8 +93,10 @@ void	ft_conditions_cpy(char *str, char *cpy, t_env *env, int *j)
 		else if (str[i] == DOUBQ && ft_isbacks(str, i - 1) == 0)
 			i += ft_doubleq_cpy(&str[i], &cpy[0], env, j);
 		else if (i < ft_strlen(str) - 1 && str[i]  == '$' && ft_isbacks(str, i - 1) == 0
-		&& str[i + 1] != '=' && str[i + 1] != '#' && str[i + 1] != '-'
-		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != BACKS && str[i + 1] != ' ')
+		&& str[i + 1] != '#' && str[i + 1] != '-'
+		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
+		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
+		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS && str[i + 1] != ' ')
 			i += ft_varcpy(&str[i + 1], &cpy[0], env, j);
 		else if (str[i] == BACKS && ft_isbacks(str, i) == 0)
 			cpy[(*j)++] = str[i];

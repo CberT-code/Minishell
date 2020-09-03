@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/08/31 19:30:44 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 14:19:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ int		ft_envlen(char *str, t_env *env, int *cpt)
 	int		i;
 
 	env_cpy = env;
-	i = 0;
-	while (str[i] != '=' && str[i] != '#' && str[i] != '-'
-	&& str[i] != '+' && str[i] != '}' && str[i] != BACKS && str[i])
-		i++;
+	i = ft_find_size_arg(str);
+	i = (ft_isdigit(str[i]) == 1) ? i + 1 : i;
 	while (env_cpy)
 	{
 		if (ft_strncmp(str, env_cpy->var, i) == 0

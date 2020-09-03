@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 21:00:22 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 14:41:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,13 @@ void		sig_handler(int sig)
 
 int		main(int argc, char **argv, char **envp)
 {
-	
 	t_env		*env;
 	//char		cwd[1024];
+
+	/*pid_t p;
+	p = fork();
+	printf("p -> %d\n", p - 1);
+	kill(p, SIGKILL);*/
 
 	g_rep = 0;
 	g_ret = 0;

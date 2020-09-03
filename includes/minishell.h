@@ -14,6 +14,8 @@
 trouvée.\033[0;0m\n"
 # define		IDERRONE "\n\033[1;31mexport: identifiant non valable \
 \033[0;0m\n"
+#define			ERROR_GETCWD "cd : erreur de détermination du répertoire actuel : getcwd : ne \
+peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type"
 
 int	g_ret;
 typedef	struct			s_redir
@@ -87,6 +89,7 @@ char					*check_var(char *str);
 char					*check_value(char *str, int i);
 char					*ft_clean_spaces(char *str);
 char					*ft_envcpy(char *str, t_env *env);
+int						ft_find_size_arg(char *str);
 char					*ft_replace_ret(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);

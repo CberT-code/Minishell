@@ -6,41 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/08/29 22:25:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 11:11:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*ft_getenv(char *str, t_env *env)
-{
-	t_env *env_cpy;
-
-	env_cpy = env;
-	while (env_cpy)
-	{
-		if (ft_strncmp(str, env_cpy->var, ft_strlen(str)) == 0
-		&& ft_strncmp(str, env_cpy->var, ft_strlen(env_cpy->var) - 1) == 0)
-			return (env_cpy->valeur);
-		env_cpy = env_cpy->next;
-	}
-	return (NULL);
-}
-
-int		ft_size_args(t_args *args)
-{
-	int	cpt;
-
-	if (!args)
-		return (0);
-	cpt = 0;
-	while (args)
-	{
-		args = args->next;
-		cpt++;
-	}
-	return (cpt);
-}
 
 void	ft_change_pwd(t_env *env)
 {
@@ -64,13 +34,15 @@ int		ft_oldpwd(t_env *env)
 {
 	t_env	*env_cpy;
 	char	cwd[1024];
+
 	env_cpy = env;
-	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
+	while (env_cpy && env_cpy->var
+	&& ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
 		env_cpy = env_cpy->next;
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(env_cpy->valeur) != 0)
 	{
-		ft_putendl("bash: cd: « OLDPWD » non défini");
+		ft_putstr_fd("bash: cd: Aucun fichier ou dossier de ce type", 2);
 		return (1);
 	}
 	else
@@ -84,27 +56,29 @@ int		ft_oldpwd(t_env *env)
 		else
 			ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(cwd));
 	}
-	return(0);
+	return (0);
 }
 
-int		ft_cd(t_args *args, t_env *env)
+int		ft_check_errors_cd2(t_args *args)
 {
-	t_env *env_cpy;
 	char	cwd[1024];
 
-	env_cpy = env;
-	if (!args || !args->str
-	|| ft_strncmp(args->str, "~", ft_strlen(args->str)) == 0)
-		return (ft_check_cd_errors(env));
-	if (ft_check_size_args_cd(args) != 0)
+	if (ft_strncmp(args->str, ".", ft_strlen(args->str)) == 0)
 	{
-		g_ret = 1;
-		return (1);
+		if (!(getcwd(cwd, 1024)))
+		{
+			ft_putstr_fd(ERROR_GETCWD, 2);
+			return (1);
+		}
+		return (0);
 	}
-	if (ft_strncmp(args->str, "-", 1) == 0)
-		return (ft_oldpwd(env));
-	if (args->str[0] == '~')
-		args->str = ft_strjoin(ft_getenv("HOME", env), &args->str[1]);
+	if (ft_check_size_args_cd(args) != 0)
+		return (1);
+	return (2);
+}
+
+int		ft_change_cd(t_args *args, t_env *env_cpy, t_env *env, char *cwd)
+{
 	if (ft_strncmp(args->str, "$dir", 4) == 0)
 	{
 		ft_strdel(&args->str);
@@ -113,11 +87,11 @@ int		ft_cd(t_args *args, t_env *env)
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
 	{
-		g_ret = 1;
-		ft_printf("bash: cd: %s: Aucun fichier ou dossier de ce type\n", args->str);
+		ft_putstr_fd("bash: cd: Aucun fichier ou dossier de ce type\n", 2);
 		return (1);
 	}
-	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
+	while (env_cpy && env_cpy->var
+	&& ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
 		env_cpy = env_cpy->next;
 	if (env_cpy)
 	{
@@ -125,8 +99,30 @@ int		ft_cd(t_args *args, t_env *env)
 		env_cpy->valeur = ft_strdup(ft_getenv("PWD", env));
 	}
 	else
-		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(ft_getenv("PWD", env)));
+		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="),
+		ft_strdup(ft_getenv("PWD", env)));
 	ft_change_pwd(env);
-	g_ret = 0;
+	return (0);
+}
+
+int		ft_cd(t_args *args, t_env *env)
+{
+	t_env	*env_cpy;
+	char	cwd[1024];
+	int		ret;
+
+	env_cpy = env;
+	if (!args || !args->str
+	|| ft_strncmp(args->str, "~", ft_strlen(args->str)) == 0)
+		return (ft_check_cd_errors(env));
+	ft_check_errors_cd2(args);
+	if (args->str[0] == '~')
+		args->str = ft_strjoin_free(ft_getenv("HOME", env), &args->str[1], 2);
+	if ((ret = ft_check_errors_cd2(args)) != 2)
+		return (ret);
+	if (ft_strncmp(args->str, "-", 1) == 0)
+		return (ft_oldpwd(env));
+	if ((ret = ft_change_cd(args, env_cpy, env, cwd)) == 1)
+		return (1);
 	return (0);
 }
