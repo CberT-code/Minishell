@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:12:28 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 13:02:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char			*ft_strcpyfrom(const char *src, char *n)
 
 	i = 0;
 	nb = ft_strlen(src) - ft_strlen_str(src, n);
-	if (!(dst = calloc(sizeof(char), nb + 1)))
+	if (!(dst = ft_calloc(sizeof(char), nb + 1)))
 		return (NULL);
 	j = ft_strlen_str(src, n) + 1;
 	while (src[j])

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:25:45 by user42            #+#    #+#             */
-/*   Updated: 2020/08/31 19:49:15 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 12:59:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char *ft_clean_brackets(char *str)
 	return (cpy);
 }
 /*
-int		main(int argc, char **argv, char **env)
+int		main(int argc, char **argv, char *env)
 {
 	char 	*str;
 	int		fd;

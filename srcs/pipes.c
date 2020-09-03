@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 14:24:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,32 @@ int		condition_do_pipe(t_semi *semi, char *str)
 	return (0);
 }
 
-void		exec_fork(t_semi *semi, int j, t_env **env)
+void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 {
 	char	*path;
 	char	**tab;
 
 	
-	
-	if ((g_ret = find_fcts(&semi->pipes->cmds, env, semi)) != -1)
+	if ((g_ret = find_fcts(&semi->pipes->cmds, gbl)) != -1)
 		exit(g_ret);
 	else
 	{
-		if ((path = check_path(semi->pipes->cmds.str, *env)) != NULL)
+		if ((path = check_path(semi->pipes->cmds.str, gbl->env)) != NULL)
 		{	
-			g_ret = execve(path, semi->all[j], tab = list_to_tab(env));
+			g_ret = execve(path, semi->all[j], tab = list_to_tab(gbl->env));
 			free_tab(tab);
 		}
 		else
 		{
 			g_ret = 127;
-			free_exit(semi, *env, ERROR_FIND_CMD);
+			free_exit(semi, gbl->env, ERROR_FIND_CMD);
 		}
 		free(path);
 		exit(g_ret);
 	}
 }
 
-void	do_pipe(t_semi *semi, int nb_cmd, t_env **env)
+void	do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 {
 	int			pipes[nb_cmd * 2 - 2];
 	int			j;
@@ -58,20 +57,19 @@ void	do_pipe(t_semi *semi, int nb_cmd, t_env **env)
 	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	first_pipes = semi->pipes;
-	ft_change_args(&semi->pipes->cmds, *env);
+	ft_change_args(&semi->pipes->cmds, gbl->env);
 	tab_all(semi);
 	while (++j < nb_cmd)
 	{
 		if (condition_do_pipe(semi, semi->pipes->cmds.str))
-			g_ret = find_fcts(&semi->pipes->cmds, env, semi);
+			g_ret = find_fcts(&semi->pipes->cmds, gbl);
 		else
 		{
 			if (!(pid[j] = fork()))
 			{
-				do_dup(j, pipes, semi, *env);
-				exec_fork(semi, j, env);
+				do_dup(j, pipes, semi, gbl->env);
+				exec_fork(semi, j, gbl);
 			}
-			//waitpid(pid[j], &g_ret, 0);
 		}
 		semi->pipes = semi->pipes->next;
 	}
@@ -80,14 +78,14 @@ void	do_pipe(t_semi *semi, int nb_cmd, t_env **env)
 	semi->pipes = first_pipes;
 }
 
-int		exec_cmds(t_semi *semi, t_env **env)
+int		exec_cmds(t_semi *semi, t_gbl *gbl)
 {
 	t_semi	*first_semi;
 
 	first_semi = semi;
 	while (semi != NULL)
 	{
-		do_pipe(semi, semi->nb_pipes, env);
+		do_pipe(semi, semi->nb_pipes, gbl);
 		semi = semi->next;
 	}
 	semi = first_semi;

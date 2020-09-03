@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_spaces.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/08/18 17:35:41 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_clean_spaces(char *str)
 	int		j;
 	char	*cpy;
 
-	if (!(cpy = calloc(sizeof(char), (ft_strlen(str) + 1))))
+	if (!(cpy = ft_calloc(sizeof(char), (ft_strlen(str) + 1))))
 		return (0);
 	i = ft_start(str);
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 14:34:07 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char		**ft_tri_vartab(char **tab)
 	return (tab);
 }
 
-void		data_list(char *str, t_env **env, t_semi *semi)
+void		data_list(char *str, t_gbl *gbl)
 {
 	int		i;
 	char	*var;
@@ -106,16 +106,16 @@ void		data_list(char *str, t_env **env, t_semi *semi)
 	if (str[--i] == '=')
 	{
 		if (check_str_alpha(var, ft_strlen(var) - 1))
-			return (free_exit(semi, *env, IDERRONE));
+			return (free_exit2(gbl, IDERRONE));
 		value = check_value(str, ++i);
 		i += ft_strlen(value);
 	}
 	else
 	{
 		if (check_str_alpha(var, ft_strlen(var)))
-			return (free_exit(semi, *env, IDERRONE));
+			return (free_exit2(gbl, IDERRONE));
 		value = NULL;
 	}
-	if (replace_env(env, var, value) == 0)
-		ft_lstadd_back_env(env, var, value);
+	if (replace_env(gbl->env, var, value) == 0)
+		ft_lstadd_back_env(&gbl->env, var, value);
 }

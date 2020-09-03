@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/02 15:37:39 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 09:40:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_redir			*ft_lstnewredir(char *str, t_env *env)
 	t_redir *redir;
 	(void)env;
 	
-	if (!(redir = (t_redir*)calloc(sizeof(t_redir), 1)))
+	if (!(redir = (t_redir*)ft_calloc(sizeof(t_redir), 1)))
 		return (NULL);
 	redir->str = str;
 	redir->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:47:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:55:04 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	u = ft_strlen(s);
 	if (start > u)
 		len = 0;
-	if (!(ptr = calloc(sizeof(char), (len + 1))))
+	if (!(ptr = ft_calloc(sizeof(char), (len + 1))))
 		return (NULL);
 	while (s[start] && len--)
 		ptr[++i] = s[start++];

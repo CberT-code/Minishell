@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 15:44:57 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 12:58:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:05 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		*add_char(char *str, char c, int i)
 	j = -1;
 	if (i > ft_strlen(str))
 		i = ft_strlen(str);
-	if (!(ret = calloc(sizeof(char), ft_strlen(str) + 2)))
+	if (!(ret = ft_calloc(sizeof(char), ft_strlen(str) + 2)))
 		return (NULL);
 	while (++j < i)
 		ret[j] = str[j];

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 14:35:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,26 @@ int			condition(char *str, char *str2)
 	return (0);
 }
 
-int			replace_env(t_env **env, char *var, char *value)
+int			replace_env(t_env *env, char *var, char *value)
 {
 	t_env	*env_n;
 
-	env_n = *env;
-	while (*env != NULL)
+	env_n = env;
+	while (env != NULL)
 	{
-		if ((ft_strlen((*env)->var) == ft_strlen(var) &&
-					ft_strcmp((*env)->var, var) == 0) ||
-				(condition((*env)->var, var)) || condition(var, (*env)->var))
+		if ((ft_strlen(env->var) == ft_strlen(var) &&
+					ft_strcmp(env->var, var) == 0) ||
+				(condition(env->var, var)) || condition(var, env->var))
 		{
 			free(var);
-			free((*env)->valeur);
-			(*env)->valeur = value;
-			*env = env_n;
+			free(env->valeur);
+			env->valeur = value;
+			env = env_n;
 			return (1);
 		}
-		*env = (*env)->next;
+		env = env->next;
 	}
-	*env = env_n;
+	env = env_n;
 	return (0);
 }
 
@@ -109,16 +109,16 @@ void		suppr_maillon(t_env **list, t_env *ptr)
 	*list = start;
 }
 
-int			ft_export(t_args *args, t_env **env, t_semi *semi)
+int			ft_export(t_args *args, t_gbl *gbl)
 {
 	t_args	*first_arg;
 
 	first_arg = args;
 	if (args == NULL)
-		return (display_export(*env));
+		return (display_export(gbl->env));
 	while (args != NULL)
 	{
-		data_list(args->str, env, semi);
+		data_list(args->str, gbl);
 		args = args->next;
 	}
 	args = first_arg;

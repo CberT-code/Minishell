@@ -12,14 +12,14 @@
 
 #include "../includes/minishell.h"
 
-t_semi	*ft_lstnewsemi(char *str, t_env *env)
+t_semi	*ft_lstnewsemi(t_gbl *gbl, char *str)
 {
 	t_semi *semi;
 
-	if (!(semi = (t_semi*)calloc(sizeof(t_semi), 1)))
+	if (!(semi = (t_semi*)ft_calloc(sizeof(t_semi), 1)))
 		return (NULL);
 	semi->str = str;
-	semi->pipes = split_pipes(semi, env);
+	semi->pipes = split_pipes(gbl, semi);
 	semi->next = NULL;
 	return (semi);
 }
@@ -33,10 +33,10 @@ t_semi	*ft_lstlastsemi(t_semi *semi)
 	return (semi);
 }
 
-void		lstadd_back_semi(t_semi **semi, char *str, t_env *env)
+void		lstadd_back_semi(t_gbl *gbl, char *str)
 {
-	if (*semi != NULL)
-		ft_lstlastsemi(*semi)->next = ft_lstnewsemi(str, env);
+	if (gbl->semi != NULL)
+		ft_lstlastsemi(gbl->semi)->next = ft_lstnewsemi(gbl, str);
 	else
-		*semi = ft_lstnewsemi(str, env);
+		gbl->semi = ft_lstnewsemi(gbl, str);
 }

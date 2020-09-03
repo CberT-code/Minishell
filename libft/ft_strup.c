@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 13:50:48 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/10 13:06:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strup(char *str)
 	char	*strup;
 	int		i;
 
-	if (!(strup = calloc(sizeof(char), ft_strlen(str) + 1)))
+	if (!(strup = ft_calloc(sizeof(char), ft_strlen(str) + 1)))
 		return (NULL);
 	while (str[i])
 	{

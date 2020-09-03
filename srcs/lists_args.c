@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/26 22:15:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 09:40:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_args			*ft_lstnewargs(char *str, t_env *env)
 	t_args *args;
 
 	(void)env;
-	if (!(args = (t_args*)calloc(sizeof(t_args), 1)))
+	if (!(args = (t_args*)ft_calloc(sizeof(t_args), 1)))
 		return (NULL);
 	args->str = ft_strdup(str);
 	args->next = NULL;

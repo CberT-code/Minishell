@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 12:10:25 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 13:02:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_env			*ft_lstnew_env(char *str, char *str2)
 {
 	t_env	*env;
 
-	if (!(env = (t_env*)calloc(sizeof(t_env), 1)))
+	if (!(env = (t_env*)ft_calloc(sizeof(t_env), 1)))
 		return (NULL);
 	env->var = str;
 	env->valeur = str2;
@@ -41,33 +41,33 @@ void			ft_lstadd_back_env(t_env **alst, char *str, char *str2)
 		*alst = ft_lstnew_env(str, str2);
 }
 
-void			ft_shlvl(t_env **env)
+void			ft_shlvl(t_env *env)
 {
 	t_env	*first;
 	int 	i;
 	char 	*str;
 
-	first = *env;
-	while (*env)
+	first = env;
+	while (env)
 	{
-		if (ft_strcmp((*env)->var, "SHLVL=") == 0)
+		if (ft_strcmp(env->var, "SHLVL=") == 0)
 		{
-			if ((i = ft_atoi((*env)->valeur)) < -1 || !ft_strisdigit((*env)->valeur + 1))
+			if ((i = ft_atoi(env->valeur)) < -1 || !ft_strisdigit(env->valeur + 1))
 			{
-				if (!ft_strisdigit((*env)->valeur + 1))
+				if (!ft_strisdigit(env->valeur + 1))
 					str = ft_strdup("0");
 				else
 					str = ft_strdup("-1");
-				free((*env)->valeur);
-				(*env)->valeur = str;
+				free(env->valeur);
+				env->valeur = str;
 			}
-			i = ft_atoi((*env)->valeur) + 1;
-			free((*env)->valeur);
-			(*env)->valeur = ft_itoa(i);
+			i = ft_atoi(env->valeur) + 1;
+			free(env->valeur);
+			env->valeur = ft_itoa(i);
 		}
-		*env = (*env)->next;
+		env = env->next;
 	}
-	*env = first;
+	env = first;
 }
 
 t_env			*ft_tab_to_list(char **tri_selectif)
@@ -84,6 +84,6 @@ t_env			*ft_tab_to_list(char **tri_selectif)
 		i++;
 	}
 	i = 0;
-	ft_shlvl(&list);
+	ft_shlvl(list);
 	return (list);
 }
