@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 11:24:45 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/18 15:50:36 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strdup_free(char *s1)
 		return (NULL);
 	}
 	i = ft_strlen(s1);
-	if (!(ptr = calloc(i, sizeof(char) + 1)))
+	if (!(ptr = ft_calloc(i, sizeof(char) + 1)))
 	{
 		free(s1);
 		return (NULL);

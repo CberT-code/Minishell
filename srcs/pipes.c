@@ -6,49 +6,48 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 14:03:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 14:43:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		condition_do_pipe(t_semicol *semicol, char *str)
+int		condition_do_pipe(t_semi *semi, char *str)
 {
-	if (semicol->nb_pipes == 1 && semicol->pipes->redir_in.simpl == NULL &&
-			semicol->pipes->redir_in.doubl == NULL
-			&& semicol->pipes->redir_out.simpl == NULL &&
-			semicol->pipes->redir_out.doubl == NULL && search_mybin(str))
+	if (semi->nb_pipes == 1 && semi->pipes->redir_in.simpl == NULL &&
+			semi->pipes->redir_in.doubl == NULL
+			&& semi->pipes->redir_out.simpl == NULL &&
+			semi->pipes->redir_out.doubl == NULL && search_mybin(str))
 		return (1);
 	return (0);
 }
 
-void		exec_fork(t_semicol *semicol, int j, t_env **env)
+void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 {
 	char	*path;
 	char	**tab;
 
 	
-	
-	if ((g_ret = find_fcts(&semicol->pipes->cmds, env, semicol)) != -1)
+	if ((g_ret = find_fcts(&semi->pipes->cmds, gbl)) != -1)
 		exit(g_ret);
 	else
 	{
-		if ((path = check_path(semicol->pipes->cmds.str, *env)) != NULL)
+		if ((path = check_path(semi->pipes->cmds.str, gbl->env)) != NULL)
 		{	
-			g_ret = execve(path, semicol->all[j], tab = list_to_tab(env));
+			g_ret = execve(path, semi->all[j], tab = list_to_tab(gbl->env));
 			free_tab(tab);
 		}
 		else
 		{
 			g_ret = 127;
-			free_exit(semicol, *env, ERROR_FIND_CMD);
+			free_exit(semi, gbl->env, ERROR_FIND_CMD);
 		}
 		free(path);
 		exit(g_ret);
 	}
 }
 
-void	do_pipe(t_semicol *semicol, int nb_cmd, t_env **env)
+void	do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 {
 	int			pipes[nb_cmd * 2 - 2];
 	int			j;
@@ -57,39 +56,38 @@ void	do_pipe(t_semicol *semicol, int nb_cmd, t_env **env)
 
 	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
-	first_pipes = semicol->pipes;
-	ft_change_args(&semicol->pipes->cmds, *env);
-	tab_all(semicol);
+	first_pipes = semi->pipes;
+	ft_change_args(&semi->pipes->cmds, gbl->env);
+	tab_all(semi);
 	while (++j < nb_cmd)
 	{
-		if (condition_do_pipe(semicol, semicol->pipes->cmds.str))
-			g_ret = find_fcts(&semicol->pipes->cmds, env, semicol);
+		if (condition_do_pipe(semi, semi->pipes->cmds.str))
+			g_ret = find_fcts(&semi->pipes->cmds, gbl);
 		else
 		{
 			if (!(pid[j] = fork()))
 			{
-				do_dup(j, pipes, semicol, *env);
-				exec_fork(semicol, j, env);
+				do_dup(j, pipes, semi, gbl->env);
+				exec_fork(semi, j, gbl);
 			}
-			//waitpid(pid[j], &g_ret, 0);
 		}
-		semicol->pipes = semicol->pipes->next;
+		semi->pipes = semi->pipes->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, &g_ret);
-	semicol->pipes = first_pipes;
+	semi->pipes = first_pipes;
 }
 
-int		exec_cmds(t_semicol *semicol, t_env **env)
+int		exec_cmds(t_semi *semi, t_gbl *gbl)
 {
-	t_semicol	*first_semicol;
+	t_semi	*first_semi;
 
-	first_semicol = semicol;
-	while (semicol != NULL)
+	first_semi = semi;
+	while (semi != NULL)
 	{
-		do_pipe(semicol, semicol->nb_pipes, env);
-		semicol = semicol->next;
+		do_pipe(semi, semi->nb_pipes, gbl);
+		semi = semi->next;
 	}
-	semicol = first_semicol;
+	semi = first_semi;
 	return (0);
 }

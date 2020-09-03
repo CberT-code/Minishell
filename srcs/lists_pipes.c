@@ -6,29 +6,27 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/27 15:53:35 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 11:26:33 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_pipes			*ft_lstnewpipes(char *str, t_env *env, t_semicol *semicol)
+t_pipes			*ft_lstnewpipes(t_gbl *gbl, char *str)
 {
 	t_pipes		*pipes;
 	char		*str2;
 	char		*str3;
 
 	str2 = ft_strdup(str);
-	pipes = NULL;
-	if (!(pipes = (t_pipes*)calloc(sizeof(t_pipes), 1)))
+	if (!(pipes = (t_pipes*)ft_calloc(sizeof(t_pipes), 1)))
 		return (NULL);
-	ft_bzero(pipes, sizeof(t_pipes));
-	ft_redir_in(str2, semicol, &pipes->redir_in, env);
-	ft_redir_out(str2, semicol, &pipes->redir_out, env);
+	ft_redir_in(str2, &pipes->redir_in, gbl);
+	ft_redir_out(str2, &pipes->redir_out, gbl);
 	str2 = clean_redir(str2, '<');
 	str2 = clean_redir(str2, '>');
 	str3 = ft_clean_spaces(str2);
-	cmds_args(&pipes->cmds, str3, env);
+	cmds_args(&pipes->cmds, str3, gbl->env);
 	pipes->next = NULL;
 	free(str2);
 	free(str3);
@@ -44,10 +42,10 @@ t_pipes			*ft_lstlastpipes(t_pipes *pipes)
 	return (pipes);
 }
 
-void			lstadd_back_pipes(t_pipes **pipes, char *str, t_env *env, t_semicol *semicol)
+void			lstadd_back_pipes(t_gbl *gbl, t_pipes **pipes, char *str)
 {
 	if (*pipes != NULL)
-		ft_lstlastpipes(*pipes)->next = ft_lstnewpipes(str, env, semicol);
+		ft_lstlastpipes(*pipes)->next = ft_lstnewpipes(gbl, str);
 	else
-		*pipes = ft_lstnewpipes(str, env, semicol);
+		*pipes = ft_lstnewpipes(gbl, str);
 }

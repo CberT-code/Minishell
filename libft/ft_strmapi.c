@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:44:25 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:56:11 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		return (NULL);
 	u = ft_strlen(s);
 	i = 0;
-	if (!(ptr = calloc(u, sizeof(char) + 1)))
+	if (!(ptr = ft_calloc(u, sizeof(char) + 1)))
 		return (NULL);
 	while (*s)
 	{

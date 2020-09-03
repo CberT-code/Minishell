@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 11:30:10 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 19:45:44 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:31:44 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int			ft_exist(t_gnl **lst, char **line)
 		return (-1);
 	if ((*lst)->buff)
 	{
+		if (*line != NULL)
+			(*lst)->buff = ft_strjoin_gnl(*line, (*lst)->buff);
 		(*lst)->str = ft_strjoin_gnl((*lst)->str, (*lst)->buff);
 		(*lst)->buff = NULL;
 	}
@@ -104,8 +106,9 @@ int			get_next_line(int fd, char **line)
 	if ((lst_one->read = read(fd, lst_one->buff, BUFFER_SIZE)) == -1)
 		return (-1);
 	lst_one->buff[lst_one->read] = '\0';
-	if (lst_one->read == 0)
+	if (lst_one->read == 0 && (ft_strlen(lst_one->buff) == 0) && *line == NULL )
 	{
+		*line = lst_one->buff;
 		free(lst_one->buff);
 		ft_del(&lst_one);
 		return (-1);

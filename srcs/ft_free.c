@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 12:03:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,18 @@ void	free_tab_all(char ***all)
 	}
 }
 
-void	ft_free(t_semicol *semicol)
+void	ft_free(t_semi *semi)
 {
 	void	*b_last;
 
-	b_last = semicol;
-	while (semicol != NULL)
+	b_last = semi;
+	while (semi != NULL)
 	{
-		free(semicol->str);
-		free_tab_all(semicol->all);
-		free_pipes(semicol->pipes);
-		b_last = semicol;
-		semicol = semicol->next;
+		free(semi->str);
+		free_tab_all(semi->all);
+		free_pipes(semi->pipes);
+		b_last = semi;
+		semi = semi->next;
 		free(b_last);
 	}
 }

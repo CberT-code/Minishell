@@ -6,76 +6,70 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 14:41:49 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 14:43:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int			g_rep;
-char		*g_line;
-int			g_sta;
-t_semicol	*g_semicol;
+t_gbl	g_gbl;
 
 void		sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
 		ft_putstr("\n");
-		g_rep = 130;
-		g_sta = 1;
+		g_gbl.rep = 130;
+		g_gbl.sta = 1;
 	}
-	if (sig == SIGQUIT && (!g_line || (g_line
-					&& ft_strlen(g_line) == 0)))
+	if (sig == SIGQUIT && (!g_gbl.line || (g_gbl.line
+					&& ft_strlen(g_gbl.line) == 0)))
 		ft_printf("\b\b  \b\b");
-	else if (sig == SIGQUIT && g_line && ft_strlen(g_line) > 0)
+	else if (sig == SIGQUIT && g_gbl.line && ft_strlen(g_gbl.line) > 0)
 	{
-		ft_free(g_semicol);
+		ft_free(g_gbl.semi);
 		ft_printf("Quitter (core dumped)\n");
 		kill(1, SIGINT);
 	}
 }
 
+int		exec_line(t_gbl *gbl)
+{
+	g_gbl.semi = NULL;
+	g_gbl.error = 1;
+	split_semi(gbl);
+	count_pipe(gbl->semi);
+	new_str(gbl->semi);
+	if (gbl->error == 1)
+		exec_cmds(gbl->semi, gbl);
+	ft_free(gbl->semi);
+	g_gbl.line = NULL;
+	return (1);
+}
+
 int		main(int argc, char **argv, char **envp)
 {
-	t_env		*env;
 	//char		cwd[1024];
 
-	/*pid_t p;
-	p = fork();
-	printf("p -> %d\n", p - 1);
-	kill(p, SIGKILL);*/
-
-	g_rep = 0;
-	g_ret = 0;
+	ft_bzero(&g_gbl, sizeof(t_gbl));
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	if (argc <= 0 || !argv[0])
 		return (1);
-	g_line = NULL;
-	env = ft_tab_to_list(envp);
+	g_gbl.line = NULL;
+	g_gbl.env = ft_tab_to_list(envp);
 	//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{
-		g_rep = get_next_line(0, &g_line);
-		//printf("On fait le GNL\n");
-		if ( g_rep == 1)
+		if ((g_gbl.rep = get_next_line(0, &g_gbl.line)) == 1)
 		{
-			//check_line(g_line);
-			g_semicol = NULL;
-			split_semicol(g_line, &g_semicol, env);
-			count_pipe(g_semicol);
-			new_str(g_semicol);
-			exec_cmds(g_semicol, &env);
-			ft_free(g_semicol);
+			exec_line(&g_gbl);
 			//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 		}
-		else if (g_rep == -1)
+		else if (g_gbl.rep == -1)
 			break ;
-		else
-			free(g_line);
 	}
-	ft_free_env(env);
+	ft_free_env(g_gbl.env);
 	//ft_printf("exit\n");
 	return (0);
 }

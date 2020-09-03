@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 11:24:45 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/04 17:55:26 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *s1)
 	if (!s1)
 		return (NULL);
 	i = ft_strlen(s1);
-	if (!(ptr = calloc(i, sizeof(char) + 1)))
+	if (!(ptr = ft_calloc(i, sizeof(char) + 1)))
 		return (NULL);
 	i = -1;
 	while (s1[++i])

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 10:09:42 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/01 12:33:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 13:07:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,24 @@ static int        list_size(t_env *env)
 
 }
 
-char       **list_to_tab(t_env **env)
+char       **list_to_tab(t_env *env)
 {
     char    **tab;
     int     i;
-    t_env   **first_env;
+    t_env   *first_env;
 
     first_env = env;
-    if (!(tab = ft_calloc(sizeof(char *), (list_size(*env) + 2))))
+    if (!(tab = ft_calloc(sizeof(char *), (list_size(env) + 2))))
         return (NULL);
     i = 0;
-    while (*env)
+    while (env)
     {
-        if ((*env)->valeur != NULL)
-            tab[i] = ft_strjoin((*env)->var, (*env)->valeur);
+        if (env->valeur != NULL)
+            tab[i] = ft_strjoin(env->var, env->valeur);
         else
-            tab[i] = ft_strdup((*env)->var);
+            tab[i] = ft_strdup(env->var);
         i++;
-        *env = (*env)->next;
+        env = env->next;
     }
     env = first_env;
     return (tab);

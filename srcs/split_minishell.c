@@ -6,51 +6,52 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 13:12:53 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/03 11:26:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int				split_semicol(char *str, t_semicol **semicol, t_env *env)
+int				split_semi(t_gbl *gbl)
 {
 	int		start;
 	char	*str2;
 	char	*str3;
 
 	start = 0;
-	if (!str)
+	if (!gbl->line)
 		return (0);
-	str2 = ft_clean_spaces(str);
+	str2 = ft_clean_spaces(gbl->line);
 	while (str2[start])
 	{
+		if (str2[start] == ';' || (str2[start] == ' ' && str2[start + 1] == ';'))
+			free_exit2(gbl, ERROR_SYNTAX);
 		str3 = ft_substr(str2 + start, 0,
 		ft_strlen_str_quotes_backs(str2 + start, ";"));
-		lstadd_back_semicol(semicol, str3, env);
+		lstadd_back_semi(gbl, str3);
 		start += ft_strlen_str_quotes_backs(str2 + start, ";");
 		if (str2[start] == ';')
 			start++;
-
 	}
 	free(str2);
-	free(str);
+	free(gbl->line);
 	return (1);
 }
 
-t_pipes			*split_pipes(t_semicol *semicol, t_env *env)
+t_pipes			*split_pipes(t_gbl *gbl, t_semi *semi)
 {
 	t_pipes		*pipes;
 	char		*str2;
 	char		*str;
 
-	str = semicol->str;
+	str = semi->str;
 	if (!str)
 		return (NULL);
 	pipes = NULL;
 	while (*str)
 	{
 		str2 = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, "|"));
-		lstadd_back_pipes(&pipes, str2, env, semicol);
+		lstadd_back_pipes(gbl, &pipes, str2);
 		str += ft_strlen_str_quotes_backs(str, "|");
 		if (*str == '|')
 			str++;
@@ -83,6 +84,7 @@ void			cmds_args(t_cmds *cmd, char *str, t_env *env)
 {
 	while (*str == ' ')
 		str++;
+	//printf("here we test -> |%s|\n", str);
 	cmd->str = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, " "));
 	str += ft_strlen_str_quotes_backs(str, " ") + 1;
 	cmd->args = split_args(str, env);

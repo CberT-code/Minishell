@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 12:11:59 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 14:44:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	*ft_envcpy(char *str, t_env *env)
 		return (NULL);
 	str = ft_clean_brackets(str);
 	str = ft_replace_ret(str);
-	if (!(cpy = (char*)calloc(sizeof(char), ft_envcpylen(str, env) + 1)))
+	if (!(cpy = (char*)ft_calloc(sizeof(char), ft_envcpylen(str, env) + 1)))
 		return (NULL);
 	ft_conditions_cpy(str, cpy, env, &j);
 	cpy[j] = '\0';

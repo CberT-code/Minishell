@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 15:35:04 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 10:58:36 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	check_space_end(char *str, t_env *env, t_semicol *semicol)
+void	check_space_end(char *str, t_gbl *gbl)
 {
 	int i;
 
@@ -20,7 +20,7 @@ void	check_space_end(char *str, t_env *env, t_semicol *semicol)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '\0')
-		free_exit(semicol, env, ERROR_NO_REDIR);
+		free_exit2(gbl, ERROR_SYNTAX);
 }
 
 int		ft_check_redirs(char *str, char redir)
@@ -33,7 +33,7 @@ int		ft_check_redirs(char *str, char redir)
 	return (i);
 }
 
-void	ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
+void	ft_redir_in(char *str, t_tab_redir *redir, t_gbl *gbl)
 {
 	int i;
 
@@ -43,16 +43,13 @@ void	ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
 		if (str[i] == '<' && ft_isbacks(str, i - 1) == 0)
 		{	
 			if (ft_check_redirs(&str[++i], '<') > 0)
-			{
-				ft_putendl_fd("Erreur : Mauvais nombre de chevrons", 2);
-				return ;
-			}
+				free_exit2(gbl, ERROR_SYNTAX);
 			else
 			{
-				check_space_end(&str[i], env, semicol);
+				check_space_end(&str[i], gbl);
 				str += str[i] == ' ' ? 1 : 0;
 				lstadd_back_redir(&redir->simpl, ft_substr(&str[i], 0,
-				ft_strlen_str_quotes_backs(&str[i], " ")), env);
+				ft_strlen_str_quotes_backs(&str[i], " ")), gbl->env);
 			}
 			i++;
 			i += ft_strlen_str_quotes_backs(&str[i], " ");
@@ -62,32 +59,32 @@ void	ft_redir_in(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
 	}
 }
 
-int 	ft_simp_redir_out (char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
+int 	ft_simp_redir_out (char *str, t_tab_redir *redir, t_gbl *gbl)
 {
 	int i;
 
 	i = 0;
-	check_space_end(str, env, semicol);
+	check_space_end(str, gbl);
 	i += str[i] == ' ' ? 1 : 0;
 	lstadd_back_redir(&redir->simpl, ft_substr(&str[i], 0,
-	ft_strlen_str_quotes_backs(&str[i], " ")), env);
+	ft_strlen_str_quotes_backs(&str[i], " ")), gbl->env);
 	return (i);
 }
 
-int 	ft_doub_redir_out (char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
+int 	ft_doub_redir_out (char *str, t_tab_redir *redir, t_gbl *gbl)
 {
 	int i;
 
 	i = 0;
-	check_space_end(&str[i + 1], env, semicol);
+	check_space_end(&str[i + 1], gbl);
 	i++;
 	i += str[i] == ' ' ? 1 : 0;
 	lstadd_back_redir(&redir->doubl, ft_substr(&str[i], 0,
-	ft_strlen_str_quotes_backs(&str[i], " ")), env);
+	ft_strlen_str_quotes_backs(&str[i], " ")), gbl->env);
 	return (i);
 }
 
-void	ft_redir_out(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
+void	ft_redir_out(char *str, t_tab_redir *redir, t_gbl *gbl)
 {
 	int i;
 
@@ -97,14 +94,11 @@ void	ft_redir_out(char *str, t_semicol *semicol, t_tab_redir *redir, t_env *env)
 		if (str[i] == '>' && ft_isbacks(str, i - 1) == 0)
 		{	
 			if (ft_check_redirs(&str[++i], '>') == 1)
-				i += ft_doub_redir_out(&str[i], semicol, redir, env);
+				i += ft_doub_redir_out(&str[i], redir, gbl);
 			else if (ft_check_redirs(&str[i], '>') > 1)
-			{
-				ft_putendl_fd("Erreur : Mauvais nombre de chevrons", 2);
-				return;
-			}
+				free_exit2(gbl, ERROR_SYNTAX);
 			else
-				i += ft_simp_redir_out(&str[i], semicol, redir, env);
+				i += ft_simp_redir_out(&str[i], redir, gbl);
 			i++;
 			i += ft_strlen_str_quotes_backs(&str[i], " ");
 		}

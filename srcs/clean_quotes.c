@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 14:00:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 12:59:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		ft_verif_commands(char *str)
 }
 
 /*
-int		main(int argc, char **argv, char **env)
+int		main(int argc, char **argv, char *env)
 {
 	char 	*str;
 	int		fd;
