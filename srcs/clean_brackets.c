@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_brackets.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:25:45 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 12:59:09 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 18:09:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	ft_cpy_brackets(char *str, char *cpy, int *i, int *j)
 {
-	if (*i > 0 && str[(*i) - 1] == '$')
-	{
-		(*i)++;
-		while (ft_isbracket(str, *i) != 1 && str[*i])
-			cpy[(*j)++]= str[(*i)++];
-	}
+	cpy[(*j)++]= str[(*i)++];
+	(*i)++;
+	while (ft_isbracket(str, *i) != 1 && str[*i])
+		cpy[(*j)++]= str[(*i)++];
 }
 
 char *ft_clean_brackets(char *str)
@@ -34,13 +32,15 @@ char *ft_clean_brackets(char *str)
 	j = 0;
 	while (str[++i])
 	{
-		if (str[i] == '{')
+		if ( i < ft_strlen(str) - 1 && str[i] == '$' && ft_isbacks(str, i - 1) == 0
+		&& str[i + 1] == '{')
 			ft_cpy_brackets(str, cpy, &i, &j);
 		else
 			cpy[j++] = str[i];
 	}
 	cpy[j] = '\0';
 	//ft_strdel(&str);
+	printf("cpybrack -> %s\n", cpy);
 	return (cpy);
 }
 /*

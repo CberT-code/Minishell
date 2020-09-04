@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 18:33:55 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/04 18:02:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ char	*ft_envcpy(char *str, t_env *env)
 	if ((ret = ft_verif_commands(str)) == 0)
 		return (NULL);
 	str = ft_clean_brackets(str);
-	str = ft_replace_ret(str);
-	str = ft_replace_pid(str);
+	str = ft_replace_value(str);
+	str = ft_replace_bashname(str, env);
 	if (!(cpy = (char*)ft_calloc(sizeof(char), ft_envcpylen(str, env) + 1)))
 		return (NULL);
 	ft_conditions_cpy(str, cpy, env, &j);

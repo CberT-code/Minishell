@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:44:51 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 18:27:59 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/04 13:53:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,27 +82,4 @@ int		ft_envcpylen(char *str, t_env *env)
 			len++;
 	}
 	return (len);
-}
-
-char	*ft_replace_ret(char *str)
-{
-	char	*cpy;
-	int		i;
-	int		j;
-	if (!(cpy = (char*)malloc(sizeof(char) * (ft_len_replace_ret(str) + 1))))
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$'
-		&& str[i + 1] == '?' && ft_isbacks(str, i - 1) == 0)
-			ft_fill_replace_ret(&cpy[0], &j, &i);
-		else
-			cpy[j++] = str[i];
-		i++;
-	}
-	cpy[j] = '\0';
-	ft_strdel(&str);
-	return (cpy);
 }

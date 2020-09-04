@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 11:31:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 11:53:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int				split_semi(t_gbl *gbl)
 	char	*str2;
 	char	*str3;
 
-	printf("here we test -> |%s|\n", gbl->line);
 	start = 0;
 	if (!gbl->line)
 		return (0);

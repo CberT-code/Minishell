@@ -33,7 +33,7 @@ all: 			$(NAME)
 $(NAME):	$(OBJS) $(LIB)
 		@$(CC) -o $(NAME) $(OBJS) $(LIB) $(INCS) 
 		@echo "\033[0;34mExecutable Minishell \033[0m \033[0;32m [OK] \033[0m"
-
+		@./minishell
 		
 $(LIB):
 		@echo "\033[0;33mCompiling...\033[0m"
