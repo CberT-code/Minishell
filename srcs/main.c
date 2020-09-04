@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/09/04 16:32:31 by cbertola         ###   ########.fr       */
-=======
-/*   Updated: 2020/09/04 17:41:49 by user42           ###   ########.fr       */
->>>>>>> mike
+/*   Updated: 2020/09/04 20:49:38 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +52,8 @@ int		exec_line(t_gbl *gbl)
 int		main(int argc, char **argv, char **envp)
 {
 	//char		cwd[1024];
-<<<<<<< HEAD
-
-	// if (!(g_pid = fork()))
-	// 	exit(0);
-=======
 	/*g_pid = fork();
 	kill(g_pid, SIGKILL);*/
->>>>>>> mike
 	ft_bzero(&g_gbl, sizeof(t_gbl));
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);

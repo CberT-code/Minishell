@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/04 16:49:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/04 20:48:34 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	*ft_replace_bashname(char *str, t_env *env)
 	int		i;
 	int		j;
 
-	if (!(cpy = (char*)malloc(sizeof(char) * (ft_len_replace_value(str) + 1))))
+	if (!(cpy = (char*)malloc(sizeof(char) * (ft_len_bashname(str, env) + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;
