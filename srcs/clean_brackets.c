@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:25:45 by user42            #+#    #+#             */
-/*   Updated: 2020/09/04 18:09:55 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/04 20:47:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char *ft_clean_brackets(char *str)
 	}
 	cpy[j] = '\0';
 	//ft_strdel(&str);
-	printf("cpybrack -> %s\n", cpy);
 	return (cpy);
 }
 /*
