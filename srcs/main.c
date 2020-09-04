@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 11:41:46 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 16:32:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		sig_handler(int sig)
 int		exec_line(t_gbl *gbl)
 {
 	gbl->semi = NULL;
+	gbl->ret = 1;
 	split_semi(gbl);
 	count_pipe(gbl->semi);
 	new_str(gbl->semi);
@@ -51,8 +52,9 @@ int		exec_line(t_gbl *gbl)
 int		main(int argc, char **argv, char **envp)
 {
 	//char		cwd[1024];
-	g_pid = fork();
-	kill(g_pid, SIGKILL);
+
+	// if (!(g_pid = fork()))
+	// 	exit(0);
 	ft_bzero(&g_gbl, sizeof(t_gbl));
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);

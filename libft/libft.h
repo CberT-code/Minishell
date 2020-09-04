@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 11:59:00 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/19 12:12:57 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 16:59:43 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ char					*ft_strndup(const char *str, size_t n);
 void					ft_strdel(char **as);
 char					*ft_strdup_free(char *s1);
 int						ft_strisdigit(char *str);
+long int				ft_atoi_long(const char *str);
 
 #endif
