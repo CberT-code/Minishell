@@ -6,9 +6,10 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 11:19:35 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 11:41:46 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -45,14 +46,13 @@ int		exec_line(t_gbl *gbl)
 	return (1);
 }
 
+
+
 int		main(int argc, char **argv, char **envp)
 {
 	//char		cwd[1024];
-	/*pid_t p;
-	p = fork();
-	printf("p -> %d\n", p - 1);
-	kill(p, SIGKILL);*/
-
+	g_pid = fork();
+	kill(g_pid, SIGKILL);
 	ft_bzero(&g_gbl, sizeof(t_gbl));
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);

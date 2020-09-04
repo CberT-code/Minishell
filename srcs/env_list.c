@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 13:02:20 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 11:41:17 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,26 @@ void			ft_shlvl(t_env *env)
 	env = first;
 }
 
+void	ft_modif_shell(t_env *env)
+{
+	t_env *first_env;
+	char cwd[1024];
+
+	first_env = env;
+	while(env)
+	{
+		if (strncmp(env->var, "SHELL=", ft_strlen(env->var)) == 0)
+		{
+			getcwd(cwd, 1024);
+			ft_strdel(&env->valeur);
+			env->valeur = ft_strjoin(cwd, "/minishell");
+			return;		
+		}
+		env = env->next;
+	}
+	env = first_env;
+}
+
 t_env			*ft_tab_to_list(char **tri_selectif)
 {
 	t_env	*list;
@@ -85,5 +105,6 @@ t_env			*ft_tab_to_list(char **tri_selectif)
 	}
 	i = 0;
 	ft_shlvl(list);
+	ft_modif_shell(list);
 	return (list);
 }

@@ -16,6 +16,7 @@
 peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type"
 
 int	g_ret;
+pid_t	g_pid;
 typedef	struct			s_redir
 {
 	char				*str;
@@ -99,6 +100,7 @@ char					*ft_clean_spaces(char *str);
 char					*ft_envcpy(char *str, t_env *env);
 int						ft_find_size_arg(char *str);
 char					*ft_replace_ret(char *str);
+char					*ft_replace_pid(char *str);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
 t_semi					*ft_lstnewsemi(t_gbl *gbl, char *str);
