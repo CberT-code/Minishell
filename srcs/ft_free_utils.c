@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 13:54:44 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 10:32:19 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	free_exit2(t_gbl *gbl, char *str)
 {
 	if (str != NULL)
 		write(2, str, ft_strlen(str));
-	gbl->error = 0;
+	gbl->ret = 1;
 }
 
 void	ft_free_env(t_env *env)

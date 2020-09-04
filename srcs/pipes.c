@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 14:43:50 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/04 11:31:57 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 	char	**tab;
 
 	
-	if ((g_ret = find_fcts(&semi->pipes->cmds, gbl)) != -1)
-		exit(g_ret);
+	if ((gbl->ret = find_fcts(&semi->pipes->cmds, gbl)) != 0)
+		exit(gbl->ret);
 	else
 	{
 		if ((path = check_path(semi->pipes->cmds.str, gbl->env)) != NULL)
 		{	
-			g_ret = execve(path, semi->all[j], tab = list_to_tab(gbl->env));
+			gbl->ret = execve(path, semi->all[j], tab = list_to_tab(gbl->env));
 			free_tab(tab);
 		}
 		else
 		{
-			g_ret = 127;
+			gbl->ret = 127;
 			free_exit(semi, gbl->env, ERROR_FIND_CMD);
 		}
 		free(path);
-		exit(g_ret);
+		exit(gbl->ret);
 	}
 }
 
@@ -62,7 +62,7 @@ void	do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	while (++j < nb_cmd)
 	{
 		if (condition_do_pipe(semi, semi->pipes->cmds.str))
-			g_ret = find_fcts(&semi->pipes->cmds, gbl);
+			gbl->ret = find_fcts(&semi->pipes->cmds, gbl);
 		else
 		{
 			if (!(pid[j] = fork()))

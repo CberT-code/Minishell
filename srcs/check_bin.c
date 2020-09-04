@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 14:36:48 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 11:01:23 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		find_fcts(t_cmds *cmd, t_gbl *gbl)
 	if (strcmp(cmd->str, "echo") == 0)
 		return (ft_echo(cmd->args));
 	else if (strcmp(cmd->str, "env") == 0)
-		return (ft_env(cmd->args, gbl->env));
+		return (ft_env(gbl->env));
 	else if (strcmp(cmd->str, "export") == 0)
 		return (ft_export(cmd->args, gbl));
 	else if (strcmp(cmd->str, "cd") == 0)
@@ -26,14 +26,14 @@ int		find_fcts(t_cmds *cmd, t_gbl *gbl)
 	else if (strcmp(cmd->str, "pwd") == 0)
 		return (ft_pwd());
 	else if (strcmp(cmd->str, "unset") == 0)
-		return (ft_unset(cmd->args, gbl->env));
+		return (ft_unset(cmd->args, gbl));
 	else if (strcmp(cmd->str, "exit") == 0)
 	{
 		free_exit2(gbl, NULL);
-		return (0);
+		return (1);
 	}
 	else
-		return (-1);
+		return (0);
 }
 
 int		search_mybin(char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 14:56:47 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/04 11:19:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ void		sig_handler(int sig)
 
 int		exec_line(t_gbl *gbl)
 {
-	g_gbl.semi = NULL;
-	g_gbl.error = 1;
+	gbl->semi = NULL;
 	split_semi(gbl);
 	count_pipe(gbl->semi);
 	new_str(gbl->semi);
-	if (gbl->error == 1)
-		exec_cmds(gbl->semi, gbl);
+	exec_cmds(gbl->semi, gbl);
 	ft_free(gbl->semi);
-	g_gbl.line = NULL;
+	gbl->line = NULL;
 	return (1);
 }
 

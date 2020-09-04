@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 11:26:25 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/04 11:31:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int				split_semi(t_gbl *gbl)
 	char	*str2;
 	char	*str3;
 
+	printf("here we test -> |%s|\n", gbl->line);
 	start = 0;
 	if (!gbl->line)
 		return (0);
@@ -84,8 +85,9 @@ void			cmds_args(t_cmds *cmd, char *str, t_env *env)
 {
 	while (*str == ' ')
 		str++;
-	//printf("here we test -> |%s|\n", str);
 	cmd->str = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, " "));
-	str += ft_strlen_str_quotes_backs(str, " ") + 1;
+	str += ft_strlen_str_quotes_backs(str, " ");
+	if (*str == ' ')
+			str++;
 	cmd->args = split_args(str, env);
 }
