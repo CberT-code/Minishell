@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 14:56:47 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/03 22:53:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,31 @@ int		exec_line(t_gbl *gbl)
 	return (1);
 }
 
+void	ft_modif_shell(t_env *env)
+{
+	t_env *first_env;
+	char cwd[1024];
+
+	first_env = env;
+	while(env)
+	{
+		if (strncmp(env->var, "SHELL=", ft_strlen(env->var)) == 0)
+		{
+			getcwd(cwd, 1024);
+			ft_strdel(&env->valeur);
+			env->valeur = ft_strjoin(cwd, "/minishell");
+			return;		
+		}
+		env = env->next;
+	}
+	env = first_env;
+}
+
 int		main(int argc, char **argv, char **envp)
 {
 	//char		cwd[1024];
-	/*pid_t p;
-	p = fork();
-	printf("p -> %d\n", p - 1);
-	kill(p, SIGKILL);*/
-
+	g_pid = fork();
+	kill(g_pid, SIGKILL);
 	ft_bzero(&g_gbl, sizeof(t_gbl));
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
@@ -62,6 +79,7 @@ int		main(int argc, char **argv, char **envp)
 		return (1);
 	g_gbl.line = NULL;
 	g_gbl.env = ft_tab_to_list(envp);
+	ft_modif_shell(g_gbl.env);
 	//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{
