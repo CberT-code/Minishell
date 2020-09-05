@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 18:13:57 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 21:45:11 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,17 @@ static char		*find_path(char *str, t_env *env)
 		path = ft_strjoin_free(path, str, 1);
 		if (stat(path, &buf) == 0)
 		{
-			i = 0;
+			i = -1;
 			while (tab[++i])
-				free(tab[i]);
+				ft_strdel(&tab[i]);
 			free(tab);
 			return (path);
 		}
 		free(path);
 	}
+	i = -1;
+	while (tab[++i])
+		ft_strdel(&tab[i]);
 	return (NULL);
 }
 
