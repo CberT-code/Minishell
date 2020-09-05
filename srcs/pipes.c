@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 18:15:13 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 20:24:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int			condition_do_pipe(t_semi *semi, char *str)
 {
-	if (semi->nb_pipes == 1 && semi->pipes->redir_in.simpl == NULL &&
-			semi->pipes->redir_in.doubl == NULL
-			&& semi->pipes->redir_out.simpl == NULL &&
-			semi->pipes->redir_out.doubl == NULL && search_mybin(str))
+	if (semi->nb_pipes == 1 && semi->pipes->redir_in == NULL &&
+		semi->pipes->redir_out == NULL && search_mybin(str))
 		return (1);
 	return (0);
 }

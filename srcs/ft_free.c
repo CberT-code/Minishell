@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 17:21:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 18:41:08 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ void	free_redir(t_redir *redir)
 	}
 }
 
-void	free_tab_redir(t_tab_redir *redir)
-{
-	free_redir(redir->simpl);
-	free_redir(redir->doubl);
-}
-
 void	free_pipes(t_pipes *pipes)
 {
 	t_pipes *b_last;
@@ -40,8 +34,8 @@ void	free_pipes(t_pipes *pipes)
 	while (pipes != NULL)
 	{
 		free(pipes->str);
-		free_tab_redir(&pipes->redir_in);
-		free_tab_redir(&pipes->redir_out);
+		free_redir(pipes->redir_in);
+		free_redir(pipes->redir_out);
 		free_cmds(&pipes->cmds);
 		b_last = pipes;
 		pipes = pipes->next;

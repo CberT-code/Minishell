@@ -22,14 +22,9 @@ pid_t	g_pid;
 typedef	struct			s_redir
 {
 	char				*str;
+	int					ind;
 	struct s_redir		*next;
 }						t_redir;
-
-typedef	struct			s_tab_redir
-{
-	t_redir				*simpl;
-	t_redir				*doubl;
-}						t_tab_redir;
 
 typedef struct			s_args
 {
@@ -47,8 +42,8 @@ typedef struct			s_cmds
 typedef struct			s_pipes
 {
 	char				*str;
-	t_tab_redir			redir_in;
-	t_tab_redir			redir_out;
+	t_redir				*redir_in;
+	t_redir				*redir_out;
 	t_cmds				cmds;
 	struct s_pipes		*next;
 }						t_pipes;
@@ -119,11 +114,11 @@ t_pipes					*split_pipes(t_gbl *gbl, t_semi *semi);
 t_args					*split_args(char *str, t_env *env);
 void					cmds_args(t_cmds *cmd, char *str, t_env *env);
 int						ft_strlen_str_quotes(char *s, char *str);
-t_tab_redir				full_redir(char *str, char c, t_env *env);
-t_redir					*ft_lstnewredir(char *str, t_env *env);
+t_redir				full_redir(char *str, char c, t_env *env);
+t_redir					*ft_lstnewredir(char *str, t_env *env, int i);
 t_redir					*ft_lstlastredir(t_redir *redir);
 void					lstadd_back_redir(t_redir **redir, char *str,
-		t_env *env);
+		t_env *env, int i);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
 int						ft_isbracket(char *str, int i);
@@ -172,7 +167,7 @@ int						delete_var(char *var, t_env *env);
 void					ft_free(t_semi *semi);
 void					free_tab_all(char ***all);
 void					free_pipes(t_pipes *pipes);
-void					free_tab_redir(t_tab_redir *redir);
+void					free_tab_redir(t_redir *redir);
 void					free_redir(t_redir *redir);
 void					free_cmds(t_cmds *cmds);
 void					free_args(t_args *args);
@@ -196,7 +191,7 @@ char					*check_path(char *str, t_env *env);
 void					exec_fork(t_semi *semi, int j, t_gbl *gbl);
 int						condition_do_pipe(t_semi *semi, char *str);
 void					do_dup(int j, int *pipes, t_semi *semi, t_env *env);
-void					redir_out(t_redir *redir, int param, int *pipes, int j);
+void					redir_out(t_redir *redir, int *pipes, int j);
 void					wait_pipes(int nb_pipes, pid_t *pid, int *ret);
 void					close_pipes(int nb_pipes, int *pipes);
 void					init_pipes(int nb_pipes, int *pipes);
@@ -206,8 +201,8 @@ int						ft_strlen_str_quotes_backs(char *s, char *str);
 void					free_tab(char **tab);
 void   					ft_change_args(t_cmds *cmd, t_env *env);
 
-void					ft_redir_in(char *str, t_tab_redir *redir, t_gbl *gbl);
-void					ft_redir_out(char *str, t_tab_redir *redir, t_gbl *gbl);
+void					ft_redir_in(char *str, t_redir **redir, t_gbl *gbl);
+void					ft_redir_out(char *str, t_redir **redir, t_gbl *gbl);
 void					free_exit2(t_gbl *gbl, char *str);
 int   					ft_exit(t_cmds *cmd, t_gbl *gbl);
 
