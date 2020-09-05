@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 10:29:49 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 14:42:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int     ft_exit(t_cmds *cmd, t_gbl *gbl)
     int i;
 
     i = 0;
+    if (cmd->args == NULL)
+        return (1);
     if (cmd->args->str)
     {
         if (cmd->args->str[i] == '+' || cmd->args->str[i] == '-')

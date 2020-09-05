@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 16:18:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 13:15:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		display_export_env(t_env *env)
 	t_env	*start;
 
 	start = env;
-	while (env != NULL)
+	while (env)
 	{
 		if (env->var[ft_strlen(env->var) - 1] == '=')
 		{
@@ -29,7 +29,7 @@ int		display_export_env(t_env *env)
 		env = env->next;
 	}
 	env = start;
-	return (1);
+	return (0);
 }
 
 int		ft_env(t_args *args, t_gbl *gbl)

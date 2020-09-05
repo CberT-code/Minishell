@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 15:02:20 by user42            #+#    #+#             */
-/*   Updated: 2020/08/25 16:19:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 13:18:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int		ft_pwd()
 		return (0);
 	}
 	ft_putstr("pwd : Error - Failed to get pwd\n");
-	return (1);
+	return (0);
 }
