@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/04 20:51:25 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 17:50:01 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		ft_len_replace_value(char *str)
 {
-	int	i;
-	int	len;
-	char *cpy;
+	int		i;
+	int		len;
+	char	*cpy;
 
 	i = -1;
 	len = 0;
@@ -24,14 +24,15 @@ int		ft_len_replace_value(char *str)
 	while (str[++i])
 	{
 		if (i < ft_strlen(str) - 1 && str[i] == '$'
-		&& (str[i + 1] == '?' || str[i + 1] == '$') && ft_isbacks(str, i - 1) == 0)
+		&& (str[i + 1] == '?' || str[i + 1] == '$')
+		&& ft_isbacks(str, i - 1) == 0)
 		{
 			cpy = (str[i + 1] == '?') ? ft_itoa(g_ret) : ft_itoa(g_pid - 1);
 			len += ft_strlen(cpy);
 			i++;
 			ft_strdel(&cpy);
 		}
-		else 
+		else
 			len++;
 	}
 	return (len);
@@ -39,11 +40,11 @@ int		ft_len_replace_value(char *str)
 
 void	ft_fill_replace_value(char *cpy, int *j, int *i, char c)
 {
-	int k;
-	char *cpy_ret;
+	int		k;
+	char	*cpy_ret;
 
 	k = 0;
-	cpy_ret = ( c == '?') ? ft_itoa(g_ret) : ft_itoa(g_pid - 1);
+	cpy_ret = (c == '?') ? ft_itoa(g_ret) : ft_itoa(g_pid - 1);
 	while (cpy_ret[k])
 		cpy[(*j)++] = cpy_ret[k++];
 	(*i)++;
@@ -79,16 +80,17 @@ char	*ft_replace_value(char *str)
 
 int		ft_len_bashname(char *str, t_env *env)
 {
-	int	i;
-	int	len;
-	t_env *first_env;
+	int		i;
+	int		len;
+	t_env	*first_env;
 
 	i = -1;
 	first_env = env;
 	while (str[++i])
 	{
 		if (i < ft_strlen(str) - 1 && str[i] == '$'
-		&& (str[i + 1] == '0' || str[i + 1] == '$') && ft_isbacks(str, i - 1) == 0)
+		&& (str[i + 1] == '0' || str[i + 1] == '$')
+		&& ft_isbacks(str, i - 1) == 0)
 		{
 			while (env)
 			{
@@ -98,7 +100,7 @@ int		ft_len_bashname(char *str, t_env *env)
 			}
 			i++;
 		}
-		else 
+		else
 			len++;
 	}
 	env = first_env;
@@ -107,19 +109,19 @@ int		ft_len_bashname(char *str, t_env *env)
 
 void	ft_fill_replace_bashname(char *cpy, int *j, int *i, t_env *env)
 {
-	int k;
-	char *cpy_ret;
-	t_env *first_env;
+	int		k;
+	char	*cpy_ret;
+	t_env	*first_env;
 
 	k = 0;
 	cpy_ret = NULL;
 	first_env = env;
 	while (env)
-		{
-			if (ft_strncmp(env->var, "SHELL=", ft_strlen(env->var)) == 0)
-				cpy_ret = ft_strdup(env->valeur);
-			env = env->next;
-		}
+	{
+		if (ft_strncmp(env->var, "SHELL=", ft_strlen(env->var)) == 0)
+			cpy_ret = ft_strdup(env->valeur);
+		env = env->next;
+	}
 	env = first_env;
 	while (cpy_ret[k])
 		cpy[(*j)++] = cpy_ret[k++];

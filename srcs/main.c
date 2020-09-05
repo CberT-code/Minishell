@@ -6,10 +6,9 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 20:52:43 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 18:09:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
@@ -34,7 +33,7 @@ void		sig_handler(int sig)
 	}
 }
 
-int		exec_line(t_gbl *gbl)
+int			exec_line(t_gbl *gbl)
 {
 	gbl->semi = NULL;
 	gbl->ret = 1;
@@ -47,9 +46,7 @@ int		exec_line(t_gbl *gbl)
 	return (1);
 }
 
-
-
-int		main(int argc, char **argv, char **envp)
+int			main(int argc, char **argv, char **envp)
 {
 	//char		cwd[1024];
 	// g_pid = fork();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/04 18:02:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 17:53:46 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		ft_find_size_arg(char *str)
 		i++;
 	return (i);
 }
-
 
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)
 {
@@ -66,15 +65,19 @@ int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 	i = 1;
 	while (ft_isquote(str, i) != 2 && str[i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i]  == '$' && ft_isbacks(str, i - 1) == 0
+		if (i < ft_strlen(str) - 1 && str[i] == '$'
+		&& ft_isbacks(str, i - 1) == 0
 		&& str[i + 1] != '#' && str[i + 1] != '-' && str[i + 1] != '='
 		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
 		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
 		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS
 		&& str[i + 1] != DOUBQ && str[i + 1] != ' ')
 			i += ft_varcpy(&str[i + 1], &cpy[0], env, j);
-		else if ((str[i] == DOUBQ && ft_isbacks(str, i - 1) == 1) || (str[i] != BACKS && str[i] != DOUBQ)
-		|| (i < ft_strlen(str) - 1 && str[i] == BACKS && ft_isbacks(str, i - 1) == 0 && str[i + 1] != DOUBQ && str[i + 1] != '$'))
+		else if ((str[i] == DOUBQ && ft_isbacks(str, i - 1) == 1)
+		|| (str[i] != BACKS && str[i] != DOUBQ)
+		|| (i < ft_strlen(str) - 1 && str[i] == BACKS
+		&& ft_isbacks(str, i - 1) == 0 && str[i + 1] != DOUBQ
+		&& str[i + 1] != '$'))
 			cpy[(*j)++] = str[i];
 		i++;
 	}
@@ -92,11 +95,13 @@ void	ft_conditions_cpy(char *str, char *cpy, t_env *env, int *j)
 			ft_simpq_cpy(str, cpy, &i, j);
 		else if (str[i] == DOUBQ && ft_isbacks(str, i - 1) == 0)
 			i += ft_doubleq_cpy(&str[i], &cpy[0], env, j);
-		else if (i < ft_strlen(str) - 1 && str[i]  == '$' && ft_isbacks(str, i - 1) == 0
+		else if (i < ft_strlen(str) - 1 && str[i] == '$'
+		&& ft_isbacks(str, i - 1) == 0
 		&& str[i + 1] != '#' && str[i + 1] != '-' && str[i + 1] != '='
 		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
 		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
-		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS && str[i + 1] != ' ')
+		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS
+		&& str[i + 1] != ' ')
 			i += ft_varcpy(&str[i + 1], &cpy[0], env, j);
 		else if (str[i] == BACKS && ft_isbacks(str, i) == 0)
 			cpy[(*j)++] = str[i];

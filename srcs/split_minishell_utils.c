@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 16:24:44 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 17:45:43 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int			ft_strlen_str_quotes_backs(char *s, char *str)
 		while (s[i] && str[j])
 		{
 			if ((s[i] == str[j] && ft_in_quotes(s, i) == 0 && i == 0) ||
-			(s[i] == str[j] && ft_in_quotes(s, i) == 0 && i > 0 && ft_isbacks(s, i - 1) == 0))
+					(s[i] == str[j] && ft_in_quotes(s, i) == 0 && i > 0
+					&& ft_isbacks(s, i - 1) == 0))
 				return (i);
 			j++;
 		}
@@ -57,53 +58,50 @@ char		*clean_redir(char *str, char c)
 	int i;
 	int j;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (str[i] == c && !ft_isbacks(str, i - 1))
 		{
-			j = 0;
 			if (str[i + 1] == c)
 			{
 				j = str[i + 2] == ' ' ? 3 : 2;
 				str = ft_subfromstr_free(str, i,
-				ft_strlen_str_quotes_backs(str + i + j, " ") + j);
+						ft_strlen_str_quotes_backs(str + i + j, " ") + j);
 			}
 			else
 			{
 				j = str[i + 1] == ' ' ? 2 : 1;
 				str = ft_subfromstr_free(str, i,
-				ft_strlen_str_quotes_backs(str + i + j, " ") + j);
+						ft_strlen_str_quotes_backs(str + i + j, " ") + j);
 			}
 			i = 0;
 		}
-		else
-			i++;
 	}
 	return (str);
 }
 
-void    ft_change_args(t_cmds *cmd, t_env *env)
+void		ft_change_args(t_cmds *cmd, t_env *env)
 {
-    t_args *first_arg;
-    char *cpy;
-	t_args *args;
+	t_args	*first_arg;
+	char	*cpy;
+	t_args	*args;
 
-    cpy = NULL;
+	cpy = NULL;
 	args = cmd->args;
 	if (cmd->str)
 	{
- 		cpy = cmd->str;
+		cpy = cmd->str;
 		cmd->str = ft_envcpy(cpy, env);
 		free(cpy);
 	}
-    first_arg = args;
-    while (args)
-    {
-        cpy = args->str;
-        args->str = ft_envcpy(cpy, env);
+	first_arg = args;
+	while (args)
+	{
+		cpy = args->str;
+		args->str = ft_envcpy(cpy, env);
 		free(cpy);
-        args = args->next;
-    }
-    args = first_arg;
+		args = args->next;
+	}
+	args = first_arg;
 }

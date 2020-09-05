@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 20:49:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 17:46:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int				split_semi(t_gbl *gbl)
 	str2 = ft_clean_spaces(gbl->line);
 	while (str2[start])
 	{
-		if (str2[start] == ';' || (str2[start] == ' ' && str2[start + 1] == ';'))
+		if (str2[start] == ';' || (str2[start] == ' '
+		&& str2[start + 1] == ';'))
 			free_exit2(gbl, ERROR_SYNTAX);
 		str3 = ft_substr(str2 + start, 0,
 		ft_strlen_str_quotes_backs(str2 + start, ";"));
@@ -87,6 +88,6 @@ void			cmds_args(t_cmds *cmd, char *str, t_env *env)
 	cmd->str = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, " "));
 	str += ft_strlen_str_quotes_backs(str, " ");
 	if (*str == ' ')
-			str++;
+		str++;
 	cmd->args = split_args(str, env);
 }

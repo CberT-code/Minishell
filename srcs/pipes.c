@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 17:17:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 18:07:37 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		condition_do_pipe(t_semi *semi, char *str)
+int			condition_do_pipe(t_semi *semi, char *str)
 {
 	if (semi->nb_pipes == 1 && semi->pipes->redir_in.simpl == NULL &&
 			semi->pipes->redir_in.doubl == NULL
@@ -27,15 +27,14 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 	char	*path;
 	char	**tab;
 
-	
 	if ((find_fcts(&semi->pipes->cmds, gbl)) != -1)
 		exit(gbl->ret);
 	else
 	{
 		if ((path = check_path(semi->pipes->cmds.str, gbl->env)) != NULL)
-		{	
-			//printf("here we test -> |%s|\n", semi->all[j]);
-			gbl->ret = execve(path, semi->all[j], tab = list_to_tab(gbl->env));
+		{
+			tab = list_to_tab(gbl->env);
+			gbl->ret = execve(path, semi->all[j], tab);
 			free_tab(tab);
 		}
 		else
@@ -48,16 +47,14 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 	}
 }
 
-void	do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
+void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 {
 	int			pipes[nb_cmd * 2 - 2];
 	int			j;
-	t_pipes		*first_pipes;
 	pid_t		pid[nb_cmd];
 
 	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
-	first_pipes = semi->pipes;
 	ft_change_args(&semi->pipes->cmds, gbl->env);
 	tab_all(semi);
 	while (++j < nb_cmd)
@@ -76,17 +73,19 @@ void	do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, &g_ret);
-	semi->pipes = first_pipes;
 }
 
-int		exec_cmds(t_semi *semi, t_gbl *gbl)
+int			exec_cmds(t_semi *semi, t_gbl *gbl)
 {
-	t_semi	*first_semi;
+	t_semi		*first_semi;
+	t_pipes		*first_pipes;
 
 	first_semi = semi;
 	while (semi != NULL)
 	{
+		first_pipes = semi->pipes;
 		do_pipe(semi, semi->nb_pipes, gbl);
+		semi->pipes = first_pipes;
 		semi = semi->next;
 	}
 	semi = first_semi;
