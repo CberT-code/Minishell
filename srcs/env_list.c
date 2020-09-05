@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 11:41:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 15:50:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,26 @@ void	ft_modif_shell(t_env *env)
 	env = first_env;
 }
 
+void	ft_add_path(t_env *env)
+{
+	t_env *first_env;
+	char cwd[1024];
+
+	first_env = env;
+	while (env)
+	{
+		if (strncmp(env->var, "PATH=", ft_strlen(env->var)) == 0)
+		{
+			getcwd(cwd, 1024);
+			env->valeur = ft_strjoin_free(env->valeur, ":", 1);
+			env->valeur = ft_strjoin_free(env->valeur, cwd, 1);
+			return;		
+		}
+		env = env->next;
+	}
+	env = first_env;
+}
+
 t_env			*ft_tab_to_list(char **tri_selectif)
 {
 	t_env	*list;
@@ -106,5 +126,6 @@ t_env			*ft_tab_to_list(char **tri_selectif)
 	i = 0;
 	ft_shlvl(list);
 	ft_modif_shell(list);
+	ft_add_path(list);
 	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 12:59:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 15:48:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int		exec_line(t_gbl *gbl)
 	gbl->line = NULL;
 	return (1);
 }
-
-
 
 int		main(int argc, char **argv, char **envp)
 {

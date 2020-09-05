@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:22:56 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/15 10:45:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 15:01:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		ft_echo(t_args *args)
 			flag = 1;
 		else
 		{
+			args->str = ft_replace_value(args->str);
 			ft_printf("%s", (args)->str);
 			if ((args)->next != NULL)
 				ft_printf(" ");

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 11:09:38 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 16:08:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_env *env, char *cwd)
 		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="),
 		ft_strdup(ft_getenv("PWD", env)));
 	ft_change_pwd(env);
+	ft_change_path(env);
 	return (0);
 }
 
