@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 12:43:16 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 13:19:14 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 	char	**tab;
 
 	
-	if ((find_fcts(&semi->pipes->cmds, gbl)) != 1)
+	if ((find_fcts(&semi->pipes->cmds, gbl)) != -1)
 		exit(gbl->ret);
 	else
 	{

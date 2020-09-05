@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 11:54:11 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 13:19:22 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		find_fcts(t_cmds *cmd, t_gbl *gbl)
 		return (1);
 	}
 	else
-		return (1);
+		return (-1);
 }
 
 int		search_mybin(char *str)
