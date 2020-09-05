@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 13:18:41 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 14:44:56 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		delete_var(char *var, t_env *env)
 	return (0);
 }
 
-void	unset(char *str, t_env *env)
+void	unset(char *str, t_gbl *gbl)
 {
 	int		i;
 	char	*var;
@@ -41,9 +41,10 @@ void	unset(char *str, t_env *env)
 	i = 0;
 	while (str[i])
 	{
-		var = check_var(str);
+		if ((var = check_var(str)) == NULL)
+			return (free_exit2(gbl, IDERRONE));
 		i += ft_strlen(var);
-		delete_var(var, env);
+		delete_var(var, gbl->env);
 		i++;
 		ft_strdel(&var);
 	}
@@ -56,7 +57,7 @@ int		ft_unset(t_args *args, t_gbl *gbl)
 	first_arg = args;
 	while (args != NULL)
 	{
-		unset(args->str, gbl->env);
+		unset(args->str, gbl);
 		args = args->next;
 	}
 	args = first_arg;
