@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 18:14:47 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 20:50:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,29 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_env *env, char *cwd)
 	return (0);
 }
 
+char	*ft_change_by_home(t_env *env, char *str)
+{
+	t_env *first_env;
+	char *cpy;
+	char *cpy2;
+
+	first_env = env;
+	while (env)
+	{
+		if (strncmp(env->var, "HOME=", ft_strlen(env->var)) == 0)
+		{
+			cpy = ft_strdup(&str[1]);
+			cpy2 = ft_strdup(env->valeur);
+			cpy2 = ft_strjoin_free(cpy2, cpy, 3);
+			ft_strdel(&str);
+			return (cpy2);		
+		}
+		env = env->next;
+	}
+	env = first_env;
+	return(NULL);
+}
+
 int		ft_cd(t_args *args, t_env *env)
 {
 	t_env	*env_cpy;
@@ -118,7 +141,7 @@ int		ft_cd(t_args *args, t_env *env)
 		return (ft_check_cd_errors(env));
 	ft_check_errors_cd2(args);
 	if (args->str[0] == '~')
-		args->str = ft_strjoin(ft_getenv("HOME", env), &args->str[1]);
+		args->str = ft_change_by_home(env, args->str);
 	if ((ret = ft_check_errors_cd2(args)) != 2)
 		return (ret);
 	if (ft_strncmp(args->str, "-", 1) == 0)
