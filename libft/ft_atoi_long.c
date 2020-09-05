@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_var.c                                        :+:      :+:    :+:   */
+/*   ft_atoi_long.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/05 22:59:44 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 11:46:14 by cbertola         ###   ########.fr       */
+/*   Created: 2019/10/14 15:15:05 by cbertola          #+#    #+#             */
+/*   Updated: 2020/09/05 10:27:42 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int		check_str_alpha(char *str, int len)
+long long int		ft_atoi_long(const char *str)
 {
-	int	i;
+	long long int n;
+	long long int result;
 
-	i = -1;
-	while (++i < len)
+	n = 1;
+	result = 0;
+	while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' ||
+			*str == '\r' || *str == 32)
+		str++;
+	if (*str == '-' || *str == '+')
+		if (*str++ == '-')
+			n = -1;
+	while (*str >= 48 && *str <= 57)
 	{
-		if ((!ft_isalpha(str[i]) || ft_isalnum(str[i])) && str[i] != '_')
-			return (0);
+		result *= 10;
+		result += (*str - 48);
+		str++;
 	}
-	return (1);
+	return (n * result);
 }
-
-int		check_str_digitspace(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if ((str[i] < 48 || str[i] > 57) && str[i] != 32)
-			return (0);
-	}
-	return (1);
-}
-

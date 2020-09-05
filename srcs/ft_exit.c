@@ -1,42 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 16:18:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 10:29:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		display_export_env(t_env *env)
+int     ft_exit(t_cmds *cmd, t_gbl *gbl)
 {
-	t_env	*start;
+    int i;
 
-	start = env;
-	while (env != NULL)
-	{
-		if (env->var[ft_strlen(env->var) - 1] == '=')
-		{
-			write(1, env->var, ft_strlen(env->var));
-			if (env->valeur != NULL)
-				write(1, env->valeur, ft_strlen(env->valeur));
-			write(1, "\n", 1);
-		}
-		env = env->next;
-	}
-	env = start;
-	return (1);
-}
-
-int		ft_env(t_args *args, t_gbl *gbl)
-{
-	if (args == NULL)
-		return (display_export_env(gbl->env));
-	else
-		free_exit2(gbl, ERROR_FILE_FOLDER);
-	return (0);
+    i = 0;
+    if (cmd->args->str)
+    {
+        if (cmd->args->str[i] == '+' || cmd->args->str[i] == '-')
+            i++;
+        if ((!(ft_strisdigit(cmd->args->str + i))) ||
+        ft_atoi_long(cmd->args->str) > 9223372036854775807 ||
+        ft_atoi_long(cmd->args->str) < -9223372036854775807)
+        {
+            free_exit2(gbl, ARGUMENTS_NUM);
+            return (0);
+        }
+    }
+    if (cmd->nb_args > 1)
+    {
+        free_exit2(gbl, ARGUMENTS);
+        return (0);
+    }
+    return (1);
 }

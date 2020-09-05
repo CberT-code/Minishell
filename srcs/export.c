@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 10:34:05 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 12:55:39 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@ char		*check_var(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] != '\0')
+	if (str[i] != '\0' && (ft_isalpha(str[i]) || str[i] == '_'))
 	{
-		return (ft_strcpyuntil(str + i, "="));
+		while (str[i] != '\0' && str[i] != '=')
+		{
+			if (!ft_isalpha(str[i]) && !ft_isalnum(str[i]) && str[i] != '_')
+				return (NULL);
+			i++;
+		}
+		return (ft_strcpyuntil(str, "="));
 	}
 	else
 		return (NULL);
@@ -114,7 +120,7 @@ int			ft_export(t_args *args, t_gbl *gbl)
 	t_args	*first_arg;
 
 	first_arg = args;
-	if (args == NULL)
+	if (args == NULL || args->str[0] == '#')
 		return (display_export(gbl->env));
 	while (args != NULL)
 	{

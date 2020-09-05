@@ -5,14 +5,16 @@
 #include	<sys/wait.h>
 #include	<signal.h>
 
-# define		SIMPQ			39
-# define		DOUBQ			34
-# define		BACKS			92
-# define		ERROR_SYNTAX 	"\033[1;31mErreur de syntaxe \033[0;0m\n"
-# define		ERROR_REDIR_IN 	"\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
-# define		ERROR_FIND_CMD	"\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
-# define		IDERRONE 		"\n\033[1;31mexport: identifiant non valable\033[0;0m\n"
-#define			ERROR_GETCWD "cd : erreur de détermination du répertoire actuel : getcwd : ne \
+# define		SIMPQ				39
+# define		DOUBQ				34
+# define		BACKS				92
+# define		ERROR_SYNTAX 		"\033[1;31mErreur de syntaxe \033[0;0m\n"
+# define		ERROR_FILE_FOLDER 	"\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
+# define		ERROR_FIND_CMD		"\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
+# define		IDERRONE 			"\033[1;31mexport: identifiant non valable\033[0;0m\n"
+# define		ARGUMENTS 			"exit: trop d'arguments\n"
+# define		ARGUMENTS_NUM 		"exit: argument numérique nécessaire\n"
+#define			ERROR_GETCWD 		"cd : erreur de détermination du répertoire actuel : getcwd : ne \
 peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type"
 
 int	g_ret;
@@ -177,7 +179,7 @@ void					free_args(t_args *args);
 void					free_exit(t_semi *semi, t_env *env, char *str);
 void					ft_free_env(t_env *env);
 char					*clean_redir(char *str, char c);
-int						ft_env(t_env *env);
+int						ft_env(t_args *args, t_gbl *gbl);
 int						check_str_alpha(char *str, int len);
 void					check_line(char *str);
 int						find_fcts(t_cmds *cmd, t_gbl *gbl);
@@ -206,5 +208,6 @@ void   					ft_change_args(t_cmds *cmd, t_env *env);
 void					ft_redir_in(char *str, t_tab_redir *redir, t_gbl *gbl);
 void					ft_redir_out(char *str, t_tab_redir *redir, t_gbl *gbl);
 void					free_exit2(t_gbl *gbl, char *str);
+int   					ft_exit(t_cmds *cmd, t_gbl *gbl);
 
 #endif
