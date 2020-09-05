@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 15:08:45 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 18:14:47 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_env *env, char *cwd)
 		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="),
 		ft_strdup(ft_getenv("PWD", env)));
 	ft_change_pwd(env);
+	ft_change_path(env);
 	return (0);
 }
 

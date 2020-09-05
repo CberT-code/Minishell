@@ -185,6 +185,7 @@ void					check_line(char *str);
 int						find_fcts(t_cmds *cmd, t_gbl *gbl);
 int						ft_echo(t_args *args);
 int						ft_cd(t_args *args, t_env *env);
+void					ft_change_path(t_env *env);
 int						ft_check_cd_errors(t_env *env);
 int						ft_check_size_args_cd(t_args *args);
 char					*ft_getenv(char *str, t_env *env);
