@@ -167,7 +167,7 @@ int						replace_env(t_env *env, char *var, char *value);
 void					suppr_maillon(t_env **list, t_env *ptr);
 int						condition(char *str, char *str2);
 int						ft_unset(t_args *args, t_gbl *gbl);
-void					unset(char *str, t_env *env);
+void					unset(char *str, t_gbl *gbl);
 int						delete_var(char *var, t_env *env);
 void					ft_free(t_semi *semi);
 void					free_tab_all(char ***all);
