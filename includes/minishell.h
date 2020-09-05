@@ -11,7 +11,7 @@
 # define		ERROR_SYNTAX 		"\033[1;31mErreur de syntaxe \033[0;0m\n"
 # define		ERROR_FILE_FOLDER 	"\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
 # define		ERROR_FIND_CMD		"\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
-# define		IDERRONE 			"\n\033[1;31mexport: identifiant non valable\033[0;0m\n"
+# define		IDERRONE 			"\033[1;31mexport: identifiant non valable\033[0;0m\n"
 # define		ARGUMENTS 			"exit: trop d'arguments\n"
 # define		ARGUMENTS_NUM 		"exit: argument numérique nécessaire\n"
 #define			ERROR_GETCWD 		"cd : erreur de détermination du répertoire actuel : getcwd : ne \

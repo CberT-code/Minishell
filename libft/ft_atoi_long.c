@@ -6,14 +6,14 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 15:15:05 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 16:59:23 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 10:27:42 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long int		ft_atoi_long(const char *str)
+long long int		ft_atoi_long(const char *str)
 {
-	long int n;
-	long int result;
+	long long int n;
+	long long int result;
 
 	n = 1;
 	result = 0;

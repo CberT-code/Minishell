@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 17:14:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 10:29:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int     ft_exit(t_cmds *cmd, t_gbl *gbl)
         if (cmd->args->str[i] == '+' || cmd->args->str[i] == '-')
             i++;
         if ((!(ft_strisdigit(cmd->args->str + i))) ||
-        ft_atoi_long(cmd->args->str) > 2147483647 ||
-        ft_atoi_long(cmd->args->str) < -2147483648)
+        ft_atoi_long(cmd->args->str) > 9223372036854775807 ||
+        ft_atoi_long(cmd->args->str) < -9223372036854775807)
         {
             free_exit2(gbl, ARGUMENTS_NUM);
             return (0);
