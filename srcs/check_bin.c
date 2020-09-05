@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 13:19:22 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 17:09:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		find_fcts(t_cmds *cmd, t_gbl *gbl)
+int				find_fcts(t_cmds *cmd, t_gbl *gbl)
 {
 
 	if (strcmp(cmd->str, "echo") == 0)
@@ -37,7 +37,7 @@ int		find_fcts(t_cmds *cmd, t_gbl *gbl)
 		return (-1);
 }
 
-int		search_mybin(char *str)
+int				search_mybin(char *str)
 {
 	if (strcmp(str, "echo") == 0)
 		return (1);
@@ -57,7 +57,7 @@ int		search_mybin(char *str)
 		return (0);
 }
 
-char	*check_path(char *str, t_env *env)
+static char		*find_path(char *str, t_env *env)
 {
 	char		**tab;
 	struct stat	buf;
@@ -83,4 +83,14 @@ char	*check_path(char *str, t_env *env)
 		free(path);
 	}
 	return (NULL);
+}
+
+char			*check_path(char *str, t_env *env)
+{
+	if (ft_isfind(str, '/') != -1)
+		return (str);
+	else
+		return (find_path(str, env));
+
+	
 }

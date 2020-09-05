@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 13:19:14 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/05 17:17:30 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 	{
 		if ((path = check_path(semi->pipes->cmds.str, gbl->env)) != NULL)
 		{	
+			//printf("here we test -> |%s|\n", semi->all[j]);
 			gbl->ret = execve(path, semi->all[j], tab = list_to_tab(gbl->env));
 			free_tab(tab);
 		}
