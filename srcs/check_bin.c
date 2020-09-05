@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 11:52:34 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 12:58:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		find_fcts(t_cmds *cmd, t_gbl *gbl)
 		return (1);
 	}
 	else
-		return (0);
+		return (1);
 }
 
 int		search_mybin(char *str)

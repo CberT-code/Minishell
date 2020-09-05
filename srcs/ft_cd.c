@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 11:11:05 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 11:09:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		ft_cd(t_args *args, t_env *env)
 		return (ft_check_cd_errors(env));
 	ft_check_errors_cd2(args);
 	if (args->str[0] == '~')
-		args->str = ft_strjoin_free(ft_getenv("HOME", env), &args->str[1], 2);
+		args->str = ft_strjoin(ft_getenv("HOME", env), &args->str[1]); // a free
 	if ((ret = ft_check_errors_cd2(args)) != 2)
 		return (ret);
 	if (ft_strncmp(args->str, "-", 1) == 0)
