@@ -190,7 +190,7 @@ int						ft_pwd(void);
 int						search_mybin(char *str);
 char					*check_path(char *str, t_gbl *gbl);
 void					exec_fork(t_semi *semi, int j, t_gbl *gbl);
-int						condition_do_pipe(t_semi *semi, char *str);
+int						cond_pipe(t_semi *semi, char *str);
 void					do_dup(int j, int *pipes, t_semi *semi, t_gbl *gbl);
 void					redir_out(t_redir *redir, int *pipes, int j);
 void					wait_pipes(int nb_pipes, pid_t *pid, int *ret);
