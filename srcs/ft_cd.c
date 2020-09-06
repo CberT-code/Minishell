@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 20:50:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/06 10:30:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ int		ft_cd(t_args *args, t_env *env)
 	int		ret;
 
 	env_cpy = env;
+	//ft_check_path(env); A FAIRE 
 	if (!args || !args->str
 	|| ft_strncmp(args->str, "~", ft_strlen(args->str)) == 0)
 		return (ft_check_cd_errors(env));
-	ft_check_errors_cd2(args);
 	if (args->str[0] == '~')
 		args->str = ft_change_by_home(env, args->str);
 	if ((ret = ft_check_errors_cd2(args)) != 2)
