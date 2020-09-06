@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:22:56 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 18:14:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 10:50:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_echo(t_args *args)
+int		ft_echo(t_args *args, t_gbl *gbl)
 {
 	int flag;
 
@@ -29,7 +29,7 @@ int		ft_echo(t_args *args)
 			flag = 1;
 		else
 		{
-			args->str = ft_replace_value(args->str);
+			args->str = ft_replace_value(args->str, gbl);
 			ft_printf("%s", (args)->str);
 			if ((args)->next != NULL)
 				ft_printf(" ");

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 20:24:09 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 10:34:11 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 
 	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
-	ft_change_args(&semi->pipes->cmds, gbl->env);
+	ft_change_args(&semi->pipes->cmds, gbl);
 	tab_all(semi);
 	while (++j < nb_cmd)
 	{
@@ -70,7 +70,7 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 		semi->pipes = semi->pipes->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
-	wait_pipes(nb_cmd, pid, &g_ret);
+	wait_pipes(nb_cmd, pid, &gbl->ret);
 }
 
 int			exec_cmds(t_semi *semi, t_gbl *gbl)

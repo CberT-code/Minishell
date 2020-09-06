@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 09:56:49 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 10:44:59 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void			ft_add_path(t_env *env)
 			getcwd(cwd, 1024);
 			env->valeur = ft_strjoin_free(env->valeur, ":", 1);
 			env->valeur = ft_strjoin_free(env->valeur, cwd, 1);
+
 			return ;
 		}
 		env = env->next;

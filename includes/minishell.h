@@ -18,8 +18,6 @@
 #define			ERROR_GETCWD 		"cd : erreur de détermination du répertoire actuel : getcwd : ne \
 peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type"
 
-int	g_ret;
-pid_t	g_pid;
 typedef	struct			s_redir
 {
 	char				*str;
@@ -68,6 +66,8 @@ typedef struct			s_env
 
 typedef struct			s_gbl
 {
+	char			 	*g_path;
+	int					pid;
 	int					rep;
 	int					sta;
 	int					error;
@@ -95,9 +95,9 @@ char					**ft_tri_vartab(char **tab);
 char					*check_var(char *str);
 char					*check_value(char *str, int i);
 char					*ft_clean_spaces(char *str);
-char					*ft_envcpy(char *str, t_env *env);
+char					*ft_envcpy(char *str, t_gbl *gbl);
 int						ft_find_size_arg(char *str);
-char					*ft_replace_value(char *str);
+char					*ft_replace_value(char *str, t_gbl *gbl);
 char					*ft_replace_bashname(char *str, t_env *env);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
@@ -141,8 +141,8 @@ void					ft_simpq_len(char *str, int *i, int *len);
 void					ft_doubleq_len(char *str, t_env *env, int *i,
 		int *len);
 int						ft_envcpylen(char *str, t_env *env);
-int						ft_len_replace_value(char *str);
-void					ft_fill_replace_value(char *cpy, int *j, int *i, char c);
+int						ft_len_replace_value(char *str, t_gbl *gbl);
+int						ft_fill_replace_value(char *cpy, int *j, char c, t_gbl *gbl);
 char					*ft_check_brackets(char *str);
 int						ft_end_brackets(char *str);
 int						ft_end_brackets_doubq(char *str);
@@ -178,7 +178,7 @@ int						ft_env(t_args *args, t_gbl *gbl);
 int						check_str_alpha(char *str, int len);
 void					check_line(char *str);
 int						find_fcts(t_cmds *cmd, t_gbl *gbl);
-int						ft_echo(t_args *args);
+int						ft_echo(t_args *args, t_gbl *gbl);
 int						ft_cd(t_args *args, t_env *env);
 void					ft_change_path(t_env *env);
 int						ft_check_cd_errors(t_env *env);
@@ -199,7 +199,7 @@ char     				**list_to_tab(t_env *env);
 
 int						ft_strlen_str_quotes_backs(char *s, char *str);
 void					free_tab(char **tab);
-void   					ft_change_args(t_cmds *cmd, t_env *env);
+void   					ft_change_args(t_cmds *cmd, t_gbl *gbl);
 
 void					ft_redir_in(char *str, t_redir **redir, t_gbl *gbl);
 void					ft_redir_out(char *str, t_redir **redir, t_gbl *gbl);

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 17:53:46 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 10:51:56 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_conditions_cpy(char *str, char *cpy, t_env *env, int *j)
 	}
 }
 
-char	*ft_envcpy(char *str, t_env *env)
+char	*ft_envcpy(char *str, t_gbl *gbl)
 {
 	int		j;
 	char	*cpy;
@@ -121,11 +121,11 @@ char	*ft_envcpy(char *str, t_env *env)
 	if ((ret = ft_verif_commands(str)) == 0)
 		return (NULL);
 	str = ft_clean_brackets(str);
-	str = ft_replace_value(str);
-	str = ft_replace_bashname(str, env);
-	if (!(cpy = (char*)ft_calloc(sizeof(char), ft_envcpylen(str, env) + 1)))
+	str = ft_replace_value(str, gbl);
+	str = ft_replace_bashname(str, gbl->env);
+	if (!(cpy = (char*)ft_calloc(sizeof(char), ft_envcpylen(str, gbl->env) + 1)))
 		return (NULL);
-	ft_conditions_cpy(str, cpy, env, &j);
+	ft_conditions_cpy(str, cpy, gbl->env, &j);
 	cpy[j] = '\0';
 	ft_strdel(&str);
 	return (cpy);
