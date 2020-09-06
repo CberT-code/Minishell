@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 16:30:08 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/06 21:25:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_env			*ft_lstnew_env(char *str, char *str2, t_gbl *gbl)
 	env->var = str;
 	if (strcmp(env->var, "PWD=") == 0)
 		gbl->pwd = ft_strdup(str2);
+	if (strcmp(env->var, "PATH=") == 0)
+		gbl->path = ft_strdup(str2);
 	env->valeur = str2;
 	env->next = NULL;
 	return (env);

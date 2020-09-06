@@ -66,6 +66,7 @@ typedef struct			s_env
 
 typedef struct			s_gbl
 {
+	char				*path;
 	char			 	*pwd;
 	int					pid;
 	int					rep;

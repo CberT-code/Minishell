@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_quotes.c                                     :+:      :+:    :+:   */
+/*   clean_brackets2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 21:26:44 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/06 20:34:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_travel_brackets(char *str, int i)
 	int dollar;
 
 	dollar = 0;
-	if (str[i] == '{')
+	if (str[i] == '[')
 	{
 		if (i > 0 && str[i - 1] == '$' && ft_isbacks(str, i - 2) == 0)
 			dollar = 1;
@@ -50,7 +50,8 @@ int		ft_verif_doubq(char *str, int *i)
 		(*i)++;
 		while (ft_isquote(str, *i) != 2 && str[*i])
 		{
-			if ((ret = ft_travel_brackets(str, *i)) != 1)
+			if ((ret = ft_travel_brackets(str, *i)) != 1
+			|| (ret = ft_travel_crochets(str, *i) != 1))
 					return (0);
 			(*i)++;
 		}
@@ -91,7 +92,8 @@ int		ft_verif_commands(char *str)
 		if (ft_verif_doubq(str, &i) == 0
 		|| ft_verif_simpq(str, &i) == 0)
 			return (0);
-		if ((ret = ft_travel_brackets(str, i)) != 1)
+		if ((ret = ft_travel_brackets(str, i)) != 1
+		|| (ret = ft_travel_crochets(str, i) != 1))
 			return (0);
 	}
 	return (1);

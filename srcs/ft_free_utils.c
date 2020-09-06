@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 16:30:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/06 21:25:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	free_exit(t_semi *semi, t_gbl *gbl, char *str)
 		ft_free(first_semi);
 	ft_free_env(gbl->env);
 	ft_strdel(&gbl->pwd);
+	ft_strdel(&gbl->path);
 	exit(2);
 }
 
