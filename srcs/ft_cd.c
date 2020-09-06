@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/09/06 16:01:31 by cbertola         ###   ########.fr       */
+=======
+/*   Updated: 2020/09/06 16:12:57 by user42           ###   ########.fr       */
+>>>>>>> mike
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +127,33 @@ char	*ft_change_by_home(t_env *env, char *str)
 			cpy2 = ft_strdup(env->valeur);
 			cpy2 = ft_strjoin_free(cpy2, cpy, 3);
 			ft_strdel(&str);
+<<<<<<< HEAD
 			break ;
+=======
+			break;
+>>>>>>> mike
 		}
 		env = env->next;
 	}
 	env = first_env;
 	return (cpy2);
+<<<<<<< HEAD
+=======
+}
+
+void	ft_check_path(t_env *env, t_gbl *gbl)
+{
+	t_env *first_env;
+
+	first_env = env;
+	while (env && env->var
+	&& ft_strncmp(env->var, "PATH=", 7) != 0)
+		env = env->next;
+	if (!env)
+		ft_lstadd_back_env(&gbl->env, ft_strdup("PAT="),
+		ft_strdup(gbl->path), gbl);
+	env = first_env;
+>>>>>>> mike
 }
 
 int		ft_cd(t_args *args, t_gbl *gbl)
@@ -138,7 +163,7 @@ int		ft_cd(t_args *args, t_gbl *gbl)
 	int		ret;
 
 	env_cpy = gbl->env;
-	//ft_check_path(env); A FAIRE 
+	ft_check_path(env_cpy, gbl); 
 	if (!args || !args->str
 	|| ft_strncmp(args->str, "~", ft_strlen(args->str)) == 0)
 		return (ft_check_cd_errors(gbl->env));
