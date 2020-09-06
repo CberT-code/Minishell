@@ -6,18 +6,18 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 13:14:50 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 14:19:11 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_change_pwd(t_env *env)
+void	ft_change_pwd(t_gbl *gbl)
 {
 	t_env	*env_cpy;
 	char	cwd[1024];
 
-	env_cpy = env;
+	env_cpy = gbl->env;
 	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "PWD=", 4) != 0)
 		env_cpy = env_cpy->next;
 	getcwd(cwd, sizeof(cwd));
@@ -25,17 +25,19 @@ void	ft_change_pwd(t_env *env)
 	{
 		ft_strdel(&env_cpy->valeur);
 		env_cpy->valeur = ft_strdup(cwd);
+		ft_strdel(&gbl->pwd);
+		gbl->pwd = ft_strdup(env_cpy->valeur);
 	}
 	else
-		ft_lstadd_back_env(&env, ft_strdup("PWD="), ft_strdup(cwd));
+		ft_lstadd_back_env(&gbl->env, ft_strdup("PWD="), ft_strdup(cwd), gbl);
 }
 
-int		ft_oldpwd(t_env *env)
+int		ft_oldpwd(t_gbl *gbl)
 {
 	t_env	*env_cpy;
 	char	cwd[1024];
 
-	env_cpy = env;
+	env_cpy = gbl->env;
 	while (env_cpy && env_cpy->var
 	&& ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
 		env_cpy = env_cpy->next;
@@ -54,7 +56,7 @@ int		ft_oldpwd(t_env *env)
 			env_cpy->valeur = ft_strdup(cwd);
 		}
 		else
-			ft_lstadd_back_env(&env, ft_strdup("OLDPWD="), ft_strdup(cwd));
+			ft_lstadd_back_env(&gbl->env, ft_strdup("OLDPWD="), ft_strdup(cwd), gbl);
 	}
 	return (0);
 }
@@ -100,9 +102,8 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_gbl *gbl, char *cwd)
 	}
 	else
 		ft_lstadd_back_env(&gbl->env, ft_strdup("OLDPWD="),
-		ft_strdup(ft_getenv("PWD", gbl->env)));
-	ft_change_pwd(gbl->env);
-	ft_change_path(gbl);
+		ft_strdup(ft_getenv("PWD", gbl->env)), gbl);
+	ft_change_pwd(gbl);
 	return (0);
 }
 
@@ -145,7 +146,7 @@ int		ft_cd(t_args *args, t_gbl *gbl)
 	if ((ret = ft_check_errors_cd2(args)) != 2)
 		return (ret);
 	if (ft_strncmp(args->str, "-", 1) == 0)
-		return (ft_oldpwd(gbl->env));
+		return (ft_oldpwd(gbl));
 	if ((ret = ft_change_cd(args, env_cpy, gbl, cwd)) == 1)
 		return (1);
 	return (0);

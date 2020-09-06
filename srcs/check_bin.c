@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 13:07:39 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 14:20:51 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				search_mybin(char *str)
 		return (0);
 }
 
-static char		*find_path(char *str, t_env *env)
+static char		*find_path(char *str, t_gbl *gbl)
 {
 	char		**tab;
 	struct stat	buf;
@@ -65,35 +65,33 @@ static char		*find_path(char *str, t_env *env)
 	char		*path;
 
 	i = -1;
-	while (strcmp(env->var, "PATH=") != 0)
-		env = env->next;
-	tab = ft_split(env->valeur, ':');
+	while (strcmp(gbl->env->var, "PATH=") != 0)
+		gbl->env = gbl->env->next;
+	tab = ft_split(gbl->env->valeur, ':');
 	while (tab[++i])
 	{
 		path = ft_strjoin(tab[i], "/");
 		path = ft_strjoin_free(path, str, 1);
 		if (stat(path, &buf) == 0)
 		{
-			i = -1;
-			while (tab[++i])
-				ft_strdel(&tab[i]);
-			free(tab);
+			free_tab(tab);
 			return (path);
 		}
 		free(path);
 	}
-	i = -1;
-	while (tab[++i])
-		ft_strdel(&tab[i]);
-	return (NULL);
+	free_tab(tab);
+	path = ft_strjoin(gbl->pwd, str);
+	if (stat(path, &buf) == 0)
+		return (path);
+	return (NULL);	
 }
 
-char			*check_path(char *str, t_env *env)
+char			*check_path(char *str, t_gbl *gbl)
 {
 	if (ft_isfind(str, '/') != -1)
 		return (str);
 	else
-		return (find_path(str, env));
+		return (find_path(str, gbl));
 
 	
 }

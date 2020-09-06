@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 13:03:22 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 15:53:54 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 		exit(gbl->ret);
 	else
 	{
-		if ((path = check_path(semi->pipes->cmds.str, gbl->env)) != NULL)
+		if ((path = check_path(semi->pipes->cmds.str, gbl)) != NULL)
 		{
 			tab = list_to_tab(gbl->env);
 			gbl->ret = execve(path, semi->all[j], tab);
 			free_tab(tab);
 		}
 		else
-		{
+		{ 
 			gbl->ret = 127;
 			free_exit(semi, gbl, ERROR_FIND_CMD);
 		}
@@ -53,18 +53,20 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 
 	j = -1;
 	init_pipes(nb_cmd * 2 - 2, pipes);
-	ft_change_args(&semi->pipes->cmds, gbl);
+	if (semi->pipes->cmds.str != NULL)
+		ft_change_args(&semi->pipes->cmds, gbl);
 	tab_all(semi);
 	while (++j < nb_cmd)
 	{
-		if (condition_do_pipe(semi, semi->pipes->cmds.str))
+		if (semi->pipes->cmds.str != NULL && condition_do_pipe(semi, semi->pipes->cmds.str))
 			gbl->ret = find_fcts(&semi->pipes->cmds, gbl);
 		else
 		{
 			if (!(pid[j] = fork()))
 			{
 				do_dup(j, pipes, semi, gbl);
-				exec_fork(semi, j, gbl);
+				if (semi->pipes->cmds.str != NULL)
+					exec_fork(semi, j, gbl);
 			}
 		}
 		semi->pipes = semi->pipes->next;

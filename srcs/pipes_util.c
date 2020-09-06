@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 13:03:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 14:48:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ void	do_dup(int j, int *pipes, t_semi *semi, t_gbl *gbl)
 
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
+	if (j < semi->nb_pipes - 1 || semi->pipes->redir_out != NULL)
+	{
+		redir_out(semi->pipes->redir_out, pipes, j);
+		dup2(pipes[j * 2 + 1], 1);
+	}
 	first_redir = semi->pipes->redir_in;
 	while (semi->pipes->redir_in != NULL)
 	{
@@ -70,10 +75,5 @@ void	do_dup(int j, int *pipes, t_semi *semi, t_gbl *gbl)
 		semi->pipes->redir_in = semi->pipes->redir_in->next;
 	}
 	semi->pipes->redir_in = first_redir;
-	if (j < semi->nb_pipes - 1 || semi->pipes->redir_out != NULL)
-	{
-		redir_out(semi->pipes->redir_out, pipes, j);
-		dup2(pipes[j * 2 + 1], 1);
-	}
 	close_pipes(semi->nb_pipes * 2 - 2, pipes);
 }

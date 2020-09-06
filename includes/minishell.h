@@ -66,6 +66,7 @@ typedef struct			s_env
 
 typedef struct			s_gbl
 {
+	char			 	*pwd;
 	char			 	*path;
 	int					pid;
 	int					rep;
@@ -80,7 +81,7 @@ typedef struct			s_gbl
 t_cmds					*ft_lstnewcmds(char *str);
 t_cmds					*ft_lstlast(t_cmds *cmds);
 void					ft_lstadd_back(t_cmds **alst, char *str);
-void					ft_lstadd_back_env(t_env **alst, char *str, char *str2);
+void					ft_lstadd_back_env(t_env **alst, char *str, char *str2, t_gbl *gbl);
 t_cmds					*parsing(char *str, t_env *envp);
 int						in_quotes(char *s, int i, int in);
 int						ft_redir(char *s, char c);
@@ -187,7 +188,7 @@ char					*ft_getenv(char *str, t_env *env);
 int						ft_size_args(t_args *args);
 int						ft_pwd(void);
 int						search_mybin(char *str);
-char					*check_path(char *str, t_env *env);
+char					*check_path(char *str, t_gbl *gbl);
 void					exec_fork(t_semi *semi, int j, t_gbl *gbl);
 int						condition_do_pipe(t_semi *semi, char *str);
 void					do_dup(int j, int *pipes, t_semi *semi, t_gbl *gbl);

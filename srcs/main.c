@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 13:03:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 14:53:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ int			exec_line(t_gbl *gbl)
 	gbl->semi = NULL;
 	gbl->ret = 1;
 	split_semi(gbl);
-	count_pipe(gbl->semi);
-	new_str(gbl->semi);
-	exec_cmds(gbl->semi, gbl);
+	if (gbl->ret == 1)
+	{
+		count_pipe(gbl->semi);
+		new_str(gbl->semi);
+		exec_cmds(gbl->semi, gbl);
+	}
 	ft_free(gbl->semi);
 	gbl->line = NULL;
 	return (1);
@@ -69,6 +72,7 @@ int			main(int argc, char **argv, char **envp)
 		else if (g_gbl.rep == -1)
 			break ;
 	}
+	ft_strdel(&g_gbl.pwd);
 	ft_strdel(&g_gbl.path);
 	ft_free_env(g_gbl.env);
 	//ft_printf("exit\n");

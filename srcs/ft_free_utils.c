@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 13:05:13 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 13:50:30 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	free_exit(t_semi *semi, t_gbl *gbl, char *str)
 	if (first_semi != NULL)
 		ft_free(first_semi);
 	ft_free_env(gbl->env);
+	ft_strdel(&gbl->pwd);
 	ft_strdel(&gbl->path);
 	exit(2);
 }
