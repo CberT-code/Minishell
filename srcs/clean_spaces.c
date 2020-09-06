@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 15:18:22 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 19:15:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*ft_clean_spaces(char *str)
 	int		j;
 	char	*cpy;
 
-	if (str[0] == ' ' && ft_strlen(str) == 1)
-		return (NULL);
 	if (!(cpy = ft_calloc(sizeof(char), (ft_strlen(str) + 1))))
 		return (0);
 	i = ft_start(str);

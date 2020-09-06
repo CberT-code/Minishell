@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 16:11:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 18:11:18 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int				split_semi(t_gbl *gbl)
 	str2 = ft_clean_spaces(gbl->line);
 	while (str2[start])
 	{
-		if (str2[start] == ';' || (str2[start] == ' '
-		&& str2[start + 1] == ';'))
+		if (str2[start] == ';' || (str2[start] == ' ' && str2[start + 1] == ';'))
 			free_exit2(gbl, ERROR_SYNTAX);
 		str3 = ft_substr(str2 + start, 0,
 		ft_strlen_str_quotes_backs(str2 + start, ";"));
@@ -33,7 +32,6 @@ int				split_semi(t_gbl *gbl)
 		start += ft_strlen_str_quotes_backs(str2 + start, ";");
 		if (str2[start] == ';')
 			start++;
-		printf("here we test -> |%s|\n", str2 + start);
 	}
 	free(str2);
 	free(gbl->line);
@@ -89,6 +87,6 @@ void			cmds_args(t_cmds *cmd, char *str, t_env *env)
 	cmd->str = ft_substr(str, 0, ft_strlen_str_quotes_backs(str, " "));
 	str += ft_strlen_str_quotes_backs(str, " ");
 	if (*str == ' ')
-		str++;
+			str++;
 	cmd->args = split_args(str, env);
 }

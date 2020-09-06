@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 16:09:01 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 19:15:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 		else
 		{ 
 			gbl->ret = 127;
+			free(path);
 			free_exit(semi, gbl, ERROR_FIND_CMD);
 		}
 		free(path);
@@ -65,8 +66,9 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 			if (!(pid[j] = fork()))
 			{
 				do_dup(j, pipes, semi, gbl);
-				if (semi->pipes->cmds.str != NULL)
-					exec_fork(semi, j, gbl);
+				if (semi->pipes->cmds.str == NULL)
+					free_exit(gbl->semi, gbl, NULL);
+				exec_fork(semi, j, gbl);
 			}
 		}
 		semi->pipes = semi->pipes->next;
