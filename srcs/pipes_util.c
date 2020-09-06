@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 09:25:57 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 13:03:06 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	redir_out(t_redir *redir, int *pipes, int j)
 	redir = first_redir;
 }
 
-void	do_dup(int j, int *pipes, t_semi *semi, t_env *env)
+void	do_dup(int j, int *pipes, t_semi *semi, t_gbl *gbl)
 {
 	int		fd;
 	t_redir	*first_redir;
@@ -65,7 +65,7 @@ void	do_dup(int j, int *pipes, t_semi *semi, t_env *env)
 	while (semi->pipes->redir_in != NULL)
 	{
 		if ((fd = open(semi->pipes->redir_in->str, O_RDONLY)) < 0)
-			return (free_exit(semi, env, ERROR_FILE_FOLDER));
+			return (free_exit(semi, gbl, ERROR_FILE_FOLDER));
 		dup2(fd, 0);
 		semi->pipes->redir_in = semi->pipes->redir_in->next;
 	}

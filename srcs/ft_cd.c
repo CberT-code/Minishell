@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 10:31:25 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 13:14:50 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int		ft_check_errors_cd2(t_args *args)
 	return (2);
 }
 
-int		ft_change_cd(t_args *args, t_env *env_cpy, t_env *env, char *cwd)
+int		ft_change_cd(t_args *args, t_env *env_cpy, t_gbl *gbl, char *cwd)
 {
 	if (ft_strncmp(args->str, "$dir", 4) == 0)
 	{
 		ft_strdel(&args->str);
-		args->str = ft_strdup(ft_getenv("HOME", env));
+		args->str = ft_strdup(ft_getenv("HOME", gbl->env));
 	}
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
@@ -96,13 +96,13 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_env *env, char *cwd)
 	if (env_cpy)
 	{
 		ft_strdel(&env_cpy->valeur);
-		env_cpy->valeur = ft_strdup(ft_getenv("PWD", env));
+		env_cpy->valeur = ft_strdup(ft_getenv("PWD", gbl->env));
 	}
 	else
-		ft_lstadd_back_env(&env, ft_strdup("OLDPWD="),
-		ft_strdup(ft_getenv("PWD", env)));
-	ft_change_pwd(env);
-	ft_change_path(env);
+		ft_lstadd_back_env(&gbl->env, ft_strdup("OLDPWD="),
+		ft_strdup(ft_getenv("PWD", gbl->env)));
+	ft_change_pwd(gbl->env);
+	ft_change_path(gbl);
 	return (0);
 }
 
@@ -129,24 +129,24 @@ char	*ft_change_by_home(t_env *env, char *str)
 	return (NULL);
 }
 
-int		ft_cd(t_args *args, t_env *env)
+int		ft_cd(t_args *args, t_gbl *gbl)
 {
 	t_env	*env_cpy;
 	char	cwd[1024];
 	int		ret;
 
-	env_cpy = env;
+	env_cpy = gbl->env;
 	//ft_check_path(env); A FAIRE 
 	if (!args || !args->str
 	|| ft_strncmp(args->str, "~", ft_strlen(args->str)) == 0)
-		return (ft_check_cd_errors(env));
+		return (ft_check_cd_errors(gbl->env));
 	if (args->str[0] == '~')
-		args->str = ft_change_by_home(env, args->str);
+		args->str = ft_change_by_home(gbl->env, args->str);
 	if ((ret = ft_check_errors_cd2(args)) != 2)
 		return (ret);
 	if (ft_strncmp(args->str, "-", 1) == 0)
-		return (ft_oldpwd(env));
-	if ((ret = ft_change_cd(args, env_cpy, env, cwd)) == 1)
+		return (ft_oldpwd(gbl->env));
+	if ((ret = ft_change_cd(args, env_cpy, gbl, cwd)) == 1)
 		return (1);
 	return (0);
 }

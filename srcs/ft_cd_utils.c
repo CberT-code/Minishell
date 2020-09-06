@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 23:03:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 10:31:27 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 13:28:36 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,26 +72,26 @@ int		ft_delete_path(char *cpy)
 	return (i + 1);
 }
 
-void	ft_change_path(t_env *env)
+void	ft_change_path(t_gbl *gbl)
 {
 	t_env	*first_env;
 	char	*cpy;
 	char	cwd[1024];
 
-	first_env = env;
-	while (env)
+	first_env = gbl->env;
+	while (gbl->env)
 	{
-		if (strncmp(env->var, "PATH=", ft_strlen(env->var)) == 0)
+		if (strncmp(gbl->env->var, "PATH=", ft_strlen(gbl->env->var)) == 0)
 		{
 			getcwd(cwd, 1024);
-			cpy = ft_strdup(env->valeur);
-			ft_strdel(&env->valeur);
-			env->valeur = ft_strndup(cpy, ft_delete_path(cpy));
-			env->valeur = ft_strjoin_free(env->valeur, cwd, 1);
+			cpy = ft_strdup(gbl->env->valeur);
+			ft_strdel(&gbl->env->valeur);
+			gbl->env->valeur = ft_strndup(cpy, ft_delete_path(cpy));
+			gbl->env->valeur = ft_strjoin_free(gbl->env->valeur, cwd, 1);
 			ft_strdel(&cpy);
-			return ;
+			break ;
 		}
-		env = env->next;
+		gbl->env = gbl->env->next;
 	}
-	env = first_env;
+	gbl->env = first_env;
 }

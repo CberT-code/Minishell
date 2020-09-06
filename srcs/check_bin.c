@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 10:41:37 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 13:07:39 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				find_fcts(t_cmds *cmd, t_gbl *gbl)
 	else if (strcmp(cmd->str, "export") == 0)
 		return (ft_export(cmd->args, gbl));
 	else if (strcmp(cmd->str, "cd") == 0)
-		return (ft_cd(cmd->args, gbl->env));
+		return (ft_cd(cmd->args, gbl));
 	else if (strcmp(cmd->str, "pwd") == 0)
 		return (ft_pwd());
 	else if (strcmp(cmd->str, "unset") == 0)
@@ -30,7 +30,7 @@ int				find_fcts(t_cmds *cmd, t_gbl *gbl)
 	else if (strcmp(cmd->str, "exit") == 0)
 	{
 		ft_exit(cmd, gbl);
-		free_exit(gbl->semi, gbl->env, NULL);
+		free_exit(gbl->semi, gbl, NULL);
 		return (1);
 	}
 	else

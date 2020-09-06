@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 09:39:09 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 13:05:13 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_cmds(t_cmds *cmds)
 	free_args(cmds->args);
 }
 
-void	free_exit(t_semi *semi, t_env *env, char *str)
+void	free_exit(t_semi *semi, t_gbl *gbl, char *str)
 {
 	t_semi	*first_semi;
 
@@ -44,7 +44,8 @@ void	free_exit(t_semi *semi, t_env *env, char *str)
 		write(2, str, ft_strlen(str));
 	if (first_semi != NULL)
 		ft_free(first_semi);
-	ft_free_env(env);
+	ft_free_env(gbl->env);
+	ft_strdel(&gbl->path);
 	exit(2);
 }
 

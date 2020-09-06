@@ -66,7 +66,7 @@ typedef struct			s_env
 
 typedef struct			s_gbl
 {
-	char			 	*g_path;
+	char			 	*path;
 	int					pid;
 	int					rep;
 	int					sta;
@@ -88,7 +88,7 @@ int						len_next_word(char *str);
 int						ft_del_name(char *str);
 int						ft_in_quotes(char *str, int i);
 char					*ft_last_space(char *str);
-t_env					*ft_tab_to_list(char **tri_selectif);
+t_env					*ft_tab_to_list(char **tri_selectif, t_gbl *gbl);
 int						display_export(t_env *list);
 int						ft_tablen(char **tab);
 char					**ft_tri_vartab(char **tab);
@@ -171,7 +171,7 @@ void					free_tab_redir(t_redir *redir);
 void					free_redir(t_redir *redir);
 void					free_cmds(t_cmds *cmds);
 void					free_args(t_args *args);
-void					free_exit(t_semi *semi, t_env *env, char *str);
+void					free_exit(t_semi *semi, t_gbl *gbl, char *str);
 void					ft_free_env(t_env *env);
 char					*clean_redir(char *str, char c);
 int						ft_env(t_args *args, t_gbl *gbl);
@@ -179,8 +179,8 @@ int						check_str_alpha(char *str, int len);
 void					check_line(char *str);
 int						find_fcts(t_cmds *cmd, t_gbl *gbl);
 int						ft_echo(t_args *args, t_gbl *gbl);
-int						ft_cd(t_args *args, t_env *env);
-void					ft_change_path(t_env *env);
+int						ft_cd(t_args *args, t_gbl *gbl);
+void					ft_change_path(t_gbl *gbl);
 int						ft_check_cd_errors(t_env *env);
 int						ft_check_size_args_cd(t_args *args);
 char					*ft_getenv(char *str, t_env *env);
@@ -190,7 +190,7 @@ int						search_mybin(char *str);
 char					*check_path(char *str, t_env *env);
 void					exec_fork(t_semi *semi, int j, t_gbl *gbl);
 int						condition_do_pipe(t_semi *semi, char *str);
-void					do_dup(int j, int *pipes, t_semi *semi, t_env *env);
+void					do_dup(int j, int *pipes, t_semi *semi, t_gbl *gbl);
 void					redir_out(t_redir *redir, int *pipes, int j);
 void					wait_pipes(int nb_pipes, pid_t *pid, int *ret);
 void					close_pipes(int nb_pipes, int *pipes);
