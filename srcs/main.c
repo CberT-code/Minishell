@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 14:53:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 16:34:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int			main(int argc, char **argv, char **envp)
 			break ;
 	}
 	ft_strdel(&g_gbl.pwd);
-	ft_strdel(&g_gbl.path);
 	ft_free_env(g_gbl.env);
 	//ft_printf("exit\n");
 	return (0);

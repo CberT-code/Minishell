@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 09:59:54 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 20:12:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ int		ft_travel_brackets(char *str, int i)
 	int dollar;
 
 	dollar = 0;
-	if (i > 0 && str[i - 1] == '$')
-		dollar = 1;
-	i++;
-	while (ft_isbracket(str, i) != 1 && str[i])
-		i++;
-	if (str[i] != '}' && dollar == 1)
+	if (str[i] == '{')
 	{
-		ft_putstr_fd("Accolade manquante", 2);
-		return (0);
+		if (i > 0 && str[i - 1] == '$' && ft_isbacks(str, i - 2) == 0)
+			dollar = 1;
+		i++;
+		while (ft_isbracket(str, i) != 1 && str[i])
+			i++;
+		if (str[i] != '}' && dollar == 1)
+		{
+			ft_putstr_fd("Accolade manquante", 2);
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -47,8 +50,8 @@ int		ft_verif_doubq(char *str, int *i)
 		(*i)++;
 		while (ft_isquote(str, *i) != 2 && str[*i])
 		{
-			if (str[*i] == '{')
-				if ((ret = ft_travel_brackets(str, *i)) != 1)
+			if ((ret = ft_travel_brackets(str, *i)) != 1
+			|| (ret = ft_travel_crochets(str, *i) != 1))
 					return (0);
 			(*i)++;
 		}
@@ -89,9 +92,9 @@ int		ft_verif_commands(char *str)
 		if (ft_verif_doubq(str, &i) == 0
 		|| ft_verif_simpq(str, &i) == 0)
 			return (0);
-		if (str[i] == '{')
-			if ((ret = ft_travel_brackets(str, i)) != 1)
-				return (0);
+		if ((ret = ft_travel_brackets(str, i)) != 1
+		|| (ret = ft_travel_crochets(str, i) != 1))
+			return (0);
 	}
 	return (1);
 }
