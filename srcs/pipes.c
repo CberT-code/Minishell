@@ -6,13 +6,13 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 15:53:54 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 15:56:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int			condition_do_pipe(t_semi *semi, char *str)
+int			cond_pipe(t_semi *semi, char *str)
 {
 	if (semi->nb_pipes == 1 && semi->pipes->redir_in == NULL &&
 		semi->pipes->redir_out == NULL && search_mybin(str))
@@ -58,7 +58,7 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	tab_all(semi);
 	while (++j < nb_cmd)
 	{
-		if (semi->pipes->cmds.str != NULL && condition_do_pipe(semi, semi->pipes->cmds.str))
+		if (semi->pipes->cmds.str != NULL && cond_pipe(semi, semi->pipes->cmds.str))
 			gbl->ret = find_fcts(&semi->pipes->cmds, gbl);
 		else
 		{
