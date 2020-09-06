@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 09:27:15 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 18:25:11 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void			new_str(t_semi *semi)
 		while (semi->pipes)
 		{
 			semi->first_semi = first_semi;
-			new_str_utils(semi->pipes);
+			if (semi->pipes->cmds.str != NULL)
+				new_str_utils(semi->pipes);
 			semi->pipes = semi->pipes->next;
 		}
 		semi->pipes = first_pipe;
@@ -132,7 +133,8 @@ void			tab_all(t_semi *semi)
 	first_pipe = semi->pipes;
 	while (semi->pipes)
 	{
-		semi->all[++j] = new_tab(semi->pipes);
+		if (semi->pipes->cmds.str != NULL)
+			semi->all[++j] = new_tab(semi->pipes);
 		semi->pipes = semi->pipes->next;
 	}
 	semi->pipes = first_pipe;

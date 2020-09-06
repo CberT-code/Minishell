@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 18:41:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 18:22:55 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ void	free_redir(t_redir *redir)
 {
 	t_redir *b_last;
 
-	b_last = redir;
 	while (redir != NULL)
 	{
-		free(redir->str);
+		ft_strdel(&redir->str);
 		b_last = redir;
-		free(b_last);
 		redir = redir->next;
+		free(b_last);
 	}
 }
 
