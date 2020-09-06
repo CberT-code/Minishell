@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 23:03:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 09:45:36 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 10:31:27 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ int		ft_check_cd_errors(t_env *env)
 	if (chdir(ft_getenv("HOME=", env)) != 0)
 	{
 		ft_putendl("bash: cd: « HOME » non défini");
-		g_ret = 1;
 		return (1);
 	}
-	g_ret = 0;
 	return (0);
 }
 
