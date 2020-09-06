@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 20:50:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/06 09:46:19 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_env *env, char *cwd)
 
 char	*ft_change_by_home(t_env *env, char *str)
 {
-	t_env *first_env;
-	char *cpy;
-	char *cpy2;
+	t_env	*first_env;
+	char	*cpy;
+	char	*cpy2;
 
 	first_env = env;
 	while (env)
@@ -121,12 +121,12 @@ char	*ft_change_by_home(t_env *env, char *str)
 			cpy2 = ft_strdup(env->valeur);
 			cpy2 = ft_strjoin_free(cpy2, cpy, 3);
 			ft_strdel(&str);
-			return (cpy2);		
+			return (cpy2);
 		}
 		env = env->next;
 	}
 	env = first_env;
-	return(NULL);
+	return (NULL);
 }
 
 int		ft_cd(t_args *args, t_env *env)

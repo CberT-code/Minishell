@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 23:03:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 18:05:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/06 09:45:36 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ int		ft_delete_path(char *cpy)
 	i = ft_strlen(cpy) - 1;
 	while (i > 0 && cpy[i] != ':')
 		i--;
-	return (i + 1);	
+	return (i + 1);
 }
 
 void	ft_change_path(t_env *env)
 {
-	t_env *first_env;
-	char *cpy;
-	char cwd[1024];
+	t_env	*first_env;
+	char	*cpy;
+	char	cwd[1024];
 
 	first_env = env;
 	while (env)
@@ -91,7 +91,7 @@ void	ft_change_path(t_env *env)
 			env->valeur = ft_strndup(cpy, ft_delete_path(cpy));
 			env->valeur = ft_strjoin_free(env->valeur, cwd, 1);
 			ft_strdel(&cpy);
-			return;		
+			return ;
 		}
 		env = env->next;
 	}

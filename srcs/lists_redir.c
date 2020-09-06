@@ -6,17 +6,16 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 19:39:47 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 09:30:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_redir			*ft_lstnewredir(char *str, t_env *env, int i)
+t_redir			*ft_lstnewredir(char *str, int i)
 {
 	t_redir *redir;
-	(void)env;
-	
+
 	if (!(redir = (t_redir*)ft_calloc(sizeof(t_redir), 1)))
 		return (NULL);
 	redir->str = str;
@@ -34,11 +33,10 @@ t_redir			*ft_lstlastredir(t_redir *redir)
 	return (redir);
 }
 
-void			lstadd_back_redir(t_redir **redir, char *str, t_env *env, int i)
+void			lstadd_back_redir(t_redir **redir, char *str, int i)
 {
 	if (*redir != NULL)
-		ft_lstlastredir(*redir)->next = ft_lstnewredir(str, env, i);
+		ft_lstlastredir(*redir)->next = ft_lstnewredir(str, i);
 	else
-		*redir = ft_lstnewredir(str, env, i);
-
+		*redir = ft_lstnewredir(str, i);
 }

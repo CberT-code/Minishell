@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 16:37:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 09:39:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	free_cmds(t_cmds *cmds)
 
 void	free_exit(t_semi *semi, t_env *env, char *str)
 {
-	t_semi *first_semi;
-	(void)env;
+	t_semi	*first_semi;
+
 	if (semi != NULL)
 		first_semi = semi->first_semi;
 	else
@@ -44,7 +44,7 @@ void	free_exit(t_semi *semi, t_env *env, char *str)
 		write(2, str, ft_strlen(str));
 	if (first_semi != NULL)
 		ft_free(first_semi);
-	//ft_free_env(env);
+	ft_free_env(env);
 	exit(2);
 }
 
@@ -57,9 +57,10 @@ void	free_exit2(t_gbl *gbl, char *str)
 
 void	ft_free_env(t_env *env)
 {
-	t_env *b_last;
-	int i = 0;
+	t_env	*b_last;
+	int		i;
 
+	i = 0;
 	while (env)
 	{
 		free(env->var);

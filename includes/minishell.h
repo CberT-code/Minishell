@@ -8,6 +8,7 @@
 # define		SIMPQ				39
 # define		DOUBQ				34
 # define		BACKS				92
+# define		MAXLONG				9223372036854775807
 # define		ERROR_SYNTAX 		"\033[1;31mErreur de syntaxe \033[0;0m\n"
 # define		ERROR_FILE_FOLDER 	"\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
 # define		ERROR_FIND_CMD		"\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
@@ -115,10 +116,9 @@ t_args					*split_args(char *str, t_env *env);
 void					cmds_args(t_cmds *cmd, char *str, t_env *env);
 int						ft_strlen_str_quotes(char *s, char *str);
 t_redir				full_redir(char *str, char c, t_env *env);
-t_redir					*ft_lstnewredir(char *str, t_env *env, int i);
+t_redir					*ft_lstnewredir(char *str, int i);
 t_redir					*ft_lstlastredir(t_redir *redir);
-void					lstadd_back_redir(t_redir **redir, char *str,
-		t_env *env, int i);
+void					lstadd_back_redir(t_redir **redir, char *str, int i);
 int						ft_isbacks(char *str, int i);
 int						ft_isquote(char *str, int i);
 int						ft_isbracket(char *str, int i);

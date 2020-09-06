@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:59:44 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/04 11:46:14 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 10:03:29 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,3 @@ int		check_str_digitspace(char *str)
 	}
 	return (1);
 }
-

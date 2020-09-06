@@ -6,45 +6,44 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 10:09:42 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/03 13:07:40 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 09:33:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int        list_size(t_env *env)
+static int			list_size(t_env *env)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (env)
-    {
-        i++;
-        env = env->next;
-    }
-    return (i);
-
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
 }
 
-char       **list_to_tab(t_env *env)
+char				**list_to_tab(t_env *env)
 {
-    char    **tab;
-    int     i;
-    t_env   *first_env;
+	char	**tab;
+	int		i;
+	t_env	*first_env;
 
-    first_env = env;
-    if (!(tab = ft_calloc(sizeof(char *), (list_size(env) + 2))))
-        return (NULL);
-    i = 0;
-    while (env)
-    {
-        if (env->valeur != NULL)
-            tab[i] = ft_strjoin(env->var, env->valeur);
-        else
-            tab[i] = ft_strdup(env->var);
-        i++;
-        env = env->next;
-    }
-    env = first_env;
-    return (tab);
+	first_env = env;
+	if (!(tab = ft_calloc(sizeof(char *), (list_size(env) + 2))))
+		return (NULL);
+	i = 0;
+	while (env)
+	{
+		if (env->valeur != NULL)
+			tab[i] = ft_strjoin(env->var, env->valeur);
+		else
+			tab[i] = ft_strdup(env->var);
+		i++;
+		env = env->next;
+	}
+	env = first_env;
+	return (tab);
 }

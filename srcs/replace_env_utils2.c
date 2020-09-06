@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/05 21:37:24 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 09:20:51 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,8 @@ int		ft_len_bashname(char *str, t_env *env)
 	first_env = env;
 	while (str[++i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$'
-		&& (str[i + 1] == '0' || str[i + 1] == '$')
-		&& ft_isbacks(str, i - 1) == 0)
+		if (i < ft_strlen(str) - 1 && str[i] == '$' && (str[i + 1] == '0'
+		|| str[i + 1] == '$') && ft_isbacks(str, i - 1) == 0)
 		{
 			while (env)
 			{

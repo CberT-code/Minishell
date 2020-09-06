@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 20:23:08 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 09:25:57 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ void	redir_out(t_redir *redir, int *pipes, int j)
 	while (redir != NULL)
 	{
 		if (redir->ind == 1)
-			pipes[j * 2 + 1] = open(redir->str, O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+			pipes[j * 2 + 1] = open(redir->str,
+			O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
 		else
-			pipes[j * 2 + 1] = open(redir->str, O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
+			pipes[j * 2 + 1] = open(redir->str,
+			O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
 		redir = redir->next;
 	}
 	redir = first_redir;
@@ -56,7 +58,7 @@ void	do_dup(int j, int *pipes, t_semi *semi, t_env *env)
 {
 	int		fd;
 	t_redir	*first_redir;
-	
+
 	if (j > 0)
 		dup2(pipes[j * 2 - 2], 0);
 	first_redir = semi->pipes->redir_in;

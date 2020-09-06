@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lists_semi.c                                    :+:      :+:    :+:   */
+/*   lists_semicol.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/08/31 11:59:58 by cbertola         ###   ########.fr       */
+/*   Created: 2020/09/06 09:27:40 by cbertola          #+#    #+#             */
+/*   Updated: 2020/09/06 09:27:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_semi	*ft_lstnewsemi(t_gbl *gbl, char *str)
+t_semi		*ft_lstnewsemi(t_gbl *gbl, char *str)
 {
 	t_semi *semi;
 
@@ -24,7 +24,7 @@ t_semi	*ft_lstnewsemi(t_gbl *gbl, char *str)
 	return (semi);
 }
 
-t_semi	*ft_lstlastsemi(t_semi *semi)
+t_semi		*ft_lstlastsemi(t_semi *semi)
 {
 	if (!semi)
 		return (NULL);

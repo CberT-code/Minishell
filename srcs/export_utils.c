@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 21:53:15 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 10:08:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int			display_export(t_env *env)
 		}
 		if (env->valeur == NULL && env->var[ft_strlen(env->var) - 1] == '=')
 			write(1, "\"\"", 2);
-		else if (env->valeur == NULL && env->var[ft_strlen(env->var) - 1] != '=')
-			write(1, "=\"\"", 3);
 		write(1, "\n", 1);
 		env = env->next;
 	}

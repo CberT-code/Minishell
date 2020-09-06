@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/04 11:32:05 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 09:27:15 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				count_pipe(t_semi *semi)
 {
-	t_semi	*first_semi;
+	t_semi		*first_semi;
 	t_pipes		*first_pipes;
 	int			i;
 
@@ -77,7 +77,7 @@ static void		new_str_utils(t_pipes *pipes)
 void			new_str(t_semi *semi)
 {
 	t_pipes		*first_pipe;
-	t_semi	*first_semi;
+	t_semi		*first_semi;
 
 	first_semi = semi;
 	while (semi != NULL)
@@ -126,14 +126,14 @@ void			tab_all(t_semi *semi)
 	t_pipes		*first_pipe;
 	int			j;
 
-		j = -1;
-		if (!(semi->all = ft_calloc(sizeof(char **), semi->nb_pipes + 1)))
-			return ;
-		first_pipe = semi->pipes;
-		while (semi->pipes)
-		{
-			semi->all[++j] = new_tab(semi->pipes);
-			semi->pipes = semi->pipes->next;
-		}
-		semi->pipes = first_pipe;
+	j = -1;
+	if (!(semi->all = ft_calloc(sizeof(char **), semi->nb_pipes + 1)))
+		return ;
+	first_pipe = semi->pipes;
+	while (semi->pipes)
+	{
+		semi->all[++j] = new_tab(semi->pipes);
+		semi->pipes = semi->pipes->next;
+	}
+	semi->pipes = first_pipe;
 }

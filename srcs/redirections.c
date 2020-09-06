@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 19:30:53 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 09:29:37 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_space_end(char *str, t_gbl *gbl)
 int		ft_check_redirs(char *str, char redir)
 {
 	int i;
-	
+
 	i = 0;
 	while (str[i] == redir && str[i])
 		i++;
@@ -41,7 +41,7 @@ void	ft_redir_in(char *str, t_redir **redir, t_gbl *gbl)
 	while (str[i])
 	{
 		if (str[i] == '<' && ft_isbacks(str, i - 1) == 0)
-		{	
+		{
 			if (ft_check_redirs(&str[++i], '<') > 0)
 				free_exit2(gbl, ERROR_SYNTAX);
 			else
@@ -49,7 +49,7 @@ void	ft_redir_in(char *str, t_redir **redir, t_gbl *gbl)
 				check_space_end(&str[i], gbl);
 				str += str[i] == ' ' ? 1 : 0;
 				lstadd_back_redir(redir, ft_substr(&str[i], 0,
-				ft_strlen_str_quotes_backs(&str[i], " ")), gbl->env, 1);
+				ft_strlen_str_quotes_backs(&str[i], " ")), 1);
 			}
 			i++;
 			i += ft_strlen_str_quotes_backs(&str[i], " ");
@@ -59,7 +59,7 @@ void	ft_redir_in(char *str, t_redir **redir, t_gbl *gbl)
 	}
 }
 
-int 	ft_simp_redir_out (char *str, t_redir **redir, t_gbl *gbl)
+int		ft_simp_redir_out(char *str, t_redir **redir, t_gbl *gbl)
 {
 	int i;
 
@@ -67,11 +67,11 @@ int 	ft_simp_redir_out (char *str, t_redir **redir, t_gbl *gbl)
 	check_space_end(str, gbl);
 	i += str[i] == ' ' ? 1 : 0;
 	lstadd_back_redir(redir, ft_substr(&str[i], 0,
-	ft_strlen_str_quotes_backs(&str[i], " ")), gbl->env, 1);
+	ft_strlen_str_quotes_backs(&str[i], " ")), 1);
 	return (i);
 }
 
-int 	ft_doub_redir_out (char *str, t_redir **redir, t_gbl *gbl)
+int		ft_doub_redir_out(char *str, t_redir **redir, t_gbl *gbl)
 {
 	int i;
 
@@ -80,7 +80,7 @@ int 	ft_doub_redir_out (char *str, t_redir **redir, t_gbl *gbl)
 	i++;
 	i += str[i] == ' ' ? 1 : 0;
 	lstadd_back_redir(redir, ft_substr(&str[i], 0,
-	ft_strlen_str_quotes_backs(&str[i], " ")), gbl->env, 2);
+	ft_strlen_str_quotes_backs(&str[i], " ")), 2);
 	return (i);
 }
 
@@ -92,7 +92,7 @@ void	ft_redir_out(char *str, t_redir **redir, t_gbl *gbl)
 	while (str[i])
 	{
 		if (str[i] == '>' && ft_isbacks(str, i - 1) == 0)
-		{	
+		{
 			if (ft_check_redirs(&str[++i], '>') == 1)
 				i += ft_doub_redir_out(&str[i], redir, gbl);
 			else if (ft_check_redirs(&str[i], '>') > 1)

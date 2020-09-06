@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 15:50:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/06 09:56:49 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ void			ft_lstadd_back_env(t_env **alst, char *str, char *str2)
 void			ft_shlvl(t_env *env)
 {
 	t_env	*first;
-	int 	i;
-	char 	*str;
+	int		i;
+	char	*str;
 
 	first = env;
 	while (env)
 	{
 		if (ft_strcmp(env->var, "SHLVL=") == 0)
 		{
-			if ((i = ft_atoi(env->valeur)) < -1 || !ft_strisdigit(env->valeur + 1))
+			if ((i = ft_atoi(env->valeur)) < -1 ||
+			!ft_strisdigit(env->valeur + 1))
 			{
 				if (!ft_strisdigit(env->valeur + 1))
 					str = ft_strdup("0");
@@ -70,30 +71,30 @@ void			ft_shlvl(t_env *env)
 	env = first;
 }
 
-void	ft_modif_shell(t_env *env)
+void			ft_modif_shell(t_env *env)
 {
-	t_env *first_env;
-	char cwd[1024];
+	t_env	*first_env;
+	char	cwd[1024];
 
 	first_env = env;
-	while(env)
+	while (env)
 	{
 		if (strncmp(env->var, "SHELL=", ft_strlen(env->var)) == 0)
 		{
 			getcwd(cwd, 1024);
 			ft_strdel(&env->valeur);
 			env->valeur = ft_strjoin(cwd, "/minishell");
-			return;		
+			return ;
 		}
 		env = env->next;
 	}
 	env = first_env;
 }
 
-void	ft_add_path(t_env *env)
+void			ft_add_path(t_env *env)
 {
-	t_env *first_env;
-	char cwd[1024];
+	t_env	*first_env;
+	char	cwd[1024];
 
 	first_env = env;
 	while (env)
@@ -103,7 +104,7 @@ void	ft_add_path(t_env *env)
 			getcwd(cwd, 1024);
 			env->valeur = ft_strjoin_free(env->valeur, ":", 1);
 			env->valeur = ft_strjoin_free(env->valeur, cwd, 1);
-			return;		
+			return ;
 		}
 		env = env->next;
 	}
