@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 17:43:07 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 17:44:06 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,18 +123,12 @@ char	*ft_change_by_home(t_env *env, char *str)
 			cpy2 = ft_strdup(env->valeur);
 			cpy2 = ft_strjoin_free(cpy2, cpy, 3);
 			ft_strdel(&str);
-<<<<<<< HEAD
-			break ;
-=======
 			break;
->>>>>>> mike
 		}
 		env = env->next;
 	}
 	env = first_env;
 	return (cpy2);
-<<<<<<< HEAD
-=======
 }
 
 void	ft_check_path(t_env *env, t_gbl *gbl)
@@ -149,7 +143,6 @@ void	ft_check_path(t_env *env, t_gbl *gbl)
 		ft_lstadd_back_env(&gbl->env, ft_strdup("PAT="),
 		ft_strdup(gbl->path), gbl);
 	env = first_env;
->>>>>>> mike
 }
 
 int		ft_cd(t_args *args, t_gbl *gbl)
