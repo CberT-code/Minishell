@@ -207,4 +207,9 @@ void					ft_redir_out(char *str, t_redir **redir, t_gbl *gbl);
 void					free_exit2(t_gbl *gbl, char *str);
 int   					ft_exit(t_cmds *cmd, t_gbl *gbl);
 
+void					ft_simpq_cpy_all(char *str, char *cpy, int *i, int *j);
+int						ft_verif_crochets(char *str, t_env *env);
+int						ft_iscrochet(char *str, int i);
+char					*ft_replace_crochets(char *str);
+
 #endif

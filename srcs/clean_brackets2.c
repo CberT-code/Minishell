@@ -6,95 +6,92 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 20:34:36 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/07 18:14:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_isbracket(char *str, int i)
+int		ft_iscrochet(char *str, int i)
 {
-	if (i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == '}')
+	if (i > 0 && ft_isbacks(str, i - 1) == 0 && str[i] == ']')
 		return (1);
 	return (0);
 }
 
-int		ft_travel_brackets(char *str, int i)
+int		ft_verif_word(char *str, t_env *env)
 {
-	int dollar;
-
-	dollar = 0;
-	if (str[i] == '[')
+	t_env *first_env;
+	
+	first_env = env;
+	while (env)
 	{
-		if (i > 0 && str[i - 1] == '$' && ft_isbacks(str, i - 2) == 0)
-			dollar = 1;
+		if (ft_strncmp(str, env->var, ft_strlen(str)) == 0
+		&& ft_strncmp(env->var, str, ft_strlen(env->var) - 1) == 0)
+		{
+			ft_putstr_fd("erreur de syntaxe : opérande attendu.", 2);
+			ft_strdel(&str);
+			return (-1);
+		}
+		env = env->next;
+	}
+	env = first_env;
+	ft_strdel(&str);
+	return (1);
+}
+
+int		ft_travel_crochets(char *str, t_env *env)
+{
+	int i;
+	char *cpy;
+
+	i = 1;
+	while (ft_iscrochet(str, i) != 1 && str[i])
+	{
+		if (ft_isdigit(str[i]) == 0 && ft_isalpha(str[i]) == 0)
+		{
+			ft_putstr_fd("Caractère incorrect entre crochets.", 2);
+			return (-1);
+		}
 		i++;
-		while (ft_isbracket(str, i) != 1 && str[i])
-			i++;
-		if (str[i] != '}' && dollar == 1)
-		{
-			ft_putstr_fd("Accolade manquante", 2);
-			return (0);
-		}
 	}
-	return (1);
+	if (str[i] != ']')
+	{
+		ft_putstr_fd("Crochet manquant.", 2);
+		return (-1);
+	}
+	cpy = ft_strndup(&str[1], i - 1);
+	if (ft_verif_word(cpy, env) == -1)
+		return (-1);
+	return (i);
 }
 
-int		ft_verif_doubq(char *str, int *i)
+void	ft_travel_simpq(char *str, int *i)
 {
-	int ret;
-
-	ret = 1;
-	if (str[*i] == DOUBQ && ft_isbacks(str, (*i) - 1) == 0)
+	if (str[*i] == SIMPQ && ft_isbacks(str, *i - 1) == 0)
 	{
 		(*i)++;
-		while (ft_isquote(str, *i) != 2 && str[*i])
-		{
-			if ((ret = ft_travel_brackets(str, *i)) != 1
-			|| (ret = ft_travel_crochets(str, *i) != 1))
-					return (0);
+		while (ft_isquote(str, *i) != 1 && str[*i])
 			(*i)++;
-		}
-		if (str[(*i)] != DOUBQ)
-		{
-			ft_putstr_fd("Double quote manquante", 2);
-			return (0);
-		}
 	}
-	return (1);
 }
 
-int		ft_verif_simpq(char *str, int *i)
-{
-	if (str[*i] == SIMPQ && ft_isbacks(str, (*i) - 1) == 0)
-	{
-		(*i)++;
-		while (ft_isquote(str, *i) != 2 && str[*i])
-			(*i)++;
-		if (str[(*i) - 1] != SIMPQ)
-		{
-			ft_putstr_fd("Simple quote manquante", 2);
-			return (0);
-		}
-	}
-	return (1);
-}
-
-int		ft_verif_commands(char *str)
+int		ft_verif_crochets(char *str, t_env *env)
 {
 	int i;
 	int ret;
 
 	i = -1;
-	ret = 1;
+	ret = 0;
 	while (str[++i])
 	{
-		if (ft_verif_doubq(str, &i) == 0
-		|| ft_verif_simpq(str, &i) == 0)
+		ft_travel_simpq(str, &i);
+		if (i >  0 && str[i] == '['
+		&& str[i -1] == '$' && ft_isbacks(str, i - 2) == 0)
+			ret = ft_travel_crochets(&str[i], env);
+		if (ret == -1)
 			return (0);
-		if ((ret = ft_travel_brackets(str, i)) != 1
-		|| (ret = ft_travel_crochets(str, i) != 1))
-			return (0);
+		i += ret;
 	}
 	return (1);
 }
