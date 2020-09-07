@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 00:18:32 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 00:18:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ char	*ft_envcpy(char *str, t_gbl *gbl)
 	if ((ret = ft_verif_commands(str)) == 0 || (ret = ft_verif_crochets(str, gbl->env)) == 0)
 		return (NULL);
 	str = ft_clean_brackets(str);
-	//str = ft_replace_value(str, gbl);
-	//str = ft_replace_crochets(str);
-	//str = ft_replace_bashname(str, gbl->env);
+	str = ft_replace_value(str, gbl);
+	str = ft_replace_crochets(str);
+	str = ft_replace_bashname(str, gbl->env);
 	if (!(cpy = (char*)ft_calloc(sizeof(char), ft_envcpylen(str, gbl->env) + 1)))
 		return (NULL);
 	ft_conditions_cpy(str, cpy, gbl->env, &j);
