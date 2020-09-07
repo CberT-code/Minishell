@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 13:17:02 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/06 21:13:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,5 @@ int			ft_export(t_args *args, t_gbl *gbl)
 		args = args->next;
 	}
 	args = first_arg;
-	return (0);
+	return (gbl->ret);
 }
