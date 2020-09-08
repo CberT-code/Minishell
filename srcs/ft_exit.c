@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 16:56:49 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 17:14:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_exit(t_cmds *cmd, t_gbl *gbl)
 		if (cmd->args->str[0] == '+' || cmd->args->str[0] == '-')
 		{
 			ret = ft_atoi_long(cmd->args->str + 1);
-			printf("here we test -> %lld\n", ret);
+			//printf("here we test -> %lld\n", ret);
 		}
 		else
 			ret = ft_atoi_long(cmd->args->str);
