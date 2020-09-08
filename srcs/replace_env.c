@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 00:18:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 08:40:01 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,6 @@ char	*ft_envcpy(char *str, t_gbl *gbl)
 		return (NULL);
 	ft_conditions_cpy(str, cpy, gbl->env, &j);
 	cpy[j] = '\0';
-	//ft_strdel(&str);
+	ft_strdel(&str);
 	return (cpy);
 }
