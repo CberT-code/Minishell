@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 22:28:43 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:29:30 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define BACKS				92
 # define MAXLONG			9223372036854775807
 # define ERROR_SYNTAX "\033[1;31mErreur de syntaxe \033[0;0m\n"
-# define FILE_FOLDER "\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
+# define ERROR_FF "\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
 # define ERROR_CMD "\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
 # define IDERRONE "\033[1;31mexport: identifiant non valable\033[0;0m\n"
 # define ARGUMENTS "exit: trop d'arguments\n"
