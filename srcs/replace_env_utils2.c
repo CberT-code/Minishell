@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 10:48:24 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/07 19:51:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int		ft_len_replace_value(char *str, t_gbl *gbl)
 	cpy = NULL;
 	while (str[++i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$'
+		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
+			ft_simpq_len(str, &i, &len);
+		else if (i < ft_strlen(str) - 1 && str[i] == '$'
 		&& (str[i + 1] == '?' || str[i + 1] == '$')
 		&& ft_isbacks(str, i - 1) == 0)
 		{
@@ -62,11 +64,13 @@ char	*ft_replace_value(char *str, t_gbl *gbl)
 
 	if (!(cpy = (char*)malloc(sizeof(char) * (ft_len_replace_value(str, gbl) + 1))))
 		return (NULL);
-	i = 0;
+	i = -1;
 	j = 0;
-	while (str[i])
+	while (str[++i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$'
+		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
+			ft_simpq_cpy_all(str, cpy, &i, &j);
+		else if (i < ft_strlen(str) - 1 && str[i] == '$'
 		&& str[i + 1] == '?' && ft_isbacks(str, i - 1) == 0)
 			i += ft_fill_replace_value(&cpy[0], &j, '?',gbl);
 		else if (i < ft_strlen(str) - 1 && str[i] == '$'
@@ -74,7 +78,6 @@ char	*ft_replace_value(char *str, t_gbl *gbl)
 			i += ft_fill_replace_value(&cpy[0], &j, '$', gbl);
 		else
 			cpy[j++] = str[i];
-		i++;
 	}
 	cpy[j] = '\0';
 	ft_strdel(&str);
@@ -92,7 +95,9 @@ int		ft_len_bashname(char *str, t_env *env)
 	first_env = env;
 	while (str[++i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$' && (str[i + 1] == '0'
+		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
+			ft_simpq_len(str, &i, &len);
+		else if (i < ft_strlen(str) - 1 && str[i] == '$' && (str[i + 1] == '0'
 		|| str[i + 1] == '$') && ft_isbacks(str, i - 1) == 0)
 		{
 			while (env)
@@ -144,7 +149,9 @@ char	*ft_replace_bashname(char *str, t_env *env)
 	j = 0;
 	while (str[i])
 	{
-		if (i < ft_strlen(str) - 1 && str[i] == '$'
+		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
+			ft_simpq_cpy_all(str, cpy, &i, &j);
+		else if (i < ft_strlen(str) - 1 && str[i] == '$'
 		&& str[i + 1] == '0' && ft_isbacks(str, i - 1) == 0)
 			ft_fill_replace_bashname(&cpy[0], &j, &i, env);
 		else

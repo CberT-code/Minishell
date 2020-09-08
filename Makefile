@@ -10,8 +10,8 @@ INCS = $(addprefix -I,$(INCS_PATH)) -I./libft/ -I/usr/local/include
 
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
-SRCS_NAME= 		echo.c env.c env_list.c export.c \
-				export_utils.c ft_cd.c ft_cd_utils.c \
+SRCS_NAME= 		echo.c env.c env_list.c export.c clean_brackets2.c\
+				export_utils.c ft_cd.c ft_cd_utils.c replace_env_utils3.c\
 				ft_pwd.c unset.c ft_tri_lst.c lists_args.c \
 				lists_pipes.c lists_redir.c lists_semicol.c \
 				lists_utils.c check_bin.c check_var.c clean_backs.c \
