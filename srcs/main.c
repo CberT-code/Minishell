@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 20:13:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 16:41:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void		sig_handler(int sig)
 int			exec_line(t_gbl *gbl)
 {
 	gbl->semi = NULL;
-	gbl->ret = 1;
+	gbl->error = 0;
 	split_semi(gbl);
-	if (gbl->ret == 1)
+	if (gbl->error == 0)
 	{
 		count_pipe(gbl->semi);
 		new_str(gbl->semi);
@@ -61,6 +61,7 @@ int			main(int argc, char **argv, char **envp)
 		return (1);
 	g_gbl.line = NULL;
 	g_gbl.env = ft_tab_to_list(envp, &g_gbl);
+	g_gbl.argc = argc;
 	//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{
@@ -73,6 +74,7 @@ int			main(int argc, char **argv, char **envp)
 			break ;
 	}
 	ft_strdel(&g_gbl.pwd);
+	ft_strdel(&g_gbl.path);
 	ft_free_env(g_gbl.env);
 	//ft_printf("exit\n");
 	return (0);

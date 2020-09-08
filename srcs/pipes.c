@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/07 21:39:08 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 09:48:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 		else
 		{ 
 			gbl->ret = 127;
-			free(path);
+			ft_strdel(&path);
 			free_exit(semi, gbl, ERROR_FIND_CMD);
 		}
 		free(path);
@@ -75,6 +75,8 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, &gbl->ret);
+	gbl->ret = gbl->ret == 256 ? 1 : gbl->ret;
+	gbl->ret = gbl->ret == 65280 ? 126 : gbl->ret;
 }
 
 int			exec_cmds(t_semi *semi, t_gbl *gbl)

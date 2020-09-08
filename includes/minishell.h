@@ -15,8 +15,8 @@
 # define		IDERRONE 			"\033[1;31mexport: identifiant non valable\033[0;0m\n"
 # define		ARGUMENTS 			"exit: trop d'arguments\n"
 # define		ARGUMENTS_NUM 		"exit: argument numérique nécessaire\n"
-#define			ERROR_GETCWD 		"cd : erreur de détermination du répertoire actuel : getcwd : ne \
-peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type"
+# define			ERROR_GETCWD 		"cd : erreur de détermination du répertoire actuel : getcwd : ne \
+peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type\n"
 
 typedef	struct			s_redir
 {
@@ -73,6 +73,7 @@ typedef struct			s_gbl
 	int					sta;
 	int					error;
 	int					ret;
+	int					argc;
 	char				*line;
 	t_semi				*semi;
 	t_env				*env;
@@ -211,5 +212,8 @@ void					ft_simpq_cpy_all(char *str, char *cpy, int *i, int *j);
 int						ft_verif_crochets(char *str, t_env *env);
 int						ft_iscrochet(char *str, int i);
 char					*ft_replace_crochets(char *str);
+int						ft_verif_paranthesis(char *str);
+void					ft_travel_simpq(char *str, int *i);
+char					*ft_replace_value2(char *str, t_gbl *gbl);
 
 #endif

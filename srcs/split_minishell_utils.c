@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 10:34:25 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 09:17:38 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,12 @@ void		ft_change_args(t_cmds *cmd, t_gbl *gbl)
 	{
 		cpy = cmd->str;
 		cmd->str = ft_envcpy(cpy, gbl);
-		free(cpy);
 	}
 	first_arg = args;
 	while (args)
 	{
 		cpy = args->str;
 		args->str = ft_envcpy(cpy, gbl);
-		free(cpy);
 		args = args->next;
 	}
 	args = first_arg;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:22:56 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/07 18:44:48 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 08:27:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int		ft_echo(t_args *args, t_gbl *gbl)
 	}
 	if (flag == 0)
 		ft_printf("\n");
-	return (0);
+	return (gbl->ret = 0);
 }

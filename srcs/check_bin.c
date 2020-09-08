@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 14:20:51 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 09:48:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				search_mybin(char *str)
 		return (0);
 }
 
-static char		*find_path(char *str, t_gbl *gbl)
+static char		*find_path(char *str, t_gbl *gbl, t_env *env)
 {
 	char		**tab;
 	struct stat	buf;
@@ -65,9 +65,8 @@ static char		*find_path(char *str, t_gbl *gbl)
 	char		*path;
 
 	i = -1;
-	while (strcmp(gbl->env->var, "PATH=") != 0)
-		gbl->env = gbl->env->next;
-	tab = ft_split(gbl->env->valeur, ':');
+	
+	tab = ft_split(env->valeur, ':');
 	while (tab[++i])
 	{
 		path = ft_strjoin(tab[i], "/");
@@ -77,9 +76,10 @@ static char		*find_path(char *str, t_gbl *gbl)
 			free_tab(tab);
 			return (path);
 		}
-		free(path);
+		ft_strdel(&path);
 	}
 	free_tab(tab);
+	ft_strdel(&path);
 	path = ft_strjoin(gbl->pwd, str);
 	if (stat(path, &buf) == 0)
 		return (path);
@@ -88,10 +88,20 @@ static char		*find_path(char *str, t_gbl *gbl)
 
 char			*check_path(char *str, t_gbl *gbl)
 {
+	t_env 	*env_first;
+	char	*ret;
+
+	env_first = gbl->env;
 	if (ft_isfind(str, '/') != -1)
 		return (str);
 	else
-		return (find_path(str, gbl));
+	{
+		while (strcmp(gbl->env->var, "PATH=") != 0)
+			gbl->env = gbl->env->next;
+		ret = find_path(str, gbl, gbl->env);
+		gbl->env = env_first;
+		return (ret);
+	}
 
 	
 }
