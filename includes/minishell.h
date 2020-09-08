@@ -211,5 +211,6 @@ void					ft_simpq_cpy_all(char *str, char *cpy, int *i, int *j);
 int						ft_verif_crochets(char *str, t_env *env);
 int						ft_iscrochet(char *str, int i);
 char					*ft_replace_crochets(char *str);
+void					free_exit_int(t_semi *semi, t_gbl *gbl, char *str, int res);
 
 #endif

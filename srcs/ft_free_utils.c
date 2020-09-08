@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/07 21:56:39 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 15:36:42 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,24 @@ void	free_exit(t_semi *semi, t_gbl *gbl, char *str)
 	ft_strdel(&gbl->pwd);
 	ft_strdel(&gbl->path);
 	exit(0);
+}
+
+void	free_exit_int(t_semi *semi, t_gbl *gbl, char *str, int res)
+{
+	t_semi	*first_semi;
+
+	if (semi != NULL)
+		first_semi = semi->first_semi;
+	else
+		first_semi = semi;
+	if (str != NULL)
+		write(2, str, ft_strlen(str));
+	if (first_semi != NULL)
+		ft_free(first_semi);
+	ft_free_env(gbl->env);
+	ft_strdel(&gbl->pwd);
+	ft_strdel(&gbl->path);
+	exit(res);
 }
 
 void	free_exit2(t_gbl *gbl, char *str)

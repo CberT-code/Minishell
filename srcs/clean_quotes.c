@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/07 13:39:16 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 12:35:37 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_verif_doubq(char *str, int *i)
 		}
 		if (str[(*i)] != DOUBQ)
 		{
-			ft_putstr_fd("Double quote manquante", 2);
+			ft_putstr_fd("Double quote manquante.\n", 2);
 			return (0);
 		}
 	}
@@ -72,7 +72,7 @@ int		ft_verif_simpq(char *str, int *i)
 			(*i)++;
 		if (str[(*i) - 1] != SIMPQ)
 		{
-			ft_putstr_fd("Simple quote manquante", 2);
+			ft_putstr_fd("Simple quote manquante\n.", 2);
 			return (0);
 		}
 	}

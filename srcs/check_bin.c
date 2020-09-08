@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 09:48:25 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 15:37:39 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int				find_fcts(t_cmds *cmd, t_gbl *gbl)
 {
+	int res;
 
 	if (strcmp(cmd->str, "echo") == 0)
 		return (ft_echo(cmd->args, gbl));
@@ -29,9 +30,10 @@ int				find_fcts(t_cmds *cmd, t_gbl *gbl)
 		return (ft_unset(cmd->args, gbl));
 	else if (strcmp(cmd->str, "exit") == 0)
 	{
-		ft_exit(cmd, gbl);
-		free_exit(gbl->semi, gbl, NULL);
-		return (1);
+		res = ft_exit(cmd, gbl);
+		free_exit_int(gbl->semi, gbl, NULL, res);
+		printf("here we test res -> |%d|\n", res);
+		return (res);
 	}
 	else
 		return (-1);
@@ -83,6 +85,7 @@ static char		*find_path(char *str, t_gbl *gbl, t_env *env)
 	path = ft_strjoin(gbl->pwd, str);
 	if (stat(path, &buf) == 0)
 		return (path);
+	ft_strdel(&path);
 	return (NULL);	
 }
 

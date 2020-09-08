@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/07 21:34:21 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 13:16:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void		sig_handler(int sig)
 		g_gbl.rep = 130;
 		g_gbl.sta = 1;
 	}
-	if (sig == SIGQUIT && (!g_gbl.line || (g_gbl.line
-					&& ft_strlen(g_gbl.line) == 0)))
+	if (sig == SIGQUIT && (!g_gbl.line ||
+	(g_gbl.line && ft_strlen(g_gbl.line) == 0)))
 		ft_printf("\b\b  \b\b");
 	else if (sig == SIGQUIT && g_gbl.line && ft_strlen(g_gbl.line) > 0)
 	{
-		ft_free(g_gbl.semi);
 		ft_printf("Quitter (core dumped)\n");
 		kill(1, SIGINT);
 	}
@@ -45,6 +44,7 @@ int			exec_line(t_gbl *gbl)
 		exec_cmds(gbl->semi, gbl);
 	}
 	ft_free(gbl->semi);
+	free(gbl->line);
 	gbl->line = NULL;
 	return (1);
 }
@@ -55,11 +55,11 @@ int			main(int argc, char **argv, char **envp)
 	// g_pid = fork();
 	// kill(g_pid, SIGKILL);
 	ft_bzero(&g_gbl, sizeof(t_gbl));
+	g_gbl.line = NULL;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	if (argc <= 0 || !argv[0])
 		return (1);
-	g_gbl.line = NULL;
 	g_gbl.env = ft_tab_to_list(envp, &g_gbl);
 	//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
