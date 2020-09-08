@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 21:10:55 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/07 21:34:21 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void		sig_handler(int sig)
 int			exec_line(t_gbl *gbl)
 {
 	gbl->semi = NULL;
+	gbl->error = 0;
 	split_semi(gbl);
-	if (gbl->ret == 0)
+	if (gbl->error == 0)
 	{
 		count_pipe(gbl->semi);
 		new_str(gbl->semi);

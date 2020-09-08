@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 20:47:21 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/07 21:38:26 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, &gbl->ret);
+	gbl->ret = gbl->ret == 256 ? 1 : gbl->ret;
+	gbl->ret = gbl->ret == 65280 ? 126 : gbl->ret;
 }
 
 int			exec_cmds(t_semi *semi, t_gbl *gbl)

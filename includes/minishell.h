@@ -15,8 +15,8 @@
 # define		IDERRONE 			"\033[1;31mexport: identifiant non valable\033[0;0m\n"
 # define		ARGUMENTS 			"exit: trop d'arguments\n"
 # define		ARGUMENTS_NUM 		"exit: argument numérique nécessaire\n"
-#define			ERROR_GETCWD 		"cd : erreur de détermination du répertoire actuel : getcwd : ne \
-peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type"
+# define			ERROR_GETCWD 		"cd : erreur de détermination du répertoire actuel : getcwd : ne \
+peut accéder aux répertoires parents : Aucun fichier ou dossier de ce type\n"
 
 typedef	struct			s_redir
 {
@@ -66,8 +66,8 @@ typedef struct			s_env
 
 typedef struct			s_gbl
 {
+	char				*path;
 	char			 	*pwd;
-	char			 	*path;
 	int					pid;
 	int					rep;
 	int					sta;
