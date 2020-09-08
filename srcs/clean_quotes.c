@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 11:08:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 19:22:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_isbracket(char *str, int i)
 	return (0);
 }
 
-int		ft_travel_brackets(char *str, int i)
+int		ft_travel_brackets(char *str, int i, t_gbl *gbl)
 {
 	int dollar;
 
@@ -33,19 +33,19 @@ int		ft_travel_brackets(char *str, int i)
 			i++;
 		if (str[i] != '}' && dollar == 1)
 		{
-			ft_putstr_fd("Accolade manquante", 2);
+			free_exit2(gbl, "Accolade manquante");
 			return (0);
 		}
 		if (str[i] == '}' && str[i - 1] == '{')
 		{
-			ft_putstr_fd("Mauvaise substitution", 2);
+			free_exit2(gbl, "Mauvaise substitution");
 			return (0);
 		}
 	}
 	return (1);
 }
 
-int		ft_verif_doubq(char *str, int *i)
+int		ft_verif_doubq(char *str, int *i, t_gbl *gbl)
 {
 	int ret;
 
@@ -55,20 +55,20 @@ int		ft_verif_doubq(char *str, int *i)
 		(*i)++;
 		while (ft_isquote(str, *i) != 2 && str[*i])
 		{
-			if ((ret = ft_travel_brackets(str, *i)) != 1)
+			if ((ret = ft_travel_brackets(str, *i, gbl)) != 1)
 					return (0);
 			(*i)++;
 		}
 		if (str[(*i)] != DOUBQ)
 		{
-			ft_putstr_fd("Double quote manquante", 2);
+			free_exit2(gbl, "Double quote manquante");
 			return (0);
 		}
 	}
 	return (1);
 }
 
-int		ft_verif_simpq(char *str, int *i)
+int		ft_verif_simpq(char *str, int *i, t_gbl *gbl)
 {
 	if (str[*i] == SIMPQ && ft_isbacks(str, (*i) - 1) == 0)
 	{
@@ -77,14 +77,14 @@ int		ft_verif_simpq(char *str, int *i)
 			(*i)++;
 		if (str[(*i) - 1] != SIMPQ)
 		{
-			ft_putstr_fd("Simple quote manquante", 2);
+			free_exit2(gbl, "Simple quote manquante");
 			return (0);
 		}
 	}
 	return (1);
 }
 
-int		ft_verif_commands(char *str)
+int		ft_verif_commands(char *str, t_gbl *gbl)
 {
 	int i;
 	int ret;
@@ -93,10 +93,10 @@ int		ft_verif_commands(char *str)
 	ret = 1;
 	while (str[++i])
 	{
-		if (ft_verif_doubq(str, &i) == 0
-		|| ft_verif_simpq(str, &i) == 0)
+		if (ft_verif_doubq(str, &i, gbl) == 0
+		|| ft_verif_simpq(str, &i, gbl) == 0)
 			return (0);
-		if ((ret = ft_travel_brackets(str, i)) != 1)
+		if ((ret = ft_travel_brackets(str, i, gbl)) != 1)
 			return (0);
 	}
 	return (1);

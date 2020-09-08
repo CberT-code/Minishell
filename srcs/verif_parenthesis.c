@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 11:03:51 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 19:28:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_isparanthesis(char *str, int i)
 	return (0);
 }
 
-int		ft_travel_paranthesis(char *str)
+int		ft_travel_paranthesis(char *str, t_gbl *gbl)
 {
 	int i;
 
@@ -28,13 +28,13 @@ int		ft_travel_paranthesis(char *str)
 		i++;
 	if (str[i] != ')')
 	{
-		ft_putstr_fd("Paranthèse manquante.", 2);
+		free_exit2(gbl, "Paranthèse manquante.");
 		return (-1);
 	}
 	return (i);
 }
 
-int		ft_verif_paranthesis(char *str)
+int		ft_verif_paranthesis(char *str, t_gbl *gbl)
 {
 	int i;
 	int ret;
@@ -46,11 +46,11 @@ int		ft_verif_paranthesis(char *str)
 		ft_travel_simpq(str, &i);
 		if (i >  0 && str[i] == '('
 		&& str[i -1] == '$' && ft_isbacks(str, i - 2) == 0)
-			ret = ft_travel_paranthesis(&str[i]);
+			ret = ft_travel_paranthesis(&str[i], gbl);
 		if (i >  0 && str[i] == ')'
 		&& str[i -1] == '$' && ft_isbacks(str, i - 2) == 0)
 		{
-			ft_putstr_fd("Erreur de syntaxe.", 2);
+			free_exit2(gbl, "Erreur de syntaxe.");
 			ret = -1;
 		}
 		if (ret == -1)
