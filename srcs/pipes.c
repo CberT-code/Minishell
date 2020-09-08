@@ -6,11 +6,29 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 09:48:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 20:41:58 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int			path_env(t_gbl *gbl)
+{
+	t_env *first;
+
+	first = gbl->env;
+	while (ft_strcmp(gbl->env->var, "PATH=") != 0)
+		gbl->env = gbl->env->next;
+	if (ft_strcmp(gbl->env->var, "PATH=") != 0)
+	{
+		gbl->env = first;
+		write(2,ERROR_FILE_FOLDER, ft_strlen(ERROR_FILE_FOLDER));
+		gbl->ret = 1;
+		return (0);
+	}
+	gbl->env = first;
+	return (1);
+}
 
 int			cond_pipe(t_semi *semi, char *str)
 {
@@ -36,10 +54,10 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 			free_tab(tab);
 		}
 		else
-		{ 
+		{
 			gbl->ret = 127;
 			ft_strdel(&path);
-			free_exit(semi, gbl, ERROR_FIND_CMD);
+			free_exit_int(semi, gbl, ERROR_FIND_CMD, gbl->ret);
 		}
 		free(path);
 		exit(gbl->ret);
@@ -53,6 +71,7 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	pid_t		pid[nb_cmd];
 
 	j = -1;
+	ft_bzero(pid, sizeof(pid_t) * nb_cmd);
 	init_pipes(nb_cmd * 2 - 2, pipes);
 	if (semi->pipes->cmds.str != NULL)
 		ft_change_args(&semi->pipes->cmds, gbl);
@@ -63,7 +82,7 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 			gbl->ret = find_fcts(&semi->pipes->cmds, gbl);
 		else
 		{
-			if (!(pid[j] = fork()))
+			if (!(pid[j] = fork()) && path_env(gbl))
 			{
 				do_dup(j, pipes, semi, gbl);
 				if (semi->pipes->cmds.str == NULL)
@@ -75,8 +94,8 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, &gbl->ret);
-	gbl->ret = gbl->ret == 256 ? 1 : gbl->ret;
-	gbl->ret = gbl->ret == 65280 ? 126 : gbl->ret;
+	// gbl->ret = gbl->ret == 256 ? 1 : gbl->ret;
+	// gbl->ret = gbl->ret == 65280 ? 127 : gbl->ret;
 }
 
 int			exec_cmds(t_semi *semi, t_gbl *gbl)

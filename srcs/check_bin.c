@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 15:37:39 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 19:55:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int				find_fcts(t_cmds *cmd, t_gbl *gbl)
 	{
 		res = ft_exit(cmd, gbl);
 		free_exit_int(gbl->semi, gbl, NULL, res);
-		printf("here we test res -> |%d|\n", res);
 		return (res);
 	}
 	else
@@ -91,13 +90,14 @@ static char		*find_path(char *str, t_gbl *gbl, t_env *env)
 
 char			*check_path(char *str, t_gbl *gbl)
 {
-	t_env 	*env_first;
-	char	*ret;
+	t_env 		*env_first;
+	char		*ret;
+	struct stat	buf;
 
 	env_first = gbl->env;
-	if (ft_isfind(str, '/') != -1)
+	if (ft_isfind(str, '/') != -1 && stat(str, &buf) == 0)
 		return (str);
-	else
+	else if (ft_isfind(str, '/') == -1)
 	{
 		while (strcmp(gbl->env->var, "PATH=") != 0)
 			gbl->env = gbl->env->next;
@@ -105,6 +105,6 @@ char			*check_path(char *str, t_gbl *gbl)
 		gbl->env = env_first;
 		return (ret);
 	}
-
-	
+	else
+		return (NULL);
 }
