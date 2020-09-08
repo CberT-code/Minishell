@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 12:35:37 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 17:15:54 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int		ft_travel_brackets(char *str, int i)
 		if (str[i] != '}' && dollar == 1)
 		{
 			ft_putstr_fd("Accolade manquante", 2);
+			return (0);
+		}
+		if (str[i] == '}' && str[i - 1] == '{')
+		{
+			ft_putstr_fd("Mauvaise substitution", 2);
 			return (0);
 		}
 	}

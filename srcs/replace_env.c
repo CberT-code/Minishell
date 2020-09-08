@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 08:40:01 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 14:02:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_find_size_arg(char *str)
 	&& str[i] != '/' && str[i] != ',' && str[i] != '%'
 	&& str[i] != ']' && str[i] != ':' && str[i] != BACKS
 	&& str[i] != DOUBQ && str[i] != SIMPQ && str[i] != ' '
-	&& ft_isdigit(str[i]) == 0 && str[i])
+	&& str[i] != '^' && ft_isdigit(str[i]) == 0 && str[i])
 		i++;
 	return (i);
 }
@@ -71,7 +71,7 @@ int		ft_doubleq_cpy(char *str, char *cpy, t_env *env, int *j)
 		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
 		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
 		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS
-		&& str[i + 1] != DOUBQ && str[i + 1] != ' ')
+		&& str[i + 1] != DOUBQ && str[i + 1] != ' ' && str[i + 1] != '^')
 			i += ft_varcpy(&str[i + 1], &cpy[0], env, j);
 		else if ((str[i] == DOUBQ && ft_isbacks(str, i - 1) == 1)
 		|| (str[i] != BACKS && str[i] != DOUBQ)
@@ -101,7 +101,7 @@ void	ft_conditions_cpy(char *str, char *cpy, t_env *env, int *j)
 		&& str[i + 1] != '+' && str[i + 1] != '}' && str[i + 1] != '.'
 		&& str[i + 1] != '/' && str[i + 1] != ',' && str[i + 1] != '%'
 		&& str[i + 1] != ']' && str[i + 1] != ':' && str[i + 1] != BACKS
-		&& str[i + 1] != ' ')
+		&& str[i + 1] != ' ' && str[i + 1] != '^')
 			i += ft_varcpy(&str[i + 1], &cpy[0], env, j);
 		else if (str[i] == BACKS && ft_isbacks(str, i) == 0)
 			cpy[(*j)++] = str[i];
@@ -118,10 +118,13 @@ char	*ft_envcpy(char *str, t_gbl *gbl)
 
 	ret = 1;
 	j = 0;
-	if ((ret = ft_verif_commands(str)) == 0 || (ret = ft_verif_crochets(str, gbl->env)) == 0)
+	if ((ret = ft_verif_commands(str)) == 0 ||
+	(ret = ft_verif_crochets(str, gbl->env)) == 0
+	|| ft_verif_paranthesis(str) == 0)
 		return (NULL);
 	str = ft_clean_brackets(str);
 	str = ft_replace_value(str, gbl);
+	str = ft_replace_value2(str, gbl);
 	str = ft_replace_crochets(str);
 	str = ft_replace_bashname(str, gbl->env);
 	if (!(cpy = (char*)ft_calloc(sizeof(char), ft_envcpylen(str, gbl->env) + 1)))

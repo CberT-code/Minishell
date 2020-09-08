@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 13:16:00 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 17:15:56 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			main(int argc, char **argv, char **envp)
 	if (argc <= 0 || !argv[0])
 		return (1);
 	g_gbl.env = ft_tab_to_list(envp, &g_gbl);
+	g_gbl.argc = argc;
 	//ft_printf("\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ ", getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{

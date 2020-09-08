@@ -73,6 +73,7 @@ typedef struct			s_gbl
 	int					sta;
 	int					error;
 	int					ret;
+	int					argc;
 	char				*line;
 	t_semi				*semi;
 	t_env				*env;
@@ -212,5 +213,8 @@ int						ft_verif_crochets(char *str, t_env *env);
 int						ft_iscrochet(char *str, int i);
 char					*ft_replace_crochets(char *str);
 void					free_exit_int(t_semi *semi, t_gbl *gbl, char *str, int res);
+int						ft_verif_paranthesis(char *str);
+void					ft_travel_simpq(char *str, int *i);
+char					*ft_replace_value2(char *str, t_gbl *gbl);
 
 #endif
