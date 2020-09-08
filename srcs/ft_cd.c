@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 21:27:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 22:26:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ int		ft_check_errors_cd2(t_args *args)
 	{
 		if (!(getcwd(cwd, 1024)))
 		{
-			ft_putstr_fd(ERROR_GETCWD, 2);
+			ft_putstr_fd("cd : erreur de détermination du répertoire \
+			actuel : getcwd : ne peut accéder aux répertoires parents : Aucun \
+			fichier ou dossier de ce type\n", 2);
 			return (1);
 		}
 		return (0);

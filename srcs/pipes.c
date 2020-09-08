@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 21:45:03 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:23:35 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			path_env(t_gbl *gbl)
 	if (ft_strcmp(gbl->env->var, "PATH=") != 0)
 	{
 		gbl->env = first;
-		write(2,ERROR_FILE_FOLDER, ft_strlen(ERROR_FILE_FOLDER));
+		write(2,ERROR_FF, ft_strlen(ERROR_FF));
 		gbl->ret = 1;
 		return (0);
 	}
@@ -57,7 +57,7 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 		{
 			gbl->ret = 127;
 			ft_strdel(&path);
-			free_exit_int(semi, gbl, ERROR_FIND_CMD, gbl->ret);
+			free_exit_int(semi, gbl, ERROR_CMD, gbl->ret);
 		}
 		free(path);
 		exit(gbl->ret);

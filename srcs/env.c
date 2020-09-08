@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 13:15:47 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:23:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int		ft_env(t_args *args, t_gbl *gbl)
 	if (args == NULL)
 		return (display_export_env(gbl->env));
 	else
-		free_exit2(gbl, ERROR_FILE_FOLDER);
+		free_exit2(gbl, ERROR_FF);
 	return (0);
 }
