@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 11:52:35 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 18:24:33 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 20:52:53 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				split_semi(t_gbl *gbl)
 	if (!gbl->line)
 		return (0);
 	str2 = ft_clean_spaces(gbl->line);
-	ft_verif_commands(str2);
+	ft_verif_commands(str2, gbl);
 	while (str2[start])
 	{
 		if (str2[start] == ';' || (str2[start] == ' ' && str2[start + 1] == ';'))

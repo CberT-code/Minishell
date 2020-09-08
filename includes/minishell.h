@@ -127,7 +127,7 @@ int						ft_isbracket(char *str, int i);
 char					*ft_clean_quotes(char *str);
 char					*ft_clean_backs(char *str);
 char 					*ft_clean_brackets(char *str);
-int						ft_verif_commands(char *str);
+int						ft_verif_commands(char *str, t_gbl *gbl);
 void					ft_cpy_in_squotes(char *str, char *cpy, int *i,
 		int *j);
 void					ft_cpy_in_dbquotes(char *str, char *cpy, int *i,
@@ -209,11 +209,11 @@ void					free_exit2(t_gbl *gbl, char *str);
 int   					ft_exit(t_cmds *cmd, t_gbl *gbl);
 
 void					ft_simpq_cpy_all(char *str, char *cpy, int *i, int *j);
-int						ft_verif_crochets(char *str, t_env *env);
+int						ft_verif_crochets(char *str, t_env *env, t_gbl *gbl);
 int						ft_iscrochet(char *str, int i);
 char					*ft_replace_crochets(char *str);
 void					free_exit_int(t_semi *semi, t_gbl *gbl, char *str, int res);
-int						ft_verif_paranthesis(char *str);
+int						ft_verif_paranthesis(char *str, t_gbl *gbl);
 void					ft_travel_simpq(char *str, int *i);
 char					*ft_replace_value2(char *str, t_gbl *gbl);
 

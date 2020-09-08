@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 14:02:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 19:28:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ char	*ft_envcpy(char *str, t_gbl *gbl)
 
 	ret = 1;
 	j = 0;
-	if ((ret = ft_verif_commands(str)) == 0 ||
-	(ret = ft_verif_crochets(str, gbl->env)) == 0
-	|| ft_verif_paranthesis(str) == 0)
+	if ((ret = ft_verif_commands(str, gbl)) == 0 ||
+	(ret = ft_verif_crochets(str, gbl->env, gbl)) == 0
+	|| ft_verif_paranthesis(str, gbl) == 0)
 		return (NULL);
 	str = ft_clean_brackets(str);
 	str = ft_replace_value(str, gbl);
