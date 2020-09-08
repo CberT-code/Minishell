@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/07 21:38:46 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 09:48:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ static char		*find_path(char *str, t_gbl *gbl, t_env *env)
 			free_tab(tab);
 			return (path);
 		}
-		free(path);
+		ft_strdel(&path);
 	}
 	free_tab(tab);
+	ft_strdel(&path);
 	path = ft_strjoin(gbl->pwd, str);
 	if (stat(path, &buf) == 0)
 		return (path);

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 08:26:53 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 09:48:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		exec_fork(t_semi *semi, int j, t_gbl *gbl)
 		else
 		{ 
 			gbl->ret = 127;
-			free(path);
+			ft_strdel(&path);
 			free_exit(semi, gbl, ERROR_FIND_CMD);
 		}
 		free(path);
