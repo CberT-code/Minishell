@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 19:28:17 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 22:43:54 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char	*ft_envcpy(char *str, t_gbl *gbl)
 	str = ft_replace_value2(str, gbl);
 	str = ft_replace_crochets(str);
 	str = ft_replace_bashname(str, gbl->env);
-	if (!(cpy = (char*)ft_calloc(sizeof(char), ft_envcpylen(str, gbl->env) + 1)))
+	if (!(cpy = (char*)ft_calloc(1, ft_envcpylen(str, gbl->env) + 1)))
 		return (NULL);
 	ft_conditions_cpy(str, cpy, gbl->env, &j);
 	cpy[j] = '\0';

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 22:26:00 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:38:06 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_change_pwd(t_gbl *gbl)
 		gbl->pwd = ft_strdup(env_cpy->valeur);
 	}
 	else
-		ft_lstadd_back_env(&gbl->env, ft_strdup("PWD="), ft_strdup(cwd), gbl);
+		add_back_env(&gbl->env, ft_strdup("PWD="), ft_strdup(cwd), gbl);
 }
 
 int		ft_oldpwd(t_gbl *gbl)
@@ -56,7 +56,7 @@ int		ft_oldpwd(t_gbl *gbl)
 			env_cpy->valeur = ft_strdup(cwd);
 		}
 		else
-			ft_lstadd_back_env(&gbl->env, ft_strdup("OLDPWD="), ft_strdup(cwd), gbl);
+			add_back_env(&gbl->env, ft_strdup("OLDPWD="), ft_strdup(cwd), gbl);
 	}
 	return (0);
 }
@@ -103,7 +103,7 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_gbl *gbl, char *cwd)
 		env_cpy->valeur = ft_strdup(ft_getenv("PWD", gbl->env));
 	}
 	else
-		ft_lstadd_back_env(&gbl->env, ft_strdup("OLDPWD="),
+		add_back_env(&gbl->env, ft_strdup("OLDPWD="),
 		ft_strdup(ft_getenv("PWD", gbl->env)), gbl);
 	ft_change_pwd(gbl);
 	return (0);
@@ -125,7 +125,7 @@ char	*ft_change_by_home(t_env *env, char *str)
 			cpy2 = ft_strdup(env->valeur);
 			cpy2 = ft_strjoin_free(cpy2, cpy, 3);
 			ft_strdel(&str);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
@@ -142,7 +142,7 @@ void	ft_check_path(t_env *env, t_gbl *gbl)
 	&& ft_strncmp(env->var, "PATH=", 7) != 0)
 		env = env->next;
 	if (!env)
-		ft_lstadd_back_env(&gbl->env, ft_strdup("PATH="),
+		add_back_env(&gbl->env, ft_strdup("PATH="),
 		ft_strdup(gbl->path), gbl);
 	env = first_env;
 }

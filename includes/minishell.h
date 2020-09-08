@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 22:29:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:40:32 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define IDERRONE "\033[1;31mexport: identifiant non valable\033[0;0m\n"
 # define ARGUMENTS "exit: trop d'arguments\n"
 # define ARGUMENTS_NUM "exit: argument numérique nécessaire\n"
+# define PROMPT "\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ "
 
 typedef	struct			s_redir
 {
@@ -89,7 +90,7 @@ typedef struct			s_gbl
 	t_env				*env;
 }						t_gbl;
 
-void					ft_lstadd_back_env(t_env **alst, char *str, char *str2,
+void					add_back_env(t_env **alst, char *str, char *str2,
 t_gbl *gbl);
 int						ft_in_quotes(char *str, int i);
 t_env					*ft_tab_to_list(char **tri_selectif, t_gbl *gbl);

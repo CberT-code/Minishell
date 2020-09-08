@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_brackets2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 19:25:16 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 22:55:09 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_iscrochet(char *str, int i)
 int		ft_verif_word(char *str, t_env *env, t_gbl *gbl)
 {
 	t_env *first_env;
-	
+
 	first_env = env;
 	while (env)
 	{
@@ -42,8 +42,8 @@ int		ft_verif_word(char *str, t_env *env, t_gbl *gbl)
 
 int		ft_travel_crochets(char *str, t_env *env, t_gbl *gbl)
 {
-	int i;
-	char *cpy;
+	int		i;
+	char	*cpy;
 
 	i = 1;
 	while (ft_iscrochet(str, i) != 1 && str[i])
@@ -86,8 +86,8 @@ int		ft_verif_crochets(char *str, t_env *env, t_gbl *gbl)
 	while (str[++i])
 	{
 		ft_travel_simpq(str, &i);
-		if (i >  0 && str[i] == '['
-		&& str[i -1] == '$' && ft_isbacks(str, i - 2) == 0)
+		if (i > 0 && str[i] == '['
+		&& str[i - 1] == '$' && ft_isbacks(str, i - 2) == 0)
 			ret = ft_travel_crochets(&str[i], env, gbl);
 		if (ret == -1)
 			return (0);

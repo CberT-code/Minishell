@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 14:04:28 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 22:47:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int		ft_len_replace_value(char *str, t_gbl *gbl)
 {
 	int		i;
 	int		len;
-	char	*cpy;
+	char	*c;
 
 	i = -1;
 	len = 0;
-	cpy = NULL;
+	c = NULL;
 	while (str[++i])
 	{
 		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
@@ -29,10 +29,10 @@ int		ft_len_replace_value(char *str, t_gbl *gbl)
 		&& (str[i + 1] == '?' || str[i + 1] == '$')
 		&& ft_isbacks(str, i - 1) == 0)
 		{
-			cpy = (str[i + 1] == '?') ? ft_itoa(gbl->ret) : ft_itoa(gbl->pid - 1);
-			len += ft_strlen(cpy);
+			c = (str[i + 1] == '?') ? ft_itoa(gbl->ret) : ft_itoa(gbl->pid - 1);
+			len += ft_strlen(c);
 			i++;
-			ft_strdel(&cpy);
+			ft_strdel(&c);
 		}
 		else
 			len++;
@@ -62,7 +62,7 @@ char	*ft_replace_value(char *str, t_gbl *gbl)
 	int		i;
 	int		j;
 
-	if (!(cpy = (char*)malloc(sizeof(char) * (ft_len_replace_value(str, gbl) + 1))))
+	if (!(cpy = (char*)malloc(1 * (ft_len_replace_value(str, gbl) + 1))))
 		return (NULL);
 	i = -1;
 	j = 0;
@@ -72,7 +72,7 @@ char	*ft_replace_value(char *str, t_gbl *gbl)
 			ft_simpq_cpy_all(str, cpy, &i, &j);
 		else if (i < ft_strlen(str) - 1 && str[i] == '$'
 		&& str[i + 1] == '?' && ft_isbacks(str, i - 1) == 0)
-			i += ft_fill_replace_value(&cpy[0], &j, '?',gbl);
+			i += ft_fill_replace_value(&cpy[0], &j, '?', gbl);
 		else if (i < ft_strlen(str) - 1 && str[i] == '$'
 		&& str[i + 1] == '$' && ft_isbacks(str, i - 1) == 0)
 			i += ft_fill_replace_value(&cpy[0], &j, '$', gbl);

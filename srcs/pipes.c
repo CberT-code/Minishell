@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 22:23:35 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:49:46 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			path_env(t_gbl *gbl)
 	if (ft_strcmp(gbl->env->var, "PATH=") != 0)
 	{
 		gbl->env = first;
-		write(2,ERROR_FF, ft_strlen(ERROR_FF));
+		write(2, ERROR_FF, ft_strlen(ERROR_FF));
 		gbl->ret = 1;
 		return (0);
 	}
@@ -30,7 +30,7 @@ int			path_env(t_gbl *gbl)
 	return (1);
 }
 
-int			cond_pipe(t_semi *semi, char *str)
+int			cond(t_semi *semi, char *str)
 {
 	if (semi->nb_pipes == 1 && semi->pipes->redir_in == NULL &&
 		semi->pipes->redir_out == NULL && search_mybin(str))
@@ -78,7 +78,7 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 	tab_all(semi);
 	while (++j < nb_cmd)
 	{
-		if (semi->pipes->cmds.str != NULL && cond_pipe(semi, semi->pipes->cmds.str))
+		if (semi->pipes->cmds.str != NULL && cond(semi, semi->pipes->cmds.str))
 			gbl->ret = find_fcts(&semi->pipes->cmds, gbl);
 		else if (path_env(gbl))
 		{
@@ -88,7 +88,7 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 				if (semi->pipes->cmds.str == NULL)
 					free_exit(gbl->semi, gbl, NULL);
 				exec_fork(semi, j, gbl);
-			}	
+			}
 		}
 		semi->pipes = semi->pipes->next;
 	}

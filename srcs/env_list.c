@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 21:25:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 22:53:13 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_env			*ft_lstnew_env(char *str, char *str2, t_gbl *gbl)
 	return (env);
 }
 
-void			ft_lstadd_back_env(t_env **alst, char *str, char *str2, t_gbl *gbl)
+void			add_back_env(t_env **alst, char *str, char *str2, t_gbl *gbl)
 {
 	if (*alst != NULL)
 		ft_lstlast_env(*alst)->next = ft_lstnew_env(str, str2, gbl);
@@ -79,13 +79,13 @@ t_env			*ft_tab_to_list(char **tri_selectif, t_gbl *gbl)
 {
 	t_env	*list;
 	int		i;
-	(void)gbl;
 
+	(void)gbl;
 	list = NULL;
 	i = 0;
 	while (tri_selectif[i])
 	{
-		ft_lstadd_back_env(&list, ft_strcpyuntil(tri_selectif[i], "="),
+		add_back_env(&list, ft_strcpyuntil(tri_selectif[i], "="),
 		ft_strcpyfrom(tri_selectif[i], "="), gbl);
 		i++;
 	}
