@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 13:54:42 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 21:03:31 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define BACKS				92
 # define MAXLONG			9223372036854775807
 # define ERROR_SYNTAX "\033[1;31mErreur de syntaxe.\033[0;0m\n"
+# define ERROR_DOSP "\033[1;31m .: Ceci est un dossier\033[0;0m\n"
+# define ERROR_DOSS "\033[1;31m /: Ceci est un dossier\033[0;0m\n"
+# define ERROR_AMB "\033[1;31mErreur de syntaxe.\033[0;0m\n"
 # define ERROR_FF "\033[1;31mAucun fichier ou dossier de ce type.\033[0;0m\n"
 # define ERROR_CMD "\033[1;31mLa commande est introuvable.\033[0;0m\n"
 # define IDERRONE "\033[1;31mexport: identifiant non valable.\033[0;0m\n"
@@ -187,4 +190,7 @@ void					exchange_ret(t_gbl *gbl);
 void					exec_fork(t_semi *semi, int j, t_gbl *gbl);
 char					**new_tab(t_pipes *pipes);
 void					ft_free_gbl(t_gbl *g_gbl);
+void					free_exit_back_int(t_semi *semi, t_gbl *gbl,
+char *str, int res);
+void					exit_back2(t_gbl *gbl, char *str);
 #endif

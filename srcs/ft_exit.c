@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 12:23:28 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 17:39:22 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_exit(t_cmds *cmd, t_gbl *gbl)
 
 	i = 0;
 	if (cmd->args == NULL)
-		return (0);
+		free_exit_back_int(gbl->semi, gbl, NULL, 0);
 	if (cmd->args->str)
 	{
 		if (cmd->args->str[i] == '+' || cmd->args->str[i] == '-')
@@ -27,9 +27,9 @@ int		ft_exit(t_cmds *cmd, t_gbl *gbl)
 		ret = ft_atoi_long(cmd->args->str + i);
 		if (!(ft_strisdigit(cmd->args->str + i)) || (ret > MAXLONG &&
 		ft_strcmp(cmd->args->str, "-9223372036854775808") != 0))
-			free_exit_int(gbl->semi, gbl, ARG_NUM, 2);
+			free_exit_back_int(gbl->semi, gbl, ARG_NUM, 2);
 		else if (cmd->nb_args > 1)
-			free_exit_int(gbl->semi, gbl, ARGUMENTS, 1);
+			exit_back2(gbl, ARGUMENTS);
 		else if (cmd->args->str[0] == '-')
 			return ((ret % 256 * -1));
 		else

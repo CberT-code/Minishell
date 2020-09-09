@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils5.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 10:48:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 10:49:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 20:22:51 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int		ft_find_size_arg(char *str)
 	&& str[i] != '/' && str[i] != ',' && str[i] != '%'
 	&& str[i] != ']' && str[i] != ':' && str[i] != BACKS
 	&& str[i] != DOUBQ && str[i] != SIMPQ && str[i] != ' '
-	&& str[i] != '^' && ft_isdigit(str[i]) == 0 && str[i])
+	&& str[i] != '^' && str[i] != '$' &&
+	ft_isdigit(str[i]) == 0 && str[i])
 		i++;
 	return (i);
 }

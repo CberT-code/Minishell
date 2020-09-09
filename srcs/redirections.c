@@ -6,19 +6,32 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 10:57:43 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 21:26:45 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_check_redirs(char *str, char redir)
+int		ft_check_redirs(char *str, char redir, t_gbl *gbl)
 {
 	int i;
+	int j;
 
 	i = 0;
 	while (str[i] == redir && str[i])
 		i++;
+	j = i;
+	while (str[j] == ' ')
+		j++;
+	if (str[j] == '&' || str[j] == '>' || str[j] == '<' || str[j] == '#' ||
+	str[j] == '(' || str[j] == ')' || str[j] == '|' || str[j] == '\0')
+		free_exit2(gbl, ERROR_SYNTAX);
+	if (str[j] == '/')
+		free_exit2(gbl, ERROR_DOSS);
+	if (str[j] == '.')
+		free_exit2(gbl, ERROR_DOSP);
+	if (str[j] == '?')
+		free_exit2(gbl, ERROR_AMB);
 	return (i);
 }
 
@@ -31,7 +44,7 @@ void	ft_redir_in(char *str, t_redir **redir, t_gbl *gbl)
 	{
 		if (str[i] == '<' && ft_isbacks(str, i - 1) == 0)
 		{
-			if (ft_check_redirs(&str[++i], '<') > 0)
+			if (ft_check_redirs(&str[++i], '<', gbl) > 0)
 				free_exit2(gbl, ERROR_SYNTAX);
 			else
 			{
@@ -82,9 +95,9 @@ void	ft_redir_out(char *str, t_redir **redir, t_gbl *gbl)
 	{
 		if (str[i] == '>' && ft_isbacks(str, i - 1) == 0)
 		{
-			if (ft_check_redirs(&str[++i], '>') == 1)
+			if (ft_check_redirs(&str[++i], '>', gbl) == 1)
 				i += ft_doub_redir_out(&str[i], redir, gbl);
-			else if (ft_check_redirs(&str[i], '>') > 1)
+			else if (ft_check_redirs(&str[i], '>', gbl) > 1)
 				free_exit2(gbl, ERROR_SYNTAX);
 			else
 				i += ft_simp_redir_out(&str[i], redir, gbl);

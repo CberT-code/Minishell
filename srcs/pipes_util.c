@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 13:49:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 20:22:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ void	redir_out(t_redir *redir, int *pipes, int j)
 	{
 		if (redir->ind == 1)
 			pipes[j * 2 + 1] = open(redir->str,
-			O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+            O_RDONLY | O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
+			S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 		else
 			pipes[j * 2 + 1] = open(redir->str,
-			O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
+            O_RDONLY | O_WRONLY | O_APPEND | O_CREAT, S_IRUSR |
+			S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 		redir = redir->next;
 	}
 	redir = first_redir;
