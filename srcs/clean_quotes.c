@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 22:47:42 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:04:15 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int		ft_travel_brackets(char *str, int i, t_gbl *gbl)
 			i++;
 		if (str[i] != '}' && dollar == 1)
 		{
-			free_exit2(gbl, "Accolade manquante");
+			free_exit2(gbl, ACCOLADES);
 			return (0);
 		}
 		if (str[i] == '}' && str[i - 1] == '{')
 		{
-			free_exit2(gbl, "Mauvaise substitution");
+			free_exit2(gbl, SUBSTITUTIONS);
 			return (0);
 		}
 	}
@@ -61,7 +61,7 @@ int		ft_verif_doubq(char *str, int *i, t_gbl *gbl)
 		}
 		if (str[(*i)] != DOUBQ)
 		{
-			free_exit2(gbl, "Double quote manquante");
+			free_exit2(gbl, DOUBLEQ);
 			return (0);
 		}
 	}
@@ -77,7 +77,7 @@ int		ft_verif_simpq(char *str, int *i, t_gbl *gbl)
 			(*i)++;
 		if (str[(*i) - 1] != SIMPQ)
 		{
-			free_exit2(gbl, "Simple quote manquante");
+			free_exit2(gbl, SIMPLEQ);
 			return (0);
 		}
 	}

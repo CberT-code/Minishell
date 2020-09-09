@@ -6,13 +6,22 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 10:34:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:41:11 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_gbl	g_gbl;
+
+int			find_gpid(void)
+{
+	int		g_pid;
+
+	g_pid = fork();
+	kill(g_pid, SIGKILL);
+	return (g_pid);
+}
 
 void		sig_handler(int sig)
 {
@@ -52,11 +61,9 @@ int			exec_line(t_gbl *gbl)
 int			main(int argc, char **argv, char **envp)
 {
 	// char		cwd[1024];
-	// pid_t		g_pid;
 
-	// g_pid = fork();
-	// kill(g_pid, SIGKILL);
-	// ft_bzero(&g_gbl, sizeof(t_gbl));
+	ft_bzero(&g_gbl, sizeof(t_gbl));
+	//g_gbl.pid = find_gpid();
 	g_gbl.line = NULL;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
@@ -75,9 +82,7 @@ int			main(int argc, char **argv, char **envp)
 		else if (g_gbl.rep == -1)
 			break ;
 	}
-	ft_strdel(&g_gbl.pwd);
-	ft_strdel(&g_gbl.path);
-	ft_free_env(g_gbl.env);
+	ft_free_gbl(&g_gbl);
 	// ft_printf("exit\n");
 	return (0);
 }

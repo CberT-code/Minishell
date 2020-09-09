@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 15:02:20 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 09:36:15 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:12:11 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int		ft_pwd(void)
 		ft_putendl(cwd);
 		return (0);
 	}
-	ft_putstr("pwd : Error - Failed to get pwd\n");
+	ft_putstr(GETPWD);
 	return (0);
 }

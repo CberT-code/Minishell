@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fcts_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 10:58:27 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 11:07:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 11:29:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	check_space_end(char *str, t_gbl *gbl)
+void			check_space_end(char *str, t_gbl *gbl)
 {
 	int i;
 
@@ -41,7 +41,7 @@ void			tab_all(t_semi *semi)
 	semi->pipes = first_pipe;
 }
 
-void		suppr_maillon(t_env **list, t_env *ptr)
+void			suppr_maillon(t_env **list, t_env *ptr)
 {
 	t_env	*start;
 
@@ -67,7 +67,7 @@ void		suppr_maillon(t_env **list, t_env *ptr)
 	*list = start;
 }
 
-void	ft_free_env(t_env *env)
+void			ft_free_env(t_env *env)
 {
 	t_env	*b_last;
 	int		i;
@@ -84,7 +84,7 @@ void	ft_free_env(t_env *env)
 	}
 }
 
-void	free_tab(char **tab)
+void			free_tab(char **tab)
 {
 	int i;
 

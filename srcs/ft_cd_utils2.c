@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 10:40:15 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 10:42:30 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 12:11:13 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_oldpwd(t_gbl *gbl)
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(env_cpy->valeur) != 0)
 	{
-		ft_putstr_fd("bash: cd: Aucun fichier ou dossier de ce type", 2);
+		ft_putstr_fd(ERROR_FF, 2);
 		return (1);
 	}
 	else

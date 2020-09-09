@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 10:41:15 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 12:09:20 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int		ft_check_errors_cd2(t_args *args)
 	{
 		if (!(getcwd(cwd, 1024)))
 		{
-			ft_putstr_fd("cd : erreur de détermination du répertoire \
+			ft_putstr_fd("\033[1;31mcd : erreur de détermination du répertoire \
 			actuel : getcwd : ne peut accéder aux répertoires parents : Aucun \
-			fichier ou dossier de ce type\n", 2);
+			fichier ou dossier de ce type\n\033[0;0m", 2);
 			return (1);
 		}
 		return (0);
@@ -42,7 +42,7 @@ int		ft_change_cd(t_args *args, t_env *env_cpy, t_gbl *gbl, char *cwd)
 	getcwd(cwd, sizeof(cwd));
 	if (chdir(args->str) != 0)
 	{
-		ft_putstr_fd("bash: cd: Aucun fichier ou dossier de ce type\n", 2);
+		ft_putstr_fd(ERROR_FF, 2);
 		return (1);
 	}
 	while (env_cpy && env_cpy->var

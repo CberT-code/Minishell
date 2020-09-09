@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 14:34:06 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/07 21:41:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 11:40:19 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,11 @@ void	ft_free(t_semi *semi)
 		semi = semi->next;
 		free(b_last);
 	}
+}
+
+void	ft_free_gbl(t_gbl *gbl)
+{
+	ft_strdel(&gbl->pwd);
+	ft_strdel(&gbl->path);
+	ft_free_env(gbl->env);
 }

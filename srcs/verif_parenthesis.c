@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 22:31:56 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:14:28 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_travel_paranthesis(char *str, t_gbl *gbl)
 		i++;
 	if (str[i] != ')')
 	{
-		free_exit2(gbl, "Paranthèse manquante.");
+		free_exit2(gbl, PARENTH);
 		return (-1);
 	}
 	return (i);
@@ -50,7 +50,7 @@ int		ft_verif_paranthesis(char *str, t_gbl *gbl)
 		if (i > 0 && str[i] == ')'
 		&& str[i - 1] == '$' && ft_isbacks(str, i - 2) == 0)
 		{
-			free_exit2(gbl, "Erreur de syntaxe.");
+			free_exit2(gbl, ERROR_SYNTAX);
 			ret = -1;
 		}
 		if (ret == -1)

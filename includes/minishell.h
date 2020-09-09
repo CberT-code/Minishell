@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 11:26:10 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:14:12 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,23 @@
 # define DOUBQ				34
 # define BACKS				92
 # define MAXLONG			9223372036854775807
-# define ERROR_SYNTAX "\033[1;31mErreur de syntaxe \033[0;0m\n"
-# define ERROR_FF "\033[1;31mAucun fichier ou dossier de ce type\033[0;0m\n"
-# define ERROR_CMD "\033[1;31mLa commande n'a pas été trouvée.\033[0;0m\n"
-# define IDERRONE "\033[1;31mexport: identifiant non valable\033[0;0m\n"
-# define ARGUMENTS "exit: trop d'arguments\n"
-# define ARGUMENTS_NUM "exit: argument numérique nécessaire\n"
+# define ERROR_SYNTAX "\033[1;31mErreur de syntaxe.\033[0;0m\n"
+# define ERROR_FF "\033[1;31mAucun fichier ou dossier de ce type.\033[0;0m\n"
+# define ERROR_CMD "\033[1;31mLa commande est introuvable.\033[0;0m\n"
+# define IDERRONE "\033[1;31mexport: identifiant non valable.\033[0;0m\n"
+# define ARGUMENTS "\033[1;31mexit: trop d'arguments.\033[0;0m\n"
+# define ARGUMENTS_NUM "\033[1;31mexit: argument numérique nécessaire.\033[0;0m\n"
+# define ACCOLADES "\033[1;31mAccolade manquante.\033[0;0m\n"
+# define SUBSTITUTIONS "\033[1;31mMauvaise substitution.\033[0;0m\n"
+# define DOUBLEQ "\033[1;31mDouble quote manquante.\033[0;0m\n"
+# define SIMPLEQ "\033[1;31mSimple quote manquante.\033[0;0m\n"
+# define OPERANDE "\033[1;31merreur de syntaxe : opérande attendu.\033[0;0m\n"
+# define CROCHET "\033[1;31mCaractère incorrect entre crochets.\033[0;0m\n"
+# define PARENTH "\033[1;31mParanthèse manquante.\033[0;0m\n"
+# define CR_MISS "\033[1;31mCrochet manquant.\033[0;0m\n"
+# define HOME "\033[1;31mbash: cd: « HOME » non défini.\033[0;0m\n"
+# define CDARG "\033[1;31mbash: cd: trop d'arguments.\033[0;0m\n"
+# define GETPWD "\033[1;31mpwd : Error - Failed to get pwd.\033[0;0m\n"
 # define PROMPT "\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ "
 
 typedef	struct			s_redir
@@ -175,5 +186,5 @@ void					do_fork(int j, int *pipes, t_semi *semi, t_gbl *gbl);
 void					exchange_ret(t_gbl *gbl);
 void					exec_fork(t_semi *semi, int j, t_gbl *gbl);
 char					**new_tab(t_pipes *pipes);
-
+void					ft_free_gbl(t_gbl *g_gbl);
 #endif
