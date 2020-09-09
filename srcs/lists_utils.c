@@ -6,11 +6,26 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/06 18:25:11 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:17:14 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void			count_args(t_cmds *cmd)
+{
+	t_args	*cpy_args;
+	int		i;
+
+	i = 0;
+	cpy_args = cmd->args;
+	while (cpy_args)
+	{
+		i++;
+		cpy_args = cpy_args->next;
+	}
+	cmd->nb_args = i;
+}
 
 int				count_pipe(t_semi *semi)
 {
@@ -35,21 +50,6 @@ int				count_pipe(t_semi *semi)
 	}
 	semi = first_semi;
 	return (i);
-}
-
-void			count_args(t_cmds *cmd)
-{
-	t_args	*cpy_args;
-	int		i;
-
-	i = 0;
-	cpy_args = cmd->args;
-	while (cpy_args)
-	{
-		i++;
-		cpy_args = cpy_args->next;
-	}
-	cmd->nb_args = i;
 }
 
 static void		new_str_utils(t_pipes *pipes)

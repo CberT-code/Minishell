@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 19:55:31 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:51:59 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static char		*find_path(char *str, t_gbl *gbl, t_env *env)
 	char		*path;
 
 	i = -1;
-	
 	tab = ft_split(env->valeur, ':');
 	while (tab[++i])
 	{
@@ -85,12 +84,12 @@ static char		*find_path(char *str, t_gbl *gbl, t_env *env)
 	if (stat(path, &buf) == 0)
 		return (path);
 	ft_strdel(&path);
-	return (NULL);	
+	return (NULL);
 }
 
 char			*check_path(char *str, t_gbl *gbl)
 {
-	t_env 		*env_first;
+	t_env		*env_first;
 	char		*ret;
 	struct stat	buf;
 

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 20:49:39 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:47:42 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_verif_doubq(char *str, int *i, t_gbl *gbl)
 		while (ft_isquote(str, *i) != 2 && str[*i])
 		{
 			if ((ret = ft_travel_brackets(str, *i, gbl)) != 1)
-					return (0);
+				return (0);
 			(*i)++;
 		}
 		if (str[(*i)] != DOUBQ)

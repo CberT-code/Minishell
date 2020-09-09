@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 14:09:19 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 22:37:44 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,5 @@ void		data_list(char *str, t_gbl *gbl)
 		value = NULL;
 	}
 	if (replace_env(gbl->env, var, value) == 0)
-		ft_lstadd_back_env(&gbl->env, var, value, gbl);
+		add_back_env(&gbl->env, var, value, gbl);
 }

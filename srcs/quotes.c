@@ -6,28 +6,11 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:48:24 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 18:13:17 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/08 21:53:18 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int		in_quotes(char *s, int i, int in)
-{
-	int	j;
-
-	j = 0;
-	in = 0;
-	while (j <= i)
-	{
-		if (s[j] == '\'' || s[j] == '\"')
-			in = in == 0 ? 1 : 0;
-		j++;
-	}
-	return (in);
-}
-
-// echo \' " \' " | " 
 
 int		ft_in_quotes(char *str, int i)
 {

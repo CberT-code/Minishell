@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_parenthesis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:14 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 19:28:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/08 22:31:56 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int		ft_verif_paranthesis(char *str, t_gbl *gbl)
 	while (str[++i])
 	{
 		ft_travel_simpq(str, &i);
-		if (i >  0 && str[i] == '('
-		&& str[i -1] == '$' && ft_isbacks(str, i - 2) == 0)
+		if (i > 0 && str[i] == '('
+		&& str[i - 1] == '$' && ft_isbacks(str, i - 2) == 0)
 			ret = ft_travel_paranthesis(&str[i], gbl);
-		if (i >  0 && str[i] == ')'
-		&& str[i -1] == '$' && ft_isbacks(str, i - 2) == 0)
+		if (i > 0 && str[i] == ')'
+		&& str[i - 1] == '$' && ft_isbacks(str, i - 2) == 0)
 		{
 			free_exit2(gbl, "Erreur de syntaxe.");
 			ret = -1;

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 00:58:36 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 10:35:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ char	*ft_replace_value2(char *str, t_gbl *gbl)
 	int		i;
 	int		j;
 
-	if (!(cpy = (char*)malloc(sizeof(char) *
-	(ft_len_replace_value2(str, gbl) + 1))))
+	if (!(cpy = (char*)malloc(1 * (ft_len_replace_value2(str, gbl) + 1))))
 		return (NULL);
 	i = -1;
 	j = 0;
