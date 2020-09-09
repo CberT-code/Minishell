@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/07 19:51:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 01:00:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_simpq_cpy_all(char *str, char *cpy, int *i, int *j)
 
 int		ft_len_word(char *str, int *len)
 {
-	int i;
-	char *cpy;
+	int		i;
+	char	*cpy;
 
 	i = 1;
 	while (ft_iscrochet(str, i) != 1 && str[i])
@@ -45,7 +45,7 @@ int		ft_len_crochets(char *str)
 	{
 		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
 			ft_simpq_len(str, &i, &len);
-		else if (i >  0 && str[i] == '[' && str[i - 1] == '$'
+		else if (i > 0 && str[i] == '[' && str[i - 1] == '$'
 		&& ft_isbacks(str, i - 2) == 0)
 			i += ft_len_word(&str[i], &len);
 		else
@@ -54,12 +54,11 @@ int		ft_len_crochets(char *str)
 	return (len);
 }
 
-
 int		ft_fill_replace_word(char *str, char *cpy, int *j)
 {
-	int i;
-	int k;
-	char *cpy2;
+	int		i;
+	int		k;
+	char	*cpy2;
 
 	i = 2;
 	while (ft_iscrochet(str, i) != 1 && str[i])
@@ -99,5 +98,3 @@ char	*ft_replace_crochets(char *str)
 	ft_strdel(&str);
 	return (cpy);
 }
-
-
