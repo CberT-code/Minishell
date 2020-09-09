@@ -6,93 +6,33 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 10:36:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 10:50:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_len_replace_value(char *str, t_gbl *gbl)
+void	ft_find_len_bashname(t_env *env, int *len)
 {
-	int		i;
-	int		len;
-	char	*c;
+	t_env	*first_env;
 
-	i = -1;
-	len = 0;
-	c = NULL;
-	while (str[++i])
+	first_env = env;
+	while (env)
 	{
-		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
-			ft_simpq_len(str, &i, &len);
-		else if (i < ft_strlen(str) - 1 && str[i] == '$'
-		&& (str[i + 1] == '?' || str[i + 1] == '$')
-		&& ft_isbacks(str, i - 1) == 0)
-		{
-			c = (str[i + 1] == '?') ? ft_itoa(gbl->ret) : ft_itoa(gbl->pid - 1);
-			len += ft_strlen(c);
-			i++;
-			ft_strdel(&c);
-		}
-		else
-			len++;
+		if (ft_strncmp(env->var, "SHELL=", ft_strlen(env->var)) == 0)
+			len += ft_strlen(env->valeur);
+		env = env->next;
 	}
-	return (len);
-}
-
-int		ft_fill_replace_value(char *cpy, int *j, char c, t_gbl *gbl)
-{
-	int		k;
-	char	*cpy_ret;
-	int		i;
-
-	i = 0;
-	k = 0;
-	cpy_ret = (c == '?') ? ft_itoa(gbl->ret) : ft_itoa(gbl->pid - 1);
-	while (cpy_ret[k])
-		cpy[(*j)++] = cpy_ret[k++];
-	i++;
-	ft_strdel(&cpy_ret);
-	return (i);
-}
-
-char	*ft_replace_value(char *str, t_gbl *gbl)
-{
-	char	*cpy;
-	int		i;
-	int		j;
-
-	if (!(cpy = (char*)malloc(1 * (ft_len_replace_value(str, gbl) + 1))))
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (str[++i])
-	{
-		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
-			ft_simpq_cpy_all(str, cpy, &i, &j);
-		else if (i < ft_strlen(str) - 1 && str[i] == '$'
-		&& str[i + 1] == '?' && ft_isbacks(str, i - 1) == 0)
-			i += ft_fill_replace_value(&cpy[0], &j, '?', gbl);
-		else if (i < ft_strlen(str) - 1 && str[i] == '$'
-		&& str[i + 1] == '$' && ft_isbacks(str, i - 1) == 0)
-			i += ft_fill_replace_value(&cpy[0], &j, '$', gbl);
-		else
-			cpy[j++] = str[i];
-	}
-	cpy[j] = '\0';
-	ft_strdel(&str);
-	return (cpy);
+	env = first_env;
 }
 
 int		ft_len_bashname(char *str, t_env *env)
 {
 	int		i;
 	int		len;
-	t_env	*first_env;
 
 	i = -1;
 	len = 0;
-	first_env = env;
 	while (str[++i])
 	{
 		if (str[i] == SIMPQ && ft_isbacks(str, i - 1) == 0)
@@ -100,18 +40,12 @@ int		ft_len_bashname(char *str, t_env *env)
 		else if (i < ft_strlen(str) - 1 && str[i] == '$' && (str[i + 1] == '0'
 		|| str[i + 1] == '$') && ft_isbacks(str, i - 1) == 0)
 		{
-			while (env)
-			{
-				if (ft_strncmp(env->var, "SHELL=", ft_strlen(env->var)) == 0)
-					len += ft_strlen(env->valeur);
-				env = env->next;
-			}
+			ft_find_bashname(env, &len);
 			i++;
 		}
 		else
 			len++;
 	}
-	env = first_env;
 	return (len);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 22:40:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:42:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,7 @@ int res);
 int						ft_verif_paranthesis(char *str, t_gbl *gbl);
 void					ft_travel_simpq(char *str, int *i);
 char					*ft_replace_value2(char *str, t_gbl *gbl);
+int						ft_oldpwd(t_gbl *gbl);
+void					ft_change_pwd(t_gbl *gbl);
 
 #endif

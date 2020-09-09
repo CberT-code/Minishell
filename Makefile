@@ -14,11 +14,12 @@ SRCS_NAME= 		echo.c env.c env_list.c export.c clean_brackets2.c\
 				export_utils.c ft_cd.c ft_cd_utils.c replace_env_utils3.c\
 				ft_pwd.c unset.c ft_tri_lst.c lists_args.c verif_parenthesis.c \
 				lists_pipes.c lists_redir.c lists_semicol.c replace_env_utils4.c \
-				lists_utils.c check_bin.c check_var.c clean_backs.c \
+				lists_utils.c check_bin.c check_var.c clean_backs.c ft_cd_utils2.c \
 				clean_quotes.c clean_spaces.c ft_free.c  replace_env_utils2.c \
 				ft_free_utils.c pipes.c pipes_util.c quotes.c clean_brackets.c \
 				redirections.c replace_env.c replace_env_utils.c ft_exit.c \
-				split_minishell.c split_minishell_utils.c main.c list_to_tab.c
+				split_minishell.c split_minishell_utils.c main.c list_to_tab.c \
+				replace_env_utils5.c
 
 CC = gcc
 

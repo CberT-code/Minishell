@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 13:48:24 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 21:53:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:53:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_find_dbquote(int *dbquote, int *last)
+{
+	(*dbquote)++;
+	*last = 2;
+}
 
 int		ft_in_quotes(char *str, int i)
 {
@@ -26,17 +32,14 @@ int		ft_in_quotes(char *str, int i)
 	while (++j < i)
 	{
 		if ((j > 0 && str[j] == SIMPQ && ft_isbacks(str, j - 1) == 0)
-				|| (j == 0 && str[j] == SIMPQ))
+		|| (j == 0 && str[j] == SIMPQ))
 		{
 			quote++;
 			last = 1;
 		}
 		if ((j > 0 && str[j] == DOUBQ && ft_isbacks(str, j - 1) == 0)
-				|| (j == 0 && str[j] == DOUBQ))
-		{
-			dbquote++;
-			last = 2;
-		}
+		|| (j == 0 && str[j] == DOUBQ))
+			ft_find_dbquote(&dbquote, &last);
 	}
 	if (quote % 2 != 0 || dbquote % 2 != 0)
 		return (last);

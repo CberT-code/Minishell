@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   clean_backs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 17:42:27 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 09:41:29 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:38:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_cpy_in_squotes(char *str, char *cpy, int *i, int *j)
+{
+	cpy[(*j)++] = str[(*i)++];
+	while (ft_isquote(str, *i) != 1 && str[*i])
+		cpy[(*j)++] = str[(*i)++];
+}
+
+void	ft_cpy_in_dbquotes(char *str, char *cpy, int *i, int *j)
+{
+	cpy[(*j)++] = str[(*i)++];
+	while (ft_isquote(str, *i) != 2 && str[*i])
+		cpy[(*j)++] = str[(*i)++];
+}
 
 char	*ft_clean_backs(char *str)
 {
