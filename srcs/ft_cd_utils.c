@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 23:03:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 22:50:32 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:41:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*ft_getenv(char *str, t_env *env)
-{
-	t_env *env_cpy;
-
-	env_cpy = env;
-	while (env_cpy)
-	{
-		if (ft_strncmp(str, env_cpy->var, ft_strlen(str)) == 0
-		&& ft_strncmp(str, env_cpy->var, ft_strlen(env_cpy->var) - 1) == 0)
-			return (env_cpy->valeur);
-		env_cpy = env_cpy->next;
-	}
-	return (NULL);
-}
 
 int		ft_size_args(t_args *args)
 {

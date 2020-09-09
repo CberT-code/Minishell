@@ -3,63 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:07:00 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 22:38:06 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:41:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_change_pwd(t_gbl *gbl)
-{
-	t_env	*env_cpy;
-	char	cwd[1024];
-
-	env_cpy = gbl->env;
-	while (env_cpy && env_cpy->var && ft_strncmp(env_cpy->var, "PWD=", 4) != 0)
-		env_cpy = env_cpy->next;
-	getcwd(cwd, sizeof(cwd));
-	if (env_cpy)
-	{
-		ft_strdel(&env_cpy->valeur);
-		env_cpy->valeur = ft_strdup(cwd);
-		ft_strdel(&gbl->pwd);
-		gbl->pwd = ft_strdup(env_cpy->valeur);
-	}
-	else
-		add_back_env(&gbl->env, ft_strdup("PWD="), ft_strdup(cwd), gbl);
-}
-
-int		ft_oldpwd(t_gbl *gbl)
-{
-	t_env	*env_cpy;
-	char	cwd[1024];
-
-	env_cpy = gbl->env;
-	while (env_cpy && env_cpy->var
-	&& ft_strncmp(env_cpy->var, "OLDPWD=", 7) != 0)
-		env_cpy = env_cpy->next;
-	getcwd(cwd, sizeof(cwd));
-	if (chdir(env_cpy->valeur) != 0)
-	{
-		ft_putstr_fd("bash: cd: Aucun fichier ou dossier de ce type", 2);
-		return (1);
-	}
-	else
-	{
-		ft_printf("%s\n", env_cpy->valeur);
-		if (env_cpy)
-		{
-			ft_strdel(&env_cpy->valeur);
-			env_cpy->valeur = ft_strdup(cwd);
-		}
-		else
-			add_back_env(&gbl->env, ft_strdup("OLDPWD="), ft_strdup(cwd), gbl);
-	}
-	return (0);
-}
 
 int		ft_check_errors_cd2(t_args *args)
 {

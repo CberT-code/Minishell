@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:38:57 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 22:43:54 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:55:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,6 @@ void	ft_simpq_cpy(char *str, char *cpy, int *i, int *j)
 	(*i)++;
 	while (str[*i] != SIMPQ && str[*i])
 		cpy[(*j)++] = str[(*i)++];
-}
-
-int		ft_find_size_arg(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '#' && str[i] != '-' && str[i] != '='
-	&& str[i] != '+' && str[i] != '}' && str[i] != '.'
-	&& str[i] != '/' && str[i] != ',' && str[i] != '%'
-	&& str[i] != ']' && str[i] != ':' && str[i] != BACKS
-	&& str[i] != DOUBQ && str[i] != SIMPQ && str[i] != ' '
-	&& str[i] != '^' && ft_isdigit(str[i]) == 0 && str[i])
-		i++;
-	return (i);
 }
 
 int		ft_varcpy(char *str, char *cpy, t_env *env, int *j)

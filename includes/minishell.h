@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 10:59:30 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:01:40 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,7 @@ int						ft_verif_paranthesis(char *str, t_gbl *gbl);
 void					ft_travel_simpq(char *str, int *i);
 char					*ft_replace_value2(char *str, t_gbl *gbl);
 void					check_space_end(char *str, t_gbl *gbl);
+int						ft_oldpwd(t_gbl *gbl);
+void					ft_change_pwd(t_gbl *gbl);
 
 #endif
