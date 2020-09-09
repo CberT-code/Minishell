@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:23:32 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 20:41:19 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:07:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,37 +76,4 @@ void	free_exit2(t_gbl *gbl, char *str)
 		write(2, str, ft_strlen(str));
 	gbl->ret = 1;
 	gbl->error = 1;
-}
-
-void	ft_free_env(t_env *env)
-{
-	t_env	*b_last;
-	int		i;
-
-	i = 0;
-	while (env)
-	{
-		free(env->var);
-		free(env->valeur);
-		b_last = env;
-		i++;
-		env = env->next;
-		free(b_last);
-	}
-}
-
-void	free_tab(char **tab)
-{
-	int i;
-
-	i = 0;
-	if (tab)
-	{
-		while (tab[i])
-		{
-			free(tab[i]);
-			i++;
-		}
-		free(tab);
-	}
 }

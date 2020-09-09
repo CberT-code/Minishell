@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2020/09/08 22:17:14 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:05:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,22 +120,4 @@ char			**new_tab(t_pipes *pipes)
 	tab_cmds[i] = NULL;
 	pipes->cmds.args = first_args;
 	return (tab_cmds);
-}
-
-void			tab_all(t_semi *semi)
-{
-	t_pipes		*first_pipe;
-	int			j;
-
-	j = -1;
-	if (!(semi->all = ft_calloc(sizeof(char **), semi->nb_pipes + 1)))
-		return ;
-	first_pipe = semi->pipes;
-	while (semi->pipes)
-	{
-		if (semi->pipes->cmds.str != NULL)
-			semi->all[++j] = new_tab(semi->pipes);
-		semi->pipes = semi->pipes->next;
-	}
-	semi->pipes = first_pipe;
 }

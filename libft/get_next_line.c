@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 11:30:10 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 11:18:18 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:26:05 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int			get_next_line(int fd, char **line)
 	if ((lst_one->read = read(fd, lst_one->buff, BUFFER_SIZE)) == -1)
 		return (-1);
 	lst_one->buff[lst_one->read] = '\0';
-	if (lst_one->read == 0 && (ft_strlen(lst_one->buff) == 0) && *line == NULL )
+	if (lst_one->read == 0 && (ft_strlen(lst_one->buff) == 0) && *line == NULL)
 	{
 		*line = lst_one->buff;
 		free(lst_one->buff);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tri_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 14:51:47 by user42            #+#    #+#             */
-/*   Updated: 2020/09/03 09:40:47 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:22:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void	ft_tri_varlst(t_env **lst_env)
 {
 	t_env	*new_lst;
 	t_env	*cpy_lst;
-	char	*var;
-	char	*valeur;
+	char	*var[2];
 
 	new_lst = *lst_env;
 	while (new_lst->next)
@@ -56,12 +55,12 @@ void	ft_tri_varlst(t_env **lst_env)
 		{
 			if (ft_strcmp(cpy_lst->var, cpy_lst->next->var) > 0)
 			{
-				var = cpy_lst->var;
-				valeur = cpy_lst->valeur;
+				var[0] = cpy_lst->var;
+				var[1] = cpy_lst->valeur;
 				cpy_lst->var = cpy_lst->next->var;
 				cpy_lst->valeur = cpy_lst->next->valeur;
-				cpy_lst->next->var = var;
-				cpy_lst->next->valeur = valeur;
+				cpy_lst->next->var = var[0];
+				cpy_lst->next->valeur = var[1];
 				cpy_lst = new_lst;
 			}
 			else

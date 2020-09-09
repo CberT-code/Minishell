@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 17:47:44 by cbertola          #+#    #+#             */
-/*   Updated: 2020/08/31 16:38:27 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:10:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int				ft_find(char *str, char stop);
 char			*ft_send(t_gnl **lst, char **line);
 char			*ft_before_char(char *str, char stop);
 void			ft_new_lst(int fd, t_gnl **lst_one);
-char	    	*ft_strjoin_gnl(char *s1, char *s2);
+char			*ft_strjoin_gnl(char *s1, char *s2);
+
 #endif

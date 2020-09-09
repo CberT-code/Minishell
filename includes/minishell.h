@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 11:16:47 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:26:10 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,6 @@ void					ft_change_pwd(t_gbl *gbl);
 void					do_fork(int j, int *pipes, t_semi *semi, t_gbl *gbl);
 void					exchange_ret(t_gbl *gbl);
 void					exec_fork(t_semi *semi, int j, t_gbl *gbl);
+char					**new_tab(t_pipes *pipes);
 
 #endif
