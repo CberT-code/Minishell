@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 13:55:31 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:04:00 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,24 @@ t_gbl	g_gbl;
 
 void		sig_handler(int sig)
 {
+	char		cwd[1024];
+
 	if (sig == SIGINT)
 	{
 		ft_putstr("\n");
 		g_gbl.rep = 130;
 		g_gbl.sta = 1;
+		if (!g_gbl.line)
+			ft_printf(PROMPT, getcwd(cwd, sizeof(cwd)));
 	}
-	if (sig == SIGQUIT && (!g_gbl.line ||
-	(g_gbl.line && ft_strlen(g_gbl.line) == 0)))
-		ft_printf("\b\b  \b\b");
-	else if (sig == SIGQUIT && g_gbl.line && ft_strlen(g_gbl.line) > 0)
+	if (sig == SIGQUIT && g_gbl.line &&
+	ft_strlen(g_gbl.line) > 0 && g_gbl.rep == 1)
 	{
 		ft_printf("Quitter (core dumped)\n");
 		kill(1, SIGINT);
 	}
+	else if (sig == SIGQUIT && g_gbl.rep != -1)
+		ft_printf("\b\b  \b\b");
 }
 
 int			exec_line(t_gbl *gbl)
