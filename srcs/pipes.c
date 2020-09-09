@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 21:49:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/08 22:49:46 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:10:04 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,13 @@ void		do_pipe(t_semi *semi, int nb_cmd, t_gbl *gbl)
 		else if (path_env(gbl))
 		{
 			if (!(pid[j] = fork()))
-			{
-				do_dup(j, pipes, semi, gbl);
-				if (semi->pipes->cmds.str == NULL)
-					free_exit(gbl->semi, gbl, NULL);
-				exec_fork(semi, j, gbl);
-			}
+				do_fork(j, pipes, semi, gbl);
 		}
 		semi->pipes = semi->pipes->next;
 	}
 	close_pipes(nb_cmd * 2 - 2, pipes);
 	wait_pipes(nb_cmd, pid, &gbl->ret);
-	gbl->ret = gbl->ret == 256 ? 1 : gbl->ret;
-	gbl->ret = gbl->ret == 65280 ? 127 : gbl->ret;
-	gbl->ret = gbl->ret == 32512 ? 127 : gbl->ret;
+	exchange_ret(gbl);
 }
 
 int			exec_cmds(t_semi *semi, t_gbl *gbl)

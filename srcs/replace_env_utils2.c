@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/23 21:21:09 by user42            #+#    #+#             */
-/*   Updated: 2020/09/09 10:50:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 11:15:43 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_len_bashname(char *str, t_env *env)
 		else if (i < ft_strlen(str) - 1 && str[i] == '$' && (str[i + 1] == '0'
 		|| str[i + 1] == '$') && ft_isbacks(str, i - 1) == 0)
 		{
-			ft_find_bashname(env, &len);
+			ft_find_len_bashname(env, &len);
 			i++;
 		}
 		else

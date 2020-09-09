@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 11:30:10 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/02 14:31:44 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:18:18 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int			ft_exist(t_gnl **lst, char **line)
 
 int			get_next_line(int fd, char **line)
 {
-	int				retour;
 	static t_gnl	*lst_one;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
@@ -112,8 +111,6 @@ int			get_next_line(int fd, char **line)
 		free(lst_one->buff);
 		ft_del(&lst_one);
 		return (-1);
-
 	}
-	retour = ft_exist(&lst_one, line);
-	return (retour);
+	return (ft_exist(&lst_one, line));
 }
