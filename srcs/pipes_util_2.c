@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 20:38:37 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 11:12:21 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 13:32:57 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		do_fork(int j, int *pipes, t_semi *semi, t_gbl *gbl)
 void		exchange_ret(t_gbl *gbl)
 {
 	gbl->ret = gbl->ret == 256 ? 1 : gbl->ret;
+	gbl->ret = gbl->ret == 512 ? 2 : gbl->ret;
 	gbl->ret = gbl->ret == 65280 ? 127 : gbl->ret;
 	gbl->ret = gbl->ret == 32512 ? 127 : gbl->ret;
 }

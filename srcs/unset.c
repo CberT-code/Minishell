@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 23:21:20 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/05 14:44:56 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 13:18:21 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ int		ft_unset(t_args *args, t_gbl *gbl)
 		args = args->next;
 	}
 	args = first_arg;
-	return (0);
+	return (gbl->ret);
 }
