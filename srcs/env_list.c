@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 13:24:40 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 10:27:55 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:55:51 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,25 @@ void			ft_shlvl(t_env *env, t_gbl *gbl)
 	char	*str;
 
 	first = env;
-	while (ft_strcmp(env->var, "SHLVL=") == 0 && env->var)
+	while (ft_strcmp(env->var, "SHLVL=") != 0 && env != NULL)
 		env = env->next;
-	if ((i = ft_atoi(env->valeur)) < -1 ||
-	!ft_strisdigit(env->valeur + 1))
+	if (ft_strcmp(env->var, "SHLVL=") == 0)
 	{
-		if (!ft_strisdigit(env->valeur + 1))
-			str = ft_strdup("0");
-		else
-			str = ft_strdup("-1");
+		if ((i = ft_atoi(env->valeur)) < -1 || !ft_strisdigit(env->valeur + 1))
+		{
+			if (!ft_strisdigit(env->valeur + 1))
+				str = ft_strdup("0");
+			else
+				str = ft_strdup("-1");
+			free(env->valeur);
+			env->valeur = str;
+		}
+		i = ft_atoi(env->valeur) + 1;
 		free(env->valeur);
-		env->valeur = str;
+		env->valeur = ft_itoa(i);
 	}
-	i = ft_atoi(env->valeur) + 1;
-	free(env->valeur);
-	env->valeur = ft_itoa(i);
-	add_back_env(&first, ft_strdup("SHLVL="), ft_strdup("0"), gbl);
+	else
+		add_back_env(&first, ft_strdup("SHLVL="), ft_strdup("0"), gbl);
 	env = first;
 }
 

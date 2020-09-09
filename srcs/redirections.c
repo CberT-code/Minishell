@@ -6,22 +6,11 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 17:16:53 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 09:29:37 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 10:57:43 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	check_space_end(char *str, t_gbl *gbl)
-{
-	int i;
-
-	i = 0;
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '\0')
-		free_exit2(gbl, ERROR_SYNTAX);
-}
 
 int		ft_check_redirs(char *str, char redir)
 {
