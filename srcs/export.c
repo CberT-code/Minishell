@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 21:40:15 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/06 21:13:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 11:06:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,32 +87,6 @@ int			replace_env(t_env *env, char *var, char *value)
 	}
 	env = env_n;
 	return (0);
-}
-
-void		suppr_maillon(t_env **list, t_env *ptr)
-{
-	t_env	*start;
-
-	start = *list;
-	if (*list == NULL)
-	{
-		*list = ptr->next;
-		return ;
-	}
-	while (*list != NULL)
-	{
-		if ((*list)->next == ptr)
-		{
-			(*list)->next = ptr->next;
-			ft_strdel(&ptr->var);
-			ft_strdel(&ptr->valeur);
-			free(ptr);
-			*list = start;
-			return ;
-		}
-		*list = (*list)->next;
-	}
-	*list = start;
 }
 
 int			ft_export(t_args *args, t_gbl *gbl)
