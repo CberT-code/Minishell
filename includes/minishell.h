@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 12:23:28 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:46:41 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define HOME "\033[1;31mbash: cd: « HOME » non défini.\033[0;0m\n"
 # define CDARG "\033[1;31mbash: cd: trop d'arguments.\033[0;0m\n"
 # define GETPWD "\033[1;31mpwd : Error - Failed to get pwd.\033[0;0m\n"
-# define PROMPT "\033[1;33m SOLCYMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ "
+# define PROMPT "\033[1;33mMINISHELL ➜\033[0;0m\033[1;36m ~%s\033[0;0m$ "
 
 typedef	struct			s_redir
 {
