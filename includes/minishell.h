@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 22:26:26 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 12:14:12 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:23:28 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ERROR_CMD "\033[1;31mLa commande est introuvable.\033[0;0m\n"
 # define IDERRONE "\033[1;31mexport: identifiant non valable.\033[0;0m\n"
 # define ARGUMENTS "\033[1;31mexit: trop d'arguments.\033[0;0m\n"
-# define ARGUMENTS_NUM "\033[1;31mexit: argument numérique nécessaire.\033[0;0m\n"
+# define ARG_NUM "\033[1;31mexit: argument numérique nécessaire.\033[0;0m\n"
 # define ACCOLADES "\033[1;31mAccolade manquante.\033[0;0m\n"
 # define SUBSTITUTIONS "\033[1;31mMauvaise substitution.\033[0;0m\n"
 # define DOUBLEQ "\033[1;31mDouble quote manquante.\033[0;0m\n"

@@ -6,7 +6,7 @@
 /*   By: cbertola <cbertola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 14:50:03 by cbertola          #+#    #+#             */
-/*   Updated: 2020/09/09 11:41:11 by cbertola         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:24:25 by cbertola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ int			exec_line(t_gbl *gbl)
 
 int			main(int argc, char **argv, char **envp)
 {
-	// char		cwd[1024];
+	char		cwd[1024];
 
 	ft_bzero(&g_gbl, sizeof(t_gbl));
-	//g_gbl.pid = find_gpid();
+	g_gbl.pid = find_gpid();
 	g_gbl.line = NULL;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
@@ -71,18 +71,18 @@ int			main(int argc, char **argv, char **envp)
 		return (1);
 	g_gbl.env = ft_tab_to_list(envp, &g_gbl);
 	g_gbl.argc = argc;
-	// ft_printf(PROMPT, getcwd(cwd, sizeof(cwd)));
+	ft_printf(PROMPT, getcwd(cwd, sizeof(cwd)));
 	while (1)
 	{
 		if ((g_gbl.rep = get_next_line(0, &g_gbl.line)) == 1)
 		{
 			exec_line(&g_gbl);
-			// ft_printf(PROMPT, getcwd(cwd, sizeof(cwd)));
+			ft_printf(PROMPT, getcwd(cwd, sizeof(cwd)));
 		}
 		else if (g_gbl.rep == -1)
 			break ;
 	}
 	ft_free_gbl(&g_gbl);
-	// ft_printf("exit\n");
+	ft_printf("exit\n");
 	return (0);
 }
